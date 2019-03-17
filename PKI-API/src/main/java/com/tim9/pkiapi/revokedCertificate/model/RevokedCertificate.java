@@ -1,4 +1,4 @@
-package com.tim9.pkiapi.revoked.model;
+package com.tim9.pkiapi.revokedCertificate.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,10 +20,10 @@ public class RevokedCertificate {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="serial_number", nullable=false)
-	private long serialNumber;
+	private Long serialNumber;
 	
 	@Column(name="reason", nullable=true)
 	private String reason;

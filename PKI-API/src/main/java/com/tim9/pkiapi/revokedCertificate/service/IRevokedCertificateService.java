@@ -1,11 +1,11 @@
-package com.tim9.pkiapi.revoked.service;
+package com.tim9.pkiapi.revokedCertificate.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tim9.pkiapi.revoked.dto.RevokedCertificateDTO;
-import com.tim9.pkiapi.revoked.model.RevokedCertificate;
+import com.tim9.pkiapi.revokedCertificate.dto.RevokedCertificateDTO;
+import com.tim9.pkiapi.revokedCertificate.model.RevokedCertificate;
 
 @Service
 public interface IRevokedCertificateService {
@@ -16,7 +16,7 @@ public interface IRevokedCertificateService {
 	
 	public List<RevokedCertificateDTO> findAll();
 	
-	public RevokedCertificateDTO save ( RevokedCertificate revokeToSave );
+	public RevokedCertificateDTO save ( RevokedCertificateDTO revokeToSave );
 	
 	public RevokedCertificateDTO deleteById ( Long id );	
 }

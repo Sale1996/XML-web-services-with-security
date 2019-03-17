@@ -26,7 +26,7 @@ public class Certificate {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="public_key", nullable=false)
 	private String publicKey;
@@ -35,7 +35,7 @@ public class Certificate {
 	private String name;
 	
 	@Column(name="serial_number", nullable=false)
-	private long serialNumber;
+	private Long serialNumber;
 	
 	@Column(name="active", nullable=false)
 	private boolean active;

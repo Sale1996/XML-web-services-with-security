@@ -1,12 +1,12 @@
-package com.tim9.pkiapi.revoked.dto;
+package com.tim9.pkiapi.revokedCertificate.dto;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tim9.pkiapi.revoked.model.RevokedCertificate;
-import com.tim9.pkiapi.revoked.repository.RevokedCertificateRepository;
+import com.tim9.pkiapi.revokedCertificate.model.RevokedCertificate;
+import com.tim9.pkiapi.revokedCertificate.repository.RevokedCertificateRepository;
 
 @Component
 public class RevokedCertificateDTOConverter {

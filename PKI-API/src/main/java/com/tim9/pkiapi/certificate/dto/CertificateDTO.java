@@ -24,13 +24,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CertificateDTO {
 
-	private long id;
+	private Long id;
 	
 	private String publicKey;
 	
 	private String name;
 	
-	private long serialNumber;
+	private Long serialNumber;
 	
 	private boolean active;
 	

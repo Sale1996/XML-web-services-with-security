@@ -1,4 +1,4 @@
-package com.tim9.pkiapi.revoked.dto;
+package com.tim9.pkiapi.revokedCertificate.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RevokedCertificateDTO {
 	
-	private long id;
+	private Long id;
 	
-	private long serialNumber;
+	private Long serialNumber;
 	
 	private String reason;
 
