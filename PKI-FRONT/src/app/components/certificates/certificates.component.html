@@ -1,0 +1,53 @@
+<div class="row mx-5 my-5">
+  <div class="col">
+    <div class="row mb-3">
+      <div class="col">
+        <h3>Certificates</h3>
+      </div>
+      <div class="col text-right">
+          <button type="button" class="btn btn-primary" routerLink="new">New Certificate</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Serial No.</th>
+              <th scope="col">Valid From</th>
+              <th scope="col">Valid Thru</th>
+              <th scope="col">Issuer</th>
+              <th scope="col">Type</th>
+              <th scope="col">Status</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MegaTravel London</td>
+              <td>54321458754</td>
+              <td>20 Oct 2018</td>
+              <td>19 Oct 2019</td>
+              <td>MegaTravel CA Europe</td>
+              <td>Standard</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td class="text-right">
+                <a routerLink="" data-toggle="tooltip" data-placement="top" title="Revoke" onmouseenter="$(this).tooltip('show')">
+                  <svg width="25" height="25">
+                      <image width="25" height="25" xlink:href="assets/images/icons/edit.svg"/>
+                  </svg>
+                </a>
+                <a class="ml-3" routerLink="" data-toggle="tooltip" data-placement="top" title="Download" onmouseenter="$(this).tooltip('show')">
+                  <svg width="25" height="25">
+                      <image width="25" height="25" xlink:href="assets/images/icons/download.svg"/>
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
