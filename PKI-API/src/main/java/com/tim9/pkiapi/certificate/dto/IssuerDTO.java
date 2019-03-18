@@ -1,8 +1,5 @@
 package com.tim9.pkiapi.certificate.dto;
 
-import java.time.LocalDateTime;
-
-import com.tim9.pkiapi.certificate.model.CertificateType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -34,6 +34,9 @@ public class Certificate {
 	@Column(name="name", nullable=false)
 	private String name;
 	
+	@Column(name="cert_path", nullable=false)
+	private String path;
+	
 	@Column(name="serial_number", nullable=false)
 	private Long serialNumber;
 	
@@ -48,6 +51,8 @@ public class Certificate {
 	
 	@Column(name= "type", nullable=false)
 	private CertificateType type;
+	
+
 	
 	@JoinColumn(name = "issuer_id", nullable=false)
 	@ManyToOne

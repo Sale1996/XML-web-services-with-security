@@ -1,19 +1,7 @@
 package com.tim9.pkiapi.certificate.dto;
 
 import java.time.LocalDateTime;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.tim9.pkiapi.certificate.model.Certificate;
 import com.tim9.pkiapi.certificate.model.CertificateType;
-import com.tim9.pkiapi.user.dto.UserDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

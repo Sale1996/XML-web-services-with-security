@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ import com.tim9.pkiapi.certificate.dto.CertificateDTO;
 import com.tim9.pkiapi.certificate.service.ICertificateService;
 
 @RestController
-@RequestMapping("/pki/user")
+@RequestMapping("/pki/certificate")
 public class CertificateController {
 
 	@Autowired
@@ -61,9 +62,28 @@ public class CertificateController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<CertificateDTO> deleteCertificate(@PathVariable("id") Long id){
+		
 		CertificateDTO deletedCertificate = certificateService.deleteById(id);
 		
 		return (deletedCertificate.getId() != null ) ? new ResponseEntity<CertificateDTO>(deletedCertificate,HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	@PutMapping("/revoke/{serialNumber}")
+	public ResponseEntity<CertificateDTO> revokeCertificate(@PathVariable("serialNumber") String serialNumber){
+		
+		CertificateDTO revokedCertificate = certificateService.revoke(serialNumber);
+		
+		return (revokedCertificate.getId() != null ) ? new ResponseEntity<CertificateDTO>(revokedCertificate,HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			
+	}
+	
+	@GetMapping("/issuers/")
+	public ResponseEntity<List<CertificateDTO>> getAllIssuers(){
+		
+		List<CertificateDTO> certificates = certificateService.findAllIssuers();
+		
+		return ( !certificates.isEmpty() )? new ResponseEntity<List<CertificateDTO>>(certificates,HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
 	}
 
 }

@@ -20,6 +20,8 @@ public interface ICertificateService {
 	public CertificateDTO deleteById ( Long id );
 	
 	public CertificateDTO revoke ( String serialNumber );
+
+	public List<CertificateDTO> findAllIssuers();
 	
 	
 	
