@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { CertificatesComponent } from './components/certificates/certificates.component';
 import { CertificateSingleComponent } from './components/certificate-single/certificate-single.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     CertificatesComponent,
-    CertificateSingleComponent
+    CertificateSingleComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,
