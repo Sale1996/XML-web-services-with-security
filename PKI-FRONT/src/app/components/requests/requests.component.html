@@ -27,7 +27,8 @@
               <td>12000</td>
               <td>LukaFood</td>
               <td>LukaFood</td>
-              <td class="text-right">
+              <td *ngIf="request; let request" class="text-right">
+                {{request.city}}
                 <button type="button" class="btn btn-success mr-1" routerLink="../certificate/new">Accept</button>
                 <button type="button" class="btn btn-danger">Reject</button>
               </td>

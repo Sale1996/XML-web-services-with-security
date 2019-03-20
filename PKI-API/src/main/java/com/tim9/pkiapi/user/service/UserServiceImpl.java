@@ -2,8 +2,11 @@ package com.tim9.pkiapi.user.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.tim9.pkiapi.user.dto.UserDTO;
 
+@Component
 public class UserServiceImpl implements IUserService {
 
 	@Override

@@ -49,7 +49,7 @@ public class User {
         CascadeType.PERSIST,
         CascadeType.MERGE
     },
-    mappedBy = "roles")
+    mappedBy = "users")
     private Set<Role> roles;
 
 }

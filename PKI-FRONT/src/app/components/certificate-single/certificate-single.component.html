@@ -12,26 +12,69 @@
         <h3>New Certificate</h3>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <form enctype="multipart/form-data" [formGroup]="CertificateForm" (ngSubmit)="onSubmit()">
+    <form enctype="multipart/form-data" [formGroup]="CertificateForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="issuer">Key Size</label>
+            <select class="form-control" formControlName="keySize">
+              <option value="0" hidden>-- Select Key Size --</option>
+              <option value="1">2048</option>
+              <option value="2">{{1024*3}}</option>
+              <option value="3">{{1024*9}}</option>
+            </select>
+            <small *ngIf="CertificateForm.controls.issuer.errors?.required && CertificateForm.controls.issuer.touched" class="form-text text-danger">*Required</small>
+          </div>
           <div class="form-group">
             <label for="name">Name<span class="text-danger">*</span></label>
             <input type="text" formControlName="name" class="form-control" placeholder="Enter Name" required>
             <small *ngIf="CertificateForm.controls.name.errors?.required && CertificateForm.controls.name.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
-            <label for="issuer">Issuer<span class="text-danger">*</span></label>
-            <input type="text" formControlName="issuer" class="form-control" placeholder="Enter issuer" required>
+            <label for="organization">Organization<span class="text-danger">*</span></label>
+            <input type="text" formControlName="organization" class="form-control" placeholder="Enter organization" required>
+            <small *ngIf="CertificateForm.controls.organization.errors?.required && CertificateForm.controls.organization.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="form-group">
+            <label for="organizationUnit">Organization Unit<span class="text-danger">*</span></label>
+            <input type="text" formControlName="organizationUnit" class="form-control" placeholder="Enter organizationUnit" required>
+            <small *ngIf="CertificateForm.controls.organizationUnit.errors?.required && CertificateForm.controls.organizationUnit.touched" class="form-text text-danger">*Required</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="country">Country<span class="text-danger">*</span></label>
+            <input type="text" formControlName="country" class="form-control" placeholder="Enter Country" required>
+            <small *ngIf="CertificateForm.controls.country.errors?.required && CertificateForm.controls.country.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="form-group">
+            <label for="city">City<span class="text-danger">*</span></label>
+            <input type="text" formControlName="city" class="form-control" placeholder="Enter City" required>
+            <small *ngIf="CertificateForm.controls.city.errors?.required && CertificateForm.controls.city.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="form-group">
+            <label for="state">State<span class="text-danger">*</span></label>
+            <input type="text" formControlName="state" class="form-control" placeholder="Enter state" required>
+            <small *ngIf="CertificateForm.controls.state.errors?.required && CertificateForm.controls.state.touched" class="form-text text-danger">*Required</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="issuer">Issuer</label>
+            <select class="form-control" formControlName="issuer">
+              <option value="0" hidden>-- Select Issuer --</option>
+              <option value="1">Issuer 1</option>
+              <option value="2">Issuer 2</option>
+            </select>
             <small *ngIf="CertificateForm.controls.issuer.errors?.required && CertificateForm.controls.issuer.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
             <label for="date">Valid Period<span class="text-danger">*</span></label>
             <div class="input-group">
               <div class="input-group-prepend">
-                  <div class="input-group-text">
+                <div class="input-group-text">
                     <svg width="18" height="18">
-                        <image width="18" height="18" xlink:href="assets/images/icons/calendar.svg"/>
+                      <image width="18" height="18" xlink:href="assets/images/icons/calendar.svg"/>
                     </svg>
                   </div>
               </div>
@@ -40,20 +83,25 @@
             <small *ngIf="CertificateForm.controls.date.errors?.required && CertificateForm.controls.date.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
+            <label for="publicKey">Public Key<span class="text-danger">*</span></label>
+            <input type="text" formControlName="publicKey" class="form-control" placeholder="Enter Public Key" required>
+            <small *ngIf="CertificateForm.controls.publicKey.errors?.required && CertificateForm.controls.publicKey.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="form-group">
             <label for="type">Certificate Type</label>
             <select class="form-control" formControlName="type">
               <option value="0" hidden>-- Select Type --</option>
-              <option value="1">Standard</option>
-              <option value="2">Issuing</option>
+              <option value="1">CA</option>
+              <option value="2">End-Entity</option>
             </select>
           </div>
-          <div class="text-center">
+          <div class="text-right">
             <button type="submit" [disabled]="!CertificateForm.valid" class="btn btn-primary">Submit</button>
             <a class="btn btn-outline-secondary ml-1" routerLink="../">Cancel</a>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
     
