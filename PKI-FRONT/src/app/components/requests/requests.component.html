@@ -16,23 +16,28 @@
               <th scope="col">State</th>
               <th scope="col">Organization</th>
               <th scope="col">Organization Unit</th>
+              <th scope="col">Email</th>
+              <th scope="col">Public Key</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Lukac</td>
-              <td>Serbia</td>
-              <td>Lazarevac</td>
-              <td>12000</td>
-              <td>LukaFood</td>
-              <td>LukaFood</td>
-              <td *ngIf="request; let request" class="text-right">
-                {{request.city}}
-                <button type="button" class="btn btn-success mr-1" routerLink="../certificate/new">Accept</button>
-                <button type="button" class="btn btn-danger">Reject</button>
-              </td>
-            </tr>
+            <ng-container *ngIf="requests | async; let requests">
+              <tr *ngFor="let request of requests">
+                <td>{{request.commonName}}</td>
+                <td>{{request.country}}</td>
+                <td>{{request.locality}}</td>
+                <td>{{request.state}}</td>
+                <td>{{request.organisation}}</td>
+                <td>{{request.organisationUnit}}</td>
+                <td>{{request.email}}</td>
+                <td>{{request.publicKey}}</td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-success mr-1" routerLink="../certificate/new">Accept</button>
+                  <button type="button" class="btn btn-danger">Reject</button>
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>

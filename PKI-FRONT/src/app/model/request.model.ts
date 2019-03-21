@@ -1,9 +1,10 @@
 export interface Request {
-    name: string;
+    commonName: string;
     publicKey: string;
     country: string;
-    city: string;
+    locality: string;
     state: string;
-    organization: string;
-    organizationUnit: string;
+    organisation: string;
+    organisationUnit: string;
+    email: string;
 }

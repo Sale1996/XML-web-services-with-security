@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Request } from 'src/app/model/request.model';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-requests',
@@ -8,21 +11,18 @@ import { Request } from 'src/app/model/request.model';
 })
 export class RequestsComponent implements OnInit {
 
-  request: Request;
+  requests: Observable<Request[]>;
 
-  constructor() { }
+  constructor(
+    private requestService: RequestService
+  ) { }
 
   ngOnInit() {
+    this.getAll();
+  }
 
-    this.request = {
-      name: 'Marko',
-      publicKey: '6546213678',
-      country: 'Srbija',
-      city: 'Kosjeric',
-      state: '31260',
-      organization: 'Marko & Sinovi',
-      organizationUnit: 'IT'
-    };
+  getAll() {
+    this.requests = this.requestService.getAllRequests().pipe(share());
   }
 
 }
