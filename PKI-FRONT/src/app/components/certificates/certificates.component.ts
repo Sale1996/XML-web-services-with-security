@@ -1,4 +1,8 @@
+import { Certificate } from './../../model/certificate.model';
+import { CertificateService } from './../../services/certificate.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-certificates',
@@ -7,9 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CertificatesComponent implements OnInit {
 
-  constructor() { }
+  certs: Observable<Certificate[]>;
+
+  constructor(
+    private certService: CertificateService
+  ) { }
 
   ngOnInit() {
+    this.getAll();
+  }
+
+  getAll() {
+    this.certs = this.certService.getAllCertificates().pipe(share());
   }
 
 }

@@ -24,27 +24,30 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>MegaTravel London</td>
-              <td>54321458754</td>
-              <td>20 Oct 2018</td>
-              <td>19 Oct 2019</td>
-              <td>MegaTravel CA Europe</td>
-              <td>Standard</td>
-              <td><span class="badge badge-success">Active</span></td>
-              <td class="text-right">
-                <a routerLink="" data-toggle="tooltip" data-placement="top" title="Revoke" onmouseenter="$(this).tooltip('show')">
-                  <svg width="25" height="25">
-                      <image width="25" height="25" xlink:href="assets/images/icons/edit.svg"/>
-                  </svg>
-                </a>
-                <a class="ml-3" routerLink="" data-toggle="tooltip" data-placement="top" title="Download" onmouseenter="$(this).tooltip('show')">
-                  <svg width="25" height="25">
-                      <image width="25" height="25" xlink:href="assets/images/icons/download.svg"/>
-                  </svg>
-                </a>
-              </td>
-            </tr>
+            <ng-container *ngIf="certs | async; let certs">
+              <tr *ngFor="let cert of certs">
+                <td>{{cert.name}}</td>
+                <td>{{cert.serialNumber}}</td>
+                <td>{{cert.validFromDate}}</td>
+                <td>{{cert.validToDate}}</td>
+                <td>{{cert.issuer}}</td>
+                <td>{{cert.type}}</td>
+                <td>{{cert.status}}</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td class="text-right">
+                  <a routerLink="" data-toggle="tooltip" data-placement="top" title="Revoke" onmouseenter="$(this).tooltip('show')">
+                    <svg width="25" height="25">
+                        <image width="25" height="25" xlink:href="assets/images/icons/edit.svg"/>
+                    </svg>
+                  </a>
+                  <a class="ml-3" routerLink="" data-toggle="tooltip" data-placement="top" title="Download" onmouseenter="$(this).tooltip('show')">
+                    <svg width="25" height="25">
+                        <image width="25" height="25" xlink:href="assets/images/icons/download.svg"/>
+                    </svg>
+                  </a>
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>

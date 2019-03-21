@@ -75,5 +75,22 @@ public class Certificate {
 	
 	@OneToMany(mappedBy="issuer")
 	private Set<Certificate> issued;
+	
+	public String getTypeString() {
+		if (type.equals(CertificateType.FINAL))
+			return "Final";
+		else if (type.equals(CertificateType.INTERMEDIATE))
+			return "Intermediate";
+		return "Root";
+	}
+	
+	public void setType(CertificateType certificateType) {
+		if (certificateType.equals("Final"))
+			this.type = CertificateType.FINAL;
+		else if (certificateType.equals("Intermediate"))
+			this.type = CertificateType.INTERMEDIATE;
+		else
+			this.type = CertificateType.ROOT;
+	}
 
 }
