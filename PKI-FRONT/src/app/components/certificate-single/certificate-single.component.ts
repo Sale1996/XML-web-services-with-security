@@ -1,9 +1,11 @@
+import { CertificateService } from './../../services/certificate.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Certificate } from './../../model/certificate.model';
-import { Request } from 'src/app/model/request.model';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-certificate-single',
@@ -13,11 +15,12 @@ import { Request } from 'src/app/model/request.model';
 export class CertificateSingleComponent implements OnInit {
 
   CertificateForm: FormGroup;
-  request: Request;
+  certs: Observable<Certificate[]>
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private certService: CertificateService
   ) { }
 
   ngOnInit() {
@@ -38,5 +41,9 @@ export class CertificateSingleComponent implements OnInit {
   }
 
   onSubmit() {
+  }
+
+  getAll() {
+    this.certs = this.certService.getAllCertificates().pipe(share());
   }
 }
