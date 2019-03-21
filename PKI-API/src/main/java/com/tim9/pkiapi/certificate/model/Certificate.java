@@ -1,6 +1,6 @@
 package com.tim9.pkiapi.certificate.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -53,16 +53,16 @@ public class Certificate {
 	private String path;
 	
 	@Column(name="serial_number", nullable=false)
-	private Long serialNumber;
+	private String serialNumber;
 	
 	@Column(name="active", nullable=false)
 	private boolean active;
 	
 	@Column(name="valid_from_date", nullable=false)
-	private LocalDateTime validFromDate;
+	private LocalDate validFromDate;
 	
 	@Column(name="valid_to_date", nullable=false)
-	private LocalDateTime validToDate;
+	private LocalDate validToDate;
 	
 	@Column(name= "type", nullable=false)
 	private CertificateType type;

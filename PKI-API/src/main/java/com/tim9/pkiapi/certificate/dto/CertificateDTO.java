@@ -1,6 +1,8 @@
 package com.tim9.pkiapi.certificate.dto;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.LocalDate;
+
 import com.tim9.pkiapi.certificate.model.CertificateType;
 
 import lombok.AllArgsConstructor;
@@ -29,13 +31,13 @@ public class CertificateDTO {
 	private String organisationUnit;
 
 	
-	private Long serialNumber;
+	private String serialNumber;
 	
 	private boolean active;
 	
-	private LocalDateTime validFromDate;
+	private LocalDate validFromDate;
 	
-	private LocalDateTime validToDate;
+	private LocalDate validToDate;
 	
 	private CertificateType type;
 	
