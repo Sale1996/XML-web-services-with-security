@@ -23,7 +23,7 @@ public class RevokedCertificate {
 	private Long id;
 	
 	@Column(name="serial_number", nullable=false)
-	private Long serialNumber;
+	private String serialNumber;
 	
 	@Column(name="reason", nullable=true)
 	private String reason;

@@ -12,7 +12,7 @@ public class RevokedCertificateDTO {
 	
 	private Long id;
 	
-	private Long serialNumber;
+	private String serialNumber;
 	
 	private String reason;
 
