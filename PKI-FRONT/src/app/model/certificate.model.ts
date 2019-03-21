@@ -1,16 +1,16 @@
 export interface Certificate {
-    name: string;
-    date: Date;
-    issuer: number;
+    commonName: string;
+    validFromDate: Date;
+    validToDate: Date;
+    issuer: any;
     publicKey: string;
     serialNumber: string;
     country: string;
     active: boolean
-    city: string;
     state: string;
-    organization: string;
-    organizationUnit: string;
+    organisation: string;
+    organisationUnit: string;
     type: number;
-
+    locality: string;
 
 }
