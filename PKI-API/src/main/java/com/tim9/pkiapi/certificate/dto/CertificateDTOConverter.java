@@ -26,7 +26,8 @@ public class CertificateDTOConverter {
 		dto.setName(bean.getName());
 		dto.setPublicKey(bean.getPublicKey());
 		dto.setSerialNumber(bean.getSerialNumber());
-		dto.setType(bean.getType());
+			
+		dto.setType(bean.getTypeString());
 		dto.setValidFromDate(bean.getValidFromDate());
 		dto.setValidToDate(bean.getValidToDate());
 		
