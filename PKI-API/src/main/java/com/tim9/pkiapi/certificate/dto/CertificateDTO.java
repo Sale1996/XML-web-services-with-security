@@ -16,7 +16,18 @@ public class CertificateDTO {
 	
 	private String publicKey;
 	
-	private String name;
+	private String commonName;
+	
+	private String country;
+	
+	private String locality;
+	
+	private String state;
+	
+	private String organisation;
+	
+	private String organisationUnit;
+
 	
 	private Long serialNumber;
 	

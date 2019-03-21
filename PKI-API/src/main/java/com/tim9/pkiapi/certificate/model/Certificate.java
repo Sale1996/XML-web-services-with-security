@@ -31,8 +31,23 @@ public class Certificate {
 	@Column(name="public_key", nullable=false)
 	private String publicKey;
 	
-	@Column(name="name", nullable=false)
-	private String name;
+	@Column(name="common_name", nullable=false)	
+	private String commonName;
+	
+	@Column(name="country", nullable=false, length=2)	
+	private String country;
+	
+	@Column(name="locality", nullable=false)	
+	private String locality;
+	
+	@Column(name="state", nullable=false)	
+	private String state;
+	
+	@Column(name="organisation", nullable=false)	
+	private String organisation;
+	
+	@Column(name="organisation_unit", nullable=false)	
+	private String organisationUnit;
 	
 	@Column(name="cert_path", nullable=false)
 	private String path;

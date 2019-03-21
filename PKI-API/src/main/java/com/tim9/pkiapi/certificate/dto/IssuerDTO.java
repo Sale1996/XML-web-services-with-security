@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class IssuerDTO {
 
+	private Long id;
 	private String CN;
 	private String O;
 	private String C;
+	private String publicKey;
+	
 }
