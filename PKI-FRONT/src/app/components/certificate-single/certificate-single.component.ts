@@ -26,24 +26,28 @@ export class CertificateSingleComponent implements OnInit {
   ngOnInit() {
 
     this.CertificateForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      date: [new Date(), Validators.required],
-      issuer: [0, Validators.required],
-      publicKey: ['', Validators.required],
-      keySize: [0, Validators.required],
+      commonName: ['', Validators.required],
       country: ['', Validators.required],
-      city: ['', Validators.required],
+      locality: ['', Validators.required],
       state: ['', Validators.required],
-      organization: ['', Validators.required],
-      organizationUnit: ['', Validators.required],
-      type: [0, Validators.required]
+      organisation: ['', Validators.required],
+      organisationUnit: ['', Validators.required],
+      validFromDate: ['', Validators.required],
+      validToDate: ['', Validators.required],
+      type: [0, Validators.required],
+      issuer: [0, Validators.required],
+      active: true
     });
   }
 
   onSubmit() {
+    if(this.CertificateForm.valid) {
+        this.certService.addCertificate(this.CertificateForm.value).subscribe((response) => {
+          console.log('Response is: ', response);
+        });
+    }
   }
 
-  getAll() {
-    this.certs = this.certService.getAllCertificates().pipe(share());
-  }
+
+
 }
