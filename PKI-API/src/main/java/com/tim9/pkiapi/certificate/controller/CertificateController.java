@@ -72,9 +72,9 @@ public class CertificateController {
 	}
 	
 	@PutMapping("/revoke/{serialNumber}")
-	public ResponseEntity<CertificateDTO> revokeCertificate(@PathVariable("serialNumber") String serialNumber){
+	public ResponseEntity<CertificateDTO> revokeCertificate(@PathVariable("serialNumber") String serialNumber, @RequestBody String reason){
 		
-		CertificateDTO revokedCertificate = certificateService.revoke(serialNumber);
+		CertificateDTO revokedCertificate = certificateService.revoke(serialNumber, reason);
 		
 		return (revokedCertificate.getId() != null ) ? new ResponseEntity<CertificateDTO>(revokedCertificate,HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			

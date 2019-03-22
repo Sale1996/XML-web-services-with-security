@@ -70,6 +70,7 @@ import com.tim9.pkiapi.certificate.model.CertificateType;
 import com.tim9.pkiapi.certificate.repository.CertificateRepository;
 import com.tim9.pkiapi.util.KeyConverters;
 import com.tim9.pkiapi.certificate.model.Certificate;
+import com.tim9.pkiapi.revokedCertificate.model.RevokedCertificate;
 
 
 @Component
@@ -331,7 +332,25 @@ public class CertificateServiceImpl implements ICertificateService {
 	}
 
 	@Override
-	public CertificateDTO revoke(String serialNumber) {
+	public CertificateDTO revoke(String serialNumber, String reason) {
+		
+		Optional<Certificate> certificateForRevoke = certificateRepository.findBySerialNumber(serialNumber);
+		
+		if(certificateForRevoke.isPresent()) {
+			RevokedCertificate revokedCertificate = new RevokedCertificate();
+			
+			revokedCertificate.setSerialNumber(serialNumber);
+			revokedCertificate.setReason(reason);
+			
+			certificateForRevoke.get().setActive(false);
+			
+			certificateRepository.save(certificateForRevoke.get());
+			
+			return certificateConverter.convertToDTO(certificateForRevoke.get());
+			
+		}
+		
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
