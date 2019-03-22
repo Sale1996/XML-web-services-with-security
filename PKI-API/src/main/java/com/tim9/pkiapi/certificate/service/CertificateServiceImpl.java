@@ -35,6 +35,7 @@ import java.util.Optional;
 
 import org.bouncycastle.asn1.ASN1EncodableVector;
 import org.bouncycastle.asn1.DERIA5String;
+import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
@@ -45,6 +46,7 @@ import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.GeneralName;
+import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.asn1.x509.KeyPurposeId;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
@@ -148,7 +150,7 @@ public class CertificateServiceImpl implements ICertificateService {
 			
 			String oznakaSertifikataUKeyStore = issuerCertificate.get().getSerialNumber().toString();
 			
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore.jks"));
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore2.jks"));
 			
 			keyStore.load(in, "demo".toCharArray()); //postavicemo neki tezi kljuc...
 			
@@ -253,6 +255,10 @@ public class CertificateServiceImpl implements ICertificateService {
 			EKU[1] = KeyPurposeId.id_kp_serverAuth;
 			 
 			certGen.addExtension(Extension.extendedKeyUsage, false, new ExtendedKeyUsage(EKU));
+			
+				// 7.7 Subject Alternative Name
+//			GeneralNames subjectAltName = new GeneralNames(new GeneralName(GeneralName.rfc822Name,"localhost:8443"));
+//			certGen.addExtension(Extension.subjectAlternativeName, false, new DEROctetString(subjectAltName));
 			
 			
 			//8. Povezujemo sertifikat i potpis
