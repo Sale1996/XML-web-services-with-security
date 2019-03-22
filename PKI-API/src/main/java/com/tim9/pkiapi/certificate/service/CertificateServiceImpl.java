@@ -68,9 +68,9 @@ import com.tim9.pkiapi.certificate.dto.CertificateDTOConverter;
 import com.tim9.pkiapi.certificate.model.Certificate;
 import com.tim9.pkiapi.certificate.model.CertificateType;
 import com.tim9.pkiapi.certificate.repository.CertificateRepository;
+import com.tim9.pkiapi.revokedCertificate.model.RevokedCertificate;
 import com.tim9.pkiapi.util.KeyConverters;
 import com.tim9.pkiapi.certificate.model.Certificate;
-import com.tim9.pkiapi.revokedCertificate.model.RevokedCertificate;
 
 
 @Component
@@ -350,9 +350,7 @@ public class CertificateServiceImpl implements ICertificateService {
 			
 		}
 		
-		
-		// TODO Auto-generated method stub
-		return null;
+		return new CertificateDTO();
 	}
 
 	@Override
