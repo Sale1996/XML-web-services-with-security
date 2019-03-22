@@ -16,29 +16,24 @@
       <div class="row">
         <div class="col">
           <div class="form-group">
-            <label for="issuer">Key Size</label>
-            <select class="form-control" formControlName="keySize">
-              <option value="0" hidden>-- Select Key Size --</option>
-              <option value="1">2048</option>
-              <option value="2">{{1024*3}}</option>
-              <option value="3">{{1024*9}}</option>
-            </select>
-            <small *ngIf="CertificateForm.controls.issuer.errors?.required && CertificateForm.controls.issuer.touched" class="form-text text-danger">*Required</small>
-          </div>
-          <div class="form-group">
             <label for="name">Name<span class="text-danger">*</span></label>
-            <input type="text" formControlName="name" class="form-control" placeholder="Enter Name" required>
-            <small *ngIf="CertificateForm.controls.name.errors?.required && CertificateForm.controls.name.touched" class="form-text text-danger">*Required</small>
+            <input type="text" formControlName="commonName" class="form-control" placeholder="Enter Name" required>
+            <small *ngIf="CertificateForm.controls.commonName.errors?.required && CertificateForm.controls.commonName.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
-            <label for="organization">Organization<span class="text-danger">*</span></label>
-            <input type="text" formControlName="organization" class="form-control" placeholder="Enter organization" required>
-            <small *ngIf="CertificateForm.controls.organization.errors?.required && CertificateForm.controls.organization.touched" class="form-text text-danger">*Required</small>
+            <label for="organisation">Organization<span class="text-danger">*</span></label>
+            <input type="text" formControlName="organisation" class="form-control" placeholder="Enter organization" required>
+            <small *ngIf="CertificateForm.controls.organisation.errors?.required && CertificateForm.controls.organisation.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
-            <label for="organizationUnit">Organization Unit<span class="text-danger">*</span></label>
-            <input type="text" formControlName="organizationUnit" class="form-control" placeholder="Enter organizationUnit" required>
-            <small *ngIf="CertificateForm.controls.organizationUnit.errors?.required && CertificateForm.controls.organizationUnit.touched" class="form-text text-danger">*Required</small>
+            <label for="organisationUnit">Organization Unit<span class="text-danger">*</span></label>
+            <input type="text" formControlName="organisationUnit" class="form-control" placeholder="Enter Organisation Unit" required>
+            <small *ngIf="CertificateForm.controls.organisationUnit.errors?.required && CertificateForm.controls.organisationUnit.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="form-group">
+              <label for="validFromDate">Valid From Date<span class="text-danger">*</span></label>
+              <input type="text" formControlName="validFromDate" class="form-control" placeholder="Enter Date" required>
+              <small *ngIf="CertificateForm.controls.validFromDate.errors?.required && CertificateForm.controls.validFromDate.touched" class="form-text text-danger">*Required</small>
           </div>
         </div>
         <div class="col">
@@ -48,14 +43,19 @@
             <small *ngIf="CertificateForm.controls.country.errors?.required && CertificateForm.controls.country.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
-            <label for="city">City<span class="text-danger">*</span></label>
-            <input type="text" formControlName="city" class="form-control" placeholder="Enter City" required>
-            <small *ngIf="CertificateForm.controls.city.errors?.required && CertificateForm.controls.city.touched" class="form-text text-danger">*Required</small>
+            <label for="locality">Locality<span class="text-danger">*</span></label>
+            <input type="text" formControlName="locality" class="form-control" placeholder="Enter Locality" required>
+            <small *ngIf="CertificateForm.controls.locality.errors?.required && CertificateForm.controls.locality.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
             <label for="state">State<span class="text-danger">*</span></label>
             <input type="text" formControlName="state" class="form-control" placeholder="Enter state" required>
             <small *ngIf="CertificateForm.controls.state.errors?.required && CertificateForm.controls.state.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="form-group">
+              <label for="validToDate">Valid To Date<span class="text-danger">*</span></label>
+              <input type="text" formControlName="validToDate" class="form-control" placeholder="Enter Date" required>
+              <small *ngIf="CertificateForm.controls.validToDate.errors?.required && CertificateForm.controls.validToDate.touched" class="form-text text-danger">*Required</small>
           </div>
         </div>
         <div class="col">
@@ -69,31 +69,13 @@
             <small *ngIf="CertificateForm.controls.issuer.errors?.required && CertificateForm.controls.issuer.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="form-group">
-            <label for="date">Valid Period<span class="text-danger">*</span></label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <svg width="18" height="18">
-                      <image width="18" height="18" xlink:href="assets/images/icons/calendar.svg"/>
-                    </svg>
-                  </div>
-              </div>
-              <input class="form-control" placeholder="yyyy-mm-dd" name="d2" ngbDatepicker #d2="ngbDatepicker" formControlName="date" (click)="d2.toggle()">
-            </div>
-            <small *ngIf="CertificateForm.controls.date.errors?.required && CertificateForm.controls.date.touched" class="form-text text-danger">*Required</small>
-          </div>
-          <div class="form-group">
-            <label for="publicKey">Public Key<span class="text-danger">*</span></label>
-            <input type="text" formControlName="publicKey" class="form-control" placeholder="Enter Public Key" required>
-            <small *ngIf="CertificateForm.controls.publicKey.errors?.required && CertificateForm.controls.publicKey.touched" class="form-text text-danger">*Required</small>
-          </div>
-          <div class="form-group">
-            <label for="type">Certificate Type</label>
+            <label for="type">Type</label>
             <select class="form-control" formControlName="type">
               <option value="0" hidden>-- Select Type --</option>
-              <option value="1">CA</option>
-              <option value="2">End-Entity</option>
+              <option value="1">Final</option>
+              <option value="2">Intermediate</option>
             </select>
+            <small *ngIf="CertificateForm.controls.type.errors?.required && CertificateForm.controls.type.touched" class="form-text text-danger">*Required</small>
           </div>
           <div class="text-right">
             <button type="submit" [disabled]="!CertificateForm.valid" class="btn btn-primary">Submit</button>
@@ -104,6 +86,5 @@
     </form>
   </div>
 </div>
-    
-  
-  
+
+

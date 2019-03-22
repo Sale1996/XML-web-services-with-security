@@ -148,7 +148,7 @@ public class CertificateServiceImpl implements ICertificateService {
 			
 			String oznakaSertifikataUKeyStore = issuerCertificate.get().getSerialNumber().toString();
 			
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore.jks"));
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream("C:\\Users\\Marko Markovic\\Documents\\GitHub\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore.jks"));
 			
 			keyStore.load(in, "demo".toCharArray()); //postavicemo neki tezi kljuc...
 			
@@ -274,7 +274,7 @@ public class CertificateServiceImpl implements ICertificateService {
 			FileOutputStream fop = null;
 
 			File file;
-			file = new File("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\"+ serialNumber +".crt");
+			file = new File("C:\\Users\\Marko Markovic\\Documents\\GitHub\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\"+ serialNumber +".crt");
 			fop = new FileOutputStream(file);
 
 			// if file does'nt exists, then create it
@@ -292,10 +292,10 @@ public class CertificateServiceImpl implements ICertificateService {
 			//11. Cuvanje privatnog kljuca na key store
 						
 //			keyStore.load(null, "demo".toCharArray());
-			BufferedInputStream ksIn = new BufferedInputStream(new FileInputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore2.jks"));
+			BufferedInputStream ksIn = new BufferedInputStream(new FileInputStream("C:\\Users\\Marko Markovic\\Documents\\GitHub\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore2.jks"));
 			keyStore.load(ksIn, "demo".toCharArray());
 			keyStore.setKeyEntry(finalCertificate.getSerialNumber().toString(), (Key)keyPairSubject.getPrivate(),"demo".toCharArray(), new java.security.cert.Certificate[] {finalCertificate});
-			keyStore.store(new FileOutputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore2.jks"), "demo".toCharArray());
+			keyStore.store(new FileOutputStream("C:\\Users\\Marko Markovic\\Documents\\GitHub\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore2.jks"), "demo".toCharArray());
 						
 			//12. Cuvanje na bazu sertifikata
 			
