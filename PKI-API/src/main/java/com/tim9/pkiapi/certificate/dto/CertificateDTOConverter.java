@@ -25,6 +25,7 @@ public class CertificateDTOConverter {
 		
 		
 		IssuerDTO issuer = new IssuerDTO();
+		issuer.setId(bean.getIssuer().getId());
 		issuer.setCN(bean.getIssuer().getCommonName());
 		issuer.setC(bean.getIssuer().getCountry());
 		issuer.setO(bean.getIssuer().getOrganisation());
@@ -87,7 +88,7 @@ public class CertificateDTOConverter {
 		}
 		
 		newCertificate.setActive(dto.isActive());
-		newCertificate.setId(dto.getId());
+//		newCertificate.setId(dto.getId());
 		newCertificate.setCommonName(dto.getCommonName());
 		newCertificate.setCountry(dto.getCountry());
 		newCertificate.setLocality(dto.getLocality());

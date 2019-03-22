@@ -3,11 +3,12 @@ package com.tim9.pkiapi.certificate.service;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.security.GeneralSecurityException;
 import java.security.Key;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -16,14 +17,19 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.security.Security;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +55,12 @@ import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.util.encoders.Base64Encoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import com.tim9.pkiapi.certificate.dto.CertificateDTO;
@@ -57,11 +68,15 @@ import com.tim9.pkiapi.certificate.dto.CertificateDTOConverter;
 import com.tim9.pkiapi.certificate.model.Certificate;
 import com.tim9.pkiapi.certificate.model.CertificateType;
 import com.tim9.pkiapi.certificate.repository.CertificateRepository;
+import com.tim9.pkiapi.util.KeyConverters;
 import com.tim9.pkiapi.certificate.model.Certificate;
+
 
 @Component
 public class CertificateServiceImpl implements ICertificateService {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	CertificateRepository certificateRepository;
 	
@@ -97,6 +112,7 @@ public class CertificateServiceImpl implements ICertificateService {
 	@Override
 	public CertificateDTO save(CertificateDTO certificateToSave) {
 		try {
+			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			//1. Instanciramo JKS keystore objekat od SUN provajdera
 			this.keyStore = KeyStore.getInstance("JKS","SUN");
 			
@@ -111,7 +127,9 @@ public class CertificateServiceImpl implements ICertificateService {
 			X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
 		    builder.addRDN(BCStyle.CN, certificateToSave.getCommonName());
 		    builder.addRDN(BCStyle.O, certificateToSave.getOrganisation());
+		    builder.addRDN(BCStyle.OU, certificateToSave.getOrganisationUnit());
 		    builder.addRDN(BCStyle.C, certificateToSave.getCountry());
+		    builder.addRDN(BCStyle.L, certificateToSave.getLocality());
 			X500Name xname = builder.build();
 			
 			//4. Izvlacimo podatke o issueru  iz baze i privatni kljuc iz javaKeyStore-a i takodje pravi cert issuera!
@@ -129,12 +147,12 @@ public class CertificateServiceImpl implements ICertificateService {
 			
 			String oznakaSertifikataUKeyStore = issuerCertificate.get().getSerialNumber().toString();
 			
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream("classpath:files/rootKeyStore.jks"));
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore.jks"));
 			
-			keyStore.load(in, "kljuc".toCharArray()); //postavicemo neki tezi kljuc...
+			keyStore.load(in, "demo".toCharArray()); //postavicemo neki tezi kljuc...
 			
-			PrivateKey privatniKljucIssuera = (PrivateKey) keyStore.getKey(oznakaSertifikataUKeyStore, "kljuc".toCharArray()); //postavicemo neki tezi kljuc
-			
+			// TODO koristim alias i sifru root-a koji sam izgenerisao custom aplikacijom (namesti za druge kako treba)
+			PrivateKey privatniKljucIssuera = (PrivateKey) keyStore.getKey(oznakaSertifikataUKeyStore, "demo".toCharArray()); //postavicemo neki tezi kljuc
 			X509Certificate issuerCertificatedata = (X509Certificate) keyStore.getCertificate(oznakaSertifikataUKeyStore);
 			
 			//5. Pravimo potpis issuer-a
@@ -148,14 +166,18 @@ public class CertificateServiceImpl implements ICertificateService {
 			//6. Instanciramo subject certificate generator
 				//generisemo x500 name za issuera
 			X500NameBuilder builderIssuerX500Name = new X500NameBuilder(BCStyle.INSTANCE);
-		    builder.addRDN(BCStyle.CN, certificateToSave.getIssuer().getCN());
-		    builder.addRDN(BCStyle.O, certificateToSave.getIssuer().getO());
-		    builder.addRDN(BCStyle.C, certificateToSave.getIssuer().getC());
+			CertificateDTO issuerDTOIzBaze = certificateConverter.convertToDTO(issuerCertificate.get());
+			builderIssuerX500Name.addRDN(BCStyle.CN, issuerDTOIzBaze.getCommonName());
+			builderIssuerX500Name.addRDN(BCStyle.O, issuerDTOIzBaze.getOrganisation());
+			builderIssuerX500Name.addRDN(BCStyle.C, issuerDTOIzBaze.getCountry());
 			X500Name issuerX500Name = builderIssuerX500Name.build();
 			
+			
+			// TODO SerialNumber generisanje
+			BigInteger serialNumber = new BigInteger(32, random);
 			//Datumi iz modela su pretvoreni iz LocalDate u Date!
 			X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(issuerX500Name,
-					new BigInteger(certificateToSave.getSerialNumber()),
+					serialNumber,
 					 Date.from(Instant.from(certificateToSave.getValidFromDate().atStartOfDay(ZoneId.of("GMT")))),
 					 Date.from(Instant.from(certificateToSave.getValidToDate().atStartOfDay(ZoneId.of("GMT")))),
 					xname,
@@ -166,7 +188,7 @@ public class CertificateServiceImpl implements ICertificateService {
 				//7.1 AiA (Authority Information Access)
 			
 			AccessDescription caIssuers = new AccessDescription(AccessDescription.id_ad_caIssuers,
-			        new GeneralName(GeneralName.uniformResourceIdentifier, new DERIA5String("http://localhost:8080/certificates/") + certificateToSave.getSerialNumber() + ".crt"));
+			        new GeneralName(GeneralName.uniformResourceIdentifier, new DERIA5String("http://localhost:8080/certificates/") + issuerDTOIzBaze.getSerialNumber() + ".crt"));
 			
 			AccessDescription ocsp = new AccessDescription(AccessDescription.id_ad_ocsp,
 			        new GeneralName(GeneralName.uniformResourceIdentifier, new DERIA5String("http://localhost:8080/pki/ocsp")));
@@ -199,10 +221,13 @@ public class CertificateServiceImpl implements ICertificateService {
 			certGen.addExtension(Extension.subjectKeyIdentifier, false, ski);
 			
 				//7.4 Authority Key Identifier
-			
+			log.info(issuerCertificatedata.getSerialNumber() + "");
+			log.info(issuerCertificatedata.getPublicKey().getEncoded() + "PK");
+			log.info(issuerCertificatedata.getPublicKey() + "PK non-encode");
 			byte[] dataHash2 = sha256.digest(issuerCertificatedata.getPublicKey().getEncoded()); // TODO PROMENI NA JAVNI KLJUC ISSUER-a
 			
 			AuthorityKeyIdentifier aki = new AuthorityKeyIdentifier(dataHash2);
+			log.info(aki + "Ovo je AKI");
 			
 			certGen.addExtension(Extension.authorityKeyIdentifier, false, aki);
 			
@@ -248,8 +273,7 @@ public class CertificateServiceImpl implements ICertificateService {
 			FileOutputStream fop = null;
 
 			File file;
-
-			file = new File("classpath:/META-INF/certificates/"+ finalCertificate.getSerialNumber() +".crt");
+			file = new File("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\"+ serialNumber +".crt");
 			fop = new FileOutputStream(file);
 
 			// if file does'nt exists, then create it
@@ -266,21 +290,26 @@ public class CertificateServiceImpl implements ICertificateService {
 			
 			//11. Cuvanje privatnog kljuca na key store
 						
-			keyStore.load(null, "kljuc".toCharArray());
-		
-			keyStore.setKeyEntry(finalCertificate.getSerialNumber().toString(), (Key)keyPairSubject.getPrivate(),"kljuc".toCharArray(), new java.security.cert.Certificate[] {finalCertificate});
-			
-			keyStore.store(new FileOutputStream("C:\\Users\\Admin\\Desktop\\XML_bezbednost_projekat\\rootKeyStore.jks"), "kljuc".toCharArray());
+//			keyStore.load(null, "demo".toCharArray());
+			BufferedInputStream ksIn = new BufferedInputStream(new FileInputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore2.jks"));
+			keyStore.load(ksIn, "demo".toCharArray());
+			keyStore.setKeyEntry(finalCertificate.getSerialNumber().toString(), (Key)keyPairSubject.getPrivate(),"demo".toCharArray(), new java.security.cert.Certificate[] {finalCertificate});
+			keyStore.store(new FileOutputStream("C:\\Users\\batman'sLAPTOP\\git\\XML-web-services-with-security\\PKI-API\\src\\main\\java\\META-INF\\certificates\\keyStore2.jks"), "demo".toCharArray());
 						
 			//12. Cuvanje na bazu sertifikata
 			
-				//postavljanje public key-a
+			//postavljanje public key-a
 			certificateToSave.setPublicKey(finalCertificate.getPublicKey().toString());
+			// TODO postavi sigurno pogresan ID, jer ce da pukne zbog LOSE implementacije konvertora...
+			certificateToSave.setId(new Long(-1));
+			certificateToSave.setSerialNumber(serialNumber.toString());
 			
 			Certificate databaseCertificate = certificateConverter.convertFromDTO(certificateToSave);
 			
 			certificateRepository.save(databaseCertificate);
+			certificateToSave.setId((databaseCertificate.getId()));
 			
+			return certificateToSave;
 			
 			
 			

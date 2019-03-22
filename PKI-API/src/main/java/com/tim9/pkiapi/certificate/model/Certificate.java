@@ -28,7 +28,7 @@ public class Certificate {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="public_key", nullable=false)
+	@Column(name="public_key", length=3000, nullable=false)
 	private String publicKey;
 	
 	@Column(name="common_name", nullable=false)	
@@ -48,9 +48,6 @@ public class Certificate {
 	
 	@Column(name="organisation_unit", nullable=false)	
 	private String organisationUnit;
-	
-	@Column(name="cert_path", nullable=false)
-	private String path;
 	
 	@Column(name="serial_number", nullable=false)
 	private String serialNumber;
