@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.lukacvetinovic.com/backend-tim-9-management"
+    xmlns="http://www.lukacvetinovic.com/backend-tim-9-management"
+    xmlns:ns1="http://www.lukacvetinovic.com/backend-tim-9"
+    xmlns:ns2="http://www.lukacvetinovic.com/backend-tim-9-user">
+    <xs:import namespace="http://www.lukacvetinovic.com/backend-tim-9"
+        schemaLocation="accommodation.xsd"/>
+    <xs:import namespace="http://www.lukacvetinovic.com/backend-tim-9-user"
+        schemaLocation="user.xsd"/>
+    <xs:element name="Revoke_accommodation">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Revoke_accommodation_id">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:long">
+                            <xs:minInclusive value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Date_from" type="xs:date"/>
+                <xs:element name="Date_to" type="xs:date"/>
+                <xs:element ref="ns1:Accommodation_unit"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Reservation">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Reservation_id">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:long">
+                            <xs:minInclusive value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Date_from" type="xs:date"/>
+                <xs:element name="Date_to" type="xs:date"/>
+                <xs:element name="Final_price">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:float">
+                            <xs:minInclusive value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Confirmation" type="xs:boolean"/>
+                <xs:element ref="ns1:Accommodation_unit"/>
+                <xs:element name="Client" type="ns2:Client"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.lukacvetinovic.com/client-tim-9-user"
+    xmlns="http://www.lukacvetinovic.com/client-tim-9-user">
+    <xs:complexType abstract="true" block="" name="User">
+        <xs:sequence>
+            <xs:element name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="surname">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="username">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="password" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Client">
+        <xs:complexContent>
+            <xs:extension base="User">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" name="email" type="xs:string"/>
+                    <xs:element name="telephone_number" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Agent">
+        <xs:complexContent>
+            <xs:extension base="User">
+                <xs:sequence>
+                    <xs:element name="business_registration_number" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="Message">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Mesasge_id">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:long">
+                            <xs:minInclusive value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Message_body" type="xs:string"/>
+                <xs:element name="Message_time" type="xs:date"/>
+                <xs:element name="Sender" type="User"/>
+                <xs:element name="Reciever" type="User"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
