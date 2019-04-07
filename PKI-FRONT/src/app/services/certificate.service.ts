@@ -24,4 +24,8 @@ export class CertificateService {
   addCertificate(cert: Certificate): Observable<Object> {
     return this.http.post<Certificate>(`${environment.apiUrl}` + '/certificate/', cert, httpOptions);
   }
+
+  revokeCertificate(serialNumber: string): Observable<Certificate> {
+    return this.http.put<Certificate>(`${environment.apiUrl}` + '/certificate/revoke/' + serialNumber, {reason: 'Expired'}, httpOptions);
+  }
 }

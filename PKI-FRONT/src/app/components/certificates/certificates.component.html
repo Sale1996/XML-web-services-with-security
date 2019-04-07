@@ -13,16 +13,15 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th scope="col">Status</th>
               <th scope="col">Name</th>
               <th scope="col">Country</th>
               <th scope="col">Locality</th>
               <th scope="col">State</th>
               <th scope="col">Organization</th>
               <th scope="col">Organization Unit</th>
-              <th scope="col">Active</th>
               <th scope="col">Valid From</th>
               <th scope="col">Valid Thru</th>
-              <th scope="col">Type</th>
               <th scope="col">Issuer</th>
               <th scope="col"></th>
             </tr>
@@ -30,25 +29,28 @@
           <tbody>
             <ng-container *ngIf="certs | async; let certs">
               <tr *ngFor="let cert of certs">
+                <ng-container *ngIf="cert.active">
+                  <td><span *ngIf="cert.active" class="badge badge-success">Active</span></td>
+                </ng-container>
+                <ng-container *ngIf="!cert.active">
+                  <td><span *ngIf="!cert.active" class="badge badge-danger">Revoked</span></td>
+                </ng-container>
                 <td>{{cert.commonName}}</td>
                 <td>{{cert.country}}</td>
                 <td>{{cert.locality}}</td>
                 <td>{{cert.state}}</td>
                 <td>{{cert.organisation}}</td>
                 <td>{{cert.organisationUnit}}</td>
-                <td>{{cert.active}}</td>
-                <td>{{cert.validFromDate}}</td>
-                <td>{{cert.validToDate}}</td>
-                <td>{{cert.type}}</td>
-                <td>{{cert.issuer}}</td>
-                <td><span class="badge badge-success">Active</span></td>
+                <td>{{cert.validFromDate | date:'mediumDate'}}</td>
+                <td>{{cert.validToDate | date:'mediumDate'}}</td>
+                <td>{{cert.issuer.o}}</td>
                 <td class="text-right">
-                  <a routerLink="" data-toggle="tooltip" data-placement="top" title="Revoke" onmouseenter="$(this).tooltip('show')">
+                  <span data-toggle="tooltip" class="pointer" data-placement="top" title="Revoke" onmouseenter="$(this).tooltip('show')" (click)="revoke(cert.serialNumber)">
                     <svg width="25" height="25">
                         <image width="25" height="25" xlink:href="assets/images/icons/edit.svg"/>
                     </svg>
-                  </a>
-                  <a class="ml-3" routerLink="" data-toggle="tooltip" data-placement="top" title="Download" onmouseenter="$(this).tooltip('show')">
+                  </span>
+                  <a class="ml-3" href="http://localhost:8080/certificates/{{cert.serialNumber}}.crt" target="_blank" data-toggle="tooltip" data-placement="top" title="Download" onmouseenter="$(this).tooltip('show')">
                     <svg width="25" height="25">
                         <image width="25" height="25" xlink:href="assets/images/icons/download.svg"/>
                     </svg>

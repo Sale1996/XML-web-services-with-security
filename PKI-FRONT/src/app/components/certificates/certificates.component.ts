@@ -25,4 +25,12 @@ export class CertificatesComponent implements OnInit {
     this.certs = this.certService.getAllCertificates().pipe(share());
   }
 
+  revoke(serialNumber: string) {
+    this.certService.revokeCertificate(serialNumber).subscribe(
+      data => console.log(data),
+      error => console.log(error),
+      () => location.reload()
+    );
+  }
+
 }
