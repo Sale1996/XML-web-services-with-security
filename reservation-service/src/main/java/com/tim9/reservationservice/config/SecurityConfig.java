@@ -15,16 +15,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Environment environment;
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
-        // other security configuration missing
-
-//        http.portMapper()
-//                .http(Integer.parseInt(environment.getProperty("server.http.port"))) // http port defined in yml config file
-//                .mapsTo(Integer.parseInt(environment.getProperty("server.port"))); // https port defined in yml config file
-
-        // we only need https on /auth
-//        http.requiresChannel()
-//                .antMatchers("/auth/**").requiresSecure()
-//                .anyRequest().requiresSecure();
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+          .antMatchers("/**")
+          .permitAll();
     }
 }

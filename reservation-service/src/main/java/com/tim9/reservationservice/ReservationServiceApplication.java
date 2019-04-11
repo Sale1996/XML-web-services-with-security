@@ -1,5 +1,9 @@
 package com.tim9.reservationservice;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.security.KeyStore;
+
 import javax.net.ssl.SSLContext;
 
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,16 +21,34 @@ public class ReservationServiceApplication {
 	
 	@Bean
     public RestTemplate restTemplate() throws Exception {
-        ClassPathResource classPathResource = new ClassPathResource("trustStore.jks");
+        ClassPathResource trustStoreclassPath = new ClassPathResource("trustStore.jks");
+        ClassPathResource keyStoreClassPath = new ClassPathResource("keyStore.jks");
+        
+        //
+        KeyStore ks = null;
+		try {
+			ks = KeyStore.getInstance("JKS");
+			InputStream readStream = new FileInputStream(keyStoreClassPath.getFile());
+			ks.load(readStream, "demo".toCharArray());
+			readStream.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //
+        
+        
         SSLContext sslContext = SSLContexts
             .custom()
-            .loadTrustMaterial(classPathResource.getFile())
+            .loadTrustMaterial(trustStoreclassPath.getFile(), "demo".toCharArray())
+            .loadKeyMaterial(ks, "demo".toCharArray())
             .build();
         final CloseableHttpClient client = HttpClients
             .custom()
             .setSSLContext(sslContext)
             .build();
         return new RestTemplate(new HttpComponentsClientHttpRequestFactory(client));
+//		return new RestTemplate();
     }
 
 	public static void main(String[] args) {
