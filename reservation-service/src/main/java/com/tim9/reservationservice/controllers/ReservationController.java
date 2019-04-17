@@ -1,20 +1,18 @@
 package com.tim9.reservationservice.controllers;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.ResponseErrorHandler;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.tim9.reservationservice.models.Accommodation;
@@ -27,13 +25,28 @@ public class ReservationController {
 //	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
+	private HttpServletRequest context;
+	
+	@Autowired
 	private RestTemplate rest;
-
+	
 	@GetMapping("/{reservationId}")
+	@PreAuthorize("hasAuthority('READ_RESERVATION')")
 	public Reservation getReservation(@PathVariable("reservationId") long id) {
 		
-	Accommodation room;
-	room = rest.getForObject("https://localhost:8081/accommodations/1", Accommodation.class);
-	return new Reservation(1, 1, room.getName(), new Float("100.5"));
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		String authorization = context.getHeader("Authorization");
+		String token = "";
+		if (authorization != null && authorization.toLowerCase().startsWith("bearer")) {
+			token = authorization.substring("Bearer".length()).trim();
+			headers.add("Authorization", "Bearer " + token);
+		}
+		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+		ResponseEntity<Accommodation> response = rest.exchange("https://accommodation-service/accommodations/1", HttpMethod.GET, entity, Accommodation.class);
+		Accommodation accommodation = response.getBody();
+		return new Reservation(1, accommodation.getId(), accommodation.getName(), new Float("100.5"));
+		
+		
 	}
 }

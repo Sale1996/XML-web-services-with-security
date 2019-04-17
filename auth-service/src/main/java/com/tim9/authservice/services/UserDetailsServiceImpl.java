@@ -3,6 +3,8 @@ package com.tim9.authservice.services;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -24,22 +26,33 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 		
 		// hard coding the users. All passwords must be encoded.
 		final List<AppUser> users = Arrays.asList(
-			new AppUser(1, "omar", encoder.encode("12345"), "USER"),
-			new AppUser(2, "admin", encoder.encode("12345"), "ADMIN")
+			new AppUser(1, "user", encoder.encode("12345"), "USER"),
+			new AppUser(2, "admin", encoder.encode("12345"), "ADMIN"),
+			new AppUser(2, "agent", encoder.encode("12345"), "AGENT")
 		);
 		
 
 		for(AppUser appUser: users) {
+			List<GrantedAuthority> grantedAuthorities;
 			if(appUser.getUsername().equals(username)) {
 				
-				// Remember that Spring needs roles to be in this format: "ROLE_" + userRole (i.e. "ROLE_ADMIN")
-				// So, we need to set it to that format, so we can verify and compare roles (i.e. hasRole("ADMIN")).
-				List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-		                	.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole());
-				
-				// The "User" class is provided by Spring and represents a model class for user to be returned by UserDetailsService
-				// And used by auth manager to verify and check user authentication.
-				return new User(appUser.getUsername(), appUser.getPassword(), grantedAuthorities);
+				if(appUser.getRole().equals("AGENT")) {
+					// Remember that Spring needs roles to be in this format: "ROLE_" + userRole (i.e. "ROLE_ADMIN")
+					// So, we need to set it to that format, so we can verify and compare roles (i.e. hasRole("ADMIN")).
+//				List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+//		                	.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole());
+					grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole() + ", " + "CREATE_ACCOMMODATION, UPDATE_ACCOMMODATION, DELETE_ACCOMMODATION, READ_RESERVATION, UPDATE_RESERVATION, DELETE_RESERVATION");
+					
+					// The "User" class is provided by Spring and represents a model class for user to be returned by UserDetailsService
+					// And used by auth manager to verify and check user authentication.
+					return new User(appUser.getUsername(), appUser.getPassword(), grantedAuthorities);
+				} else if(appUser.getRole().equals("ADMIN")) {
+					grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole() + ", " + "DELETE_ACCOMMODATION");
+					return new User(appUser.getUsername(), appUser.getPassword(), grantedAuthorities);
+				} else  {
+					grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole() + ", " + "CREATE_RESERVATION, READ_RESERVATION, UPDATE_RESERVATION, REVOKE_RESERVATON");
+					return new User(appUser.getUsername(), appUser.getPassword(), grantedAuthorities);
+				}
 			}
 		}
 		

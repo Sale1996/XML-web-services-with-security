@@ -47,6 +47,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 		    // allow all POST requests 
 		    .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
 		    .antMatchers(HttpMethod.GET, "/user/all").hasAuthority("ROLE_ADMIN")
+		    .antMatchers(HttpMethod.GET, "/user/marko").permitAll()
 		    // any other requests must be authenticated
 		    .anyRequest().authenticated();
 	}
