@@ -30,49 +30,40 @@ public class AccommodationController {
 
 	@GetMapping("")
 	public List<Accommodation> getAccommodations() {
+		return null;
 
-		List<Accommodation> accommodations = new ArrayList<>();
-		accommodations.add(new Accommodation(1, "Velika Soba 69", "agent"));
-		accommodations.add(new Accommodation(2, "Mala Soba 14", "Nikola"));
-		accommodations.add(new Accommodation(3, "Srednja Soba 36", "Perisic"));
-
-		return accommodations;
 	}
 
 	@GetMapping("/{accommodationId}")
 	public Accommodation getAccommodationById(@PathVariable("accommodationId") long id) {
-		return new Accommodation(1, "Velika Soba 69", "admin");
+		return null;
 	}
 
 	@GetMapping("/agent/{username}")
 	public List<Accommodation> getAccommodationsByAgent(@PathVariable String username) {
 
-		// pozvati bazu da pronadje sve akomodacije kojima je vlasnik korisnik sa prosledjenim "username"-om
-		List<Accommodation> accommodations = new ArrayList<>();
-		Accommodation acc1 = new Accommodation(2, "Mala Soba 14", "nikola");
-		accommodations.add(acc1);
 
-		return accommodations;
+		return null;
 	}
 
 	@PostMapping("/")
 	@PreAuthorize("hasAuthority('CREATE_ACCOMMODATION')")
 	public Accommodation createAccommodation(@RequestBody Accommodation accommodation) { //Accommodation treba da bude zapravo AccommodationDTO
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return new Accommodation(1, accommodation.getName(), username);
+	//	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		return null;
 	}
 
 	@PutMapping("/")
 	@PreAuthorize("hasAuthority('UPDATE_ACCOMMODATION')")
 	public Accommodation updateAccommodation(@RequestBody Accommodation accommodation) { //Accommodation treba da bude zapravo AccommodationDTO
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return new Accommodation(1, accommodation.getName(), username);
+	//	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		return null;
 	}
 
 	@DeleteMapping("/{accommodationId}")
 	@PreAuthorize("hasAuthority('DELETE_ACCOMMODATION')")
 	public Accommodation deleteAccommodation(@PathVariable("accommodationId") long id) {
-		return new Accommodation(1, "Velika Soba 69", "admin");
+		return null;
 	}
 
 	/*

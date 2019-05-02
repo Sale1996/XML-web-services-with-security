@@ -6,17 +6,8 @@
 //
 
 
-package com.tim9.accommodationservice.models;
+package com.tim9.accommodationservice.dtos;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -33,47 +24,28 @@ import javax.xml.bind.annotation.XmlType;
     "numberOfDaysBeforeCancelation"
 })
 @XmlRootElement(name = "Accommodation")
-@Entity
-@Table( name= "acccomodations" )
-public class Accommodation {
+
+public class AccommodationDTO {
 
     @XmlElement(name = "Accommodation_unit_id")
-    @Id
-	@GeneratedValue ( strategy = GenerationType.IDENTITY )
-	@Column ( name = "id" )
     protected Long accommodationUnitId;
     
     
     @XmlElement(name = "Description", required = true)
-    @Column ( name="description", nullable = false )
     protected String description;
     
     
     @XmlElement(name = "X_cord")
-    @Column ( name="x_cord", nullable = false )
     protected double xCord;
     
     
     @XmlElement(name = "Y_cord")
-    @Column ( name="y_cord", nullable = false )
     protected double yCord;
     
     
     @XmlElement(name = "Number_of_days_before_cancelation")
-    @Column ( name="number_of_days_before_cancelation", nullable = false )   
     protected int numberOfDaysBeforeCancelation;
 
-    @XmlElement(name = "Accommodation_units")
-    @OneToMany (mappedBy="accommodation")
-    protected List<AccommodationUnit> units;
-    
-	@XmlElement(name ="Accommodation_comments")
-	@OneToMany (mappedBy="accommodation")
-    protected List<Comment> comments;
-	
-	@XmlElement(name = "Accommodation_pictures")
-	@OneToMany (mappedBy="accommodation")
-	protected List<Picture> pictures;
 
     
     public long getAccommodationUnitId() {
