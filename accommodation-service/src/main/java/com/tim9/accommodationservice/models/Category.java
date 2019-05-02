@@ -49,12 +49,12 @@ public class Category {
     protected List<AccommodationUnit> accommodationUnitsOfCategory;
 
 
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
 
-    public void setCategoryId(long value) {
+    public void setCategoryId(Long value) {
         this.categoryId = value;
     }
 

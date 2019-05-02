@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 public class AccommodationUnitDTO {
 
     @XmlElement(name = "Accommodation_unit_id")
-    protected long accommodationUnitId;
+    protected Long accommodationUnitId;
     
     
     @XmlElement(name = "Number_of_people")
@@ -56,12 +56,12 @@ public class AccommodationUnitDTO {
     protected List<PriceDTO> price;
 
 
-    public long getAccommodationUnitId() {
+    public Long getAccommodationUnitId() {
         return accommodationUnitId;
     }
 
 
-    public void setAccommodationUnitId(long value) {
+    public void setAccommodationUnitId(Long value) {
         this.accommodationUnitId = value;
     }
 

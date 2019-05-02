@@ -76,11 +76,11 @@ public class Accommodation {
 	protected List<Picture> pictures;
 
     
-    public long getAccommodationUnitId() {
+    public Long getAccommodationUnitId() {
         return accommodationUnitId;
     }
 
-    public void setAccommodationUnitId(long value) {
+    public void setAccommodationUnitId(Long value) {
         this.accommodationUnitId = value;
     }
 

@@ -24,19 +24,19 @@ import javax.xml.bind.annotation.XmlType;
 public class PictureDTO {
 
     @XmlElement(name = "Picture_id")
-    protected long pictureId;
+    protected Long pictureId;
     
     
     @XmlElement(name = "Pic_url", required = true)
     protected String picUrl;
 
   
-    public long getPictureId() {
+    public Long getPictureId() {
         return pictureId;
     }
 
  
-    public void setPictureId(long value) {
+    public void setPictureId(Long value) {
         this.pictureId = value;
     }
 

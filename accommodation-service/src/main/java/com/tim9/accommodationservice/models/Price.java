@@ -64,12 +64,12 @@ public class Price {
     protected AccommodationUnit accommodationUnit;
 
   
-    public long getPriceId() {
+    public Long getPriceId() {
         return priceId;
     }
 
  
-    public void setPriceId(long value) {
+    public void setPriceId(Long value) {
         this.priceId = value;
     }
 

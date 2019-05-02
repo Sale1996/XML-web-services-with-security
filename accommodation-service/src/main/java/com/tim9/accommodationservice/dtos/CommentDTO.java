@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
 public class CommentDTO {
 
     @XmlElement(name = "Comment_id")
-    protected long commentId;
+    protected Long commentId;
     
     
     @XmlElement(name = "Comment_body", required = true)
@@ -43,12 +43,12 @@ public class CommentDTO {
     protected Long clientId;
 
    
-    public long getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
    
-    public void setCommentId(long value) {
+    public void setCommentId(Long value) {
         this.commentId = value;
     }
 

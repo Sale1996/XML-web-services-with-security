@@ -48,12 +48,12 @@ public class Type {
     protected List<AccommodationUnit> units;
 
   
-    public long getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
 
  
-    public void setTypeId(long value) {
+    public void setTypeId(Long value) {
         this.typeId = value;
     }
 

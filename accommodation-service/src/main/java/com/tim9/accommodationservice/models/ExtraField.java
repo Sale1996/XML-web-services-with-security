@@ -60,11 +60,11 @@ public class ExtraField {
 	@ManyToMany ( fetch = FetchType.LAZY, mappedBy = "extraFields" )
     protected List<AccommodationUnit> accommodationUnits;
     
-    public long getExtraFieldId() {
+    public Long getExtraFieldId() {
         return extraFieldId;
     }
 
-    public void setExtraFieldId(long value) {
+    public void setExtraFieldId(Long value) {
         this.extraFieldId = value;
     }
 

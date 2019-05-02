@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ExtraFieldDTO {
 
     @XmlElement(name = "Extra_field_id")
-    protected long extraFieldId;
+    protected Long extraFieldId;
     
     
     @XmlElement(name = "Extra_field_name", required = true)
@@ -40,11 +40,11 @@ public class ExtraFieldDTO {
     protected boolean optional;
 
     
-    public long getExtraFieldId() {
+    public Long getExtraFieldId() {
         return extraFieldId;
     }
 
-    public void setExtraFieldId(long value) {
+    public void setExtraFieldId(Long value) {
         this.extraFieldId = value;
     }
 

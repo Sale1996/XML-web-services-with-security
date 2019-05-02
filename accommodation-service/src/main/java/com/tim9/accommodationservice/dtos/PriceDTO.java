@@ -26,7 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class PriceDTO {
 
     @XmlElement(name = "Price_id")
-    protected long priceId;
+    protected Long priceId;
     
     
     @XmlElement(name = "Date_from", required = true)
@@ -42,12 +42,12 @@ public class PriceDTO {
     protected XMLGregorianCalendar dateTo;
 
   
-    public long getPriceId() {
+    public Long getPriceId() {
         return priceId;
     }
 
  
-    public void setPriceId(long value) {
+    public void setPriceId(Long value) {
         this.priceId = value;
     }
 

@@ -49,12 +49,12 @@ public class Picture {
     protected Accommodation accommodation;
 
   
-    public long getPictureId() {
+    public Long getPictureId() {
         return pictureId;
     }
 
  
-    public void setPictureId(long value) {
+    public void setPictureId(Long value) {
         this.pictureId = value;
     }
 

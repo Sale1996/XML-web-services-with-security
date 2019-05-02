@@ -24,19 +24,19 @@ import javax.xml.bind.annotation.XmlType;
 public class CategoryDTO {
 
     @XmlElement(name = "Category_id")
-    protected long categoryId;
+    protected Long categoryId;
     
     
     @XmlElement(name = "Category_name", required = true)
     protected String categoryName;
 
 
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
 
-    public void setCategoryId(long value) {
+    public void setCategoryId(Long value) {
         this.categoryId = value;
     }
 

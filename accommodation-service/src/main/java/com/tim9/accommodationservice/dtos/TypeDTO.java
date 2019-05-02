@@ -22,19 +22,19 @@ import javax.xml.bind.annotation.XmlType;
 public class TypeDTO {
 
     @XmlElement(name = "Type_id")
-    protected long typeId;
+    protected Long typeId;
     
     
     @XmlElement(name = "Type_name", required = true)
     protected String typeName;
 
   
-    public long getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
 
  
-    public void setTypeId(long value) {
+    public void setTypeId(Long value) {
         this.typeId = value;
     }
 
