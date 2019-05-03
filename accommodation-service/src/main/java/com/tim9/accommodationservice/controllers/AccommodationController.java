@@ -1,12 +1,11 @@
 package com.tim9.accommodationservice.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,64 +14,111 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import com.tim9.accommodationservice.models.Accommodation;
+import com.tim9.accommodationservice.dtos.AccommodationDTO;
+import com.tim9.accommodationservice.services.AccommodationService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/accommodations")
+@Api(value="accommodations")
 public class AccommodationController {
 
+	//@Autowired
+//	private RestTemplate rest;
+	
 	@Autowired
-	private RestTemplate rest;
+	private AccommodationService accommodationService;
  
 //	GET metodama mogu pristupati SVI
 
 	@GetMapping("")
-	public List<Accommodation> getAccommodations() {
+	@ApiOperation( value = "Returns all accommodations", httpMethod = "GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< List<AccommodationDTO> > getAccommodations() {
+		
+		List< AccommodationDTO > accommodations = accommodationService.findAll();
+		
+		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>( HttpStatus.NOT_FOUND);
 
-		List<Accommodation> accommodations = new ArrayList<>();
-		accommodations.add(new Accommodation(1, "Velika Soba 69", "agent"));
-		accommodations.add(new Accommodation(2, "Mala Soba 14", "Nikola"));
-		accommodations.add(new Accommodation(3, "Srednja Soba 36", "Perisic"));
-
-		return accommodations;
 	}
 
 	@GetMapping("/{accommodationId}")
-	public Accommodation getAccommodationById(@PathVariable("accommodationId") long id) {
-		return new Accommodation(1, "Velika Soba 69", "admin");
+	@ApiOperation( value = "Finds one accommodation by id.", notes = "Returns found accommodation.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity<  AccommodationDTO > getAccommodationById(@PathVariable("accommodationId") long id) {
+		
+		AccommodationDTO accommodation = accommodationService.findById(id);
+		
+		return ( accommodation.getAccommodationUnitId() != null )? new ResponseEntity< AccommodationDTO > (accommodation, HttpStatus.OK ) : new ResponseEntity<AccommodationDTO>( HttpStatus.NOT_FOUND);
+		
 	}
 
 	@GetMapping("/agent/{username}")
-	public List<Accommodation> getAccommodationsByAgent(@PathVariable String username) {
+	@ApiOperation( value = "Finds accommodations by agent username.", notes = "Returns found accommodation.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByAgent(@PathVariable String username) {
+		
+		List< AccommodationDTO > accommodations = accommodationService.findByName(username);
+		
+		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>( HttpStatus.NOT_FOUND);
 
-		// pozvati bazu da pronadje sve akomodacije kojima je vlasnik korisnik sa prosledjenim "username"-om
-		List<Accommodation> accommodations = new ArrayList<>();
-		Accommodation acc1 = new Accommodation(2, "Mala Soba 14", "nikola");
-		accommodations.add(acc1);
-
-		return accommodations;
 	}
 
 	@PostMapping("/")
 	@PreAuthorize("hasAuthority('CREATE_ACCOMMODATION')")
-	public Accommodation createAccommodation(@RequestBody Accommodation accommodation) { //Accommodation treba da bude zapravo AccommodationDTO
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return new Accommodation(1, accommodation.getName(), username);
+	@ApiOperation( value = "Create an accommodation.", notes = "Returns the accommodation being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
+	@ApiResponses( value = {
+					@ApiResponse( code = 201 , message = "Created"),
+					@ApiResponse( code = 400, message= "Bad request")
+	})
+	public ResponseEntity< AccommodationDTO > createAccommodation(@RequestBody AccommodationDTO accommodation) {
+		
+		AccommodationDTO savedAccommodation = accommodationService.save(accommodation);
+		
+		return ( savedAccommodation!=null )? new ResponseEntity< AccommodationDTO > ( savedAccommodation, HttpStatus.CREATED ) : new ResponseEntity< AccommodationDTO > ( HttpStatus.BAD_REQUEST );
+
 	}
 
-	@PutMapping("/")
+	@PutMapping("/{accommodationId}")
 	@PreAuthorize("hasAuthority('UPDATE_ACCOMMODATION')")
-	public Accommodation updateAccommodation(@RequestBody Accommodation accommodation) { //Accommodation treba da bude zapravo AccommodationDTO
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return new Accommodation(1, accommodation.getName(), username);
+	@ApiOperation( value= "Change an accommodation", notes = "Returns the accommodation being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< AccommodationDTO > updateAccommodation(@PathVariable("accommodationId") long id, @RequestBody AccommodationDTO accommodation) { //Accommodation treba da bude zapravo AccommodationDTO
+	//	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		
+		AccommodationDTO accommodationToUpdate = accommodationService.update(id, accommodation);
+		
+	    return ( accommodationToUpdate.getAccommodationUnitId() != null )? new ResponseEntity< AccommodationDTO > ( accommodationToUpdate, HttpStatus.OK ) : new ResponseEntity< AccommodationDTO > ( HttpStatus.BAD_REQUEST );
+
+	
 	}
 
 	@DeleteMapping("/{accommodationId}")
 	@PreAuthorize("hasAuthority('DELETE_ACCOMMODATION')")
-	public Accommodation deleteAccommodation(@PathVariable("accommodationId") long id) {
-		return new Accommodation(1, "Velika Soba 69", "admin");
+	@ApiOperation( value = "Delete an accommodation.", notes = "Returns the accommodation being deleted", httpMethod="DELETE")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< AccommodationDTO > deleteAccommodation(@PathVariable("accommodationId") long id) {
+	
+		AccommodationDTO deletedAccommodation = accommodationService.delete(id);
+		
+		if (deletedAccommodation.getAccommodationUnitId() != null)
+			return new ResponseEntity< AccommodationDTO > ( deletedAccommodation,HttpStatus.OK );
+		else
+			return new ResponseEntity< AccommodationDTO > ( HttpStatus.NOT_FOUND );
+
 	}
 
 	/*
