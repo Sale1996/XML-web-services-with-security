@@ -1,37 +1,138 @@
 package com.tim9.accommodationservice.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.accommodationservice.dtos.ExtraFieldDTO;
+import com.tim9.accommodationservice.models.ExtraField;
+import com.tim9.accommodationservice.repository.ExtraFieldRepository;
+import com.tim9.accommodationservice.utils.dtoConverters.DTOExtraFieldConverter;
 
 @Service
 public class ExtraFieldService {
+	
+	@Autowired
+	ExtraFieldRepository extraFieldRepository;
+	
+	@Autowired
+	DTOExtraFieldConverter extraFieldConverter;
+	
+	
 
 	public List<ExtraFieldDTO> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Optional< List<ExtraField> > extraFields = Optional.of( extraFieldRepository.findAll() );
+		
+		ArrayList < ExtraFieldDTO > dtoExtraFields = new ArrayList<ExtraFieldDTO>();
+		
+		if ( extraFields.isPresent() ) {
+			
+			for ( ExtraField extraField : extraFields.get() ) {
+				
+				dtoExtraFields.add(extraFieldConverter.convertToDTO(extraField));
+				
+			}
+			
+			return dtoExtraFields;
+			
+		}
+			
+		return Collections.emptyList();
+
+		
 	}
 
 	public ExtraFieldDTO findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Optional< ExtraField > extraField = extraFieldRepository.findById(id);
+		
+		
+		if ( extraField.isPresent() ) {
+			
+			return extraFieldConverter.convertToDTO(extraField.get());
+		
+		}
+		else {
+			
+			return new ExtraFieldDTO();
+			
+		}
+		
 	}
 
 	public ExtraFieldDTO save(ExtraFieldDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//checking if there is already ExtraField with the same name
+	
+		Optional< ExtraField > foundExtraField = extraFieldRepository.findByExtraFieldName(dto.getExtraFieldName());
+		
+		if( foundExtraField.isPresent() ) {
+			
+			return new ExtraFieldDTO();
+		
+		}
+		
+		dto.setExtraFieldId(-1l);
+			
+		ExtraField ExtraField = extraFieldRepository.save(extraFieldConverter.convertFromDTO(dto));
+		
+		dto.setExtraFieldId(ExtraField.getExtraFieldId());
+		
+		return dto;
+
 	}
 
-	public ExtraFieldDTO update(Long id, ExtraFieldDTO extraFieldDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	public ExtraFieldDTO update(Long id, ExtraFieldDTO updatedExtraField) {
+		
+		Optional< ExtraField > extraFieldForChange = extraFieldRepository.findById(id);
+		
+		if( extraFieldForChange.isPresent() && updatedExtraField!=null ) {
+			
+			//checking if there is already ExtraField with the same name but not same id
+			
+			Optional<ExtraField> foundExtraField = extraFieldRepository.findByExtraFieldName(updatedExtraField.getExtraFieldName());
+			
+			if( foundExtraField.isPresent() && foundExtraField.get().getExtraFieldId() != extraFieldForChange.get().getExtraFieldId() ) {
+				
+				return new ExtraFieldDTO();
+			
+			}
+										
+			extraFieldForChange.get().setExtraFieldName(updatedExtraField.getExtraFieldName());
+			extraFieldForChange.get().setExtraPrice(updatedExtraField.getExtraPrice());
+			extraFieldForChange.get().setOptional(updatedExtraField.isOptional());
+	
+			extraFieldRepository.save(extraFieldForChange.get());
+			
+			updatedExtraField.setExtraFieldId(extraFieldForChange.get().getExtraFieldId());
+			
+			
+			return updatedExtraField;
+		
+		}
+		
+		return new ExtraFieldDTO();
 	}
 
 	public ExtraFieldDTO delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Optional< ExtraField > extraFieldToDelete = extraFieldRepository.findById(id);
+		
+		if( extraFieldToDelete.isPresent() ) {
+			
+			extraFieldRepository.deleteById(id);
+			
+			return extraFieldConverter.convertToDTO(extraFieldToDelete.get());
+		
+		}
+		
+		return new ExtraFieldDTO();
+		
 	}
 
 }

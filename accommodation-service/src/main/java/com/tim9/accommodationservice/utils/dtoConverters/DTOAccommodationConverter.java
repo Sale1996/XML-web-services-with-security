@@ -27,7 +27,7 @@ public class DTOAccommodationConverter {
 		
 		AccommodationDTO dto = new AccommodationDTO();
 		
-		dto.setAccommodationUnitId(accommodation.getAccommodationUnitId());
+		dto.setAccommodationId(accommodation.getAccommodationId());
 		dto.setDescription(accommodation.getDescription());
 		dto.setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
 		dto.setXCord(accommodation.getXCord());
@@ -43,7 +43,7 @@ public class DTOAccommodationConverter {
 	
 	public Accommodation convertFromDTO( AccommodationDTO dto ) {
 		
-		Optional<Accommodation> accommodation = accommodationRepository.findById(dto.getAccommodationUnitId());
+		Optional<Accommodation> accommodation = accommodationRepository.findById(dto.getAccommodationId());
 		
 		if(accommodation.isPresent()) {
 			
@@ -53,7 +53,7 @@ public class DTOAccommodationConverter {
 		
 		Accommodation newBean = new Accommodation();
 		
-		newBean.setAccommodationUnitId(dto.getAccommodationUnitId());
+		newBean.setAccommodationId(dto.getAccommodationId());
 		newBean.setDescription(dto.getDescription());
 		newBean.setNumberOfDaysBeforeCancelation(dto.getNumberOfDaysBeforeCancelation());
 		newBean.setXCord(dto.getXCord());

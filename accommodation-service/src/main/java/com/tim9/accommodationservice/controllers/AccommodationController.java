@@ -56,7 +56,7 @@ public class AccommodationController {
 		
 		AccommodationDTO accommodation = accommodationService.findById(id);
 		
-		return ( accommodation.getAccommodationUnitId() != null )? new ResponseEntity< AccommodationDTO > (accommodation, HttpStatus.OK ) : new ResponseEntity<AccommodationDTO>( HttpStatus.NOT_FOUND);
+		return ( accommodation.getAccommodationId() != null )? new ResponseEntity< AccommodationDTO > (accommodation, HttpStatus.OK ) : new ResponseEntity<AccommodationDTO>( HttpStatus.NOT_FOUND);
 		
 	}
 
@@ -99,7 +99,7 @@ public class AccommodationController {
 		
 		AccommodationDTO accommodationToUpdate = accommodationService.update(id, accommodation);
 		
-	    return ( accommodationToUpdate.getAccommodationUnitId() != null )? new ResponseEntity< AccommodationDTO > ( accommodationToUpdate, HttpStatus.OK ) : new ResponseEntity< AccommodationDTO > ( HttpStatus.BAD_REQUEST );
+	    return ( accommodationToUpdate.getAccommodationId() != null )? new ResponseEntity< AccommodationDTO > ( accommodationToUpdate, HttpStatus.OK ) : new ResponseEntity< AccommodationDTO > ( HttpStatus.BAD_REQUEST );
 
 	
 	}
@@ -114,7 +114,7 @@ public class AccommodationController {
 	
 		AccommodationDTO deletedAccommodation = accommodationService.delete(id);
 		
-		if (deletedAccommodation.getAccommodationUnitId() != null)
+		if (deletedAccommodation.getAccommodationId() != null)
 			return new ResponseEntity< AccommodationDTO > ( deletedAccommodation,HttpStatus.OK );
 		else
 			return new ResponseEntity< AccommodationDTO > ( HttpStatus.NOT_FOUND );

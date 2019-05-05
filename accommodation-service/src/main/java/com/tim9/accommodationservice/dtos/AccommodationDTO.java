@@ -33,8 +33,8 @@ public class AccommodationDTO {
 
 
 
-	@XmlElement(name = "Accommodation_unit_id")
-    protected Long accommodationUnitId;
+	@XmlElement(name = "Accommodation_id")
+    protected Long accommodationId;
     
     
     @XmlElement(name = "Description", required = true)
@@ -73,12 +73,12 @@ public class AccommodationDTO {
 		this.pictures = pictures;
 	}
     
-    public Long getAccommodationUnitId() {
-        return accommodationUnitId;
+    public Long getAccommodationId() {
+        return accommodationId;
     }
 
-    public void setAccommodationUnitId(Long value) {
-        this.accommodationUnitId = value;
+    public void setAccommodationId(Long value) {
+        this.accommodationId = value;
     }
 
    

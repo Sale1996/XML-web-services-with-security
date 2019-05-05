@@ -37,11 +37,11 @@ import javax.xml.bind.annotation.XmlType;
 @Table( name= "acccomodations" )
 public class Accommodation {
 
-    @XmlElement(name = "Accommodation_unit_id")
+    @XmlElement(name = "Accommodation_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
 	@Column ( name = "id" )
-    protected Long accommodationUnitId;
+    protected Long accommodationId;
     
     
     @XmlElement(name = "Description", required = true)
@@ -100,12 +100,12 @@ public class Accommodation {
 		this.pictures = pictures;
 	}
 
-	public Long getAccommodationUnitId() {
-        return accommodationUnitId;
+	public Long getAccommodationId() {
+        return accommodationId;
     }
 
-    public void setAccommodationUnitId(Long value) {
-        this.accommodationUnitId = value;
+    public void setAccommodationId(Long value) {
+        this.accommodationId = value;
     }
 
    
