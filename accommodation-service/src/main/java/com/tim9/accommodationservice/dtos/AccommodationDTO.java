@@ -8,6 +8,9 @@
 
 package com.tim9.accommodationservice.dtos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,7 +30,10 @@ import javax.xml.bind.annotation.XmlType;
 
 public class AccommodationDTO {
 
-    @XmlElement(name = "Accommodation_unit_id")
+
+
+
+	@XmlElement(name = "Accommodation_unit_id")
     protected Long accommodationUnitId;
     
     
@@ -46,7 +52,26 @@ public class AccommodationDTO {
     @XmlElement(name = "Number_of_days_before_cancelation")
     protected int numberOfDaysBeforeCancelation;
 
+    
+	@XmlElement(name = "Accommodation_pictures")
+	protected List<PictureDTO> pictures = new ArrayList<PictureDTO>();
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    public List<PictureDTO> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<PictureDTO> pictures) {
+		this.pictures = pictures;
+	}
     
     public Long getAccommodationUnitId() {
         return accommodationUnitId;

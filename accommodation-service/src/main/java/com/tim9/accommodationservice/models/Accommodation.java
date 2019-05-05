@@ -76,7 +76,31 @@ public class Accommodation {
 	protected List<Picture> pictures;
 
     
-    public Long getAccommodationUnitId() {
+    public List<AccommodationUnit> getUnits() {
+		return units;
+	}
+
+	public void setUnits(List<AccommodationUnit> units) {
+		this.units = units;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public List<Picture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<Picture> pictures) {
+		this.pictures = pictures;
+	}
+
+	public Long getAccommodationUnitId() {
         return accommodationUnitId;
     }
 

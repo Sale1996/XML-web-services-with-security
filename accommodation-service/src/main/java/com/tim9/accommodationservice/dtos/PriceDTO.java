@@ -9,13 +9,14 @@
 package com.tim9.accommodationservice.dtos;
 
 
+import java.time.LocalDate;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -31,7 +32,7 @@ public class PriceDTO {
     
     @XmlElement(name = "Date_from", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateFrom;
+    protected LocalDate dateFrom;
     
     
     @XmlElement(name = "Amount")
@@ -39,7 +40,7 @@ public class PriceDTO {
     
     @XmlElement(name = "Date_to", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateTo;
+    protected LocalDate dateTo;
 
   
     public Long getPriceId() {
@@ -52,12 +53,12 @@ public class PriceDTO {
     }
 
  
-    public XMLGregorianCalendar getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
  
-    public void setDateFrom(XMLGregorianCalendar value) {
+    public void setDateFrom(LocalDate value) {
         this.dateFrom = value;
     }
 
@@ -72,12 +73,12 @@ public class PriceDTO {
     }
 
   
-    public XMLGregorianCalendar getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
   
-    public void setDateTo(XMLGregorianCalendar value) {
+    public void setDateTo(LocalDate value) {
         this.dateTo = value;
     }
 
