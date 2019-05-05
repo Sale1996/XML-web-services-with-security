@@ -33,14 +33,11 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		// authorization requests config
 		.authorizeRequests()
 		   // allow all who are accessing "auth" service
-		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()  
-		   .antMatchers(HttpMethod.GET, "auth/users/**").permitAll() 
-		   .antMatchers(HttpMethod.GET, "/auth/users/**").permitAll()
-		   .antMatchers(HttpMethod.GET, "auth/auth/users/**").permitAll()
-		   .antMatchers(HttpMethod.GET, "/auth/auth/users/**").permitAll()
-		   
-		   .antMatchers(HttpMethod.GET, "/accommodation/accommodations").permitAll()
-		    .antMatchers(HttpMethod.GET, "/accommodation/accommodations/**").permitAll()
+		.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+		.antMatchers(HttpMethod.GET, "/auth/users/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/auth/auth/users/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/accommodation/accommodations").permitAll()
+		.antMatchers(HttpMethod.GET, "/accommodation/accommodations/**").permitAll()
 //		   .antMatchers(HttpMethod.GET, "reservation/reservations/**").permitAll()
 //		   .antMatchers(HttpMethod.GET, "/reservation/reservations/**").permitAll()
 //		   .antMatchers(HttpMethod.GET, "reservation/reservation/reservations/**").permitAll()
