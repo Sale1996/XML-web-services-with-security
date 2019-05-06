@@ -1,12 +1,14 @@
-<div class="fluid-container">
-  <div class="row">
-    <div class="col">
-      <app-navigation></app-navigation>
-    </div>
+<div class="site">
+  <div class="top-bar">
+    <app-navigation></app-navigation>
   </div>
-  <div class="row">
-    <div class="col">
-      <router-outlet></router-outlet>
+  <div class="main">
+    <div class="container-fluid d-flex flex-column full-height">
+      <!-- <div class="row">
+        <div class="col"> -->
+          <router-outlet class=""></router-outlet>
+        <!-- </div>
+      </div> -->
     </div>
   </div>
 </div>
