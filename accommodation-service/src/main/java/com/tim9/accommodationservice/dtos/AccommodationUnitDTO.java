@@ -49,11 +49,11 @@ public class AccommodationUnitDTO {
     
     
     @XmlElement(name = "Extra_field", required = true)
-    protected List<ExtraFieldDTO> extraField;
+    protected List<ExtraFieldDTO> extraField = new ArrayList<ExtraFieldDTO>();
     
     
     @XmlElement(name = "Price", required = true)
-    protected List<PriceDTO> price;
+    protected List<PriceDTO> price =  new ArrayList<PriceDTO>();
 
 
     public Long getAccommodationUnitId() {
