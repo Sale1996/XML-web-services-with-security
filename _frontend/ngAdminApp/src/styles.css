@@ -5,7 +5,6 @@ body {
     font-family: 'Roboto', sans-serif !important;
     background: #F2F3F8 !important;
 }
-
 .fs-1 {
     font-size: 12px !important;
 }
@@ -21,7 +20,6 @@ body {
 .fs-5 {
     font-size: 24px !important;
 }
-
 svg {
     opacity: 0.33;
     -webkit-transition: all 350ms ease-in;
@@ -30,7 +28,6 @@ svg {
     -o-transition: all 350ms ease-in;
     transition: all 350ms ease-in;
 }
-
 svg:hover {
     opacity: 1;
     -webkit-transition: all 350ms ease-in;
@@ -39,7 +36,6 @@ svg:hover {
     -o-transition: all 350ms ease-in;
     transition: all 350ms ease-in;
 }
-
 a, a:hover {
     -webkit-transition: all 200ms ease-in;
     -moz-transition: all 200ms ease-in;
@@ -47,11 +43,9 @@ a, a:hover {
     -o-transition: all 200ms ease-in;
     transition: all 200ms ease-in;
 }
-
 .full-height {
     height: 100%;
 }
-
 .box {
     background: #fff;
     border-radius: 5px;
@@ -59,7 +53,6 @@ a, a:hover {
     box-shadow: 0px 0px 40px 0px rgba(82,63,105,0.05);
     -webkit-transition: all 0.3s ease;
 }
-
 .blue-badge {
     color: rgba(0, 123, 255, 1) !important;
     background: rgba(0, 123, 255, 0.06) !important;
@@ -67,12 +60,17 @@ a, a:hover {
     border-radius: 5px;
     font-weight: 500;
 }
-
-.approve-button {
+.regular-badge {
+    color: rgb(127, 127, 127, 1) !important;
+    background: rgb(127, 127, 127, 0.06) !important;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.table-btn {
     width: 36px;
     height:36px;
     background: transparent ;
-    border: 1px solid rgb(65, 194, 65);
     border-radius: 50%;
     -webkit-transition: all 200ms ease-in;
     -moz-transition: all 200ms ease-in;
@@ -81,9 +79,7 @@ a, a:hover {
     transition: all 200ms ease-in;
     display: inline-flex;
 }
-
-.approve-button:hover, .approve-button:focus {
-    background: rgb(65, 194, 65);
+.table-btn:hover, .table-btn:focus {
     -webkit-transition: all 200ms ease-in;
     -moz-transition: all 200ms ease-in;
     -ms-transition: all 200ms ease-in;
@@ -91,60 +87,54 @@ a, a:hover {
     transition: all 200ms ease-in;
     cursor: pointer;
 }
-
-.approve-button svg {
+.table-btn-success {
+    border: 1px solid rgb(65, 194, 65);
+}
+.table-btn-danger {
+    border: 1px solid rgb(218, 43, 43);
+}
+.table-btn-regular {
+    border: 1px solid rgb(127, 127, 127);
+}
+.table-btn-success:hover, .table-btn-success:focus {
+    background: rgb(65, 194, 65);
+}
+.table-btn-danger:hover, .table-btn-danger:focus {
+    background: rgb(218, 43, 43);
+}
+.table-btn-regular:hover, .table-btn-regular:focus {
+    background: rgb(127, 127, 127);
+}
+.table-btn-success svg {
     fill: rgb(65, 194, 65);
+}
+.table-btn-danger svg {
+    fill: rgb(218, 43, 43);
+}
+.table-btn-regular svg {
+    fill: rgb(127, 127, 127);
+}
+.table-btn svg {
     width: 36px;
     height: 36px;
     opacity: 1;
 }
-.approve-button svg:hover {
+.table-btn svg:hover {
     fill: #ffffff;
 }
-.approve-button:focus {
+.table-btn:focus {
     outline: none;
 }
-.cancel-button {
-    width: 36px;
-    height:36px;
-    background: transparent ;
-    border: 1px solid rgb(218, 43, 43);
-    border-radius: 50%;
-    -webkit-transition: all 200ms ease-in;
-    -moz-transition: all 200ms ease-in;
-    -ms-transition: all 200ms ease-in;
-    -o-transition: all 200ms ease-in;
-    transition: all 200ms ease-in;
-    display: inline-flex;
-}
-
-.cancel-button:hover, .cancel-button:focus {
-    background: rgb(218, 43, 43);
-    -webkit-transition: all 200ms ease-in;
-    -moz-transition: all 200ms ease-in;
-    -ms-transition: all 200ms ease-in;
-    -o-transition: all 200ms ease-in;
-    transition: all 200ms ease-in;
-    cursor: pointer;
-}
-
-.cancel-button svg {
-    fill: rgb(218, 43, 43) !important;
-    width: 36px;
-    height: 36px;
-    opacity: 1;
-}
-.cancel-button svg:hover {
-    fill: #ffffff !important;
-}
-.cancel-button:focus {
-    outline: none;
-}
-
 .inline {
     display: inline-grid;
 }
-
+.borderless {
+    border: 0 !important;
+}
+.blocked {
+    background: rgb(218, 43, 43, 0.05);
+    color: rgb(218, 43, 43);
+}
 table td, table th {
     font-size: 14px;
     vertical-align: middle !important;
@@ -174,12 +164,11 @@ table thead tr th {
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
-app-user-review {
+app-user-review, app-users {
     flex: 1;
     padding-top: 15px;
     padding-bottom: 15px;
 }
-
 .tableFixHead {
     overflow: auto;
     height: 100px;
@@ -195,33 +184,28 @@ table thead tr th {
     -webkit-transition: all 0.3s ease;
     z-index: 1;
 }
-
 /* width */
 ::-webkit-scrollbar:vertical {
     width: 4px;
 }
-
 ::-webkit-scrollbar:horizontal {
     height: 4px;
 }
-  
+
 /* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1; 
 }
-
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 5px; 
 }
-
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
     width: 10px;
 }
-
 ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover {
     -webkit-transition: all 200ms ease-in;
     -moz-transition: all 200ms ease-in;
