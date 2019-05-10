@@ -17,15 +17,12 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "User", propOrder = {
-    "email",
-    "telephoneNumber"
+    "telephoneNumber",
+    "address",
+    "activated"
 })
 @Entity
 public class User extends AbstractUser {
-	
-    @XmlElement(required = true)
-    @Column
-    protected String email;
     
     @XmlElement(name = "telephone_number", required = true)
     @Column
@@ -35,33 +32,9 @@ public class User extends AbstractUser {
     @Column
     protected String address;
     
-    @XmlElement(name = "type", required = true)
+    @XmlElement(name = "activated", required = true)
     @Column
-    protected UserType type;
-
-	/**
-     * Gets the value of the email property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets the value of the email property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEmail(String value) {
-        this.email = value;
-    }
+    protected Boolean activated;
 
     /**
      * Gets the value of the telephoneNumber property.
@@ -95,12 +68,12 @@ public class User extends AbstractUser {
 		this.address = address;
 	}
 
-	public UserType getType() {
-		return type;
+	public Boolean getActivated() {
+		return activated;
 	}
 
-	public void setType(UserType type) {
-		this.type = type;
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
 	}
-  
+	
 }

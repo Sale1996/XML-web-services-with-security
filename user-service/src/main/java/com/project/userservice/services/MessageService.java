@@ -24,11 +24,6 @@ public class MessageService {
 		return null;
 	}
 	
-	public List<MessageDTO> findByName(String username){
-		
-		return null;
-	}
-	
 	public MessageDTO update(long id, MessageDTO message){
 		
 		return null;

@@ -18,12 +18,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AbstractUser", propOrder = {
-    "name",
-    "surname",
-    "username",
+    "firstName",
+    "lastName",
+    "email",
     "password"
 })
 @XmlSeeAlso({
@@ -41,114 +40,60 @@ public class AbstractUser {
 	
     @XmlElement(required = true)
     @Column
-    protected String name;
+    protected String firstName;
     
     @XmlElement(required = true)
     @Column
-    protected String surname;
+    protected String lastName;
     
     @XmlElement(required = true)
     @Column
-    protected String username;
+    protected String email;
     
     @XmlElement(required = true)
     @Column
     protected String password;
 
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    /**
-     * Gets the value of the surname property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSurname() {
-        return surname;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    /**
-     * Sets the value of the surname property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSurname(String value) {
-        this.surname = value;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    /**
-     * Gets the value of the username property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUsername() {
-        return username;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    /**
-     * Sets the value of the username property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUsername(String value) {
-        this.username = value;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    /**
-     * Gets the value of the password property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPassword() {
-        return password;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    /**
-     * Sets the value of the password property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPassword(String value) {
-        this.password = value;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+   
 
 }

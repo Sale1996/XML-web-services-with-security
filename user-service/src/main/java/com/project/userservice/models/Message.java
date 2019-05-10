@@ -30,7 +30,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @Entity
 public class Message {
 
-    @XmlElement(name = "Mesasge_id")
+    @XmlElement(name = "Message_id")
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     @Column
@@ -44,16 +44,14 @@ public class Message {
     @XmlSchemaType(name = "date")
     @Column
     protected Date messageTime;
-    
-    // Sender mora biti User
-    
+     
     @XmlElement(name = "sender", required = true)
     @Column
-    protected String sender;
+    protected Long senderId;
     
     @XmlElement(name = "reciever", required = true)
     @Column
-    protected String reciever;
+    protected Long recieverId;
 
     /**
      * Gets the value of the mesasgeId property.
@@ -119,52 +117,21 @@ public class Message {
         this.messageTime = value;
     }
 
-    /**
-     * Gets the value of the sender property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AbstractUser }
-     *     
-     */
-    public String getSender() {
-        return sender;
-    }
+    
+    public Long getSenderId() {
+		return senderId;
+	}
 
-    /**
-     * Sets the value of the sender property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AbstractUser }
-     *     
-     */
-    public void setSender(String value) {
-        this.sender = value;
-    }
+	public void setSenderId(Long senderId) {
+		this.senderId = senderId;
+	}
 
-    /**
-     * Gets the value of the reciever property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AbstractUser }
-     *     
-     */
-    public String getReciever() {
-        return reciever;
-    }
+	public Long getRecieverId() {
+		return recieverId;
+	}
 
-    /**
-     * Sets the value of the reciever property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AbstractUser }
-     *     
-     */
-    public void setReciever(String value) {
-        this.reciever = value;
-    }
+	public void setRecieverId(Long recieverId) {
+		this.recieverId = recieverId;
+	}
 
 }

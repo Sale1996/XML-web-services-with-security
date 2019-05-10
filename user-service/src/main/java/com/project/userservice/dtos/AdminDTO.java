@@ -14,14 +14,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     "firstName",
     "lastName",
     "email",
-    "telephone_number",
-    "address",
-    "activated",
     "password"
 })
 @XmlRootElement(name = "User")
 @JsonIgnoreProperties(value = "password", allowGetters=false, allowSetters=true)
-public class UserDTO {
+public class AdminDTO {
 	
 	@XmlElement(name = "id")
 	protected Long id;
@@ -35,20 +32,11 @@ public class UserDTO {
     @XmlElement(name = "email")
     protected String email;
     
-    @XmlElement(name = "telephoneNumber")
-    protected String telephoneNumber;
-    
-    @XmlElement(name = "address")
-    protected String address;
-    
-    @XmlElement(name = "activated")
-    protected Boolean activated;
-    
     @XmlElement(name = "password")
     protected String password;
     
-    public UserDTO() {}
-
+    public AdminDTO() {}
+    
 	public Long getId() {
 		return id;
 	}
@@ -80,31 +68,7 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
-
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Boolean getActivated() {
-		return activated;
-	}
-
-	public void setActivated(Boolean activated) {
-		this.activated = activated;
-	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -112,6 +76,6 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-  
-
+    
+    	
 }
