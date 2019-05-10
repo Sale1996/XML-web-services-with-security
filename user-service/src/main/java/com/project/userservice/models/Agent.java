@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Agent", propOrder = {
-    "businessRegistrationNumber"
+    "businessRegistrationNumber",
+    "activated"
 })
 @Entity
 public class Agent extends AbstractUser {
@@ -27,7 +28,19 @@ public class Agent extends AbstractUser {
     @Column
     protected String businessRegistrationNumber;
     
-    /**
+    @XmlElement(name = "activated", required = true)
+    @Column
+    protected Boolean activated;
+    
+    public Boolean getActivated() {
+		return activated;
+	}
+
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
+	}
+
+	/**
      * Gets the value of the businessRegistrationNumber property.
      * 
      * @return

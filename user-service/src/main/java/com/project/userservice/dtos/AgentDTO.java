@@ -1,59 +1,89 @@
 package com.project.userservice.dtos;
 
+import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "id",
-    "name",
-    "surname",
-    "username",
-    "business_registration_number"
+    "firstName",
+    "lastName",
+    "email",
+    "business_registration_number",
+    "activated",
+    "password"
 })
 @XmlRootElement(name = "Agent")
+@JsonIgnoreProperties(value = "password", allowGetters=false, allowSetters=true)
 public class AgentDTO {
 	
 	@XmlElement(name = "id")
 	protected Long id;
 	
-    @XmlElement(name = "name")
-    protected String name;
+    @XmlElement(name = "firstName")
+    protected String firstName;
     
-    @XmlElement(name = "surname")
-    protected String surname;
+    @XmlElement(name = "lastName")
+    protected String lastName;
     
-    @XmlElement(name = "username")
-    protected String username;
+    @XmlElement(name = "email")
+    protected String email;
 	
     @XmlElement(name = "business_registration_number")
     protected String businessRegistrationNumber;
-
-	public String getName() {
-		return name;
+    
+    @XmlElement(name = "activated", required = true)
+    protected Boolean activated;
+    
+    @XmlElement(name = "password")
+    protected String password;
+    
+    public AgentDTO() {}
+    
+	public Boolean getActivated() {
+		return activated;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
 	}
 
-	public String getSurname() {
-		return surname;
+	public Long getId() {
+		return id;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getBusinessRegistrationNumber() {
@@ -64,12 +94,13 @@ public class AgentDTO {
 		this.businessRegistrationNumber = businessRegistrationNumber;
 	}
 
-	public Long getId() {
-		return id;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
+
+    
 }
