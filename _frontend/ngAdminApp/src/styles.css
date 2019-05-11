@@ -236,10 +236,35 @@ table thead tr th {
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
-app-user-review, app-users, app-agents {
+app-user-review, app-users, app-agents, app-code-book {
     flex: 1;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+app-code-book {
+    display: flex;
+    flex-direction: column;
+}
+ngb-tabset .tab-content, ngb-tabset .tab-content .tab-pane {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+ngb-tabset ul {
+    border: 0 !important;
+    z-index: 1;
+}
+ngb-tabset ul li a {
+    font-weight: 500;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: rgba(0,0,0,.5);
+    border: 0 !important;
+}
+ngb-tabset ul li .active, ngb-tabset ul li a:hover {
+    color: #000000 !important;
 }
 .tableFixHead {
     overflow: auto;
@@ -506,6 +531,10 @@ table thead tr th {
     }
   }
 /* end of Searchbox */
+/* Login */
+app-login {
+    height: 100vh;
+}
 /* width */
 ::-webkit-scrollbar:vertical {
     width: 4px;

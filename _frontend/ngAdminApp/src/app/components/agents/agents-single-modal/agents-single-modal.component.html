@@ -6,8 +6,8 @@
       </svg>
     </span>
   </div>
+  <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
   <div class="modal-body px-5">
-    <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="form-group">
@@ -33,9 +33,9 @@
               </div>
             </div>
         </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
+      <button type="submit" [disabled]="!agentForm.valid" class="btn btn-primary">Add Agent</button>
+      <button type="button"  class="btn btn-secondary" (click)="activeModal.close('Close click')">Cancel</button>
+    </div>
     </form>
-  </div>
-  <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
-    <button type="submit" [disabled]="!agentForm.valid" class="btn btn-primary">Add Agent</button>
-    <button type="button"  class="btn btn-secondary" (click)="activeModal.close('Close click')">Cancel</button>
-  </div>
