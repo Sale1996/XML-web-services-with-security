@@ -16,6 +16,10 @@ import { LoginComponent } from './components/login/login.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserReviewComponent } from './components/user-review/user-review.component';
 import { UsersComponent } from './components/users/users.component';
+import { AccommodationCategoriesComponent } from './components/code-book/accommodation-categories/accommodation-categories.component';
+import { AccommodationCategoriesSingleModalComponent } from './components/code-book/accommodation-categories/accommodation-categories-single-modal/accommodation-categories-single-modal.component';
+import { AdditionalServicesComponent } from './components/code-book/additional-services/additional-services.component';
+import { AdditionalServicesSingleModalComponent } from './components/code-book/additional-services/additional-services-single-modal/additional-services-single-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { UsersComponent } from './components/users/users.component';
     LoginComponent,
     CodeBookComponent,
     AccommodationTypesComponent,
-    AccommodationTypesSingleModalComponent
+    AccommodationTypesSingleModalComponent,
+    AccommodationCategoriesComponent,
+    AccommodationCategoriesSingleModalComponent,
+    AdditionalServicesComponent,
+    AdditionalServicesSingleModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,12 @@ import { UsersComponent } from './components/users/users.component';
     AppRoutingModule
   ],
   providers: [],
-  entryComponents: [AgentsSingleModalComponent, AccommodationTypesSingleModalComponent],
+  entryComponents: [
+    AgentsSingleModalComponent,
+    AccommodationTypesSingleModalComponent,
+    AccommodationCategoriesSingleModalComponent,
+    AdditionalServicesSingleModalComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

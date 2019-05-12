@@ -14,13 +14,13 @@ export class AccommodationTypesComponent implements OnInit {
   ngOnInit() {
   }
 
-  open() {
+  open(id?: number) {
     const modalRef = this.modalService.open(AccommodationTypesSingleModalComponent,
       {
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
-    modalRef.componentInstance.name = 'World';
+    modalRef.componentInstance.id = id ? id : null;
   }
 
 }

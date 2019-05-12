@@ -266,6 +266,17 @@ ngb-tabset ul li a {
 ngb-tabset ul li .active, ngb-tabset ul li a:hover {
     color: #000000 !important;
 }
+ngb-tabset ul li a span {
+    vertical-align: middle;
+}
+ngb-tabset ul li a svg {
+    width: 36px;
+    height: 36px;
+}
+ngb-tabset ul li .active svg, ngb-tabset ul li a:hover svg {
+    fill: rgba(0, 123, 255, 1);
+    opacity: 1 !important;
+}
 .tableFixHead {
     overflow: auto;
     height: 100px;

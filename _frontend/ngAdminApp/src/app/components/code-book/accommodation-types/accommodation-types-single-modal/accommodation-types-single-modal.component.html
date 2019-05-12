@@ -1,5 +1,5 @@
 <div class="modal-header px-5 pt-5">
-  <h4 class="modal-title">Type's Details</h4>
+  <h4 class="modal-title">Type Details</h4>
   <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless" (click)="activeModal.dismiss('Cross click')">
     <svg class="icon">
       <use xlink:href="#Close_Icon"></use>
@@ -18,7 +18,7 @@
       </div>
   </div>
   <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
-    <button type="submit" [disabled]="!accommodationTypeForm.valid" class="btn btn-primary">Add Type</button>
+    <button type="submit" [disabled]="!accommodationTypeForm.valid" class="btn btn-primary">{{submitBtnText}}</button>
     <button type="button"  class="btn btn-secondary" (click)="activeModal.close('Close click')">Cancel</button>
   </div>
 </form>

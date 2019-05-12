@@ -1,22 +1,46 @@
 <ngb-tabset justify="justified" class="d-flex flex-column flex-grow-1">
-  <ngb-tab title="Accommodation Types">
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <svg>
+        <use xlink:href="#AccommodationType_Icon"></use>
+      </svg>
+      <span class="ml-1">Types</span>
+    </ng-template>
     <ng-template ngbTabContent>
       <app-accommodation-types class="d-flex flex-column flex-grow-1"></app-accommodation-types>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Accommodation Categories" class="d-flex flex-column flex-grow-1">
-    <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-      <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-      craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-      cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-      yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
-      shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
-      sint qui sapiente accusamus tattooed echo park.</p>
+  <ngb-tab class="d-flex flex-column flex-grow-1">
+    <ng-template ngbTabTitle>
+      <svg>
+        <use xlink:href="#AccommodationCategory_Icon"></use>
+      </svg>
+      <span class="ml-1">Categories</span>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-accommodation-categories class="d-flex flex-column flex-grow-1"></app-accommodation-categories>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Additional Services" class="d-flex flex-column flex-grow-1">
+  <ngb-tab class="d-flex flex-column flex-grow-1">
+      <ng-template ngbTabTitle>
+        <svg>
+          <use xlink:href="#AdditionalService_Icon"></use>
+        </svg>
+        <span class="ml-1">Services</span>
+      </ng-template>
     <ng-template ngbTabContent>
-      <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+        <app-additional-services class="d-flex flex-column flex-grow-1"></app-additional-services>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
+<svg width="0" height="0" class="hidden d-none">
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="AccommodationType_Icon">
+      <path d="M26.7 19.3l-1-1-5.7-5.7V11c0-.6-.4-1-1-1h-9c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h15c.6 0 1-.4 1-1v-4c.3 0 .5-.1.7-.3.4-.4.4-1 0-1.4zM24 24h-4v-8.6l4 4V24zm-11-4v4h-2V12h7v12h-2v-4h-3z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="AccommodationCategory_Icon">
+      <path d="M18 19.2c-3.9 0-7 3.1-7 7h2c0-2.8 2.2-5 5-5s5 2.2 5 5h2c0-3.8-3.1-7-7-7zm-2.5-1.8l2.5-1.3 2.5 1.3-.5-2.8 2-1.9-2.8-.4L18 9.8l-1.2 2.5-2.8.4 2 1.9zm14.1-.4l-2.1-.3-.9-1.9-1 1.9-2 .3 1.5 1.4-.4 2.1 1.9-1 1.8 1-.3-2.1zm-18.7 1.4l1.5-1.4-2-.3-1-1.9-.9 1.9-2.1.3 1.5 1.4-.3 2.1 1.8-1 1.9 1z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="AdditionalService_Icon">
+      <path d="M26 22h-1c0-3.9-3.1-7-7-7s-7 3.1-7 7h-1c-.6 0-1 .4-1 1s.4 1 1 1h16c.6 0 1-.4 1-1s-.4-1-1-1zm-13 0c0-2.8 2.2-5 5-5s5 2.2 5 5H13zm3-8h4c.6 0 1-.4 1-1s-.4-1-1-1h-4c-.6 0-1 .4-1 1s.4 1 1 1z"></path>
+    </symbol>
+</svg>
