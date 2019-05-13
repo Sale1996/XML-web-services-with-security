@@ -1,5 +1,7 @@
 package com.project.userservice.dtos;
 
+import java.time.LocalDateTime;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -24,7 +26,7 @@ public class MessageDTO {
     protected String messageBody;
     
     @XmlElement(name = "Message_time")
-    protected String messageTime;
+    protected LocalDateTime messageTime;
     
     @XmlElement(name = "Sender")
     protected Long senderId;
@@ -52,11 +54,11 @@ public class MessageDTO {
 		this.messageBody = messageBody;
 	}
 
-	public String getMessageTime() {
+	public LocalDateTime getMessageTime() {
 		return messageTime;
 	}
 
-	public void setMessageTime(String messageTime) {
+	public void setMessageTime(LocalDateTime messageTime) {
 		this.messageTime = messageTime;
 	}
 

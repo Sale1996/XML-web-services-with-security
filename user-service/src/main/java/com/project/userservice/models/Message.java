@@ -7,6 +7,8 @@
 
 package com.project.userservice.models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +43,7 @@ public class Message {
     @XmlElement(name = "Message_time", required = true)
     @XmlSchemaType(name = "date")
     @Column
-    protected String messageTime;
+    protected LocalDateTime messageTime;
      
     @XmlElement(name = "sender", required = true)
     @Column
@@ -103,7 +105,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public String getMessageTime() {
+    public LocalDateTime getMessageTime() {
         return messageTime;
     }
 
@@ -115,7 +117,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setMessageTime(String value) {
+    public void setMessageTime(LocalDateTime value) {
         this.messageTime = value;
     }
 
