@@ -8,12 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.userservice.dtoConverters.DTOAdminConverter;
 import com.project.userservice.dtoConverters.DTOAgentConverter;
-import com.project.userservice.dtos.AdminDTO;
 import com.project.userservice.dtos.AgentDTO;
-import com.project.userservice.dtos.AgentDTO;
-import com.project.userservice.models.Admin;
 import com.project.userservice.models.Agent;
 import com.project.userservice.repositories.AgentRepository;
 
@@ -69,6 +65,7 @@ public class AgentService {
 			agentForChange.get().setPassword(agent.getPassword());
 			agentForChange.get().setActivated(agent.getActivated());
 			agentForChange.get().setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
+			agentForChange.get().setRole(agent.getRole());
 	
 			agentRepository.save(agentForChange.get());
 			

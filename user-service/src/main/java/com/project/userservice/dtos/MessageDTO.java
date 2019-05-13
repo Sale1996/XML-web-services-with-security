@@ -31,6 +31,10 @@ public class MessageDTO {
     
     @XmlElement(name = "Reciever")
     protected Long recieverId;
+    
+    @XmlElement(name = "reservationId")
+    protected Long reservationId;
+
 
 	public Long getMessageId() {
 		return messageId;
@@ -70,6 +74,14 @@ public class MessageDTO {
 
 	public void setRecieverId(Long recieverId) {
 		this.recieverId = recieverId;
+	}
+
+	public Long getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(Long reservationId) {
+		this.reservationId = reservationId;
 	}
     
     

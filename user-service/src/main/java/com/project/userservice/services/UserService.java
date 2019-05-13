@@ -66,6 +66,7 @@ public class UserService {
 			userForChange.get().setAddress(user.getAddress());
 			userForChange.get().setActivated(user.getActivated());
 			userForChange.get().setTelephoneNumber(user.getTelephoneNumber());
+			userForChange.get().setRole(user.getRole());
 	
 			userRepository.save(userForChange.get());
 			

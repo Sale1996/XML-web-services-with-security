@@ -7,8 +7,6 @@
 
 package com.project.userservice.models;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,7 +32,7 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     @Column
-    protected long mesasgeId;
+    protected Long messageId;
     
     @XmlElement(name = "Message_body", required = true)
     @Column
@@ -43,7 +41,7 @@ public class Message {
     @XmlElement(name = "Message_time", required = true)
     @XmlSchemaType(name = "date")
     @Column
-    protected Date messageTime;
+    protected String messageTime;
      
     @XmlElement(name = "sender", required = true)
     @Column
@@ -52,21 +50,25 @@ public class Message {
     @XmlElement(name = "reciever", required = true)
     @Column
     protected Long recieverId;
+    
+    @XmlElement(name = "reservationId")
+    @Column
+    protected Long reservationId;
 
     /**
      * Gets the value of the mesasgeId property.
      * 
      */
-    public long getMesasgeId() {
-        return mesasgeId;
+    public Long getMessageId() {
+        return messageId;
     }
 
     /**
      * Sets the value of the mesasgeId property.
      * 
      */
-    public void setMesasgeId(long value) {
-        this.mesasgeId = value;
+    public void setMessageId(Long value) {
+        this.messageId = value;
     }
 
     /**
@@ -101,7 +103,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getMessageTime() {
+    public String getMessageTime() {
         return messageTime;
     }
 
@@ -113,7 +115,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setMessageTime(Date value) {
+    public void setMessageTime(String value) {
         this.messageTime = value;
     }
 
@@ -133,5 +135,13 @@ public class Message {
 	public void setRecieverId(Long recieverId) {
 		this.recieverId = recieverId;
 	}
+	
+	public Long getReservationId() {
+		return reservationId;
+	}
 
+	public void setReservationId(Long reservationId) {
+		this.reservationId = reservationId;
+	}
+	
 }

@@ -23,6 +23,7 @@ public class DTOAdminConverter {
 		dto.setFirstName(admin.getFirstName());
 		dto.setLastName(admin.getLastName());
 		dto.setEmail(admin.getEmail());
+		dto.setRole(admin.getRole());
 		
 		return dto;
 	}
@@ -43,6 +44,7 @@ public class DTOAdminConverter {
 		a.setLastName(dto.getLastName());
 		a.setEmail(dto.getEmail());
 		a.setPassword(dto.getPassword());
+		a.setRole(dto.getRole());
 			
 		return a;
 		

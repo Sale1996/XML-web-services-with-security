@@ -23,7 +23,8 @@ import javax.xml.bind.annotation.XmlType;
     "firstName",
     "lastName",
     "email",
-    "password"
+    "password",
+    "role"
 })
 @XmlSeeAlso({
     Agent.class,
@@ -53,6 +54,10 @@ public class AbstractUser {
     @XmlElement(required = true)
     @Column
     protected String password;
+    
+    @XmlElement(required = true)
+    @Column
+    protected String role;
 
 	public Long getId() {
 		return id;
@@ -94,6 +99,14 @@ public class AbstractUser {
 		this.password = password;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
    
 
 }

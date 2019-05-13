@@ -63,6 +63,7 @@ public class AdminService {
 			adminForChange.get().setLastName(admin.getLastName());
 			adminForChange.get().setEmail(admin.getEmail());
 			adminForChange.get().setPassword(admin.getPassword());
+			adminForChange.get().setRole(admin.getRole());
 	
 			adminRepository.save(adminForChange.get());
 			

@@ -47,6 +47,9 @@ public class UserDTO {
     @XmlElement(name = "password")
     protected String password;
     
+    @XmlElement(name = "role")
+    protected String role;
+    
     public UserDTO() {}
 
 	public Long getId() {
@@ -111,6 +114,14 @@ public class UserDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
   
 

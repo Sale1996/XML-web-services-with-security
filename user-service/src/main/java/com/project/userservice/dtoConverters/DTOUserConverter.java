@@ -27,6 +27,7 @@ public class DTOUserConverter {
 		dto.setAddress(user.getAddress());
 		dto.setActivated(user.getActivated());
 		dto.setTelephoneNumber(user.getTelephoneNumber());
+		dto.setRole(user.getRole());
 		
 		return dto;
 	}
@@ -50,6 +51,7 @@ public class DTOUserConverter {
 		u.setAddress(dto.getAddress());
 		u.setTelephoneNumber(dto.getTelephoneNumber());
 		u.setPassword(dto.getPassword());
+		u.setRole(dto.getRole());
 				
 		return u;
 	}

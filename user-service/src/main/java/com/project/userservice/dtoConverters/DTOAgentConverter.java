@@ -25,6 +25,7 @@ public class DTOAgentConverter {
 		dto.setEmail(agent.getEmail());
 		dto.setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
 		dto.setActivated(agent.getActivated());
+		dto.setRole(agent.getRole());
 		
 		return dto;
 	}
@@ -47,6 +48,7 @@ public class DTOAgentConverter {
 		a.setBusinessRegistrationNumber(dto.getBusinessRegistrationNumber());
 		a.setActivated(dto.getActivated());
 		a.setPassword(dto.getPassword());
+		a.setRole(dto.getRole());
 		
 		return a;
 	}

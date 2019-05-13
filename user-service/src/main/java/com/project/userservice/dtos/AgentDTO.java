@@ -1,6 +1,5 @@
 package com.project.userservice.dtos;
 
-import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,6 +42,9 @@ public class AgentDTO {
     
     @XmlElement(name = "password")
     protected String password;
+    
+    @XmlElement(name = "role")
+    protected String role;
     
     public AgentDTO() {}
     
@@ -100,6 +102,14 @@ public class AgentDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
     

@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     "firstName",
     "lastName",
     "email",
-    "password"
+    "password",
+    "role"
 })
 @XmlRootElement(name = "User")
 @JsonIgnoreProperties(value = "password", allowGetters=false, allowSetters=true)
@@ -34,6 +35,9 @@ public class AdminDTO {
     
     @XmlElement(name = "password")
     protected String password;
+    
+    @XmlElement(name = "role")
+    protected String role;
     
     public AdminDTO() {}
     
@@ -75,6 +79,14 @@ public class AdminDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
     
     	
