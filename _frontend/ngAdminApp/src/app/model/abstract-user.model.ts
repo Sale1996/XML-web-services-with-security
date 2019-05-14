@@ -6,5 +6,5 @@ export interface AbstractUser {
     lastName: string;
     email: string;
     password?: string;
-    userType: UserType;
+    role: UserType;
 }
