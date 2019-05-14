@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-admins-single-modal',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminsSingleModalComponent implements OnInit {
 
-  constructor() { }
+  @Input() name;
+  agentForm: FormGroup;
+
+  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+
+    this.agentForm = this.formBuilder.group({
+      id: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.email]
+    });
   }
 
 }
+
