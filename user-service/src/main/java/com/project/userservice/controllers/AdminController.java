@@ -55,12 +55,12 @@ public class AdminController {
 	
 	
 	@PostMapping("")
-	@ApiOperation( value = "Create an agent.", notes = "Returns the agent being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
+	@ApiOperation( value = "Create an admin.", notes = "Returns the agent being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
 					@ApiResponse( code = 400, message= "Bad request")
 	})
-	public ResponseEntity< AdminDTO > createAdmin(@RequestBody AdminDTO admin) {
+	public ResponseEntity< AdminDTO > registrationAdmin(@RequestBody AdminDTO admin) {
 		
 		AdminDTO savedAdmin = adminService.save(admin);
 		
@@ -70,15 +70,28 @@ public class AdminController {
 	
 	
 	@PutMapping("/{adminId}")
-	@ApiOperation( value= "Change an agent", notes = "Returns the admin being changed", httpMethod="PUT")
+	@ApiOperation( value= "Change an admin", notes = "Returns the admin being changed", httpMethod="PUT")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
 			 @ApiResponse( code = 400, message ="Bad Request")})
-	public ResponseEntity< AdminDTO > updateAdmin(@PathVariable("adminId") long id, @RequestBody AdminDTO admin) { 
+	public ResponseEntity< AdminDTO > settingsAdmin(@PathVariable("adminId") long id, @RequestBody AdminDTO admin) { 
 		
 		AdminDTO adminToUpdate = adminService.update(id, admin);
 		
 	    return ( adminToUpdate.getId() != null )? new ResponseEntity< AdminDTO > ( adminToUpdate, HttpStatus.OK ) : new ResponseEntity< AdminDTO > ( HttpStatus.BAD_REQUEST );
+
+	}
+	
+	@PutMapping("/pass/{adminId}")
+	@ApiOperation( value= "Change a password", notes = "Returns the admin being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< Boolean > changePasswordUser(@PathVariable("adminId") long id, @RequestBody AdminDTO admin) { 
+		
+		Boolean adminToUpdate = adminService.changePassword(id, admin);
+		
+	    return ( adminToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
 
 	}
 	

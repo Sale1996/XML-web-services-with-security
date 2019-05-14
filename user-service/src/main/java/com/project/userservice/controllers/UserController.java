@@ -60,7 +60,7 @@ public class UserController {
 					@ApiResponse( code = 201 , message = "Created"),
 					@ApiResponse( code = 400, message= "Bad request")
 	})
-	public ResponseEntity< UserDTO > createUser(@RequestBody UserDTO agent) {
+	public ResponseEntity< UserDTO > registrationUser(@RequestBody UserDTO agent) {
 		
 		UserDTO savedUser = userService.save(agent);
 		
@@ -74,11 +74,37 @@ public class UserController {
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
 			 @ApiResponse( code = 400, message ="Bad Request")})
-	public ResponseEntity< UserDTO > updateUser(@PathVariable("userId") long id, @RequestBody UserDTO user) { 
+	public ResponseEntity< UserDTO > settingsUser(@PathVariable("userId") long id, @RequestBody UserDTO user) { 
 		
 		UserDTO userToUpdate = userService.update(id, user);
 		
 	    return ( userToUpdate.getId() != null )? new ResponseEntity< UserDTO > ( userToUpdate, HttpStatus.OK ) : new ResponseEntity< UserDTO > ( HttpStatus.BAD_REQUEST );
+
+	}
+	
+	@PutMapping("/pass/{userId}")
+	@ApiOperation( value= "Change a password", notes = "Returns the user being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< Boolean > changePasswordUser(@PathVariable("userId") long id, @RequestBody UserDTO user) { 
+		
+		Boolean userToUpdate = userService.changePassword(id, user);
+		
+	    return ( userToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
+
+	}
+	
+	@PutMapping("/status/{userId}")
+	@ApiOperation( value= "Change a status", notes = "Returns the user being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< Boolean > changeStatusUser(@PathVariable("userId") long id, @RequestBody UserDTO user) { 
+		
+		Boolean userToUpdate = userService.changeStatus(id, user);
+		
+	    return ( userToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
 
 	}
 	

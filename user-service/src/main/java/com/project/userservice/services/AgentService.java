@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.project.userservice.dtoConverters.DTOAgentConverter;
 import com.project.userservice.dtos.AgentDTO;
+import com.project.userservice.dtos.UserDTO;
 import com.project.userservice.models.Agent;
+import com.project.userservice.models.User;
 import com.project.userservice.repositories.AgentRepository;
 
 @Service
@@ -86,6 +88,38 @@ public class AgentService {
 		agent.setId(a.getId());
 		
 		return agent;
+	}
+	
+	public Boolean changePassword(long id, AgentDTO agent){
+		
+		Optional<Agent> agentForChange = agentRepository.findById(id);
+		
+		if(agentForChange.isPresent() && agent != null) {
+										
+			agentForChange.get().setPassword(agent.getPassword());
+
+			agentRepository.save(agentForChange.get());
+					
+			return true;		
+		}
+		
+		return false;
+	}
+	
+	public Boolean changeStatus(long id, AgentDTO agent){
+		
+		Optional<Agent> agentForChange = agentRepository.findById(id);
+		
+		if(agentForChange.isPresent() && agent != null) {
+										
+			agentForChange.get().setActivated(agent.getActivated());
+
+			agentRepository.save(agentForChange.get());
+					
+			return true;		
+		}
+		
+		return false;
 	}
 	
 	public AgentDTO delete(long id){
