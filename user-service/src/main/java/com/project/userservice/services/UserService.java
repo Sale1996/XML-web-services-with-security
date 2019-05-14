@@ -62,7 +62,6 @@ public class UserService {
 			userForChange.get().setFirstName(user.getFirstName());
 			userForChange.get().setLastName(user.getLastName());
 			userForChange.get().setEmail(user.getEmail());
-			userForChange.get().setPassword(user.getPassword());
 			userForChange.get().setAddress(user.getAddress());
 			userForChange.get().setActivated(user.getActivated());
 			userForChange.get().setTelephoneNumber(user.getTelephoneNumber());
@@ -76,6 +75,38 @@ public class UserService {
 		}
 		
 		return new UserDTO();
+	}
+	
+	public Boolean changePassword(long id, UserDTO user){
+		
+		Optional<User> userForChange = userRepository.findById(id);
+		
+		if(userForChange.isPresent() && user != null) {
+										
+			userForChange.get().setPassword(user.getPassword());
+
+			userRepository.save(userForChange.get());
+					
+			return true;		
+		}
+		
+		return false;
+	}
+	
+	public Boolean changeStatus(long id, UserDTO user){
+		
+		Optional<User> userForChange = userRepository.findById(id);
+		
+		if(userForChange.isPresent() && user != null) {
+										
+			userForChange.get().setActivated(user.getActivated());
+
+			userRepository.save(userForChange.get());
+					
+			return true;		
+		}
+		
+		return false;
 	}
 	
 	public UserDTO save(UserDTO user){

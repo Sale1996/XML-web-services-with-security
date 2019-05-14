@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.userservice.dtos.AgentDTO;
+import com.project.userservice.dtos.UserDTO;
 import com.project.userservice.services.AgentService;
 
 import io.swagger.annotations.Api;
@@ -83,7 +84,32 @@ public class AgentController {
 
 	}
 	
+	@PutMapping("/pass/{agentId}")
+	@ApiOperation( value= "Change a password", notes = "Returns the user being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< Boolean > changePasswordUser(@PathVariable("agentId") long id, @RequestBody AgentDTO agent) { 
+		
+		Boolean agentToUpdate = agentService.changePassword(id, agent);
+		
+	    return ( agentToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
+
+	}
 	
+	@PutMapping("/status/{agentId}")
+	@ApiOperation( value= "Change a status", notes = "Returns the user being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< Boolean > changeStatusUser(@PathVariable("agentId") long id, @RequestBody AgentDTO agent) { 
+		
+		Boolean agentToUpdate = agentService.changeStatus(id, agent);
+		
+	    return ( agentToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
+
+	}
+		
 	@DeleteMapping("/{agentId}")
 	@ApiOperation( value = "Delete an agent.", notes = "Returns the agent being deleted", httpMethod="DELETE")
 	@ApiResponses( value = { 

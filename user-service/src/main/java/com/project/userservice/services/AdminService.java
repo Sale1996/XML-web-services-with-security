@@ -62,7 +62,6 @@ public class AdminService {
 			adminForChange.get().setFirstName(admin.getFirstName());
 			adminForChange.get().setLastName(admin.getLastName());
 			adminForChange.get().setEmail(admin.getEmail());
-			adminForChange.get().setPassword(admin.getPassword());
 			adminForChange.get().setRole(admin.getRole());
 	
 			adminRepository.save(adminForChange.get());
@@ -85,6 +84,23 @@ public class AdminService {
 		
 		return admin;
 	}
+	
+	public Boolean changePassword(long id, AdminDTO admin){
+		
+		Optional<Admin> adminForChange = adminRepository.findById(id);
+		
+		if(adminForChange.isPresent() && admin != null) {
+										
+			adminForChange.get().setPassword(admin.getPassword());
+
+			adminRepository.save(adminForChange.get());
+					
+			return true;		
+		}
+		
+		return false;
+	}
+	
 	
 	public AdminDTO delete(long id){
 		
