@@ -10,13 +10,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AdminsSingleModalComponent implements OnInit {
 
   @Input() name;
-  agentForm: FormGroup;
+  adminForm: FormGroup;
 
   constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
 
-    this.agentForm = this.formBuilder.group({
+    this.adminForm = this.formBuilder.group({
       id: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

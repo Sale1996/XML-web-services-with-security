@@ -1,6 +1,7 @@
 import { AgentsSingleModalComponent } from './../agents/agents-single-modal/agents-single-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
+import { AdminsSingleModalComponent } from './admins-single-modal/admins-single-modal.component';
 
 @Component({
   selector: 'app-admins',
@@ -15,9 +16,8 @@ export class AdminsComponent implements OnInit {
   }
 
   open() {
-    const modalRef = this.modalService.open(AgentsSingleModalComponent,
+    const modalRef = this.modalService.open(AdminsSingleModalComponent,
       {
-        size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });

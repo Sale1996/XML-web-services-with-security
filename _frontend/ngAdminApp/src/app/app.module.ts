@@ -1,10 +1,15 @@
-import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { GlobalErrorHandler } from './_helpers/global-error-handler';
+import { HttpErrorInterceptor } from './_helpers/http-error-interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AdminsSingleModalComponent } from './components/admins/admins-single-modal/admins-single-modal.component';
+import { AdminsComponent } from './components/admins/admins.component';
 import { AgentsSingleModalComponent } from './components/agents/agents-single-modal/agents-single-modal.component';
 import { AgentsComponent } from './components/agents/agents.component';
 import {
@@ -26,9 +31,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserReviewComponent } from './components/user-review/user-review.component';
 import { UsersComponent } from './components/users/users.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AdminsComponent } from './components/admins/admins.component';
-import { AdminsSingleModalComponent } from './components/admins/admins-single-modal/admins-single-modal.component';
+import { ConfirmationModalComponent } from './_shared/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { AdminsSingleModalComponent } from './components/admins/admins-single-mo
     AdditionalServicesComponent,
     AdditionalServicesSingleModalComponent,
     AdminsComponent,
-    AdminsSingleModalComponent
+    AdminsSingleModalComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -57,12 +61,24 @@ import { AdminsSingleModalComponent } from './components/admins/admins-single-mo
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   entryComponents: [
     AgentsSingleModalComponent,
+    AdminsSingleModalComponent,
     AccommodationTypesSingleModalComponent,
     AccommodationCategoriesSingleModalComponent,
-    AdditionalServicesSingleModalComponent
+    AdditionalServicesSingleModalComponent,
+    ConfirmationModalComponent
   ],
   bootstrap: [AppComponent]
 })

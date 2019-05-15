@@ -22,6 +22,17 @@ export class AgentsComponent implements OnInit {
         backdropClass: 'custom-modal-backdrop'
       });
     modalRef.componentInstance.name = 'World';
+
+    // this.modalService.open(AgentsSingleModalComponent,
+    //   {
+    //     size: 'lg',
+    //     centered: true,
+    //     backdropClass: 'custom-modal-backdrop'
+    //   }).result.then((result) => {
+    //   console.log('USPEOOOOO');
+    // }, (reason) => {
+    //   console.log('UGASIO :D');
+    // });
   }
 
 }

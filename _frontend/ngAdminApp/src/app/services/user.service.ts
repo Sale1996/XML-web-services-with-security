@@ -21,4 +21,12 @@ export class UserService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(environment.apiUrl);
   }
+
+  deleteUser(id: number): Observable<User> {
+    return this.http.delete<User>(environment.apiUrl + '/' + id);
+  }
+
+  changeStatusUser(user: User): Observable<boolean> {
+    return this.http.put<boolean>(environment.apiUrl + '/status/' + user.id, user, httpOptions);
+  }
 }
