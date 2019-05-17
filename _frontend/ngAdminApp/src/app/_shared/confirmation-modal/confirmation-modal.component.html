@@ -1,0 +1,19 @@
+<div class="modal-header px-5 pt-5">
+  <h4 class="modal-title">{{title}}</h4>
+  <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless" (click)="userAnswer(0)">
+    <svg class="icon">
+      <use xlink:href="#Close_Icon"></use>
+    </svg>
+  </span>
+</div>
+<div class="modal-body px-5">
+  <div class="row mt-4">
+    <div class="col">
+        <p>{{message}}</p>
+    </div>
+  </div>
+</div>
+<div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
+  <button type="button" class="btn btn-primary" (click)="userAnswer(1)">Yes</button>
+  <button type="button"  class="btn btn-secondary" (click)="userAnswer(0)">No</button>
+</div>

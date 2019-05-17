@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row" id="row1">
+      <div class="col-sm">
+        <h3>Find Hotels, Apartments and Hostels</h3>
+      </div>
+  </div>
+  <form>
+    <div class="row">
+
+        <div class="col-4">
+          <div class="form-group">
+              <label for="formGroupExampleInput">WHERE</label>
+              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Destination">
+          </div>
+        </div>
+
+        <div class="col-2">
+          <label for="formGroupExampleInput">CHECK-IN</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                      name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <label for="formGroupExampleInput">CHECKOUT</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                      name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <label for="formGroupExampleInput">GUESTS</label>
+          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+              <option selected>Choose...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <label for="formGroupExampleInput">ROOMS</label>
+          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+              <option selected>Choose...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+          </select>
+        </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <button type="submit" class="btn btn-primary float-right">Search</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+

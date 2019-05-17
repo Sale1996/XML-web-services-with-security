@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="login row justify-content-center align-items-center">
+    <div class="col-8 box px-5">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="row pt-5">
+          <div class="col text-center">
+            <span class="logo mt-3">MegaTravel<span class="blue-badge fs-1 ml-1">ADMIN</span></span>
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col">
+            <div class="input-group">
+              <input type="text" formControlName="email" class="form-control form-control-sm" placeholder="Email" required>
+            </div>
+            <div class="input-group mt-2">
+              <input type="password" formControlName="password" class="form-control form-control-sm" placeholder="Password" required>
+            </div>
+          </div>
+        </div>
+        <div class="row pb-5">
+          <div class="col d-flex justify-content-center">
+              <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

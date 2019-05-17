@@ -1,0 +1,13 @@
+.site {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.top-bar {
+    height: 60px;
+    z-index: 2;
+}
+
+.main {
+    flex: 1;
+}
