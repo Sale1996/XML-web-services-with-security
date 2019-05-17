@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.tim9.accommodationservice.dtos.CommentDTO;
 import com.tim9.accommodationservice.models.Comment;
+import com.tim9.accommodationservice.repository.AccommodationUnitRepository;
 import com.tim9.accommodationservice.repository.CommentRepository;
+import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationUnitConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOCommentConverter;
 
 @Service
@@ -18,15 +20,20 @@ public class CommentService {
 	
 	@Autowired
 	CommentRepository commentRepository;
+	@Autowired
+	AccommodationUnitRepository accommodationUnitRepository;
+	
 	
 	@Autowired
 	DTOCommentConverter commentConverter;
+	@Autowired
+	DTOAccommodationUnitConverter accommodationConverter;
+	
 	
 
 	public List<CommentDTO> findAll() {
 		
 		Optional< List<Comment> > comments = Optional.of( commentRepository.findAll() );
-		
 		ArrayList < CommentDTO > dtoComments = new ArrayList<CommentDTO>();
 		
 		if ( comments.isPresent() ) {

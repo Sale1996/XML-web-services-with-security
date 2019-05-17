@@ -70,12 +70,14 @@ public class ExtraFieldService {
 		//checking if there is already ExtraField with the same name
 	
 		Optional< ExtraField > foundExtraField = extraFieldRepository.findByExtraFieldName(dto.getExtraFieldName());
-		
-		if( foundExtraField.isPresent() ) {
+		//extraPrice shouldn't be lower than zero
+		if( foundExtraField.isPresent() || dto.getExtraPrice()<0 ) {
 			
 			return new ExtraFieldDTO();
 		
 		}
+		
+
 		
 		dto.setExtraFieldId(-1l);
 			
@@ -94,10 +96,11 @@ public class ExtraFieldService {
 		if( extraFieldForChange.isPresent() && updatedExtraField!=null ) {
 			
 			//checking if there is already ExtraField with the same name but not same id
-			
+			//extraPrice shouldn't be lower than zero
+
 			Optional<ExtraField> foundExtraField = extraFieldRepository.findByExtraFieldName(updatedExtraField.getExtraFieldName());
 			
-			if( foundExtraField.isPresent() && foundExtraField.get().getExtraFieldId() != extraFieldForChange.get().getExtraFieldId() ) {
+			if(updatedExtraField.getExtraPrice()<0 || (foundExtraField.isPresent() && foundExtraField.get().getExtraFieldId() != extraFieldForChange.get().getExtraFieldId() )) {
 				
 				return new ExtraFieldDTO();
 			

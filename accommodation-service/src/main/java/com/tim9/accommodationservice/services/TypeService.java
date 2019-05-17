@@ -21,58 +21,51 @@ public class TypeService {
 	
 	@Autowired
 	DTOTypeConverter typeConverter;
+	
+	
 
+	
 	public List<TypeDTO> findAll() {
 		
-		Optional< List<Type> > types = Optional.of( typeRepository.findAll() );
-		
+		Optional< List<Type> > types = Optional.of( typeRepository.findAll() );	
 		ArrayList < TypeDTO > dtoTypes = new ArrayList<TypeDTO>();
 		
 		if ( types.isPresent() ) {
 			
 			for ( Type type : types.get() ) {
 				
-				dtoTypes.add(typeConverter.convertToDTO(type));
-				
+				dtoTypes.add(typeConverter.convertToDTO(type));	
 			}
 			
 			return dtoTypes;
-			
 		}
 			
-		return Collections.emptyList();
-
-		
+		return Collections.emptyList();	
 	}
+	
+	
 
 	public TypeDTO findById(Long id) {
 		
 		Optional< Type > type = typeRepository.findById(id);
-		
-		
+				
 		if ( type.isPresent() ) {
 			
 			return typeConverter.convertToDTO(type.get());
-		
 		}
 		else {
 			
 			return new TypeDTO();
-			
 		}
-		
 	}
 
 	public TypeDTO save(TypeDTO dto) {
 		
 		//checking if there is already Type with the same name
-	
 		Optional< Type > foundType = typeRepository.findByTypeName(dto.getTypeName());
 		
 		if( foundType.isPresent() ) {
-			
 			return new TypeDTO();
-		
 		}
 		
 		dto.setTypeId(-1l);
@@ -82,23 +75,18 @@ public class TypeService {
 		dto.setTypeId(type.getTypeId());
 		
 		return dto;
-
-}
+	}
 
 	public TypeDTO update(Long id, TypeDTO typeDTO) {
 		
 		Optional< Type > typeForChange = typeRepository.findById(id);
 		
-		if( typeForChange.isPresent() && typeDTO!=null ) {
-			
+		if( typeForChange.isPresent() && typeDTO!=null ) {			
 			//checking if there is already Type with the same name but not same id
-			
 			Optional<Type> foundType = typeRepository.findByTypeName(typeDTO.getTypeName());
 			
 			if( foundType.isPresent() && foundType.get().getTypeId() != typeForChange.get().getTypeId() ) {
-				
 				return new TypeDTO();
-			
 			}
 										
 			typeForChange.get().setTypeName(typeDTO.getTypeName());
@@ -106,10 +94,8 @@ public class TypeService {
 			typeRepository.save(typeForChange.get());
 			
 			typeDTO.setTypeId(typeForChange.get().getTypeId());
-			
-			
+				
 			return typeDTO;
-		
 		}
 		
 		return new TypeDTO();

@@ -38,6 +38,11 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 		    .authorizeRequests()
 		    .antMatchers(HttpMethod.GET, "/accommodations").permitAll()
 		    .antMatchers(HttpMethod.GET, "/accommodations/**").permitAll()
+		    .antMatchers(HttpMethod.GET, "/**").permitAll()
+		    .antMatchers(HttpMethod.POST, "/**").permitAll()
+		    .antMatchers(HttpMethod.PUT, "/**").permitAll()
+		    .antMatchers(HttpMethod.DELETE, "/**").permitAll()
+
 //		    .antMatchers(HttpMethod.GET, "/accommodations/agent/**").permitAll()
 //		    .antMatchers(HttpMethod.GET, "/reservations/1").hasAuthority("ROLE_ADMIN")
 //		    .antMatchers(HttpMethod.GET, "/accommodations/**").permitAll()

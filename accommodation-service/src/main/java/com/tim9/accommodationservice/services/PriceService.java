@@ -67,6 +67,14 @@ public class PriceService {
 
 	public PriceDTO save(PriceDTO dto) {
 		
+		//checking if dateFrom is before dateTo and price atribute is greater than zero
+		
+		if(dto.getDateFrom().isAfter(dto.getDateTo()) || dto.getAmount()<0) {
+			
+			return new PriceDTO();
+			
+		}
+		
 		dto.setPriceId(-1l);
 			
 		Price price = priceRepository.save(priceConverter.convertFromDTO(dto));
@@ -80,8 +88,17 @@ public class PriceService {
 	public PriceDTO update(Long id, PriceDTO priceDTO) {
 		
 		Optional< Price > priceForChange = priceRepository.findById(id);
+		//checking if dateFrom is before dateTo and price atribute is greater than zero
 		
-		if( priceForChange.isPresent() && priceDTO!=null ) {
+		if( priceForChange.isPresent() && priceDTO!=null) {
+			
+			//checking if dateFrom is before dateTo and price atribute is greater than zero
+			
+			if(priceDTO.getDateFrom().isAfter(priceDTO.getDateTo()) || priceDTO.getAmount()<0) {
+				
+				return new PriceDTO();
+				
+			}
 			
 			
 			priceForChange.get().setAmount(priceDTO.getAmount());
