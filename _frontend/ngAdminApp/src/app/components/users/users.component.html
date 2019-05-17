@@ -91,13 +91,12 @@
   </tr>
 </ng-template>
 <ng-template #loadingOrError>
-    <tr *ngIf="errorLoading$ | async; else loading">
-      <!-- <td  colspan="6" class="text-center" height="200">No record found...</td> -->
+  <tr *ngIf="users?.length; else loading">
+    <td  colspan="6" class="text-center" height="200">Loading...</td>
+  </tr>
+  <ng-template #loading>
+    <tr>
       <td  colspan="6" class="text-center" height="200">Error loading the list of users. Please try again later.</td>
     </tr>
-    <ng-template #loading>
-        <tr>
-          <td  colspan="6" class="text-center" height="200">Loading...</td>
-        </tr>
-    </ng-template>
   </ng-template>
+</ng-template>

@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://localhost:8762/user-service/user'
+  apiUrlUser: 'https://localhost:8762/user-service/user',
+  apiUrlAgent: 'https://localhost:8762/user-service/agent',
+  apiUrlAdmin: 'https://localhost:8762/user-service/admin'
 };

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Agent } from 'src/app/model/agent.model';
 
 @Component({
   selector: 'app-agents-single-modal',
@@ -9,7 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AgentsSingleModalComponent implements OnInit {
 
-  @Input() name;
+  @Output() agent: EventEmitter<any> = new EventEmitter();
   agentForm: FormGroup;
 
   constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {}
@@ -18,12 +19,19 @@ export class AgentsSingleModalComponent implements OnInit {
 
     this.agentForm = this.formBuilder.group({
       id: [''],
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', Validators.email],
       telephoneNumber: ['', Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')],
       businessRegistrationNumber: ['', Validators.required]
     });
+  }
+
+  onSubmit() {
+    if (this.agentForm.valid) {
+      this.agent.emit(this.agentForm.value as Agent);
+      this.activeModal.close();
+    }
   }
 
 }

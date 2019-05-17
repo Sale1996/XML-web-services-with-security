@@ -1,6 +1,7 @@
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit, Input } from '@angular/core';
+import { Admin } from 'src/app/model/admin.model';
 
 @Component({
   selector: 'app-admins-single-modal',
@@ -9,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AdminsSingleModalComponent implements OnInit {
 
-  @Input() name;
+  @Output() admin: EventEmitter<any> = new EventEmitter();
   adminForm: FormGroup;
 
   constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {}
@@ -24,5 +25,11 @@ export class AdminsSingleModalComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    if (this.adminForm.valid) {
+      this.admin.emit(this.adminForm.value as Admin);
+      this.activeModal.close();
+    }
+  }
 }
 

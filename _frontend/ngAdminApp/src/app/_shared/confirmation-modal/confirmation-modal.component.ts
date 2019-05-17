@@ -13,13 +13,13 @@ export class ConfirmationModalComponent implements OnInit {
   @Input() message: string;
   @Output() answer: EventEmitter<any> = new EventEmitter();
 
-  constructor(private activaModal: NgbActiveModal) { }
+  constructor(private activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
 
   userAnswer(yes: boolean) {
       this.answer.emit(yes ? true : false);
-      yes ? this.activaModal.close() : this.activaModal.close();
+      yes ? this.activeModal.close() : this.activeModal.close();
   }
 }
