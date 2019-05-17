@@ -35,7 +35,7 @@ public class AccommodationUnitController {
 	
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation( value = "Returns all accommodationUnits", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
@@ -43,7 +43,7 @@ public class AccommodationUnitController {
 		
 		List< AccommodationUnitDTO > accommodationUnits = accommodationUnitService.findAll();
 		
-		return ( !accommodationUnits.isEmpty() )? new ResponseEntity< List<AccommodationUnitDTO> > ( accommodationUnits, HttpStatus.OK ) : new ResponseEntity< List<AccommodationUnitDTO> > ( HttpStatus.NOT_FOUND );
+		return ( !accommodationUnits.isEmpty() )? new ResponseEntity< List<AccommodationUnitDTO> > ( accommodationUnits, HttpStatus.OK ) : new ResponseEntity< List<AccommodationUnitDTO> > (accommodationUnits, HttpStatus.NOT_FOUND );
 		
 	}
 	
@@ -61,7 +61,7 @@ public class AccommodationUnitController {
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation( value = "Create a accommodation Unit.", notes = "Returns the accommodation Unit being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -71,7 +71,7 @@ public class AccommodationUnitController {
 			
 		AccommodationUnitDTO savedAccommodationUnit = accommodationUnitService.save(dto);
 		
-		return ( savedAccommodationUnit!=null )? new ResponseEntity< AccommodationUnitDTO > ( savedAccommodationUnit, HttpStatus.CREATED ) : new ResponseEntity< AccommodationUnitDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedAccommodationUnit!=null )? new ResponseEntity< AccommodationUnitDTO > ( savedAccommodationUnit, HttpStatus.CREATED ) : new ResponseEntity< AccommodationUnitDTO > (savedAccommodationUnit, HttpStatus.BAD_REQUEST );
 
 	}
 	

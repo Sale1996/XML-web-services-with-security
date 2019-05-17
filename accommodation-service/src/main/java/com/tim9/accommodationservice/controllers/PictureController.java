@@ -35,7 +35,7 @@ public class PictureController {
 	
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation( value = "Returns all pictures", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
@@ -43,7 +43,7 @@ public class PictureController {
 		
 		List< PictureDTO > pictures = pictureService.findAll();
 		
-		return ( !pictures.isEmpty() )? new ResponseEntity< List<PictureDTO> > ( pictures, HttpStatus.OK ) : new ResponseEntity< List<PictureDTO> > ( HttpStatus.NOT_FOUND );
+		return ( !pictures.isEmpty() )? new ResponseEntity< List<PictureDTO> > ( pictures, HttpStatus.OK ) : new ResponseEntity< List<PictureDTO> > ( pictures, HttpStatus.NOT_FOUND );
 		
 	}
 	
@@ -61,7 +61,7 @@ public class PictureController {
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation( value = "Create a Picture.", notes = "Returns the Picture being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -71,7 +71,7 @@ public class PictureController {
 			
 		PictureDTO savedPicture  = pictureService.save(dto);
 		
-		return ( savedPicture !=null )? new ResponseEntity< PictureDTO > ( savedPicture , HttpStatus.CREATED ) : new ResponseEntity< PictureDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedPicture !=null )? new ResponseEntity< PictureDTO > ( savedPicture , HttpStatus.CREATED ) : new ResponseEntity< PictureDTO > (savedPicture, HttpStatus.BAD_REQUEST );
 
 	}
 	

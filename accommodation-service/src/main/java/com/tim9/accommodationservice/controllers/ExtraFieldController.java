@@ -35,7 +35,7 @@ public class ExtraFieldController {
 	
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation( value = "Returns all extraFields", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
@@ -43,7 +43,7 @@ public class ExtraFieldController {
 		
 		List< ExtraFieldDTO > extraFields = extraFieldService.findAll();
 		
-		return ( !extraFields.isEmpty() )? new ResponseEntity< List<ExtraFieldDTO> > ( extraFields, HttpStatus.OK ) : new ResponseEntity< List<ExtraFieldDTO> > ( HttpStatus.NOT_FOUND );
+		return ( !extraFields.isEmpty() )? new ResponseEntity< List<ExtraFieldDTO> > ( extraFields, HttpStatus.OK ) : new ResponseEntity< List<ExtraFieldDTO> > (extraFields, HttpStatus.NOT_FOUND );
 		
 	}
 	
@@ -61,7 +61,7 @@ public class ExtraFieldController {
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation( value = "Create a ExtraField.", notes = "Returns the ExtraField being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -71,7 +71,7 @@ public class ExtraFieldController {
 			
 		ExtraFieldDTO savedExtraField = extraFieldService.save(dto);
 		
-		return ( savedExtraField!=null )? new ResponseEntity< ExtraFieldDTO > ( savedExtraField, HttpStatus.CREATED ) : new ResponseEntity< ExtraFieldDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedExtraField!=null )? new ResponseEntity< ExtraFieldDTO > ( savedExtraField, HttpStatus.CREATED ) : new ResponseEntity< ExtraFieldDTO > (savedExtraField, HttpStatus.BAD_REQUEST );
 
 	}
 	

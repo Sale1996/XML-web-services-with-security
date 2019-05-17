@@ -35,7 +35,7 @@ public class CategoryController {
 	
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation( value = "Returns all categories", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
@@ -43,7 +43,7 @@ public class CategoryController {
 		
 		List< CategoryDTO > categories = categoryService.findAll();
 		
-		return ( !categories.isEmpty() )? new ResponseEntity< List<CategoryDTO> > ( categories, HttpStatus.OK ) : new ResponseEntity< List<CategoryDTO> > ( HttpStatus.NOT_FOUND );
+		return ( !categories.isEmpty() )? new ResponseEntity< List<CategoryDTO> > ( categories, HttpStatus.OK ) : new ResponseEntity< List<CategoryDTO> > (categories, HttpStatus.NOT_FOUND );
 		
 	}
 	
@@ -61,7 +61,7 @@ public class CategoryController {
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation( value = "Create a Category.", notes = "Returns the Category being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -71,7 +71,7 @@ public class CategoryController {
 			
 		CategoryDTO savedCategory = categoryService.save(dto);
 		
-		return ( savedCategory!=null )? new ResponseEntity< CategoryDTO > ( savedCategory, HttpStatus.CREATED ) : new ResponseEntity< CategoryDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedCategory!=null )? new ResponseEntity< CategoryDTO > ( savedCategory, HttpStatus.CREATED ) : new ResponseEntity< CategoryDTO > (savedCategory, HttpStatus.BAD_REQUEST );
 
 	}
 	

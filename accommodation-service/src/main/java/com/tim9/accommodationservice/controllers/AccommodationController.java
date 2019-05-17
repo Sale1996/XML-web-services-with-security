@@ -44,7 +44,7 @@ public class AccommodationController {
 		
 		List< AccommodationDTO > accommodations = accommodationService.findAll();
 		
-		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>( HttpStatus.NOT_FOUND);
+		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>(accommodations, HttpStatus.NOT_FOUND);
 
 	}
 
@@ -68,11 +68,11 @@ public class AccommodationController {
 		
 		List< AccommodationDTO > accommodations = accommodationService.findByName(username);
 		
-		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>( HttpStatus.NOT_FOUND);
+		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>(accommodations, HttpStatus.NOT_FOUND);
 
 	}
 
-	@PostMapping("/")
+	@PostMapping("")
 	@PreAuthorize("hasAuthority('CREATE_ACCOMMODATION')")
 	@ApiOperation( value = "Create an accommodation.", notes = "Returns the accommodation being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
@@ -83,7 +83,7 @@ public class AccommodationController {
 		
 		AccommodationDTO savedAccommodation = accommodationService.save(accommodation);
 		
-		return ( savedAccommodation!=null )? new ResponseEntity< AccommodationDTO > ( savedAccommodation, HttpStatus.CREATED ) : new ResponseEntity< AccommodationDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedAccommodation!=null )? new ResponseEntity< AccommodationDTO > ( savedAccommodation, HttpStatus.CREATED ) : new ResponseEntity< AccommodationDTO > (savedAccommodation, HttpStatus.BAD_REQUEST );
 
 	}
 

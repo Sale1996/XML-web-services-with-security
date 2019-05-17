@@ -34,7 +34,7 @@ public class TypeController {
 	
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation( value = "Returns all types", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
@@ -42,7 +42,7 @@ public class TypeController {
 		
 		List< TypeDTO > types = typeService.findAll();
 		
-		return ( !types.isEmpty() )? new ResponseEntity< List<TypeDTO> > ( types, HttpStatus.OK ) : new ResponseEntity< List<TypeDTO> > ( HttpStatus.NOT_FOUND );
+		return ( !types.isEmpty() )? new ResponseEntity< List<TypeDTO> > ( types, HttpStatus.OK ) : new ResponseEntity< List<TypeDTO> > (types, HttpStatus.NOT_FOUND );
 		
 	}
 	
@@ -55,12 +55,12 @@ public class TypeController {
 		
 		TypeDTO typeDTO = typeService.findById(id);
 		
-		return ( typeDTO.getTypeId()!=null)? new ResponseEntity< TypeDTO > ( typeDTO, HttpStatus.OK ) : new ResponseEntity< TypeDTO > ( HttpStatus.NOT_FOUND );
+		return ( typeDTO.getTypeId()!=null)? new ResponseEntity< TypeDTO > ( typeDTO, HttpStatus.OK ) : new ResponseEntity< TypeDTO > ( typeDTO, HttpStatus.NOT_FOUND );
 		
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation( value = "Create a type.", notes = "Returns the type being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -70,7 +70,7 @@ public class TypeController {
 			
 		TypeDTO savedType = typeService.save(dto);
 		
-		return ( savedType!=null )? new ResponseEntity< TypeDTO > ( savedType, HttpStatus.CREATED ) : new ResponseEntity< TypeDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedType!=null )? new ResponseEntity< TypeDTO > ( savedType, HttpStatus.CREATED ) : new ResponseEntity< TypeDTO > ( savedType, HttpStatus.BAD_REQUEST );
 
 	}
 	

@@ -34,7 +34,7 @@ public class CommentController {
 	
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation( value = "Returns all comments", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
@@ -42,7 +42,7 @@ public class CommentController {
 		
 		List< CommentDTO > comments = commentService.findAll();
 		
-		return ( !comments.isEmpty() )? new ResponseEntity< List<CommentDTO> > ( comments, HttpStatus.OK ) : new ResponseEntity< List<CommentDTO> > ( HttpStatus.NOT_FOUND );
+		return ( !comments.isEmpty() )? new ResponseEntity< List<CommentDTO> > ( comments, HttpStatus.OK ) : new ResponseEntity< List<CommentDTO> > (comments, HttpStatus.NOT_FOUND );
 		
 	}
 	
@@ -60,7 +60,7 @@ public class CommentController {
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation( value = "Create a Comment.", notes = "Returns the Comment being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -70,7 +70,7 @@ public class CommentController {
 			
 		CommentDTO savedComment = commentService.save(dto);
 		
-		return ( savedComment!=null )? new ResponseEntity< CommentDTO > ( savedComment, HttpStatus.CREATED ) : new ResponseEntity< CommentDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedComment!=null )? new ResponseEntity< CommentDTO > ( savedComment, HttpStatus.CREATED ) : new ResponseEntity< CommentDTO > (savedComment, HttpStatus.BAD_REQUEST );
 
 	}
 	

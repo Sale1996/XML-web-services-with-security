@@ -35,7 +35,7 @@ public class PriceController {
 	
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@ApiOperation( value = "Returns all prices", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
@@ -43,7 +43,7 @@ public class PriceController {
 		
 		List< PriceDTO > prices = priceService.findAll();
 		
-		return ( !prices.isEmpty() )? new ResponseEntity< List<PriceDTO> > ( prices, HttpStatus.OK ) : new ResponseEntity< List<PriceDTO> > ( HttpStatus.NOT_FOUND );
+		return ( !prices.isEmpty() )? new ResponseEntity< List<PriceDTO> > ( prices, HttpStatus.OK ) : new ResponseEntity< List<PriceDTO> > (prices, HttpStatus.NOT_FOUND );
 		
 	}
 	
@@ -61,7 +61,7 @@ public class PriceController {
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("")
 	@ApiOperation( value = "Create a Price.", notes = "Returns the Price being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -71,7 +71,7 @@ public class PriceController {
 			
 		PriceDTO savedPrice = priceService.save(dto);
 		
-		return ( savedPrice!=null )? new ResponseEntity< PriceDTO > ( savedPrice, HttpStatus.CREATED ) : new ResponseEntity< PriceDTO > ( HttpStatus.BAD_REQUEST );
+		return ( savedPrice!=null )? new ResponseEntity< PriceDTO > ( savedPrice, HttpStatus.CREATED ) : new ResponseEntity< PriceDTO > (savedPrice, HttpStatus.BAD_REQUEST );
 
 	}
 	
