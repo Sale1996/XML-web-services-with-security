@@ -6,7 +6,10 @@ export const environment = {
   production: false,
   apiUrlUser: 'http://localhost:8080/user',
   apiUrlAgent: 'http://localhost:8080/agent',
-  apiUrlAdmin: 'http://localhost:8080/admin'
+  apiUrlAdmin: 'http://localhost:8080/admin',
+  apiUrlType: 'https://localhost:8081/types',
+  apiUrlCategory: 'https://localhost:8081/categories',
+  apiUrlAdditionalService: 'https://localhost:8081/extraFields'
 };
 
 /*

@@ -48,6 +48,8 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 //		    .antMatchers(HttpMethod.GET, "/accommodations/**").permitAll()
 		    // any other requests must be authenticated
 		    .anyRequest().authenticated();
+		
+		http.cors();
 	}
 	
 	@Bean

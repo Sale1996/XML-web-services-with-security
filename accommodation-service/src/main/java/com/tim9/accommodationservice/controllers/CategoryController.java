@@ -36,14 +36,13 @@ public class CategoryController {
 	
 	
 	@GetMapping("")
-	@ApiOperation( value = "Returns all categories", httpMethod = "GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})	
+	@ApiOperation( value = "Returns all categories", httpMethod = "GET" )
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK") } )	
 	public ResponseEntity< List<CategoryDTO> > getAllCategories (){
 		
 		List< CategoryDTO > categories = categoryService.findAll();
 		
-		return ( !categories.isEmpty() )? new ResponseEntity< List<CategoryDTO> > ( categories, HttpStatus.OK ) : new ResponseEntity< List<CategoryDTO> > (categories, HttpStatus.NOT_FOUND );
+		return ( !categories.isEmpty() )? new ResponseEntity< List<CategoryDTO> > ( categories, HttpStatus.OK ) : new ResponseEntity< List<CategoryDTO> > (categories, HttpStatus.OK );
 		
 	}
 	

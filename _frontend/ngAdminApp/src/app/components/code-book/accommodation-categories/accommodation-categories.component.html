@@ -1,54 +1,45 @@
 <div class="table-responsive box d-flex flex-column flex-grow-1">
-    <div class="d-flex px-5 pt-5 pb-4">
-      <h4 class="flex-grow-1">Accommodation Categories</h4>
-      <span role="button" class="table-btn table-btn-xl table-btn-success inline" data-toggle="tooltip" data-placement="bottom" title="Add New Category" (click)="open()">
-        <svg class="icon">
-          <use xlink:href="#Plus_Icon_XL"></use>
-        </svg>
-      </span>
-    </div>
-    <div class="tableFixHead flex-grow-1">
-      <table class="table table-borderless table-hover">
-        <thead>
-          <tr>
-            <th scope="col" width="80">#</th>
-            <th scope="col">Name</th>
-            <th scope="col" width="150"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row"><span class="blue-badge">1</span></th>
-            <td>Single-Star</td>
+  <div class="d-flex px-5 pt-5 pb-4">
+    <h4 class="flex-grow-1">Accommodation Categories</h4>
+    <span role="button" class="table-btn table-btn-xl table-btn-success inline" data-toggle="tooltip" data-placement="bottom" title="Add New Category"  (click)="openCategoryModal()">
+      <svg class="icon">
+        <use xlink:href="#Plus_Icon_XL"></use>
+      </svg>
+    </span>
+  </div>
+  <div class="tableFixHead flex-grow-1">
+    <table class="table table-borderless table-hover">
+      <thead>
+        <tr>
+          <th scope="col" width="80">#</th>
+          <th scope="col">Name</th>
+          <th scope="col" width="150"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="categories$ | async as categories; else loading">
+          <ng-container *ngIf="categories?.length === 0; else error">
+            <tr>
+              <td  colspan="6" class="text-center" height="200">No record found...</td>
+            </tr>
+          </ng-container>
+          <tr *ngFor="let category of categories">
+            <th scope="row"><span class="blue-badge">{{category.categoryId}}</span></th>
+            <td>{{category.categoryName}}</td>
             <td class="float-right">
-              <span role="button" class="table-btn table-btn-regular borderless inline mr-2" data-toggle="tooltip" data-placement="bottom" title="Edit Category">
+              <span role="button" class="table-btn table-btn-regular borderless inline mr-2" data-toggle="tooltip" data-placement="bottom" title="Edit Category" (click)="openCategoryModal(category.categoryId)">
                 <svg class="icon">
                   <use xlink:href="#Edit_Icon"></use>
                 </svg>
               </span>
-              <span role="button" class="table-btn table-btn-danger borderless mr-2" data-toggle="tooltip" data-placement="bottom" title="Remove Category">
+              <span role="button" class="table-btn table-btn-danger borderless mr-2" data-toggle="tooltip" data-placement="bottom" title="Remove Category" (click)="deleteCategory(category)">
                 <svg class="icon">
                   <use xlink:href="#Delete_Icon"></use>
                 </svg>
               </span>
             </td>
           </tr>
-          <tr>
-            <th scope="row"><span class="blue-badge">2</span></th>
-            <td>Two-Star</td>
-            <td class="float-right">
-              <span role="button" class="table-btn table-btn-regular borderless inline mr-2" data-toggle="tooltip" data-placement="bottom" title="Edit Category">
-                <svg class="icon">
-                  <use xlink:href="#Edit_Icon"></use>
-                </svg>
-              </span>
-              <span role="button" class="table-btn table-btn-danger borderless mr-2" data-toggle="tooltip" data-placement="bottom" title="Remove Category">
-                <svg class="icon">
-                  <use xlink:href="#Delete_Icon"></use>
-                </svg>
-              </span>
-            </td>
-          </tr>
+        </ng-container>
         </tbody>
       </table>
     </div>
@@ -84,3 +75,13 @@
         <path d="M26.7 19.3l-1-1-5.7-5.7V11c0-.6-.4-1-1-1h-9c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h15c.6 0 1-.4 1-1v-4c.3 0 .5-.1.7-.3.4-.4.4-1 0-1.4zM24 24h-4v-8.6l4 4V24zm-11-4v4h-2V12h7v12h-2v-4h-3z"></path>
       </symbol>
   </svg>
+  <ng-template #loading>
+    <tr>
+      <td  colspan="6" class="text-center" height="200">Loading...</td>
+    </tr>
+  </ng-template>
+  <ng-template #error>
+    <tr *ngIf="types === null">
+      <td  colspan="6" class="text-center" height="200">Error loading the list of categories. Please try again later.</td>
+    </tr>
+  </ng-template>

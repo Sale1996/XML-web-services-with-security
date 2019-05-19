@@ -36,13 +36,12 @@ public class AgentController {
 	
 	@GetMapping("")
 	@ApiOperation( value = "Returns all agents", httpMethod = "GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK") } )
 	public ResponseEntity< List<AgentDTO> > getAgents(){
 		
 		List<AgentDTO> agents = agentService.findAll();
 		
-		return (!agents.isEmpty()) ? new ResponseEntity< List<AgentDTO> > (agents, HttpStatus.OK) : new ResponseEntity<List<AgentDTO>>( HttpStatus.NOT_FOUND);
+		return (!agents.isEmpty()) ? new ResponseEntity< List<AgentDTO> > (agents, HttpStatus.OK) : new ResponseEntity<List<AgentDTO>>( agents, HttpStatus.OK );
 	}
 	
 	

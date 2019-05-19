@@ -40,7 +40,7 @@ public class UserController {
 		
 		List<UserDTO> users = userService.findAll();
 		
-		return (!users.isEmpty()) ? new ResponseEntity< List<UserDTO> > (users, HttpStatus.OK) : new ResponseEntity<List<UserDTO>>( HttpStatus.NOT_FOUND);
+		return (!users.isEmpty()) ? new ResponseEntity< List<UserDTO> > (users, HttpStatus.OK) : new ResponseEntity<List<UserDTO>>( users, HttpStatus.OK);
 	}
 	
 	

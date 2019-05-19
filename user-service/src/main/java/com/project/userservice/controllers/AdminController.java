@@ -34,13 +34,12 @@ public class AdminController {
 	
 	@GetMapping("")
 	@ApiOperation( value = "Returns all agents", httpMethod = "GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK") } )
 	public ResponseEntity< List<AdminDTO> > getAdmins(){
 		
 		List<AdminDTO> admins = adminService.findAll();
 		
-		return (!admins.isEmpty()) ? new ResponseEntity< List<AdminDTO> > (admins, HttpStatus.OK) : new ResponseEntity<List<AdminDTO>>( HttpStatus.NOT_FOUND);
+		return (!admins.isEmpty()) ? new ResponseEntity< List<AdminDTO> > (admins, HttpStatus.OK) : new ResponseEntity<List<AdminDTO>>( admins, HttpStatus.OK );
 	}
 	
 	

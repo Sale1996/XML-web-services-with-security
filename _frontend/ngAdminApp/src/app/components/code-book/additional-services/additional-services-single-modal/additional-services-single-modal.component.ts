@@ -1,6 +1,8 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit, Input } from '@angular/core';
+import { AccommodationService } from 'src/app/model/accommodation-service.model';
+import { AdditionalService } from 'src/app/services/additional.service';
 
 @Component({
   selector: 'app-additional-services-single-modal',
@@ -10,16 +12,19 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AdditionalServicesSingleModalComponent implements OnInit {
 
   @Input() id?: number;
+  @Output() service: EventEmitter<any> = new EventEmitter();
   submitBtnText: string;
   additionalServiceForm: FormGroup;
 
-  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {}
+  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private additionalService: AdditionalService) {}
 
   ngOnInit() {
 
     this.additionalServiceForm = this.formBuilder.group({
-      serviceId: [''],
-      serviceName: ['', Validators.required]
+      extraFieldId: [''],
+      extraFieldName: ['', Validators.required],
+      extraPrice: ['', Validators.required],
+      optional: [true]
     });
 
     if (this.id) {
@@ -31,7 +36,16 @@ export class AdditionalServicesSingleModalComponent implements OnInit {
   }
 
   getAdditionalServiceById(id: number) {
-    this.additionalServiceForm.patchValue({serviceId: 1, serviceName: 'Demo'});
+    this.additionalService.getAdditionalServiceById(id).subscribe(
+      (service: AccommodationService) => this.additionalServiceForm.patchValue(service)
+    );
+  }
+
+  onSubmit() {
+    if (this.additionalServiceForm.valid) {
+      this.service.emit(this.additionalServiceForm.value as AccommodationService);
+      this.activeModal.close();
+    }
   }
 
 }

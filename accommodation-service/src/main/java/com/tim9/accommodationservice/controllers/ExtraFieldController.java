@@ -37,13 +37,12 @@ public class ExtraFieldController {
 	
 	@GetMapping("")
 	@ApiOperation( value = "Returns all extraFields", httpMethod = "GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})	
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK") } )	
 	public ResponseEntity< List<ExtraFieldDTO> > getAllExtraFields (){
 		
 		List< ExtraFieldDTO > extraFields = extraFieldService.findAll();
 		
-		return ( !extraFields.isEmpty() )? new ResponseEntity< List<ExtraFieldDTO> > ( extraFields, HttpStatus.OK ) : new ResponseEntity< List<ExtraFieldDTO> > (extraFields, HttpStatus.NOT_FOUND );
+		return ( !extraFields.isEmpty() )? new ResponseEntity< List<ExtraFieldDTO> > ( extraFields, HttpStatus.OK ) : new ResponseEntity< List<ExtraFieldDTO> > (extraFields, HttpStatus.OK );
 		
 	}
 	

@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { AccommodationType } from './../../../../model/accommodation-type.model';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TypeService } from 'src/app/services/type.service';
 
 @Component({
   selector: 'app-accommodation-types-single-modal',
@@ -10,10 +13,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AccommodationTypesSingleModalComponent implements OnInit {
 
   @Input() id?: number;
+  @Output() type: EventEmitter<any> = new EventEmitter();
   submitBtnText: string;
   accommodationTypeForm: FormGroup;
 
-  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder) {}
+  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private typeService: TypeService) {}
 
   ngOnInit() {
 
@@ -31,7 +35,16 @@ export class AccommodationTypesSingleModalComponent implements OnInit {
   }
 
   getAccommodationTypeById(id: number) {
-    this.accommodationTypeForm.patchValue({typeId: 1, typeName: 'Demo'});
+    this.typeService.getTypeById(id).subscribe(
+      (type: AccommodationType) => this.accommodationTypeForm.patchValue(type)
+    );
+  }
+
+  onSubmit() {
+    if (this.accommodationTypeForm.valid) {
+      this.type.emit(this.accommodationTypeForm.value as AccommodationType);
+      this.activeModal.close();
+    }
   }
 
 }
