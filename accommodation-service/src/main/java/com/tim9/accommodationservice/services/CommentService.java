@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.accommodationservice.dtos.CommentDTO;
+import com.tim9.accommodationservice.models.AccommodationUnit;
 import com.tim9.accommodationservice.models.Comment;
 import com.tim9.accommodationservice.repository.AccommodationUnitRepository;
 import com.tim9.accommodationservice.repository.CommentRepository;
@@ -73,6 +74,12 @@ public class CommentService {
 
 	public CommentDTO save(CommentDTO dto) {
 		
+		//need to check if accommodationUnit exits 
+		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(dto.getAccommodation().getAccommodationId());
+		
+		if(!unit.isPresent()) {
+			return new CommentDTO();
+		}
 		
 		dto.setCommentId(-1l);
 			
@@ -90,6 +97,12 @@ public class CommentService {
 		
 		if( commentForChange.isPresent() && commentDTO!=null ) {
 			
+			//need to check if accommodationUnit exits 
+			Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(commentDTO.getAccommodation().getAccommodationId());
+			
+			if(!unit.isPresent()) {
+				return new CommentDTO();
+			}
 						
 			commentForChange.get().setCommentBody(commentDTO.getCommentBody());
 			commentForChange.get().setIsApproved(commentDTO.isIsApproved());
