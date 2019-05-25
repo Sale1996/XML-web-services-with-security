@@ -11,9 +11,9 @@ import { User } from 'src/app/model/user.model';
 })
 export class RegistrationComponent implements OnInit {
 
-  RegisterForm: FormGroup;
-  message: string;
-  isRegistrationFailed: boolean;
+  private RegisterForm: FormGroup;
+  private message: string;
+  private isRegistrationFailed: boolean;
 
   constructor(
     private authService: AuthService,

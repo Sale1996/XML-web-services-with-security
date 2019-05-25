@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -12,7 +13,7 @@ const httpOptions = {
 })
 export class AccommodationService {
 
-  private accommodationtUrl = 'http://localhost:8080/accommodations';
+  private accommodationtUrl = environment.apiAccomodations;
 
   constructor(
     private http: HttpClient

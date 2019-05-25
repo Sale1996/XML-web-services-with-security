@@ -1,8 +1,8 @@
 import { environment } from './../../environments/environment';
-import { User } from './../model/user.model';
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { User } from '../model/user.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -11,14 +11,14 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
 
   private userUrl = environment.apiUrlUser;
 
   constructor(private http: HttpClient) {
   }
 
-  register(user: User): Observable<User> {
-    return this.http.post<User>(this.userUrl, user, httpOptions);
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(this.userUrl + '/' + user.id, user, httpOptions);
   }
 }
