@@ -32,6 +32,7 @@
         <th scope="col">Date To</th>
         <th scope="col">Price</th>
         <th scope="col">Accommodation</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -41,6 +42,8 @@
         <td>20 Jun</td>
         <td>25000</td>
         <td>Ada Bojana baraka</td>
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ratingModal">Rating</button>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
       </tr>
       <tr>
         <th scope="row">2</th>
@@ -48,6 +51,8 @@
         <td>20 Jun</td>
         <td>25000</td>
         <td>Ada Bojana baraka</td>
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ratingModal">Rating</button>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
       </tr>
       <tr>
         <th scope="row">3</th>
@@ -55,8 +60,52 @@
         <td>20 Jun</td>
         <td>25000</td>
         <td>Ada Bojana baraka</td>
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ratingModal">Rating</button>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
       </tr>
     </tbody>
   </table>
 </div>
+
+<!-- Modal Cancel -->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cancelModalLabel">Cancel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to cancel this reservation</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Rating -->
+<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ratingModalLabel">Rating</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly"></ngb-rating>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 

@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  selected = 0;
+  hovered = 0;
+  readonly = false;
+
   constructor() { }
 
   ngOnInit() {
