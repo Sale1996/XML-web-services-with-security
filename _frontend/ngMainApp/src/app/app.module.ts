@@ -12,6 +12,8 @@ import { AccommodationsComponent } from './components/accommodations/accommodati
 import { AccommodationListComponent } from './components/accommodations/accommodation-list/accommodation-list.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     AccommodationsComponent,
     AccommodationListComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfileComponent,
+    ProfileEditComponent
   ],
   imports: [
     BrowserModule,
