@@ -1,7 +1,10 @@
+import { ReservationService } from './../../services/reservation.service';
 import { Accommodation } from './../../model/accommodation.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import {AccommodationService } from './../../services/accommodation.service';
+import { Location } from '@angular/common';
+import { Reservation } from 'src/app/model/reservation.model';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +21,15 @@ export class HomeComponent implements OnInit {
   checkout: Number;
   guests: Number;
   rooms: Number;
+  reservations: Reservation[];
+  reservation: Reservation;
+  reservationObj: Reservation;
 
   constructor(
     private formBuilder: FormBuilder,
-    private accommodationService: AccommodationService
+    private accommodationService: AccommodationService,
+    private reservationService: ReservationService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -37,7 +45,7 @@ export class HomeComponent implements OnInit {
   searchFlights(where: String, checkin: Number, checkout: Number, guests: Number, rooms: Number) {
 
     this.accommodationService.searchAccommotions(where, checkin, checkout, guests, rooms).subscribe(
-      accommodation => this.accommodations = accommodation,
+      accommodation => this.accommodations = accommodation
     );
   }
 
@@ -49,11 +57,36 @@ export class HomeComponent implements OnInit {
     this.rooms = this.homeFormGroup.controls['rooms'].value;
   }
 
+  prepareDataReservation(){
+
+    // moram da pokupim na koju je akomodaciju kliknu i da uzmem sve njene podatke
+    this.reservationObj.dateFrom = this.homeFormGroup.controls['checkin'].value;
+    this.reservationObj.dateTo = this.homeFormGroup.controls['checkout'].value;
+    // this.reservationObj.accommodationUnit_id = na koju je kliknuo
+    // this.reservationObj.client_id = ulogovan korisnik
+    // this.reservationObj.finalPrice = posebna klasa Price
+    // this.reservationObj.confirmation = false;
+    // this.reservationObj.id = id
+
+
+  }
+
   onSubmit() {
     this.prepareData();
     this.searchFlights(this.where, this.checkin, this.checkout, this.guests, this.rooms);
   }
 
+  reserve() {
+
+    this.reservationService.reserve(this.reservationObj).subscribe((response) => {
+      console.log('Response is: ', response);
+      this.location.back();
+   },
+   (error) => {
+      // catch the error
+      console.error('An error occurred, ', error);
+   });
+  }
 
 
 }

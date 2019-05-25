@@ -72,28 +72,61 @@
     </div>
 
   </form>
-</div>
+
 
 <!-- Accoommodations -->
 
-<div class="row">
+  <div class="row">
 
-  <!-- <div *ngFor="let accommodation of accommodations"> -->
+    <!-- <div *ngFor="let accommodation of accommodations"> -->
 
-    <div class="col">
-      <div class="card" style="width: 18rem;">
-          <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
-            <h5 class="card-title">Central Point Apartment </h5>
-            <p class="card-text">$32/night</p>
-          </div>
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
+              <h5 class="card-title">Central Point Apartment </h5>
+              <p class="card-text">$32/night</p>
+              <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">See availability</button>
+            </div>
         </div>
-    </div>
+      </div>
 
-  <!-- </div> -->
+    <!-- </div> -->
+  </div>
 
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
 
+        <h5 class="modal-title" id="exampleModalLabel">Central Point Apartment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+          <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
+          <h5 class="card-title">Central Point Apartment </h5>
+          <p class="card-text">$320</p>
+          <hr>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam est magna, tristique et risus nec, condimentum lobortis purus.
+            Donec luctus pharetra ligula facilisis blandit. Proin vestibulum lectus quis neque venenatis, eget iaculis ligula dapibus.
+            Pellentesque elementum, justo eu imperdiet pharetra, risus odio tempus sem, ut facilisis nunc sapien non urna. Vestibulum ac
+            lacus eu diam fermentum euismod ac at leo. Suspendisse fermentum lacus eget risus condimentum varius nec nec odio.
+          </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="reserve()">Reserve</button>
+      </div>
+    </div>
+  </div>
+</div>
