@@ -4,13 +4,14 @@
         <h3>Find Hotels, Apartments and Hostels</h3>
       </div>
   </div>
-  <form>
+  <form [formGroup]="homeFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
 
         <div class="col-4">
           <div class="form-group">
               <label for="formGroupExampleInput">WHERE</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Destination">
+              <input type="text" formControlName="where" class="form-control" id="formGroupExampleInput" placeholder="Enter Destination">
+              <!-- <small *ngIf="homeFormGroup.controls.where.errors?.required && homeFormGroup.controls.where.touched" class="form-text text-danger">*Required</small> -->
           </div>
         </div>
 
@@ -18,8 +19,7 @@
           <label for="formGroupExampleInput">CHECK-IN</label>
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd"
-                      name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
+              <input class="form-control" formControlName="checkin" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button"></button>
               </div>
@@ -31,8 +31,7 @@
           <label for="formGroupExampleInput">CHECKOUT</label>
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd"
-                      name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
+              <input class="form-control" formControlName="checkout" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
               </div>
@@ -42,7 +41,7 @@
 
         <div class="col-2">
           <label for="formGroupExampleInput">GUESTS</label>
-          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="guests">
               <option selected>Choose...</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -54,7 +53,7 @@
 
         <div class="col-2">
           <label for="formGroupExampleInput">ROOMS</label>
-          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="rooms">
               <option selected>Choose...</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -73,6 +72,28 @@
     </div>
 
   </form>
+</div>
+
+<!-- Accoommodations -->
+
+<div class="row">
+
+  <!-- <div *ngFor="let accommodation of accommodations"> -->
+
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+          <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
+            <h5 class="card-title">Central Point Apartment </h5>
+            <p class="card-text">$32/night</p>
+          </div>
+        </div>
+    </div>
+
+  <!-- </div> -->
 
 </div>
+
+
 
