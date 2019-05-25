@@ -20,11 +20,16 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-
+    "messageId",
+    "messageBody",
+    "messageTime",
+    "userId",
+    "recieved",
+    "opened",
+    "reservationId"
 })
 @XmlRootElement(name = "Message")
 @Entity
@@ -45,99 +50,70 @@ public class Message {
     @Column
     protected LocalDateTime messageTime;
      
-    @XmlElement(name = "sender", required = true)
+    @XmlElement(name = "user", required = true)
     @Column
-    protected Long senderId;
+    protected Long userId;
     
-    @XmlElement(name = "reciever", required = true)
+    @XmlElement(name = "recieved", required = true)
     @Column
-    protected Long recieverId;
+    protected boolean recieved;
+    
+    @XmlElement(name = "opened", required = true)
+    @Column
+    protected boolean opened;
     
     @XmlElement(name = "reservationId")
     @Column
     protected Long reservationId;
 
-    /**
-     * Gets the value of the mesasgeId property.
-     * 
-     */
-    public Long getMessageId() {
-        return messageId;
-    }
-
-    /**
-     * Sets the value of the mesasgeId property.
-     * 
-     */
-    public void setMessageId(Long value) {
-        this.messageId = value;
-    }
-
-    /**
-     * Gets the value of the messageBody property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMessageBody() {
-        return messageBody;
-    }
-
-    /**
-     * Sets the value of the messageBody property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMessageBody(String value) {
-        this.messageBody = value;
-    }
-
-    /**
-     * Gets the value of the messageTime property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public LocalDateTime getMessageTime() {
-        return messageTime;
-    }
-
-    /**
-     * Sets the value of the messageTime property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setMessageTime(LocalDateTime value) {
-        this.messageTime = value;
-    }
-
-    
-    public Long getSenderId() {
-		return senderId;
+	public Long getMessageId() {
+		return messageId;
 	}
 
-	public void setSenderId(Long senderId) {
-		this.senderId = senderId;
+	public void setMessageId(Long messageId) {
+		this.messageId = messageId;
 	}
 
-	public Long getRecieverId() {
-		return recieverId;
+	public String getMessageBody() {
+		return messageBody;
 	}
 
-	public void setRecieverId(Long recieverId) {
-		this.recieverId = recieverId;
+	public void setMessageBody(String messageBody) {
+		this.messageBody = messageBody;
 	}
-	
+
+	public LocalDateTime getMessageTime() {
+		return messageTime;
+	}
+
+	public void setMessageTime(LocalDateTime messageTime) {
+		this.messageTime = messageTime;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public boolean isRecieved() {
+		return recieved;
+	}
+
+	public void setRecieved(boolean recieved) {
+		this.recieved = recieved;
+	}
+
+	public boolean isOpened() {
+		return opened;
+	}
+
+	public void setOpened(boolean opened) {
+		this.opened = opened;
+	}
+
 	public Long getReservationId() {
 		return reservationId;
 	}
@@ -145,5 +121,7 @@ public class Message {
 	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
 	}
+
+    
 	
 }

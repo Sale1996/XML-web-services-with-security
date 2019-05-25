@@ -12,12 +12,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "messageId",
     "messageTime",
-    "senderId",
-    "recieverId"
+    "messageBody",
+    "userId",
+    "recieved",
+    "opened",
+    "reservationId"
 })
 @XmlRootElement(name = "Message")
 public class MessageDTO {
-	
 	
     @XmlElement(name = "Mesasge_id")
     protected Long messageId;
@@ -28,15 +30,17 @@ public class MessageDTO {
     @XmlElement(name = "Message_time")
     protected LocalDateTime messageTime;
     
-    @XmlElement(name = "Sender")
-    protected Long senderId;
+    @XmlElement(name = "userId")
+    protected Long userId;
     
-    @XmlElement(name = "Reciever")
-    protected Long recieverId;
+    @XmlElement(name = "recieved")
+    protected boolean recieved;
+      
+    @XmlElement(name = "opened")
+    protected boolean opened;
     
     @XmlElement(name = "reservationId")
     protected Long reservationId;
-
 
 	public Long getMessageId() {
 		return messageId;
@@ -62,20 +66,28 @@ public class MessageDTO {
 		this.messageTime = messageTime;
 	}
 
-	public Long getSenderId() {
-		return senderId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setSenderId(Long senderId) {
-		this.senderId = senderId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Long getRecieverId() {
-		return recieverId;
+	public boolean isRecieved() {
+		return recieved;
 	}
 
-	public void setRecieverId(Long recieverId) {
-		this.recieverId = recieverId;
+	public void setRecieved(boolean recieved) {
+		this.recieved = recieved;
+	}
+
+	public boolean isOpened() {
+		return opened;
+	}
+
+	public void setOpened(boolean opened) {
+		this.opened = opened;
 	}
 
 	public Long getReservationId() {
@@ -86,5 +98,8 @@ public class MessageDTO {
 		this.reservationId = reservationId;
 	}
     
+    
+
+     
     
 }
