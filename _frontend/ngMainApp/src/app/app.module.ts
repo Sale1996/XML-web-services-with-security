@@ -14,6 +14,8 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
+import { LoginComponent } from './components/login/login.component';
+import { InboxComponent } from './components/inbox/inbox.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ProfileEditComponent } from './components/profile/profile-edit/profile-
     AccommodationListComponent,
     RegistrationComponent,
     ProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    LoginComponent,
+    InboxComponent
   ],
   imports: [
     BrowserModule,

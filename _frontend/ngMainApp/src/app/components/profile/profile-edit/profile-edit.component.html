@@ -10,19 +10,23 @@
       <!-- <form *ngIf="user | async; else loading" [formGroup]="userProfileForm" (ngSubmit)="onSubmit()"> -->
         <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" formControlName="firstName" class="form-control" placeholder="Enter first name">
+          <input type="text" formControlName="firstName" class="form-control" placeholder="First name">
         </div>
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" formControlName="lastName" class="form-control" placeholder="Enter last name">
+          <input type="text" formControlName="lastName" class="form-control" placeholder="Last name">
         </div>
         <div class="form-group">
-          <label for="city">City</label>
-          <input type="text" formControlName="city" class="form-control" placeholder="Enter city">
+          <label for="email">Email</label>
+          <input type="text" formControlName="email" class="form-control" placeholder="Email">
         </div>
         <div class="form-group">
-          <label for="phone">Phone</label>
-          <input type="text" formControlName="phone" class="form-control" placeholder="Enter phone">
+          <label for="telephoneNumber">Phone</label>
+          <input type="text" formControlName="telephoneNumber" class="form-control" placeholder="Phone">
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" formControlName="address" class="form-control" placeholder="Address">
         </div>
         <button type="submit" [disabled]="!userProfileForm.valid" class="btn btn-primary">Save Changes</button>
       </form>
