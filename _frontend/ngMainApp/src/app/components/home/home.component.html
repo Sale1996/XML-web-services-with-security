@@ -4,13 +4,14 @@
         <h3>Find Hotels, Apartments and Hostels</h3>
       </div>
   </div>
-  <form>
+  <form [formGroup]="homeFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
 
         <div class="col-4">
           <div class="form-group">
               <label for="formGroupExampleInput">WHERE</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter Destination">
+              <input type="text" formControlName="where" class="form-control" id="formGroupExampleInput" placeholder="Enter Destination">
+              <!-- <small *ngIf="homeFormGroup.controls.where.errors?.required && homeFormGroup.controls.where.touched" class="form-text text-danger">*Required</small> -->
           </div>
         </div>
 
@@ -18,8 +19,7 @@
           <label for="formGroupExampleInput">CHECK-IN</label>
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd"
-                      name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
+              <input class="form-control" formControlName="checkin" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button"></button>
               </div>
@@ -31,8 +31,7 @@
           <label for="formGroupExampleInput">CHECKOUT</label>
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd"
-                      name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
+              <input class="form-control" formControlName="checkout" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
               </div>
@@ -42,7 +41,7 @@
 
         <div class="col-2">
           <label for="formGroupExampleInput">GUESTS</label>
-          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="guests">
               <option selected>Choose...</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -54,7 +53,7 @@
 
         <div class="col-2">
           <label for="formGroupExampleInput">ROOMS</label>
-          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="rooms">
               <option selected>Choose...</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -74,5 +73,195 @@
 
   </form>
 
+  <button type="button" id="filter" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#filterBy">Filter by</button>
+<!-- Accoommodations -->
+
+  <div class="row">
+
+    <!-- <div *ngFor="let accommodation of accommodations"> -->
+
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
+              <h5 class="card-title">Central Point Apartment </h5>
+              <p class="card-text">$32/night</p>
+              <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">See availability</button>
+            </div>
+        </div>
+      </div>
+
+    <!-- </div> -->
+  </div>
+
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Central Point Apartment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+          <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
+          <h5 class="card-title">Central Point Apartment </h5>
+          <p class="card-text">$320</p>
+          <hr>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam est magna, tristique et risus nec, condimentum lobortis purus.
+            Donec luctus pharetra ligula facilisis blandit. Proin vestibulum lectus quis neque venenatis, eget iaculis ligula dapibus.
+            Pellentesque elementum, justo eu imperdiet pharetra, risus odio tempus sem, ut facilisis nunc sapien non urna. Vestibulum ac
+            lacus eu diam fermentum euismod ac at leo. Suspendisse fermentum lacus eget risus condimentum varius nec nec odio.
+          </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="reserve()">Reserve</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Filter By -->
+<div class="modal fade bd-example-modal-lg" id="filterBy" tabindex="-1" role="dialog" aria-labelledby="filterByLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filterByLabel">Filter By</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col">
+              <label><b>You Budget</b></label>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                      RSD 0 - RSD 6000 per night
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          RSD 6000 - RSD 12000 per night
+                      </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          RSD 12000 - RSD 24000 per night
+                      </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          RSD 24000 + per night
+                      </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <label><b>Popular Filters</b></label>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                      Parking
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          Hotels
+                      </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          Apartments
+                      </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          Sea view
+                      </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <label><b>Star rating</b></label>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                      2 stars
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          3 stars
+                      </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          4 stars
+                      </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                          5 stars
+                      </label>
+                    </div>
+                </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 

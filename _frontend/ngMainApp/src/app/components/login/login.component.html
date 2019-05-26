@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <h3>LogIn</h3>
+    <form>
+    <!-- <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()"> -->
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6">
+              <div class="form-group">
+                <!-- <label for="email">Email<span class="text-danger">*</span></label> -->
+                <input type="email" formControlName="email" class="form-control form-control-sm" placeholder="Email">
+                <!-- <small *ngIf="RegisterForm.controls.email.errors?.required && RegisterForm.controls.email.touched" class="form-text text-danger">*Required</small> -->
+              </div>
+              <div class="form-group">
+                <!-- <label for="password">Password<span class="text-danger">*</span></label> -->
+                <input type="password" formControlName="password" class="form-control form-control-sm" placeholder="Password">
+                <!-- <small *ngIf="RegisterForm.controls.password.errors?.required && RegisterForm.controls.password.touched" class="form-text text-danger">*Required</small> -->
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <button type="submit" [disabled]="!RegisterForm.valid" class="btn btn-primary">LogIn</button>
+            <!-- <small *ngIf="isRegistrationFailed" class="form-text text-danger mt-3">{{message}}</small> -->
+          </div>
+        </div>
+      </form>
+  </div>
+  <div class="col-sm-3"></div>
+</div>

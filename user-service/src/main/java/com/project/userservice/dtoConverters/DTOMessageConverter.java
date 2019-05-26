@@ -22,8 +22,9 @@ public class DTOMessageConverter {
 		dto.setMessageId(message.getMessageId());
 		dto.setMessageBody(message.getMessageBody());
 		dto.setMessageTime(message.getMessageTime());
-		dto.setSenderId(message.getSenderId());
-		dto.setRecieverId(message.getRecieverId());
+		dto.setUserId(message.getUserId());
+		dto.setRecieved(message.isRecieved());
+		dto.setOpened(message.isOpened());
 		dto.setReservationId(message.getReservationId());
 
 		return dto;
@@ -43,8 +44,9 @@ public class DTOMessageConverter {
 		mes.setMessageId(dto.getMessageId());
 		mes.setMessageBody(dto.getMessageBody());
 		mes.setMessageTime(dto.getMessageTime());
-		mes.setSenderId(dto.getSenderId());
-		mes.setRecieverId(dto.getRecieverId());
+		mes.setUserId(dto.getUserId());
+		mes.setRecieved(dto.isRecieved());
+		mes.setOpened(dto.isOpened());
 		mes.setReservationId(dto.getReservationId());
 			
 		return mes;
