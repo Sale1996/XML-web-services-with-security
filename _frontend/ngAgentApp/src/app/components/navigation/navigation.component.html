@@ -1,3 +1,42 @@
-<p>
-  navigation works!
-</p>
+<nav class="navbar navbar-expand-lg navbar-light py-2">
+  <a class="navbar-brand" href="#">MegaTravel<span class="blue-badge fs-1 ml-1">AGENT</span></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Code Book
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Accommodation Types</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Accommodation Categories</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Additional Services</a>
+        </div>
+      </li> -->
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="accommodations">Accommodation</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="accommodation-units">Accommodation units</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="reservations">Reservations</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="messages">Messages</a>
+      </li>
+    </ul>
+    <span class="navbar-text mr-2">
+      Veljko Petrovic
+      <svg width="24" height="24" class="icon">
+        <image width="24" height="24" xlink:href="assets/icons/profile.svg" />
+      </svg>
+    </span>
+
+  </div>
+</nav>
