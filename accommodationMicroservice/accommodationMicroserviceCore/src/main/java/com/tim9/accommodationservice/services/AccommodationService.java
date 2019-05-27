@@ -20,6 +20,7 @@ public class AccommodationService {
 	@Autowired
 	AccommodationRepository accommodationRepository;
 	
+	
 	@Autowired
 	DTOAccommodationConverter accommodationConverter;
 	
@@ -47,14 +48,22 @@ public class AccommodationService {
 		
 	}
 	
-	public List<AccommodationSearchDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests) {
+	public List<AccommodationDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests) {
 		
-		Optional< List<AccommodationSearchDTO> > accommodations = Optional.of ( accommodationRepository.searchAccommodations(city, numberOfGuests) );
+		Optional< List<Accommodation> > accommodations = Optional.of ( accommodationRepository.searchAccommodations(city, numberOfGuests) );
 		
+		ArrayList < AccommodationDTO > dtoAccommodations = new ArrayList< AccommodationDTO >();
+
 		
 		if ( accommodations.isPresent() ) {
 			
-			return accommodations.get();
+			for ( Accommodation candidate : accommodations.get() ) {
+				
+				dtoAccommodations.add(accommodationConverter.convertToDTO(candidate));
+				
+			}
+
+			return dtoAccommodations;
 			
 		}
 			

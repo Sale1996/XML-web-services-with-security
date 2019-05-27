@@ -34,6 +34,7 @@ public class DTOAccommodationConverter {
 		dto.setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
 		dto.setAccommodationName(accommodation.getAccommodationName());
 		dto.setCity(cityConverter.convertToDTO(accommodation.getCity()));
+		dto.setCountedNumberOfBeds(accommodation.getCountedNumberOfBeds());
 		
 		for(Picture picture : accommodation.getPictures()) {
 			dto.getPictures().add(pictureConverter.convertToDTO(picture));
@@ -60,6 +61,7 @@ public class DTOAccommodationConverter {
 		newBean.setNumberOfDaysBeforeCancelation(dto.getNumberOfDaysBeforeCancelation());
 		newBean.setAccommodationName(dto.getAccommodationName());
 		newBean.setCity(cityConverter.convertFromDTO(dto.getCity()));
+		newBean.setCountedNumberOfBeds(dto.getCountedNumberOfBeds());
 		
 		for(PictureDTO picture : dto.getPictures()) {
 			newBean.getPictures().add(pictureConverter.convertFromDTO(picture));

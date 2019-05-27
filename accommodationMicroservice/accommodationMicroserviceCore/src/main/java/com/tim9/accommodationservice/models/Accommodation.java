@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -65,6 +66,11 @@ public class Accommodation {
     @ManyToOne ()
 	@JoinColumn (name="city",nullable = false)
     protected City city;
+    
+    
+    @XmlElement(name = "Counted_number_of_beds")
+    @Transient
+    protected int countedNumberOfBeds;
 
     
     @XmlElement(name = "Accommodation_units")
@@ -150,6 +156,14 @@ public class Accommodation {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	public int getCountedNumberOfBeds() {
+		return countedNumberOfBeds;
+	}
+
+	public void setCountedNumberOfBeds(int countedNumberOfBeds) {
+		this.countedNumberOfBeds = countedNumberOfBeds;
 	}
 
 }

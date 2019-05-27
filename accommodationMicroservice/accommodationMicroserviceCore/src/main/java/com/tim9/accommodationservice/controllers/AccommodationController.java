@@ -54,11 +54,11 @@ public class AccommodationController {
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
-	public ResponseEntity< List<AccommodationSearchDTO> > getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests) {
+	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests) {
 		
-		List< AccommodationSearchDTO > accommodations = accommodationService.findAllByCityAndNumberOfGuests(city,numberOfGuests);
+		List< AccommodationDTO > accommodations = accommodationService.findAllByCityAndNumberOfGuests(city,numberOfGuests);
 		
-		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationSearchDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationSearchDTO>>(accommodations, HttpStatus.NOT_FOUND);
+		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>(accommodations, HttpStatus.NOT_FOUND);
 
 	}
 	

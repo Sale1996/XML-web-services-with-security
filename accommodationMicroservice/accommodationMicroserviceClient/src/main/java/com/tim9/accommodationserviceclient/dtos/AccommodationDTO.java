@@ -47,6 +47,9 @@ public class AccommodationDTO {
     @XmlElement(name="City", required = true)
     protected CityDTO city;
     
+    @XmlElement(name = "Counted_number_of_beds")
+    protected int countedNumberOfBeds;
+    
     
     public String getAccommodationName() {
 		return accommodationName;
@@ -134,6 +137,14 @@ public class AccommodationDTO {
 
 	public void setCity(CityDTO city) {
 		this.city = city;
+	}
+
+	public int getCountedNumberOfBeds() {
+		return countedNumberOfBeds;
+	}
+
+	public void setCountedNumberOfBeds(int countedNumberOfBeds) {
+		this.countedNumberOfBeds = countedNumberOfBeds;
 	}
 
 }
