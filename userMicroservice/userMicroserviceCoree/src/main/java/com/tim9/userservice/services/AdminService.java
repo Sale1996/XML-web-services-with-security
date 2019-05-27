@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.userservice.dtoConverters.DTOAdminConverter;
@@ -17,11 +16,14 @@ import dtos.AdminDTO;
 @Service
 public class AdminService {
 	
-	@Autowired
-	private AdminRepository adminRepository;
+	private final AdminRepository adminRepository;
 	
-	@Autowired
-	private DTOAdminConverter dtoAdminConverter;
+	private final DTOAdminConverter dtoAdminConverter;
+	
+	public AdminService(final AdminRepository adminRepository, final DTOAdminConverter dtoAdminConverter) {
+		this.adminRepository = adminRepository;
+		this.dtoAdminConverter = dtoAdminConverter;
+	}
 	
 	public List<AdminDTO> findAll(){
 		

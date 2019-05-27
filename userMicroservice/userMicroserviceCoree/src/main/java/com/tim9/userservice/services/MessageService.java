@@ -2,7 +2,6 @@ package com.tim9.userservice.services;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.userservice.dtoConverters.DTOMessageConverter;
@@ -14,11 +13,14 @@ import dtos.MessageDTO;
 @Service
 public class MessageService {
 	
-	@Autowired
-	private MessageRepository messageRepository;
+	private final MessageRepository messageRepository;
 	
-	@Autowired
-	private DTOMessageConverter dtoMessageConverter;
+	private final DTOMessageConverter dtoMessageConverter;
+	
+	public MessageService(final MessageRepository messageRepository, final DTOMessageConverter dtoMessageConverter) {
+		this.messageRepository = messageRepository;
+		this.dtoMessageConverter = dtoMessageConverter;
+	}
 	
 	public MessageDTO findById(long id){
 		

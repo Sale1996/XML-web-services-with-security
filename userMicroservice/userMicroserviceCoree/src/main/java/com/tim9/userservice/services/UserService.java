@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.userservice.dtoConverters.DTOUserConverter;
@@ -17,11 +16,14 @@ import dtos.UserDTO;
 @Service
 public class UserService {
 	
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 	
-	@Autowired
-	private DTOUserConverter dtoUserConverter;
+	private final DTOUserConverter dtoUserConverter;
+	
+	public UserService(final UserRepository userRepository, final DTOUserConverter dtoUserConverter) {
+		this.userRepository = userRepository;
+		this.dtoUserConverter = dtoUserConverter;
+	}
 	
 	public List<UserDTO> findAll(){
 		

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.userservice.dtoConverters.DTOAgentConverter;
@@ -17,11 +16,14 @@ import dtos.AgentDTO;
 @Service
 public class AgentService {
 	
-	@Autowired
-	private AgentRepository agentRepository;
+	private final AgentRepository agentRepository;
 	
-	@Autowired
-	private DTOAgentConverter dtoAgentConverter;
+	private final DTOAgentConverter dtoAgentConverter;
+	
+	public AgentService(final AgentRepository agentRepository, final DTOAgentConverter dtoAgentConverter) {
+		this.agentRepository = agentRepository;
+		this.dtoAgentConverter = dtoAgentConverter;
+	}
 	
 	public List<AgentDTO> findAll(){
 		
