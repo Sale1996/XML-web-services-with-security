@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tim9.accommodationservice.models.AccommodationUnit;
 
-@Repository
+
 public interface AccommodationUnitRepository extends JpaRepository<AccommodationUnit,Long> {
 
 }

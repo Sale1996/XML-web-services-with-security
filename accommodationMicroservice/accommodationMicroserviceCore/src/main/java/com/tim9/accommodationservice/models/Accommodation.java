@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -44,36 +46,50 @@ public class Accommodation {
     protected Long accommodationId;
     
     
-    @XmlElement(name = "Description", required = true)
+    @XmlElement(name = "Name", required = true)
+    @Column ( name="name", nullable = true )
+    protected String accommodationName;
+    
+
+	@XmlElement(name = "Description", required = true)
     @Column ( name="description", nullable = false )
     protected String description;
-    
-    
-    @XmlElement(name = "X_cord")
-    @Column ( name="x_cord", nullable = false )
-    protected double xCord;
-    
-    
-    @XmlElement(name = "Y_cord")
-    @Column ( name="y_cord", nullable = false )
-    protected double yCord;
     
     
     @XmlElement(name = "Number_of_days_before_cancelation")
     @Column ( name="number_of_days_before_cancelation", nullable = false )   
     protected int numberOfDaysBeforeCancelation;
+    
+    
+    @XmlElement(name="City", required = true)
+    @ManyToOne ()
+	@JoinColumn (name="city",nullable = false)
+    protected City city;
 
+    
     @XmlElement(name = "Accommodation_units")
     @OneToMany (mappedBy="accommodation")
     protected List<AccommodationUnit> units;
+    
     
 	@XmlElement(name ="Accommodation_comments")
 	@OneToMany (mappedBy="accommodation")
     protected List<Comment> comments;
 	
+	
 	@XmlElement(name = "Accommodation_pictures")
 	@OneToMany (mappedBy="accommodation")
 	protected List<Picture> pictures;
+
+	
+	
+	public String getAccommodationName() {
+		return accommodationName;
+	}
+
+	public void setAccommodationName(String accommodationName) {
+		this.accommodationName = accommodationName;
+	}
 
     
     public List<AccommodationUnit> getUnits() {
@@ -118,26 +134,7 @@ public class Accommodation {
     }
 
 
-    public double getXCord() {
-        return xCord;
-    }
-
-
-    public void setXCord(double value) {
-        this.xCord = value;
-    }
-
-
-    public double getYCord() {
-        return yCord;
-    }
-
-
-    public void setYCord(double value) {
-        this.yCord = value;
-    }
-
-
+   
     public int getNumberOfDaysBeforeCancelation() {
         return numberOfDaysBeforeCancelation;
     }
@@ -146,5 +143,13 @@ public class Accommodation {
     public void setNumberOfDaysBeforeCancelation(int value) {
         this.numberOfDaysBeforeCancelation = value;
     }
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
 
 }

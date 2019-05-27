@@ -12,6 +12,7 @@ import com.tim9.accommodationservice.models.Accommodation;
 import com.tim9.accommodationservice.repository.AccommodationRepository;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
+import com.tim9.accommodationserviceclient.dtos.AccommodationSearchDTO;
 
 @Service
 public class AccommodationService {
@@ -38,6 +39,22 @@ public class AccommodationService {
 			}
 			
 			return dtoAccommodations;
+			
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+	
+	public List<AccommodationSearchDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests) {
+		
+		Optional< List<AccommodationSearchDTO> > accommodations = Optional.of ( accommodationRepository.searchAccommodations(city, numberOfGuests) );
+		
+		
+		if ( accommodations.isPresent() ) {
+			
+			return accommodations.get();
 			
 		}
 			
@@ -88,11 +105,9 @@ public class AccommodationService {
 										
 			accommodationForChange.get().setDescription(accommodation.getDescription());
 			accommodationForChange.get().setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
-			accommodationForChange.get().setXCord(accommodation.getXCord());
-			accommodationForChange.get().setYCord(accommodation.getYCord());
 			//liste jos ne diramo
 			
-	
+			//ovde bi trebali da ispitamo jos da li postoji izmenjeni city i ako postoji da ga psotavimo ....
 			accommodationRepository.save(accommodationForChange.get());
 			
 			accommodation.setAccommodationId(accommodationForChange.get().getAccommodationId());
@@ -120,5 +135,7 @@ public class AccommodationService {
 		return new AccommodationDTO();
 		
 	}
+
+
 
 }

@@ -27,7 +27,6 @@ import javax.xml.bind.annotation.XmlType;
     "numberOfDaysBeforeCancelation"
 })
 @XmlRootElement(name = "Accommodation")
-
 public class AccommodationDTO {
 
 
@@ -35,13 +34,30 @@ public class AccommodationDTO {
 
 	@XmlElement(name = "Accommodation_id")
     protected Long accommodationId;
+	
+	
+    @XmlElement(name = "Name", required = true)
+    protected String accommodationName;
     
     
     @XmlElement(name = "Description", required = true)
     protected String description;
     
     
-    @XmlElement(name = "X_cord")
+    @XmlElement(name="City", required = true)
+    protected CityDTO city;
+    
+    
+    public String getAccommodationName() {
+		return accommodationName;
+	}
+
+	public void setAccommodationName(String accommodationName) {
+		this.accommodationName = accommodationName;
+	}
+
+
+	@XmlElement(name = "X_cord")
     protected double xCord;
     
     
@@ -56,14 +72,6 @@ public class AccommodationDTO {
 	@XmlElement(name = "Accommodation_pictures")
 	protected List<PictureDTO> pictures = new ArrayList<PictureDTO>();
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
     public List<PictureDTO> getPictures() {
 		return pictures;
@@ -119,5 +127,13 @@ public class AccommodationDTO {
     public void setNumberOfDaysBeforeCancelation(int value) {
         this.numberOfDaysBeforeCancelation = value;
     }
+
+	public CityDTO getCity() {
+		return city;
+	}
+
+	public void setCity(CityDTO city) {
+		this.city = city;
+	}
 
 }

@@ -20,6 +20,8 @@ public class DTOAccommodationConverter {
 	
 	@Autowired 
 	public DTOPictureConverter pictureConverter;
+	@Autowired
+	public DTOCityConverter cityConverter;
 	
 	
 	
@@ -30,8 +32,8 @@ public class DTOAccommodationConverter {
 		dto.setAccommodationId(accommodation.getAccommodationId());
 		dto.setDescription(accommodation.getDescription());
 		dto.setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
-		dto.setXCord(accommodation.getXCord());
-		dto.setYCord(accommodation.getYCord());
+		dto.setAccommodationName(accommodation.getAccommodationName());
+		dto.setCity(cityConverter.convertToDTO(accommodation.getCity()));
 		
 		for(Picture picture : accommodation.getPictures()) {
 			dto.getPictures().add(pictureConverter.convertToDTO(picture));
@@ -56,8 +58,8 @@ public class DTOAccommodationConverter {
 		newBean.setAccommodationId(dto.getAccommodationId());
 		newBean.setDescription(dto.getDescription());
 		newBean.setNumberOfDaysBeforeCancelation(dto.getNumberOfDaysBeforeCancelation());
-		newBean.setXCord(dto.getXCord());
-		newBean.setYCord(dto.getYCord());
+		newBean.setAccommodationName(dto.getAccommodationName());
+		newBean.setCity(cityConverter.convertFromDTO(dto.getCity()));
 		
 		for(PictureDTO picture : dto.getPictures()) {
 			newBean.getPictures().add(pictureConverter.convertFromDTO(picture));

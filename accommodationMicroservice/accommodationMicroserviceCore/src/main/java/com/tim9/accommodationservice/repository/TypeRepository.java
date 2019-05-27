@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.tim9.accommodationservice.models.Type;
 
 
-@Repository
+
 public interface TypeRepository extends JpaRepository<Type,Long>{
 
 	Optional<Type> findByTypeName(String typeName);

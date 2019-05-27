@@ -84,11 +84,9 @@ public class AccommodationUnit {
     @XmlElement(name = "Price", required = true)
 	@OneToMany (mappedBy="accommodationUnit")
     protected List<Price> price;
+
     
     
-   
-
-
     public Long getAccommodationUnitId() {
         return accommodationUnitId;
     }

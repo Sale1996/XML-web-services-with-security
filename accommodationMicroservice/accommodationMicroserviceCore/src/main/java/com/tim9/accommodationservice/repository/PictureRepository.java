@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.tim9.accommodationservice.models.Picture;
 
-@Repository
 public interface PictureRepository extends JpaRepository<Picture,Long>{
 
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tim9.accommodationservice.models.Comment;
 
-@Repository
+
 public interface CommentRepository extends JpaRepository<Comment,Long> {
 
 }

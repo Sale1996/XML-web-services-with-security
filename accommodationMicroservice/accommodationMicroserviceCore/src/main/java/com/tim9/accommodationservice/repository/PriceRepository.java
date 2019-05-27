@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tim9.accommodationservice.models.Price;
 
-@Repository
+
 public interface PriceRepository extends JpaRepository<Price,Long> {
 
 }

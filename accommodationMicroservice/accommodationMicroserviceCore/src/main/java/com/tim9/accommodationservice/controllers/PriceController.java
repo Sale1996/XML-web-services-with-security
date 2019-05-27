@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponses;
 
 
 @RestController
-@RequestMapping("/api/Price")
+@RequestMapping("/price")
 @Api(value="Price")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PriceController {
