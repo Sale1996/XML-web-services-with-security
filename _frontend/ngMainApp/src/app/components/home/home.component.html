@@ -8,11 +8,8 @@
     <div class="row">
 
         <div class="col-4">
-          <div class="form-group">
-              <label for="formGroupExampleInput">WHERE</label>
-              <input type="text" formControlName="where" class="form-control" id="formGroupExampleInput" placeholder="Enter Destination">
-              <!-- <small *ngIf="homeFormGroup.controls.where.errors?.required && homeFormGroup.controls.where.touched" class="form-text text-danger">*Required</small> -->
-          </div>
+          <label for="formGroupExampleInput">WHERE</label>
+          <ng-select [items]="cities" bindLabel="name" placeholder="Select city"></ng-select>
         </div>
 
         <div class="col-2">
@@ -42,18 +39,6 @@
         <div class="col-2">
           <label for="formGroupExampleInput">GUESTS</label>
           <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="guests">
-              <option selected>Choose...</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-          </select>
-        </div>
-
-        <div class="col-2">
-          <label for="formGroupExampleInput">ROOMS</label>
-          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="rooms">
               <option selected>Choose...</option>
               <option value="1">1</option>
               <option value="2">2</option>

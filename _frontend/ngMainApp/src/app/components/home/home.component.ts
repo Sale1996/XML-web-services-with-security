@@ -1,3 +1,4 @@
+import { City } from './../../model/city.model';
 import { ReservationService } from './../../services/reservation.service';
 import { Accommodation } from './../../model/accommodation.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -24,6 +25,16 @@ export class HomeComponent implements OnInit {
   reservations: Reservation[];
   reservation: Reservation;
   reservationObj: Reservation;
+  city: City;
+  cities2: City[];
+
+  cities = [
+    {id: 1, name: 'Vilnius'},
+    {id: 2, name: 'Kaunas'},
+    {id: 3, name: 'Pavilnys', disabled: true},
+    {id: 4, name: 'Pabradė'},
+    {id: 5, name: 'Klaipėda'}
+];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,9 +53,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  searchFlights(where: String, checkin: Number, checkout: Number, guests: Number, rooms: Number) {
+  searchFlights(where: String, checkin: Number, checkout: Number, guests: Number) {
 
-    this.accommodationService.searchAccommotions(where, checkin, checkout, guests, rooms).subscribe(
+    this.accommodationService.searchAccommotions(where, checkin, checkout, guests).subscribe(
       accommodation => this.accommodations = accommodation
     );
   }
@@ -54,7 +65,6 @@ export class HomeComponent implements OnInit {
     this.checkin = this.homeFormGroup.controls['checkin'].value;
     this.checkout = this.homeFormGroup.controls['checkout'].value;
     this.guests = this.homeFormGroup.controls['guests'].value;
-    this.rooms = this.homeFormGroup.controls['rooms'].value;
   }
 
   prepareDataReservation(){
@@ -73,7 +83,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit() {
     this.prepareData();
-    this.searchFlights(this.where, this.checkin, this.checkout, this.guests, this.rooms);
+    this.searchFlights(this.where, this.checkin, this.checkout, this.guests);
   }
 
   reserve() {
@@ -87,6 +97,10 @@ export class HomeComponent implements OnInit {
       console.error('An error occurred, ', error);
    });
   }
+
+  getCities(): void {
+    this.accommodationService.getCities().subscribe(city => this.cities2 = city);
+}
 
 
 }

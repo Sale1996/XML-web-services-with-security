@@ -16,6 +16,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { LoginComponent } from './components/login/login.component';
 import { InboxComponent } from './components/inbox/inbox.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { InboxComponent } from './components/inbox/inbox.component';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     HttpClientModule,
     AppRoutingModule
   ],
