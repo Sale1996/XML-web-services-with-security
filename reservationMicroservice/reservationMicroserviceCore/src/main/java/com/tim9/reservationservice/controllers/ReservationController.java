@@ -95,7 +95,7 @@ public class ReservationController {
 	}
 
 	@PostMapping("/")
-	@PreAuthorize("hasAuthority('CREATE_RESERVATION')")
+	//@PreAuthorize("hasAuthority('CREATE_RESERVATION')")
 	@ApiOperation( value = "Create a reservation.", notes = "Returns the reservation being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -109,7 +109,7 @@ public class ReservationController {
 	}
 
 	@PutMapping("/{reservationId}")
-	@PreAuthorize("hasAuthority('UPDATE_RESERVATION')")
+	//@PreAuthorize("hasAuthority('UPDATE_RESERVATION')")
 	@ApiOperation( value= "Change a reservation", notes = "Returns the reservation being changed", httpMethod="PUT")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
@@ -122,7 +122,7 @@ public class ReservationController {
 	}
 
 	@DeleteMapping("/{reservationId}")
-	@PreAuthorize("hasAuthority('DELETE_RESERVATION')")
+	//@PreAuthorize("hasAuthority('DELETE_RESERVATION')")
 	@ApiOperation( value = "Delete a reservation.", notes = "Returns the reservation being deleted", httpMethod="DELETE")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
