@@ -1,5 +1,6 @@
 package com.tim9.reservationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tim9.reservationservice.dtos.ReservationDTO;
+import com.tim9.reservationserviceClient.dtos.ReservationDTO;
 import com.tim9.reservationservice.models.Reservation;
 import com.tim9.reservationservice.repository.ReservationRepository;
 import com.tim9.reservationservice.utils.dtoConverters.DTOReservationConverter;
@@ -69,8 +70,8 @@ public class ReservationService {
 			reservationForChange.get().setAccommodationUnit(reservation.getAccommodationUnit());
 			reservationForChange.get().setClient(reservation.getClient());
 			reservationForChange.get().setConfirmation(reservation.isConfirmation());
-			reservationForChange.get().setDateFrom(reservation.getDateFrom());
-			reservationForChange.get().setDateTo(reservation.getDateTo());
+			reservationForChange.get().setDateFrom(LocalDateTime.parse(reservation.getDateFrom()));
+			reservationForChange.get().setDateTo(LocalDateTime.parse(reservation.getDateTo()));
 			reservationForChange.get().setFinalPrice(reservation.getFinalPrice());
 			
 			reservationRepository.save(reservationForChange.get());

@@ -1,7 +1,5 @@
 package com.tim9.reservationserviceClient.dtos;
 
-import java.time.LocalDateTime;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,10 +19,10 @@ public class ReservationDTO {
 	protected Long reservationId;
 	@XmlElement(name = "Date_from", required = true)
     @XmlSchemaType(name = "date")
-    protected LocalDateTime dateFrom;
+    protected String dateFrom;
     @XmlElement(name = "Date_to", required = true)
     @XmlSchemaType(name = "date")
-    protected LocalDateTime dateTo;
+    protected String dateTo;
     @XmlElement(name = "Final_price")
     protected float finalPrice;
     @XmlElement(name = "Confirmation")
@@ -41,16 +39,16 @@ public class ReservationDTO {
 	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
 	}
-	public LocalDateTime getDateFrom() {
+	public String getDateFrom() {
 		return dateFrom;
 	}
-	public void setDateFrom(LocalDateTime dateFrom) {
+	public void setDateFrom(String dateFrom) {
 		this.dateFrom = dateFrom;
 	}
-	public LocalDateTime getDateTo() {
+	public String getDateTo() {
 		return dateTo;
 	}
-	public void setDateTo(LocalDateTime dateTo) {
+	public void setDateTo(String dateTo) {
 		this.dateTo = dateTo;
 	}
 	public float getFinalPrice() {
