@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Reservation } from './../model/reservation.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,7 +13,7 @@ const httpOptions = {
 })
 export class ReservationService {
 
-  private reservationtUrl = 'http://localhost:8080/reservations';
+  private reservationtUrl = environment.apiReservations;
 
   constructor(
     private http: HttpClient

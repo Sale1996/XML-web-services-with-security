@@ -1,9 +1,9 @@
-export interface Reservation {
-  id: number;
-  dateFrom: any;
-  dateTo: any;
+export class Reservation {
+  reservationId: number;
+  dateFrom: string;
+  dateTo: string;
   finalPrice: number;
   confirmation: boolean;
-  accommodationUnit_id: number;
-  client_id: number;
+  accommodationUnit: number;
+  client: number;
 }

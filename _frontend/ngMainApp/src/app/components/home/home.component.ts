@@ -1,3 +1,4 @@
+import { HomeSingleModalComponent } from './home-single-modal/home-single-modal.component';
 import { City } from './../../model/city.model';
 import { ReservationService } from './../../services/reservation.service';
 import { Accommodation } from './../../model/accommodation.model';
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import {AccommodationService } from './../../services/accommodation.service';
 import { Location } from '@angular/common';
 import { Reservation } from 'src/app/model/reservation.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -24,15 +26,17 @@ export class HomeComponent implements OnInit {
   rooms: Number;
   reservations: Reservation[];
   reservation: Reservation;
-  reservationObj: Reservation;
+  reservationObj: Reservation = new Reservation();
   city: City;
   cities: City[];
+  local_accomm: Accommodation;
 
   constructor(
     private formBuilder: FormBuilder,
     private accommodationService: AccommodationService,
     private reservationService: ReservationService,
-    private location: Location
+    private location: Location,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -62,15 +66,18 @@ export class HomeComponent implements OnInit {
 
   prepareDataReservation(){
 
-    // moram da pokupim na koju je akomodaciju kliknu i da uzmem sve njene podatke
-    this.reservationObj.dateFrom = this.homeFormGroup.controls['checkin'].value;
-    this.reservationObj.dateTo = this.homeFormGroup.controls['checkout'].value;
-    // this.reservationObj.accommodationUnit_id = na koju je kliknuo
-    // this.reservationObj.client_id = ulogovan korisnik
-    // this.reservationObj.finalPrice = posebna klasa Price
-    // this.reservationObj.confirmation = false;
-    // this.reservationObj.id = id
+    // bice izmenaa
 
+    console.log('EEEEEEEEEEEEEEEEEEEEEEEE:  ', this.local_accomm);
+
+    // this.reservationObj.dateFrom = this.homeFormGroup.controls['checkin'].value; 2019-06-28T18:44:27.534
+    // this.reservationObj.dateTo = this.homeFormGroup.controls['checkout'].value;
+    this.reservationObj.client = 1; // ulogovan korisnik
+    this.reservationObj.accommodationUnit = this.local_accomm.accommodationId;
+    this.reservationObj.confirmation = false;
+    this.reservationObj.finalPrice = 100; // cena puta dani
+    this.reservationObj.dateFrom = 'sta';
+    this.reservationObj.dateTo = 'staa';
 
   }
 
@@ -80,6 +87,8 @@ export class HomeComponent implements OnInit {
   }
 
   reserve() {
+
+    this.prepareDataReservation();
 
     this.reservationService.reserve(this.reservationObj).subscribe((response) => {
       console.log('Response is: ', response);
@@ -94,4 +103,28 @@ export class HomeComponent implements OnInit {
   getCities(): void {
     this.accommodationService.getCities().subscribe(city => this.cities = city);
   }
+
+  openAccommodationModalSeeAvailability(a: Accommodation): void {
+    const accommodationModalRef = this.modalService.open(HomeSingleModalComponent,
+      {
+        size: 'lg',
+        centered: true,
+        backdropClass: 'custom-modal-backdrop'
+      });
+
+      this.local_accomm = a;
+      accommodationModalRef.componentInstance.accommodation = a;
+
+      accommodationModalRef.componentInstance.answer.subscribe(
+        (answer: string) => {
+
+            if(answer === 'reserve') {
+
+              this.reserve();
+            }
+
+        }
+      );
+  }
+
 }

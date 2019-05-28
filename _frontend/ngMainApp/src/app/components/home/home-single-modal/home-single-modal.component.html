@@ -1,0 +1,27 @@
+<div class="modal-header">
+
+    <h5 class="modal-title" id="exampleModalLabel">Central Point Apartment</h5>
+    <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless" (click)="activeModal.dismiss('Cross click')">
+      <svg class="icon">
+        <use xlink:href="#Close_Icon"></use>
+      </svg>
+    </span>
+</div>
+<div class="modal-body">
+      <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+      <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
+      <h5 class="card-title">{{ accommodation.accommodationName }} </h5>
+      <p class="card-text">$320</p>
+      <hr>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam est magna, tristique et risus nec, condimentum lobortis purus.
+        Donec luctus pharetra ligula facilisis blandit. Proin vestibulum lectus quis neque venenatis, eget iaculis ligula dapibus.
+        Pellentesque elementum, justo eu imperdiet pharetra, risus odio tempus sem, ut facilisis nunc sapien non urna. Vestibulum ac
+        lacus eu diam fermentum euismod ac at leo. Suspendisse fermentum lacus eget risus condimentum varius nec nec odio.
+      </p>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="onReserve()">Reserve</button>
+</div>
