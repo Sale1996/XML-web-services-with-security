@@ -10,6 +10,11 @@ package com.tim9.reservationservice.models;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -63,23 +68,33 @@ import ch.qos.logback.core.net.server.Client;
 
 })
 @XmlRootElement(name = "Reservation")
+@Entity
 public class Reservation {
 
     @XmlElement(name = "Reservation_id")
+    @Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column
     protected Long reservationId;
     @XmlElement(name = "Date_from", required = true)
     @XmlSchemaType(name = "date")
+    @Column
     protected LocalDateTime dateFrom;
     @XmlElement(name = "Date_to", required = true)
     @XmlSchemaType(name = "date")
+    @Column
     protected LocalDateTime dateTo;
     @XmlElement(name = "Final_price")
+    @Column
     protected float finalPrice;
     @XmlElement(name = "Confirmation")
+    @Column
     protected boolean confirmation;
     @XmlElement(name = "Accommodation_unit", required = true)
+    @Column
     protected Long accommodationUnit;
     @XmlElement(name = "Client", required = true)
+    @Column
     protected Long client;
 
     public Reservation() {}

@@ -3,11 +3,13 @@ package com.tim9.reservationservice.utils.dtoConverters;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.tim9.reservationservice.dtos.ReservationDTO;
 import com.tim9.reservationservice.models.Reservation;
 import com.tim9.reservationservice.repository.ReservationRepository;
 
+@Component
 public class DTOReservationConverter {
 
 	@Autowired
