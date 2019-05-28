@@ -9,7 +9,7 @@
 
         <div class="col-4">
           <label for="formGroupExampleInput">WHERE</label>
-          <ng-select [items]="cities" bindLabel="name" placeholder="Select city"></ng-select>
+          <ng-select [items]="cities" bindLabel="name" bindValue="cityId" formControlName="where" placeholder="Select city"></ng-select>
         </div>
 
         <div class="col-2">
@@ -66,14 +66,18 @@
     <!-- <div *ngFor="let accommodation of accommodations"> -->
 
       <div class="col">
-        <div class="card" style="width: 18rem;">
-            <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
-              <h5 class="card-title">Central Point Apartment </h5>
-              <p class="card-text">$32/night</p>
-              <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">See availability</button>
-            </div>
+
+        <div *ngFor="let accommodation of accommodations">
+          <div class="card" style="width: 18rem;">
+              <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">{{accommodation.accommodationName}}</p>
+                <p class="card-text">{{accommodation.description}}</p>
+                <h5 class="card-title">Central Point Apartment </h5>
+                <p class="card-text">$32/night</p>
+                <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">See availability</button>
+              </div>
+          </div>
         </div>
       </div>
 

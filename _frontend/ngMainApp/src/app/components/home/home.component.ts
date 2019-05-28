@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   homeFormGroup: FormGroup;
   accommodations: Accommodation[];
   accommodation: Accommodation;
-  where: String;
+  where: Number;
   checkin: Number;
   checkout: Number;
   guests: Number;
@@ -26,15 +26,7 @@ export class HomeComponent implements OnInit {
   reservation: Reservation;
   reservationObj: Reservation;
   city: City;
-  cities2: City[];
-
-  cities = [
-    {id: 1, name: 'Vilnius'},
-    {id: 2, name: 'Kaunas'},
-    {id: 3, name: 'Pavilnys', disabled: true},
-    {id: 4, name: 'Pabradė'},
-    {id: 5, name: 'Klaipėda'}
-];
+  cities: City[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,12 +40,13 @@ export class HomeComponent implements OnInit {
       where: [''],
       checkin: [''],
       checkout: [''],
-      guests: [''],
-      rooms: ['']
+      guests: ['']
     });
+
+    this.getCities();
   }
 
-  searchFlights(where: String, checkin: Number, checkout: Number, guests: Number) {
+  searchFlights(where: Number, checkin: Number, checkout: Number, guests: Number) {
 
     this.accommodationService.searchAccommotions(where, checkin, checkout, guests).subscribe(
       accommodation => this.accommodations = accommodation
@@ -99,8 +92,6 @@ export class HomeComponent implements OnInit {
   }
 
   getCities(): void {
-    this.accommodationService.getCities().subscribe(city => this.cities2 = city);
-}
-
-
+    this.accommodationService.getCities().subscribe(city => this.cities = city);
+  }
 }

@@ -21,7 +21,7 @@ export class AccommodationService {
     private http: HttpClient
   ) { }
 
-  searchAccommotions(where: String, checkin: Number, checkout: Number, guests: Number): Observable<Accommodation[]> {
+  searchAccommotions(where: Number, checkin: Number, checkout: Number, guests: Number): Observable<Accommodation[]> {
     return this.http.get<Accommodation[]>(this.accommodationtUrl + '/search/' + where + '/' + guests);
   }
 
