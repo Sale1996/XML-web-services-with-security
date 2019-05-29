@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
   city: City;
   cities: City[];
   local_accomm: Accommodation;
+  searchShow: boolean;
+  accommodationShow: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,6 +49,8 @@ export class HomeComponent implements OnInit {
       guests: ['']
     });
 
+    this.searchShow = true;
+    this.accommodationShow = false;
     this.getCities();
   }
 
@@ -76,14 +80,16 @@ export class HomeComponent implements OnInit {
     this.reservationObj.accommodationUnit = this.local_accomm.accommodationId;
     this.reservationObj.confirmation = false;
     this.reservationObj.finalPrice = 100; // cena puta dani
-    this.reservationObj.dateFrom = 'sta';
-    this.reservationObj.dateTo = 'staa';
+    this.reservationObj.dateFrom = '2019-05-28T20:29:44';
+    this.reservationObj.dateTo = '2019-05-28T20:29:44';
 
   }
 
   onSubmit() {
     this.prepareData();
     this.searchFlights(this.where, this.checkin, this.checkout, this.guests);
+    this.searchShow = false;
+    this.accommodationShow = true;
   }
 
   reserve() {

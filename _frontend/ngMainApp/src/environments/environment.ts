@@ -8,7 +8,7 @@ export const environment = {
   apiAccomodations: 'https://localhost:8081/accommodations',
   apiCities: 'https://localhost:8081/cities',
   apiMessages: 'http://localhost:8080/message',
-  apiReservations: 'http://localhost:8082/reservations'
+  apiReservations: 'https://localhost:8082/reservations'
 };
 
 /*

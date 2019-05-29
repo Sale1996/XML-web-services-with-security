@@ -1,90 +1,117 @@
 <div class="container">
-  <div class="row" id="row1">
-      <div class="col-sm">
-        <h3>Find Hotels, Apartments and Hostels</h3>
+
+  <div *ngIf="searchShow" id="search_cont">
+
+    <div class="row" id="row1">
+        <div class="col-sm">
+          <h3>Find Hotels, Apartments and Hostels</h3>
+        </div>
+    </div>
+    <form [formGroup]="homeFormGroup" (ngSubmit)="onSubmit()">
+      <div class="row">
+
+          <div class="col-4">
+            <label for="formGroupExampleInput">WHERE</label>
+            <ng-select [items]="cities" bindLabel="name" bindValue="cityId" formControlName="where" placeholder="Select city"></ng-select>
+          </div>
+
+          <div class="col-2">
+            <label for="formGroupExampleInput">CHECK-IN</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" formControlName="checkin" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-2">
+            <label for="formGroupExampleInput">CHECKOUT</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" formControlName="checkout" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-2">
+            <label for="formGroupExampleInput">GUESTS</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="guests">
+                <option selected>Choose...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="col-2">
+            <button id="btnSearch" type="submit" class="btn btn-primary float-right">Search</button>
+          </div>
+
       </div>
+
+    </form>
+
   </div>
-  <form [formGroup]="homeFormGroup" (ngSubmit)="onSubmit()">
-    <div class="row">
+</div>
 
-        <div class="col-4">
-          <label for="formGroupExampleInput">WHERE</label>
-          <ng-select [items]="cities" bindLabel="name" bindValue="cityId" formControlName="where" placeholder="Select city"></ng-select>
-        </div>
 
-        <div class="col-2">
-          <label for="formGroupExampleInput">CHECK-IN</label>
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" formControlName="checkin" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <label for="formGroupExampleInput">CHECKOUT</label>
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" formControlName="checkout" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <label for="formGroupExampleInput">GUESTS</label>
-          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="guests">
-              <option selected>Choose...</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-          </select>
-        </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <button type="submit" class="btn btn-primary float-right">Search</button>
-      </div>
-    </div>
-
-  </form>
-
-  <button type="button" id="filter" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#filterBy">Filter by</button>
 <!-- Accoommodations -->
 
-  <div class="row">
+<div *ngIf="accommodationShow">
+  <div class="row" id="btnGroupFilter">
+    <div class="col">
 
-    <!-- <div *ngFor="let accommodation of accommodations"> -->
-
-      <div *ngFor="let accommodation of accommodations">
-        <div class="col">
-
-            <div class="card" style="width: 18rem;">
-                <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">{{accommodation.accommodationName}}</p>
-                  <p class="card-text">{{accommodation.description}}</p>
-                  <h5 class="card-title">Central Point Apartment </h5>
-                  <p class="card-text">$32/night</p>
-                  <button type="submit" class="btn btn-primary btn-sm" (click)="openAccommodationModalSeeAvailability(accommodation)">See availability</button>
-                </div>
-            </div>
-          </div>
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="btnGroupSort" ngbDropdownToggle>Price</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem>Price (Low to High)</button>
+          <button ngbDropdownItem>Price (High to Low)</button>
+        </div>
       </div>
 
-    <!-- </div> -->
-  </div>
+      <button type="button" class="btn btn-outline-primary" id="btnGroupSort">Guests Rating</button>
 
+      <button type="button" class="btn btn-outline-primary" id="btnGroupSort">Distance</button>
+
+      <button type="button" class="btn btn-outline-primary" id="btnGroupSort">Category</button>
+
+      <button type="button" class="btn btn-outline-primary" id="btnFilter" data-toggle="modal" data-target="#filterBy">Filter by</button>
+
+    </div>
+ </div>
+
+    <div class="row">
+
+      <!-- <div *ngFor="let accommodation of accommodations"> -->
+
+        <div *ngFor="let accommodation of accommodations">
+          <div class="col">
+
+              <div class="card" style="width: 18rem;">
+                  <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <p class="card-text">{{accommodation.accommodationName}}</p>
+                    <p class="card-text">{{accommodation.description}}</p>
+                    <h5 class="card-title">Central Point Apartment </h5>
+                    <p class="card-text">$32/night</p>
+                    <button type="submit" class="btn btn-primary btn-sm" (click)="openAccommodationModalSeeAvailability(accommodation)">See availability</button>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+      <!-- </div> -->
+    </div>
 </div>
+
 
 <!-- Modal Filter By -->
 <div class="modal fade bd-example-modal-lg" id="filterBy" tabindex="-1" role="dialog" aria-labelledby="filterByLabel" aria-hidden="true">
