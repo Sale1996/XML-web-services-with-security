@@ -1,47 +1,50 @@
-<div class="page-header py-4 px-2">
-  <h1>Hotel Elan</h1>
-</div>
+<div class="px-5 pt-5">
+  <div class="page-header">
+    <h4>Hotel Elan</h4>
+  </div>
 
-<form [formGroup]="accommodationForm">
-  <div class="row mt-4">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="accommodationName" class="col-form-label col-form-label-sm">Accommodation name<span
-            class="text-danger">*</span></label>
-        <div class="input-group">
-          <input type="text" formControlName="accommodationName" class="form-control form-control-sm"
-            placeholder="Accommodation Name" required>
+  <form [formGroup]="accommodationForm">
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="accommodationName" class="col-form-label col-form-label-sm">Accommodation name<span
+              class="text-danger">*</span></label>
+          <div class="input-group">
+            <input type="text" formControlName="accommodationName" class="form-control form-control-sm"
+              placeholder="Accommodation Name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="NumberOdDays" class="col-form-label col-form-label-sm">Number of days before cancelation<span
+              class="text-danger">*</span></label>
+          <input type="text" formControlName="NumberOdDays" class="form-control form-control-sm"
+            placeholder="Enter number of days" required>
+        </div>
+        <div class="form-group">
+          <label for="description" class="col-form-label col-form-label-sm">Description</label>
+          <textarea formControlName="description" class="form-control form-control-sm"></textarea>
         </div>
       </div>
-      <div class="form-group">
-        <label for="NumberOdDays" class="col-form-label col-form-label-sm">Number of days before cancelation<span
-            class="text-danger">*</span></label>
-        <input type="text" formControlName="NumberOdDays" class="form-control form-control-sm"
-          placeholder="Enter number of days" required>
-      </div>
-      <div class="form-group">
-        <label for="description" class="col-form-label col-form-label-sm">Description</label>
-        <textarea formControlName="description" class="form-control form-control-sm"></textarea>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="city" class="col-form-label col-form-label-sm">City<span class="text-danger">*</span></label>
-        <select type="text" formControlName="city" class="form-control form-control-sm" required>
-          <option value="1">Srbobran</option>
-          <option value="2">Klisa</option>
-          <option value="3">Kosjeric</option>
-          <option value="4">Lazarevac</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="picture" class="col-form-label col-form-label-sm">Pictures<span class="text-danger">*</span></label>
-        <input type="text" formControlName="picture" class="form-control form-control-sm" placeholder="Nesto sa slikama"
-          required>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="city" class="col-form-label col-form-label-sm">City<span class="text-danger">*</span></label>
+          <select type="text" formControlName="city" class="form-control form-control-sm" required>
+            <option value="1">Srbobran</option>
+            <option value="2">Klisa</option>
+            <option value="3">Kosjeric</option>
+            <option value="4">Lazarevac</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="picture" class="col-form-label col-form-label-sm">Pictures<span
+              class="text-danger">*</span></label>
+          <input type="text" formControlName="picture" class="form-control form-control-sm"
+            placeholder="Nesto sa slikama" required>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="modal-footer d-flex justify-content-start  pt-2 pb-5">
-    <button type="submit" [disabled]="!agentForm.valid" class="btn btn-primary">Add Agent</button>
-  </div>
-</form>
+    <div class="modal-footer d-flex justify-content-start  pt-2 pb-5">
+      <button type="submit" [disabled]="!agentForm.valid" class="btn btn-primary">Change accommodation</button>
+    </div>
+  </form>
+</div>
