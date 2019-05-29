@@ -50,6 +50,9 @@ public class AccommodationDTO {
     @XmlElement(name = "Counted_number_of_beds")
     protected int countedNumberOfBeds;
     
+    @XmlElement(name="AgentId",required = true)
+    protected Long agentId;
+    
     
     public String getAccommodationName() {
 		return accommodationName;
@@ -145,6 +148,14 @@ public class AccommodationDTO {
 
 	public void setCountedNumberOfBeds(int countedNumberOfBeds) {
 		this.countedNumberOfBeds = countedNumberOfBeds;
+	}
+
+	public Long getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(Long agentId) {
+		this.agentId = agentId;
 	}
 
 }

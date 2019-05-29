@@ -35,6 +35,7 @@ public class DTOAccommodationConverter {
 		dto.setAccommodationName(accommodation.getAccommodationName());
 		dto.setCity(cityConverter.convertToDTO(accommodation.getCity()));
 		dto.setCountedNumberOfBeds(accommodation.getCountedNumberOfBeds());
+		dto.setAgentId(accommodation.getAgentId());
 		
 		for(Picture picture : accommodation.getPictures()) {
 			dto.getPictures().add(pictureConverter.convertToDTO(picture));
@@ -62,6 +63,7 @@ public class DTOAccommodationConverter {
 		newBean.setAccommodationName(dto.getAccommodationName());
 		newBean.setCity(cityConverter.convertFromDTO(dto.getCity()));
 		newBean.setCountedNumberOfBeds(dto.getCountedNumberOfBeds());
+		newBean.setAgentId(dto.getAgentId());
 		
 		for(PictureDTO picture : dto.getPictures()) {
 			newBean.getPictures().add(pictureConverter.convertFromDTO(picture));

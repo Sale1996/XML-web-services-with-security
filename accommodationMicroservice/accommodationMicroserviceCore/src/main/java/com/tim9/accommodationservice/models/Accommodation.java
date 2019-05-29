@@ -71,6 +71,11 @@ public class Accommodation {
     @XmlElement(name = "Counted_number_of_beds")
     @Transient
     protected int countedNumberOfBeds;
+    
+    
+    @XmlElement(name="AgentId",required = true)
+    @Column(name="agent_id")
+    protected Long agentId;
 
     
     @XmlElement(name = "Accommodation_units")
@@ -164,6 +169,14 @@ public class Accommodation {
 
 	public void setCountedNumberOfBeds(int countedNumberOfBeds) {
 		this.countedNumberOfBeds = countedNumberOfBeds;
+	}
+
+	public Long getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(Long agentId) {
+		this.agentId = agentId;
 	}
 
 }
