@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tim9.reservationservice.dtos.ReservationDTO;
 import com.tim9.reservationservice.services.ReservationService;
+import com.tim9.reservationserviceClient.dtos.ReservationDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/reservations")
 @Api(value="reservations")			//OVO PITAJ SALEA
+@CrossOrigin("http://localhost:4200")
 public class ReservationController {
 	
 //	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -93,7 +95,7 @@ public class ReservationController {
 	}
 
 	@PostMapping("/")
-	@PreAuthorize("hasAuthority('CREATE_RESERVATION')")
+	//@PreAuthorize("hasAuthority('CREATE_RESERVATION')")
 	@ApiOperation( value = "Create a reservation.", notes = "Returns the reservation being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -107,7 +109,7 @@ public class ReservationController {
 	}
 
 	@PutMapping("/{reservationId}")
-	@PreAuthorize("hasAuthority('UPDATE_RESERVATION')")
+	//@PreAuthorize("hasAuthority('UPDATE_RESERVATION')")
 	@ApiOperation( value= "Change a reservation", notes = "Returns the reservation being changed", httpMethod="PUT")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
@@ -120,7 +122,7 @@ public class ReservationController {
 	}
 
 	@DeleteMapping("/{reservationId}")
-	@PreAuthorize("hasAuthority('DELETE_RESERVATION')")
+	//@PreAuthorize("hasAuthority('DELETE_RESERVATION')")
 	@ApiOperation( value = "Delete a reservation.", notes = "Returns the reservation being deleted", httpMethod="DELETE")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),

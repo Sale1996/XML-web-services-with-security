@@ -6,17 +6,26 @@ button.calendar, button.calendar:active {
   background-position: center;
 }
 
-.container {
-  margin-top: 10%;
-  background: #f7f7f7;
+#btnFilter {
+  float: right;
 }
 
-#row1 {
+#btnGroupFilter {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
-#filter {
+#btnGroupSort {
+  margin-right: 10px;
+}
+
+#search_cont {
+  margin-top: 15%;
+  background: #f7f7f7;
+  padding: 20px;
+}
+
+#btnSearch {
   margin-top: 30px;
-  margin-bottom: 50px;
 }
 

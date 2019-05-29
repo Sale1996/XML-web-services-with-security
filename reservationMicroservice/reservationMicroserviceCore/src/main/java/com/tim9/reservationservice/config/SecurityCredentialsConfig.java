@@ -43,6 +43,8 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 //		    .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
 //		    .antMatchers(HttpMethod.GET, "/reservations/1").hasAuthority("ROLE_USER")
 //		    .antMatchers(HttpMethod.GET, "/reservations/**").permitAll()
+		    .antMatchers(HttpMethod.GET, "/reservations/**").permitAll()
+		    .antMatchers(HttpMethod.POST, "/reservations/**").permitAll()
 		    // any other requests must be authenticated
 		    .anyRequest().authenticated();
 	}

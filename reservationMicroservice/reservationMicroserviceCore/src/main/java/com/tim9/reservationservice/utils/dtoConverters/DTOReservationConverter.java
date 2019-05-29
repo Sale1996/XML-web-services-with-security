@@ -1,11 +1,12 @@
 package com.tim9.reservationservice.utils.dtoConverters;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tim9.reservationservice.dtos.ReservationDTO;
+import com.tim9.reservationserviceClient.dtos.ReservationDTO;
 import com.tim9.reservationservice.models.Reservation;
 import com.tim9.reservationservice.repository.ReservationRepository;
 
@@ -23,8 +24,8 @@ public class DTOReservationConverter {
 		dto.setAccommodationUnit(reservation.getAccommodationUnit());
 		dto.setClient(reservation.getClient());
 		dto.setConfirmation(reservation.isConfirmation());
-		dto.setDateFrom(reservation.getDateFrom());
-		dto.setDateTo(reservation.getDateTo());
+		dto.setDateFrom(reservation.getDateFrom().toString());
+		dto.setDateTo(reservation.getDateTo().toString());
 		dto.setFinalPrice(reservation.getFinalPrice());
 		
 		return dto;
@@ -47,8 +48,8 @@ public class DTOReservationConverter {
 		newBean.setAccommodationUnit(dto.getAccommodationUnit());
 		newBean.setClient(dto.getClient());
 		newBean.setConfirmation(dto.isConfirmation());
-		newBean.setDateFrom(dto.getDateFrom());
-		newBean.setDateTo(dto.getDateTo());
+		newBean.setDateFrom(LocalDateTime.parse(dto.getDateFrom()));
+		newBean.setDateTo(LocalDateTime.parse(dto.getDateTo()));
 		newBean.setFinalPrice(dto.getFinalPrice());
 		
 		return newBean;

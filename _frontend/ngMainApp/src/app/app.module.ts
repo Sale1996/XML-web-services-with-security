@@ -17,6 +17,7 @@ import { ProfileEditComponent } from './components/profile/profile-edit/profile-
 import { LoginComponent } from './components/login/login.component';
 import { InboxComponent } from './components/inbox/inbox.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { HomeSingleModalComponent } from './components/home/home-single-modal/home-single-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ProfileComponent,
     ProfileEditComponent,
     LoginComponent,
-    InboxComponent
+    InboxComponent,
+    HomeSingleModalComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule,
     HttpClientModule,
     AppRoutingModule
+  ],
+  entryComponents: [
+    HomeSingleModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
