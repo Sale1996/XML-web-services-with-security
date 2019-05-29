@@ -237,7 +237,7 @@ table thead tr th {
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
-app-user-review, app-users, app-admins, app-agents, app-code-book {
+app-user-review, app-users, app-admins, app-agents, app-code-book, app-inbox, app-reservations, app-accommodation-units {
     flex: 1;
     padding-top: 15px;
     padding-bottom: 15px;

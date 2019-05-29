@@ -12,6 +12,11 @@ import { UserReviewComponent } from './components/user-review/user-review.compon
 import { InboxComponent } from './components/inbox/inbox.component';
 import { AgentsSingleModalComponent } from './components/agents-single-modal/agents-single-modal.component';
 import { MessageModalComponent } from './components/inbox/message-modal/message-modal.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
+import { AccommodationUnitsComponent } from './components/accommodation-units/accommodation-units.component';
+import { AccommodationUnitModalComponent } from './components/accommodation-units/accommodation-unit-modal/accommodation-unit-modal.component';
+import { UnitPricesModalComponent } from './components/accommodation-units/unit-prices-modal/unit-prices-modal.component';
+import { UnitExtraFieldsModalComponent } from './components/accommodation-units/unit-extra-fields-modal/unit-extra-fields-modal.component';
 
 
 
@@ -23,7 +28,12 @@ import { MessageModalComponent } from './components/inbox/message-modal/message-
     UserReviewComponent,
     InboxComponent,
     AgentsSingleModalComponent,
-    MessageModalComponent
+    MessageModalComponent,
+    ReservationsComponent,
+    AccommodationUnitsComponent,
+    AccommodationUnitModalComponent,
+    UnitPricesModalComponent,
+    UnitExtraFieldsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +46,10 @@ import { MessageModalComponent } from './components/inbox/message-modal/message-
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    MessageModalComponent
+    MessageModalComponent,
+    AccommodationUnitModalComponent,
+    UnitPricesModalComponent,
+    UnitExtraFieldsModalComponent
   ]
 })
 export class AppModule { }
