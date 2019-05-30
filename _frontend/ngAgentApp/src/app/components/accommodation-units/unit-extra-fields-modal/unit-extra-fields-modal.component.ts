@@ -19,10 +19,7 @@ export class UnitExtraFieldsModalComponent implements OnInit {
   ngOnInit() {
 
     this.additionalServiceForm = this.formBuilder.group({
-      extraFieldId: [''],
-      extraFieldName: ['', Validators.required],
-      extraPrice: ['', Validators.required],
-      optional: [true]
+      extraFieldId: ['']
     });
 
 

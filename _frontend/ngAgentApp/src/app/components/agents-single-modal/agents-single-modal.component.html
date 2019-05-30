@@ -20,12 +20,6 @@
           <input type="text" formControlName="email" class="form-control form-control-sm" placeholder="Enter Email"
             required>
         </div>
-        <div class="form-group">
-          <label for="password1" class="col-form-label col-form-label-sm">Password<span
-              class="text-danger">*</span></label>
-          <input type="password" formControlName="password1" class="form-control form-control-sm"
-            placeholder="Enter Password">
-        </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
@@ -40,6 +34,33 @@
           <input type="text" formControlName="businessRegistrationNumber" class="form-control form-control-sm"
             placeholder="Enter BRN" required>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
+    <button type="submit" [disabled]="!agentForm.valid" class="btn btn-primary">Change profile</button>
+  </div>
+</form>
+
+
+
+
+
+<div class="modal-header px-5 pt-5">
+  <h5 class="modal-title">Change password</h5>
+</div>
+<form [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword()">
+  <div class="modal-body px-5">
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="password1" class="col-form-label col-form-label-sm">Password<span
+              class="text-danger">*</span></label>
+          <input type="password" formControlName="password1" class="form-control form-control-sm"
+            placeholder="Enter Password">
+        </div>
+      </div>
+      <div class="col-md-6">
         <div class="form-group">
           <label for="password2" class="col-form-label col-form-label-sm">Confirm password<span
               class="text-danger">*</span></label>
@@ -50,6 +71,6 @@
     </div>
   </div>
   <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
-    <button type="submit" [disabled]="!agentForm.valid" class="btn btn-primary">Change profile</button>
+    <button type="submit" [disabled]="!passwordForm.valid" class="btn btn-primary">Change password</button>
   </div>
 </form>

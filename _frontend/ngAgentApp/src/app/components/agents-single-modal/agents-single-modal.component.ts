@@ -11,6 +11,7 @@ export class AgentsSingleModalComponent implements OnInit {
 
   @Output() agent: EventEmitter<any> = new EventEmitter();
   agentForm: FormGroup;
+  passwordForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -24,12 +25,22 @@ export class AgentsSingleModalComponent implements OnInit {
       telephoneNumber: ['', Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')],
       businessRegistrationNumber: ['', Validators.required]
     });
+
+    this.passwordForm = this.formBuilder.group({
+      id: [''],
+      password1: [''],
+      password2: ['']
+    })
   }
 
   onSubmit() {
     if (this.agentForm.valid) {
       this.agent.emit(this.agentForm.value as Agent);
     }
+  }
+
+  onSubmitPassword() {
+
   }
 
 }
