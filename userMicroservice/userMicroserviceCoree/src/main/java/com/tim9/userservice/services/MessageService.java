@@ -1,5 +1,6 @@
 package com.tim9.userservice.services;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -38,7 +39,10 @@ public class MessageService {
 		
 		message.setMessageId(-1l);
 		
-		Message m = messageRepository.save(dtoMessageConverter.converFromDTO(message));
+		Message m = dtoMessageConverter.converFromDTO(message);
+		m.setLastUpdated(LocalDateTime.now());
+				
+		m = messageRepository.save(m);
 		
 		message.setMessageId(m.getMessageId());
 		

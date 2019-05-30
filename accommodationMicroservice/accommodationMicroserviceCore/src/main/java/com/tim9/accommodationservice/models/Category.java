@@ -8,6 +8,7 @@
 
 package com.tim9.accommodationservice.models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -48,6 +49,17 @@ public class Category {
 	@OneToMany (mappedBy="unitCategory")
     protected List<AccommodationUnit> accommodationUnitsOfCategory;
 
+    @XmlElement(name = "LastUpdated")
+	@Column
+	private LocalDateTime lastUpdated;
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 
     public Long getCategoryId() {
         return categoryId;

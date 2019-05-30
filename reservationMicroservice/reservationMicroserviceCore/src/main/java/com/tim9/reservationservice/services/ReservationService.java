@@ -54,7 +54,9 @@ public class ReservationService {
 	public ReservationDTO save(ReservationDTO reservation) {
 		
 		reservation.setReservationId(-1l);
-		Reservation Reservation = reservationRepository.save(reservationConverter.convertFromDTO(reservation));
+		Reservation Reservation = reservationConverter.convertFromDTO(reservation);
+		Reservation.setLastUpdated(LocalDateTime.now());
+		Reservation = reservationRepository.save(Reservation);
 		reservation.setReservationId(Reservation.getReservationId());
 		
 		return reservation;
@@ -73,6 +75,7 @@ public class ReservationService {
 			reservationForChange.get().setDateFrom(LocalDateTime.parse(reservation.getDateFrom()));
 			reservationForChange.get().setDateTo(LocalDateTime.parse(reservation.getDateTo()));
 			reservationForChange.get().setFinalPrice(reservation.getFinalPrice());
+			reservationForChange.get().setLastUpdated(LocalDateTime.now());
 			
 			reservationRepository.save(reservationForChange.get());
 			reservation.setReservationId(reservationForChange.get().getReservationId());

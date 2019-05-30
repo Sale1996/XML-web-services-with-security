@@ -8,6 +8,7 @@
 
 package com.tim9.accommodationservice.models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -47,6 +48,17 @@ public class Type {
 	@OneToMany (mappedBy="unitType")
     protected List<AccommodationUnit> units;
 
+    @XmlElement(name = "LastUpdated")
+	@Column
+	private LocalDateTime lastUpdated;
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
   
     public Long getTypeId() {
         return typeId;

@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -77,7 +78,9 @@ public class PriceService {
 		
 		dto.setPriceId(-1l);
 			
-		Price price = priceRepository.save(priceConverter.convertFromDTO(dto));
+		Price price = priceConverter.convertFromDTO(dto);
+		price.setLastUpdated(LocalDateTime.now());
+		price = priceRepository.save(price);
 		
 		dto.setPriceId(price.getPriceId());
 		
@@ -104,6 +107,7 @@ public class PriceService {
 			priceForChange.get().setAmount(priceDTO.getAmount());
 			priceForChange.get().setDateFrom(priceDTO.getDateFrom());
 			priceForChange.get().setDateTo(priceDTO.getDateTo());
+			priceForChange.get().setLastUpdated(LocalDateTime.now());
 	
 			priceRepository.save(priceForChange.get());
 			

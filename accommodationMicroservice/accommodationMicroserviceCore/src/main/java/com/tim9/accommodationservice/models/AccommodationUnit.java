@@ -8,6 +8,7 @@
 
 package com.tim9.accommodationservice.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +86,17 @@ public class AccommodationUnit {
 	@OneToMany (mappedBy="accommodationUnit")
     protected List<Price> price;
 
-    
+    @XmlElement(name = "LastUpdated")
+	@Column
+	private LocalDateTime lastUpdated;
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
     
     public Long getAccommodationUnitId() {
         return accommodationUnitId;

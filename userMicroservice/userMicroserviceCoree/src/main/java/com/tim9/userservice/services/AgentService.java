@@ -1,5 +1,6 @@
 package com.tim9.userservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -84,7 +85,8 @@ public class AgentService {
 		
 		agent.setId(-1l);
 		
-		Agent a = agentRepository.save(dtoAgentConverter.convertFromDTO(agent));
+		Agent a = dtoAgentConverter.convertFromDTO(agent);
+		a = agentRepository.save(a);
 		
 		agent.setId(a.getId());
 		

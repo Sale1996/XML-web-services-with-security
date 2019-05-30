@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -82,8 +83,10 @@ public class CommentService {
 		}
 		
 		dto.setCommentId(-1l);
-			
-		Comment Comment = commentRepository.save(commentConverter.convertFromDTO(dto));
+		
+		Comment Comment = commentConverter.convertFromDTO(dto);
+		Comment.setLastUpdated(LocalDateTime.now());
+		Comment = commentRepository.save(Comment);
 		
 		dto.setCommentId(Comment.getCommentId());
 		
@@ -107,6 +110,7 @@ public class CommentService {
 			commentForChange.get().setCommentBody(commentDTO.getCommentBody());
 			commentForChange.get().setIsApproved(commentDTO.isIsApproved());
 			commentForChange.get().setClient(commentDTO.getClient());
+			commentForChange.get().setLastUpdated(LocalDateTime.now());
 			//commentForChange.get().setAccommodation(nesto); tu ide validacija i pretraga dodatna
 	
 			commentRepository.save(commentForChange.get());

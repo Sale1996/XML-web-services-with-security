@@ -9,6 +9,7 @@
 package com.tim9.accommodationservice.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -63,6 +64,17 @@ public class Price {
 	@JoinColumn (name="accommodationUnit",nullable = false)
     protected AccommodationUnit accommodationUnit;
 
+    @XmlElement(name = "LastUpdated")
+	@Column
+	private LocalDateTime lastUpdated;
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
   
     public Long getPriceId() {
         return priceId;

@@ -23,6 +23,9 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import ch.qos.logback.core.net.server.Client;
 
 
@@ -96,6 +99,9 @@ public class Reservation {
     @XmlElement(name = "Client", required = true)
     @Column
     protected Long client;
+    @XmlElement(name = "LastUpdated", required = true)
+    @Column
+    protected LocalDateTime LastUpdated;
 
     public Reservation() {}
     
@@ -249,5 +255,17 @@ public class Reservation {
     public void setClient(Long value) {
         this.client = value;
     }
+
+	public LocalDateTime getLastUpdated() {
+		return LastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		LastUpdated = lastUpdated;
+	}
+
+	public void setReservationId(Long reservationId) {
+		this.reservationId = reservationId;
+	}
 
 }

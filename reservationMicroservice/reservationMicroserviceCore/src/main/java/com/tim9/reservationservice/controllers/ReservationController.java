@@ -94,7 +94,7 @@ public class ReservationController {
 		return ( reservation.getReservationId() != null )? new ResponseEntity< ReservationDTO > (reservation, HttpStatus.OK ) : new ResponseEntity<ReservationDTO>( HttpStatus.NOT_FOUND);
 	}
 
-	@PostMapping("/")
+	@PostMapping("")
 	//@PreAuthorize("hasAuthority('CREATE_RESERVATION')")
 	@ApiOperation( value = "Create a reservation.", notes = "Returns the reservation being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
