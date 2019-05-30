@@ -17,7 +17,7 @@
         </button>
       </div>
     </form>
-    <span role="button" class="table-btn table-btn-xl table-btn-success inline" data-toggle="tooltip"
+    <span role="button" class="table-btn table-btn-xl table-btn-success inline ml-2" data-toggle="tooltip"
       data-placement="bottom" title="Add new acoommodation" (click)="openNewUnitModal()">
       <svg class="icon">
         <use xlink:href="#Plus_Icon_XL"></use>
@@ -48,9 +48,9 @@
           <td><a>open extra fields</a></td>
           <td><button class="table-btn-success">manage occupancy</button></td>
           <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2">
+            <span role="button" class="table-btn table-btn-success borderless mr-2" (click)="openNewUnitModal()">
               <svg class="icon">
-                <use xlink:href="#Checkmark_Icon"></use>
+                <use xlink:href="#Edit_Icon"></use>
               </svg>
             </span>
             <span role="button" class="table-btn table-btn-danger borderless">
@@ -69,9 +69,9 @@
           <td><a>open extra fields</a></td>
           <td><button class="table-btn-success">manage occupancy</button></td>
           <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2">
+            <span role="button" class="table-btn table-btn-success borderless mr-2" (click)="openNewUnitModal()">
               <svg class="icon">
-                <use xlink:href="#Checkmark_Icon"></use>
+                <use xlink:href="#Edit_Icon"></use>
               </svg>
             </span>
             <span role="button" class="table-btn table-btn-danger borderless">
@@ -90,9 +90,9 @@
           <td><a>open extra fields</a></td>
           <td><button class="table-btn-success">manage occupancy</button></td>
           <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2">
+            <span role="button" class="table-btn table-btn-success borderless mr-2" (click)="openNewUnitModal()">
               <svg class="icon">
-                <use xlink:href="#Checkmark_Icon"></use>
+                <use xlink:href="#Edit_Icon"></use>
               </svg>
             </span>
             <span role="button" class="table-btn table-btn-danger borderless">
@@ -139,5 +139,9 @@
     <path
       d="M31.6 30.2l-4.3-4.3c.7-1 1.1-2.2 1.1-3.5 0-3.3-2.7-6-6-6s-6 2.7-6 6 2.7 6 6 6c1.3 0 2.5-.4 3.5-1.1l4.3 4.3 1.4-1.4zm-9.2-3.8c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z">
     </path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="Edit_Icon">
+    <path fill="none" d="M0 0h18v18H0z"></path>
+    <path d="M2.4 13.5L2 16l2.5-.4L13 7.1 10.9 5zM12.432 3.447l1.414-1.414 2.121 2.12-1.414 1.415z"></path>
   </symbol>
 </svg>

@@ -27,7 +27,8 @@ export class InboxComponent implements OnInit {
       {
         size: 'lg',
         centered: true,
-        backdropClass: 'custom-modal-backdrop'
+        backdropClass: 'custom-modal-backdrop',
+        backdrop: 'static'
       });
     agentModalRef.componentInstance.messageEmiter.subscribe();
   }
