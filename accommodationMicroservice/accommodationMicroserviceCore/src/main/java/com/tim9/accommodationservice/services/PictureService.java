@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,7 +69,9 @@ public class PictureService {
 		
 		dto.setPictureId(-1l);
 			
-		Picture picture = pictureRepository.save(pictureConverter.convertFromDTO(dto));
+		Picture picture = pictureConverter.convertFromDTO(dto);
+		picture.setLastUpdated(LocalDateTime.now());
+		picture = pictureRepository.save(picture);
 		
 		dto.setPictureId(picture.getPictureId());
 		
@@ -83,6 +86,7 @@ public class PictureService {
 		if( pictureForChange.isPresent() && pictureDTO!=null ) {
 								
 			pictureForChange.get().setPicUrl(pictureDTO.getPicUrl());
+			pictureForChange.get().setLastUpdated(LocalDateTime.now());
 	
 			pictureRepository.save(pictureForChange.get());
 			

@@ -7,6 +7,8 @@
 
 package com.tim9.userservice.models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,6 +33,10 @@ public class Agent extends AbstractUser {
     @XmlElement(name = "activated", required = true)
     @Column
     protected Boolean activated;
+    
+    @XmlElement(name = "LastSync")
+    @Column
+    protected LocalDateTime lastSync;
     
     public Boolean getActivated() {
 		return activated;
@@ -63,5 +69,13 @@ public class Agent extends AbstractUser {
     public void setBusinessRegistrationNumber(String value) {
         this.businessRegistrationNumber = value;
     }
+
+	public LocalDateTime getLastSync() {
+		return lastSync;
+	}
+
+	public void setLastSync(LocalDateTime lastSync) {
+		this.lastSync = lastSync;
+	}
 
 }

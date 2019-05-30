@@ -8,6 +8,8 @@
 
 package com.tim9.accommodationservice.models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,6 +61,17 @@ public class Comment {
     @Column ( name="client_id", nullable = false )    
     protected Long clientId;
 
+    @XmlElement(name = "LastUpdated")
+	@Column
+	private LocalDateTime lastUpdated;
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
    
     public Long getCommentId() {
         return commentId;

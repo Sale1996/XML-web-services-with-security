@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,9 +58,13 @@ public class AccommodationService {
 		
 		if ( accommodations.isPresent() ) {
 			
-			for ( Accommodation candidate : accommodations.get() ) {
+			for        ( Accommodation	 candidate : accommodations.get() ) {
 				
-				dtoAccommodations.add(accommodationConverter.convertToDTO(candidate));
+				
+				
+				
+				
+				dtoAccommodations.add(accommodationConverter		.convertToDTO(candidate));
 				
 			}
 
@@ -67,7 +72,7 @@ public class AccommodationService {
 			
 		}
 			
-		return Collections.emptyList();
+		return Collections.emptyList(            );
 
 		
 	}
@@ -98,7 +103,9 @@ public class AccommodationService {
 			
 		accommodation.setAccommodationId(-1l);
 		
-		Accommodation Accommodation = accommodationRepository.save(accommodationConverter.convertFromDTO(accommodation));
+		Accommodation Accommodation = accommodationConverter.convertFromDTO(accommodation);
+		Accommodation.setLastUpdated(LocalDateTime.now());
+		Accommodation = accommodationRepository.save(Accommodation);
 		
 		accommodation.setAccommodationId(Accommodation.getAccommodationId());
 		
@@ -114,6 +121,7 @@ public class AccommodationService {
 										
 			accommodationForChange.get().setDescription(accommodation.getDescription());
 			accommodationForChange.get().setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
+			accommodationForChange.get().setLastUpdated(LocalDateTime.now());
 			//liste jos ne diramo
 			
 			//ovde bi trebali da ispitamo jos da li postoji izmenjeni city i ako postoji da ga psotavimo ....

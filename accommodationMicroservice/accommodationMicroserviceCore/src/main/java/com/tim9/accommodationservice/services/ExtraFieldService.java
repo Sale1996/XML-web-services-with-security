@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -81,7 +82,9 @@ public class ExtraFieldService {
 		
 		dto.setExtraFieldId(-1l);
 			
-		ExtraField ExtraField = extraFieldRepository.save(extraFieldConverter.convertFromDTO(dto));
+		ExtraField ExtraField = extraFieldConverter.convertFromDTO(dto);
+		ExtraField.setLastUpdated(LocalDateTime.now());
+		ExtraField = extraFieldRepository.save(ExtraField);
 		
 		dto.setExtraFieldId(ExtraField.getExtraFieldId());
 		
@@ -105,10 +108,11 @@ public class ExtraFieldService {
 				return new ExtraFieldDTO();
 			
 			}
-										
+			
 			extraFieldForChange.get().setExtraFieldName(updatedExtraField.getExtraFieldName());
 			extraFieldForChange.get().setExtraPrice(updatedExtraField.getExtraPrice());
 			extraFieldForChange.get().setOptional(updatedExtraField.isOptional());
+			extraFieldForChange.get().setLastUpdated(LocalDateTime.now());
 	
 			extraFieldRepository.save(extraFieldForChange.get());
 			

@@ -65,6 +65,10 @@ public class Message {
     @XmlElement(name = "reservationId")
     @Column
     protected Long reservationId;
+    
+    @XmlElement(name = "LastUpdated")
+    @Column
+    protected LocalDateTime lastUpdated;
 
 	public Long getMessageId() {
 		return messageId;
@@ -120,6 +124,14 @@ public class Message {
 
 	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
+	}
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
 	}
 
     

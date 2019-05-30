@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -79,7 +80,9 @@ public class CityService {
 		
 		dto.setCityId(-1l);
 			
-		City city = cityRepository.save(cityConverter.convertFromDTO(dto));
+		City city = cityConverter.convertFromDTO(dto);
+		city.setLastUpdated(LocalDateTime.now());
+		city = cityRepository.save(city);
 		
 		dto.setCityId(city.getCityId());
 		
@@ -106,7 +109,7 @@ public class CityService {
 			cityForChange.get().setName(CityDTO.getName());
 			cityForChange.get().setxCord(CityDTO.getxCord());
 			cityForChange.get().setYCord(CityDTO.getyCord());
-			
+			cityForChange.get().setLastUpdated(LocalDateTime.now());
 	
 			cityRepository.save(cityForChange.get());
 			

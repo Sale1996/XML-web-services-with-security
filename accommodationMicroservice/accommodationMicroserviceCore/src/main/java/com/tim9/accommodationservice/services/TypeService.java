@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -70,7 +71,9 @@ public class TypeService {
 		
 		dto.setTypeId(-1l);
 			
-		Type type = typeRepository.save(typeConverter.convertFromDTO(dto));
+		Type type = typeConverter.convertFromDTO(dto);
+		type.setLastUpdated(LocalDateTime.now());
+		type = typeRepository.save(type);
 		
 		dto.setTypeId(type.getTypeId());
 		
@@ -88,13 +91,14 @@ public class TypeService {
 			if( foundType.isPresent() && foundType.get().getTypeId() != typeForChange.get().getTypeId() ) {
 				return new TypeDTO();
 			}
-										
+			
 			typeForChange.get().setTypeName(typeDTO.getTypeName());
-	
+			typeForChange.get().setLastUpdated(LocalDateTime.now());
+			
 			typeRepository.save(typeForChange.get());
 			
 			typeDTO.setTypeId(typeForChange.get().getTypeId());
-				
+			
 			return typeDTO;
 		}
 		

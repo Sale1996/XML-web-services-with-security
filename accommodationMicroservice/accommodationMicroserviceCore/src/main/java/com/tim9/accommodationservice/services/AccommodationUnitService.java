@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +70,9 @@ public class AccommodationUnitService {
 			
 		dto.setAccommodationUnitId(-1l);
 		
-		AccommodationUnit AccommodationUnit = accommodationUnitRepository.save(accommodationUnitConverter.convertFromDTO(dto));
+		AccommodationUnit AccommodationUnit = accommodationUnitConverter.convertFromDTO(dto);
+		AccommodationUnit.setLastUpdated(LocalDateTime.now());
+		AccommodationUnit = accommodationUnitRepository.save(AccommodationUnit);
 		
 		dto.setAccommodationUnitId(AccommodationUnit.getAccommodationUnitId());
 		
@@ -84,6 +87,7 @@ public class AccommodationUnitService {
 		if( accommodationUnitForChange.isPresent() && accommodationUnitDTO!=null ) {
 													
 			accommodationUnitForChange.get().setNumberOfPeople(accommodationUnitDTO.getNumberOfPeople());
+			accommodationUnitForChange.get().setLastUpdated(LocalDateTime.now());
 			//accommodationUnitForChange.get().setCategory();
 			//accommodationUnitForChange.get().setType(value); to be implemented...
 			//i jos ima lista koje treba prekopirati ukoliko trbea

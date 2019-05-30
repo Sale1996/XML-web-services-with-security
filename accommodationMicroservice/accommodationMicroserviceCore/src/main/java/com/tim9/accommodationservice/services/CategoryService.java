@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -79,7 +80,9 @@ public class CategoryService {
 		
 		dto.setCategoryId(-1l);
 			
-		Category category = categoryRepository.save(categoryConverter.convertFromDTO(dto));
+		Category category = categoryConverter.convertFromDTO(dto);
+		category.setLastUpdated(LocalDateTime.now());
+		category = categoryRepository.save(category);
 		
 		dto.setCategoryId(category.getCategoryId());
 		
@@ -104,7 +107,7 @@ public class CategoryService {
 			}
 										
 			categoryForChange.get().setCategoryName(categoryDTO.getCategoryName());
-			
+			categoryForChange.get().setLastUpdated(LocalDateTime.now());
 	
 			categoryRepository.save(categoryForChange.get());
 			
