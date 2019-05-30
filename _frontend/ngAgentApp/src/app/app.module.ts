@@ -17,7 +17,7 @@ import { AccommodationUnitsComponent } from './components/accommodation-units/ac
 import { AccommodationUnitModalComponent } from './components/accommodation-units/accommodation-unit-modal/accommodation-unit-modal.component';
 import { UnitPricesModalComponent } from './components/accommodation-units/unit-prices-modal/unit-prices-modal.component';
 import { UnitExtraFieldsModalComponent } from './components/accommodation-units/unit-extra-fields-modal/unit-extra-fields-modal.component';
-
+import { UnitOccupancyModalComponent } from './components/accommodation-units/unit-occupancy-modal/unit-occupancy-modal.component';
 
 
 @NgModule({
@@ -33,7 +33,9 @@ import { UnitExtraFieldsModalComponent } from './components/accommodation-units/
     AccommodationUnitsComponent,
     AccommodationUnitModalComponent,
     UnitPricesModalComponent,
-    UnitExtraFieldsModalComponent
+    UnitExtraFieldsModalComponent,
+    UnitOccupancyModalComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { UnitExtraFieldsModalComponent } from './components/accommodation-units/
     MessageModalComponent,
     AccommodationUnitModalComponent,
     UnitPricesModalComponent,
-    UnitExtraFieldsModalComponent
+    UnitExtraFieldsModalComponent,
+    UnitOccupancyModalComponent
   ]
 })
 export class AppModule { }

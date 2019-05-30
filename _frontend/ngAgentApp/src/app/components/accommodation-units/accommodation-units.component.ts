@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccommodationUnitModalComponent } from './accommodation-unit-modal/accommodation-unit-modal.component';
 import { UnitPricesModalComponent } from './unit-prices-modal/unit-prices-modal.component';
 import { UnitExtraFieldsModalComponent } from './unit-extra-fields-modal/unit-extra-fields-modal.component';
+import { UnitOccupancyModalComponent } from './unit-occupancy-modal/unit-occupancy-modal.component';
 
 @Component({
   selector: 'app-accommodation-units',
@@ -25,6 +26,17 @@ export class AccommodationUnitsComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
+  openUnitOccupancyModal() {
+    const newUnitOccupancyModalRef = this.modalService.open(UnitOccupancyModalComponent,
+      {
+        size: 'lg',
+        centered: true,
+        backdropClass: 'custom-modal-backdrop'
+      });
+    newUnitOccupancyModalRef.componentInstance.price.subscribe();
+  }
 
 
   openNewUnitModal() {
