@@ -11,7 +11,7 @@ import com.tim9.agentapp.user.model.Message;
 
 public interface MessageRepository extends JpaRepository<Message,Long> {
 	
-	public Optional<Message> findById(long id);
+	public Optional<Message> findByMessageId(long id);
 	@Query(value = "SELECT * FROM message ORDER BY message.message_time DESC", nativeQuery = true)
 	public List<Message> getAllMessagesOrderedByLatest();
 }
