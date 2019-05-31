@@ -54,14 +54,7 @@ public class AccommodationDTO {
     protected Long agentId;
     
 
-	@XmlElement(name = "X_cord")
-    protected double xCord;
-    
-    
-    @XmlElement(name = "Y_cord")
-    protected double yCord;
-    
-    
+     
     @XmlElement(name = "Number_of_days_before_cancelation")
     protected int numberOfDaysBeforeCancelation;
 
@@ -84,16 +77,6 @@ public class AccommodationDTO {
         this.description = value;
     }
 
-
-    public double getXCord() {
-        return xCord;
-    }
-
-
-    public void setXCord(double value) {
-        this.xCord = value;
-    }
-
     public String getAccommodationName() {
 		return accommodationName;
 	}
@@ -102,15 +85,6 @@ public class AccommodationDTO {
 		this.accommodationName = accommodationName;
 	}
 
-
-    public double getYCord() {
-        return yCord;
-    }
-
-
-    public void setYCord(double value) {
-        this.yCord = value;
-    }
 
 
     public int getNumberOfDaysBeforeCancelation() {
