@@ -17,6 +17,9 @@ public class DTOPriceConverter {
 	public PriceRepository priceRepository;
 	
 	
+	@Autowired
+	public DTOAccommodationUnitConverter accommodationUnitConverter;
+	
 	
 	
 	public PriceDTO convertToDTO (Price price) {
@@ -27,6 +30,7 @@ public class DTOPriceConverter {
 		dto.setPriceId(price.getPriceId());
 		dto.setDateFrom(price.getDateFrom());
 		dto.setDateTo(price.getDateTo());
+		dto.setAccommodation(accommodationUnitConverter.convertToDTO(price.getAccommodationUnit()));
 		
 		
 		return dto;
@@ -49,7 +53,8 @@ public class DTOPriceConverter {
 		newCandidate.setPriceId(dto.getPriceId());
 		newCandidate.setDateFrom(dto.getDateFrom());
 		newCandidate.setDateTo(dto.getDateTo());
-
+		newCandidate.setAccommodationUnit(accommodationUnitConverter.convertFromDTO(dto.getAccommodation()));
+		
 		
 		return newCandidate;
 		

@@ -29,6 +29,10 @@ public class PictureDTO {
     
     @XmlElement(name = "Pic_url", required = true)
     protected String picUrl;
+    
+    
+    @XmlElement(name = "AccommodationOfPicture", required = true)
+    protected AccommodationDTO accommodation;
 
   
     public Long getPictureId() {
@@ -49,5 +53,15 @@ public class PictureDTO {
     public void setPicUrl(String value) {
         this.picUrl = value;
     }
+
+
+	public AccommodationDTO getAccommodation() {
+		return accommodation;
+	}
+
+
+	public void setAccommodation(AccommodationDTO accommodation) {
+		this.accommodation = accommodation;
+	}
 
 }

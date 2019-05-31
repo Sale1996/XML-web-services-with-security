@@ -16,6 +16,9 @@ public class DTOPictureConverter {
 	@Autowired
 	public PictureRepository pictureRepository;
 	
+	@Autowired
+	public DTOAccommodationConverter accommodationConverter;
+	
 
 	
 	public PictureDTO convertToDTO (Picture picture) {
@@ -24,6 +27,7 @@ public class DTOPictureConverter {
 		
 		dto.setPictureId(picture.getPictureId());
 		dto.setPicUrl(picture.getPicUrl());
+		dto.setAccommodation(accommodationConverter.convertToDTO(picture.getAccommodation()));
 		
 		return dto;
 		
@@ -43,6 +47,7 @@ public class DTOPictureConverter {
 		
 		newCandidate.setPictureId(dto.getPictureId());
 		newCandidate.setPicUrl(dto.getPicUrl());
+		newCandidate.setAccommodation(accommodationConverter.convertFromDTO(dto.getAccommodation()));
 		
 		
 		return newCandidate;

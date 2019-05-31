@@ -20,15 +20,15 @@ public class DTOAccommodationUnitConverter {
 	public AccommodationUnitRepository accommodationUnitRepository;
 	
 	
-
 	@Autowired
 	public DTOTypeConverter typeConverter;
+	@Autowired
+	public DTOAccommodationConverter accommodationConverter;
 	@Autowired
 	public DTOCategoryConverter categoryConverter;
 	@Autowired
 	public DTOExtraFieldConverter extraFieldConverter;
-	@Autowired
-	public DTOPriceConverter priceConverter;
+
 	
 	
 	
@@ -42,17 +42,12 @@ public class DTOAccommodationUnitConverter {
 		dto.setCategory(categoryConverter.convertToDTO(accommodationUnit.getCategory()));
 		dto.setNumberOfPeople(accommodationUnit.getNumberOfPeople());
 		dto.setType(typeConverter.convertToDTO(accommodationUnit.getType()));
+		dto.setAccomodation(accommodationConverter.convertToDTO(accommodationUnit.getAccommodation()));
 		
 		for(ExtraField extraField : accommodationUnit.getExtraField()) {
 			dto.getExtraField().add(extraFieldConverter.convertToDTO(extraField));
 		}
-
-		for(Price price : accommodationUnit.getPrice()) {
-			dto.getPrice().add(priceConverter.convertToDTO(price));
-		}
-		
-
-		
+			
 		return dto;
 		
 	}
@@ -73,13 +68,10 @@ public class DTOAccommodationUnitConverter {
 		newBean.setCategory(categoryConverter.convertFromDTO(dto.getCategory()));
 		newBean.setNumberOfPeople(dto.getNumberOfPeople());
 		newBean.setType(typeConverter.convertFromDTO(dto.getType()));
+		newBean.setAccommodation(accommodationConverter.convertFromDTO(dto.getAccomodation()));
 		
 		for(ExtraFieldDTO extraField : dto.getExtraField()) {
 			newBean.getExtraField().add(extraFieldConverter.convertFromDTO(extraField));
-		}
-
-		for(PriceDTO price : dto.getPrice()) {
-			newBean.getPrice().add(priceConverter.convertFromDTO(price));
 		}
 
 		

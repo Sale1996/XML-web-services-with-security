@@ -53,15 +53,6 @@ public class AccommodationDTO {
     @XmlElement(name="AgentId",required = true)
     protected Long agentId;
     
-    
-    public String getAccommodationName() {
-		return accommodationName;
-	}
-
-	public void setAccommodationName(String accommodationName) {
-		this.accommodationName = accommodationName;
-	}
-
 
 	@XmlElement(name = "X_cord")
     protected double xCord;
@@ -74,18 +65,7 @@ public class AccommodationDTO {
     @XmlElement(name = "Number_of_days_before_cancelation")
     protected int numberOfDaysBeforeCancelation;
 
-    
-	@XmlElement(name = "Accommodation_pictures")
-	protected List<PictureDTO> pictures = new ArrayList<PictureDTO>();
-
-	
-    public List<PictureDTO> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(List<PictureDTO> pictures) {
-		this.pictures = pictures;
-	}
+   
     
     public Long getAccommodationId() {
         return accommodationId;
@@ -113,6 +93,14 @@ public class AccommodationDTO {
     public void setXCord(double value) {
         this.xCord = value;
     }
+
+    public String getAccommodationName() {
+		return accommodationName;
+	}
+
+	public void setAccommodationName(String accommodationName) {
+		this.accommodationName = accommodationName;
+	}
 
 
     public double getYCord() {

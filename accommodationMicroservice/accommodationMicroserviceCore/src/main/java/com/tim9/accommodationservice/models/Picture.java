@@ -81,4 +81,12 @@ public class Picture {
         this.picUrl = value;
     }
 
+	public Accommodation getAccommodation() {
+		return accommodation;
+	}
+
+	public void setAccommodation(Accommodation accommodation) {
+		this.accommodation = accommodation;
+	}
+
 }

@@ -153,4 +153,40 @@ public class AccommodationUnit {
         return this.price;
     }
 
+	public Category getUnitCategory() {
+		return unitCategory;
+	}
+
+	public void setUnitCategory(Category unitCategory) {
+		this.unitCategory = unitCategory;
+	}
+
+	public Type getUnitType() {
+		return unitType;
+	}
+
+	public void setUnitType(Type unitType) {
+		this.unitType = unitType;
+	}
+
+	public Accommodation getAccommodation() {
+		return accommodation;
+	}
+
+	public void setAccommodation(Accommodation accommodation) {
+		this.accommodation = accommodation;
+	}
+
+	public List<ExtraField> getExtraFields() {
+		return extraFields;
+	}
+
+	public void setExtraFields(List<ExtraField> extraFields) {
+		this.extraFields = extraFields;
+	}
+
+	public void setPrice(List<Price> price) {
+		this.price = price;
+	}
+
 }

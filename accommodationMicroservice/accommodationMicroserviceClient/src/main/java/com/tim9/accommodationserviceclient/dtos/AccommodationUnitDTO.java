@@ -45,14 +45,15 @@ public class AccommodationUnitDTO {
     
     @XmlElement(name = "Type", required = true)
     protected TypeDTO type;
+  
+    
+    @XmlElement(name="UnitAccommodation", required = true)
+    protected AccommodationDTO accomodation;
     
     
     @XmlElement(name = "Extra_field", required = true)
     protected List<ExtraFieldDTO> extraField = new ArrayList<ExtraFieldDTO>();
     
-    
-    @XmlElement(name = "Price", required = true)
-    protected List<PriceDTO> price =  new ArrayList<PriceDTO>();
 
 
     public Long getAccommodationUnitId() {
@@ -102,12 +103,22 @@ public class AccommodationUnitDTO {
         return this.extraField;
     }
 
+
+	public AccommodationDTO getAccomodation() {
+		return accomodation;
+	}
+
+
+	public void setAccomodation(AccommodationDTO accomodation) {
+		this.accomodation = accomodation;
+	}
+
+
+	public void setExtraField(List<ExtraFieldDTO> extraField) {
+		this.extraField = extraField;
+	}
+
  
-    public List<PriceDTO> getPrice() {
-        if (price == null) {
-            price = new ArrayList<PriceDTO>();
-        }
-        return this.price;
-    }
+ 
 
 }

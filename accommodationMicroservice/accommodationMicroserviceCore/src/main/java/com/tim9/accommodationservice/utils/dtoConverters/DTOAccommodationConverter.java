@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.accommodationservice.models.Accommodation;
-import com.tim9.accommodationservice.models.Picture;
 import com.tim9.accommodationservice.repository.AccommodationRepository;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
-import com.tim9.accommodationserviceclient.dtos.PictureDTO;
 
 
 @Component
@@ -18,8 +16,6 @@ public class DTOAccommodationConverter {
 	@Autowired
 	public AccommodationRepository accommodationRepository;
 	
-	@Autowired 
-	public DTOPictureConverter pictureConverter;
 	@Autowired
 	public DTOCityConverter cityConverter;
 	
@@ -37,9 +33,6 @@ public class DTOAccommodationConverter {
 		dto.setCountedNumberOfBeds(accommodation.getCountedNumberOfBeds());
 		dto.setAgentId(accommodation.getAgentId());
 		
-		for(Picture picture : accommodation.getPictures()) {
-			dto.getPictures().add(pictureConverter.convertToDTO(picture));
-		}
 		
 		return dto;
 		
@@ -64,11 +57,7 @@ public class DTOAccommodationConverter {
 		newBean.setCity(cityConverter.convertFromDTO(dto.getCity()));
 		newBean.setCountedNumberOfBeds(dto.getCountedNumberOfBeds());
 		newBean.setAgentId(dto.getAgentId());
-		
-		for(PictureDTO picture : dto.getPictures()) {
-			newBean.getPictures().add(pictureConverter.convertFromDTO(picture));
-		}
-		
+			
 		return newBean;
 		
 	}

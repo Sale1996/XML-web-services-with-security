@@ -115,4 +115,12 @@ public class Price {
         this.dateTo = value;
     }
 
+	public AccommodationUnit getAccommodationUnit() {
+		return accommodationUnit;
+	}
+
+	public void setAccommodationUnit(AccommodationUnit accommodationUnit) {
+		this.accommodationUnit = accommodationUnit;
+	}
+
 }
