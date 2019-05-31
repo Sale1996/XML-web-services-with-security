@@ -20,7 +20,8 @@ public class DTOAccommodationUnitConverter {
 	public AccommodationUnitRepository accommodationUnitRepository;
 	
 	
-
+	@Autowired
+	public DTOAccommodationConverter accommodationConverter;
 	@Autowired
 	public DTOTypeConverter typeConverter;
 	@Autowired
@@ -39,6 +40,7 @@ public class DTOAccommodationUnitConverter {
 		AccommodationUnitDTO dto = new AccommodationUnitDTO();
 		
 		dto.setAccommodationUnitId(accommodationUnit.getAccommodationUnitId());
+		dto.setAccommodation(accommodationConverter.convertToDTO(accommodationUnit.getAccommodation()));
 		dto.setCategory(categoryConverter.convertToDTO(accommodationUnit.getCategory()));
 		dto.setNumberOfPeople(accommodationUnit.getNumberOfPeople());
 		dto.setType(typeConverter.convertToDTO(accommodationUnit.getType()));
@@ -70,6 +72,7 @@ public class DTOAccommodationUnitConverter {
 		AccommodationUnit newBean = new AccommodationUnit();
 		
 		newBean.setAccommodationUnitId(dto.getAccommodationUnitId());
+		newBean.setAccommodation(accommodationConverter.convertFromDTO(dto.getAccommodation()));
 		newBean.setCategory(categoryConverter.convertFromDTO(dto.getCategory()));
 		newBean.setNumberOfPeople(dto.getNumberOfPeople());
 		newBean.setType(typeConverter.convertFromDTO(dto.getType()));

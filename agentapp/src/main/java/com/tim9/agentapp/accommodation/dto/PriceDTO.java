@@ -39,6 +39,10 @@ public class PriceDTO {
     @XmlElement(name = "Date_to", required = true)
     @XmlSchemaType(name = "date")
     protected LocalDate dateTo;
+    
+    @XmlElement(name = "Accommodation_unit", required = true)
+    @XmlSchemaType(name = "accommodationUnit")
+    protected AccommodationUnitDTO accommodationUnit;
 
   
     public Long getPriceId() {
@@ -80,4 +84,12 @@ public class PriceDTO {
         this.dateTo = value;
     }
 
+	public AccommodationUnitDTO getAccommodationUnit() {
+		return accommodationUnit;
+	}
+
+
+	public void setAccommodationUnit(AccommodationUnitDTO accommodationUnit) {
+		this.accommodationUnit = accommodationUnit;
+	}
 }

@@ -64,9 +64,8 @@ public class AccommodationUnit {
     @ManyToOne ()
 	@JoinColumn (name="accommodation",nullable = false)
     protected Accommodation accommodation;
-    
-    
-    @XmlElement(name = "Extra_field", required = true)
+
+	@XmlElement(name = "Extra_field", required = true)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "accommodation_unit_extra_fields",
             joinColumns = { @JoinColumn( name = "accommodation_id" ) },
@@ -126,7 +125,6 @@ public class AccommodationUnit {
         }
         return this.extraFields;
     }
-
  
     public List<Price> getPrice() {
         if (price == null) {
@@ -134,5 +132,14 @@ public class AccommodationUnit {
         }
         return this.price;
     }
+    
+    public Accommodation getAccommodation() {
+		return this.accommodation;
+	}
+
+
+	public void setAccommodation(Accommodation accommodation) {
+		this.accommodation = accommodation;
+	}
 
 }

@@ -11,46 +11,47 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tim9.agentapp.accommodation.dto.CityDTO;
-import com.tim9.agentapp.accommodation.service.CityService;
+import com.tim9.agentapp.accommodation.dto.CategoryDTO;
+import com.tim9.agentapp.accommodation.service.CategoryService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+
 @RestController
-@RequestMapping("/cities")
-@Api(value="city")
+@RequestMapping("/categories")
+@Api(value="category")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CityController {
+public class CategoryController {
 
 	@Autowired
-	CityService cityService;
+	CategoryService categoryService;
 	
 	
 	
 	@GetMapping("")
-	@ApiOperation( value = "Returns all cities", httpMethod = "GET" )
+	@ApiOperation( value = "Returns all categories", httpMethod = "GET" )
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK") } )	
-	public ResponseEntity< List<CityDTO> > getAllCities (){
+	public ResponseEntity< List<CategoryDTO> > getAllCategories (){
 		
-		List< CityDTO > cities = cityService.findAll();
+		List< CategoryDTO > categories = categoryService.findAll();
 		
-		return ( !cities.isEmpty() )? new ResponseEntity< List<CityDTO> > ( cities, HttpStatus.OK ) : new ResponseEntity< List<CityDTO> > (cities, HttpStatus.OK );
+		return ( !categories.isEmpty() )? new ResponseEntity< List<CategoryDTO> > ( categories, HttpStatus.OK ) : new ResponseEntity< List<CategoryDTO> > (categories, HttpStatus.OK );
 		
 	}
 	
 	
 	@GetMapping("/{id}")
-	@ApiOperation( value = "Finds one city by id.", notes = "Returns found city.", httpMethod="GET")
+	@ApiOperation( value = "Finds one Category by id.", notes = "Returns found Category.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< CityDTO > getOneCityById (@PathVariable("id") Long id){
+	public ResponseEntity< CategoryDTO > getOneSkillById (@PathVariable("id") Long id){
 		
-		CityDTO cityDTO = cityService.findById(id);
+		CategoryDTO categoryDTO = categoryService.findById(id);
 		
-		return ( cityDTO.getCityId()!=null)? new ResponseEntity< CityDTO > ( cityDTO, HttpStatus.OK ) : new ResponseEntity< CityDTO > ( HttpStatus.NOT_FOUND );
+		return ( categoryDTO.getCategoryId()!=null)? new ResponseEntity< CategoryDTO > ( categoryDTO, HttpStatus.OK ) : new ResponseEntity< CategoryDTO > ( HttpStatus.NOT_FOUND );
 		
-	}	
+	}
 }

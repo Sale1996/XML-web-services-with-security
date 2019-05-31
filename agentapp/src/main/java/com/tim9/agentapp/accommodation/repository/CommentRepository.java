@@ -6,5 +6,4 @@ import com.tim9.agentapp.accommodation.model.Comment;
 
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
-
 }

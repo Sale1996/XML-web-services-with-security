@@ -27,6 +27,8 @@ public class AccommodationUnitDTO {
     @XmlElement(name = "Accommodation_unit_id")
     protected Long accommodationUnitId;
     
+    @XmlElement(name = "Accommodation")
+    protected AccommodationDTO accommodation;    
     
     @XmlElement(name = "Number_of_people")
     protected int numberOfPeople;
@@ -55,6 +57,15 @@ public class AccommodationUnitDTO {
 
     public void setAccommodationUnitId(Long value) {
         this.accommodationUnitId = value;
+    }
+    
+    public AccommodationDTO getAccommodation() {
+        return accommodation;
+    }
+
+
+    public void setAccommodation(AccommodationDTO value) {
+        this.accommodation = value;
     }
 
 

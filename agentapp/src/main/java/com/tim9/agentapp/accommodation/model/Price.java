@@ -61,8 +61,7 @@ public class Price {
 	@JoinColumn (name="accommodationUnit",nullable = false)
     protected AccommodationUnit accommodationUnit;
 
-  
-    public Long getPriceId() {
+	public Long getPriceId() {
         return priceId;
     }
 
@@ -100,5 +99,13 @@ public class Price {
     public void setDateTo(LocalDate value) {
         this.dateTo = value;
     }
+  
+    public AccommodationUnit getAccommodationUnit() {
+		return accommodationUnit;
+	}
 
+
+	public void setAccommodationUnit(AccommodationUnit accommodationUnit) {
+		this.accommodationUnit = accommodationUnit;
+	}
 }

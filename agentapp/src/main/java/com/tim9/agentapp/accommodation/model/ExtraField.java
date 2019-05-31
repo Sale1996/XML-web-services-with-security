@@ -96,4 +96,11 @@ public class ExtraField {
         this.optional = value;
     }
 
+	public List<AccommodationUnit> getAccommodationUnits() {
+		return accommodationUnits;
+	}
+
+	public void setAccommodationUnits(List<AccommodationUnit> accommodationUnits) {
+		this.accommodationUnits = accommodationUnits;
+	}
 }
