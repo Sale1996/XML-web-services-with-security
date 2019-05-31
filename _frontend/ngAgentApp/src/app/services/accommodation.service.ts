@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Accommodation } from '../model/accommodation.model';
 
 
 const httpOptions = {
@@ -18,4 +19,8 @@ export class AccommodationService {
     constructor(private http: HttpClient) { }
 
 
+
+    getAccommodationById(id: number): Observable<Accommodation> {
+        return this.http.get<Accommodation>(environment.apiUrlAccommodation + '/' + id);
+    }
 }

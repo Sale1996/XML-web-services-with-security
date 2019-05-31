@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Accommodation } from 'src/app/model/accommodation.model';
+import { Observable } from 'rxjs';
+import { AccommodationService } from 'src/app/services/accommodation.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  accommodaiton$: Observable<Accommodation>;
+
+
+  constructor(private accommodationService: AccommodationService) { }
 
   ngOnInit() {
+    // this.getAccommodationService();
+  }
+
+
+  getAccommodationService() {
+    this.accommodaiton$ = this.accommodationService.getAccommodationById(1);
+    // localStorage.setItem('accommodation', this.accommodaiton);
+
   }
 
 }
