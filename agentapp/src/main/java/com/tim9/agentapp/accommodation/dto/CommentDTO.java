@@ -21,6 +21,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Comment")
 public class CommentDTO {
 
+    @XmlElement(name = "Local_comment_id")
+    protected Long localCommentId;
+    
+
     @XmlElement(name = "Comment_id")
     protected Long commentId;
     
@@ -89,5 +93,13 @@ public class CommentDTO {
     public void setClient(Long value) {
         this.clientId = value;
     }
+
+	public Long getLocalCommentId() {
+		return localCommentId;
+	}
+
+	public void setLocalCommentId(Long localCommentId) {
+		this.localCommentId = localCommentId;
+	}
 
 }

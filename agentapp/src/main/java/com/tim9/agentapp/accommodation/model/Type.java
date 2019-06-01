@@ -30,9 +30,14 @@ import javax.xml.bind.annotation.XmlType;
 @Table( name= "types" )
 public class Type {
 
-    @XmlElement(name = "Type_id")
+    @XmlElement(name = "Local_type_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
+	@Column ( name = "localId" )
+    protected Long localTypeId;
+    
+    
+    @XmlElement(name = "Type_id")
 	@Column ( name = "id" )
     protected Long typeId;
     
@@ -64,5 +69,13 @@ public class Type {
     public void setTypeName(String value) {
         this.typeName = value;
     }
+
+	public Long getLocalTypeId() {
+		return localTypeId;
+	}
+
+	public void setLocalTypeId(Long localTypeId) {
+		this.localTypeId = localTypeId;
+	}
 
 }

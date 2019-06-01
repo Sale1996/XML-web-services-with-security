@@ -30,9 +30,14 @@ import javax.xml.bind.annotation.XmlType;
 @Table( name= "comments" )
 public class Comment {
 
-    @XmlElement(name = "Comment_id")
+    @XmlElement(name = "Local_comment_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
+	@Column ( name = "localId" )
+    protected Long localCommentId;
+    
+    
+    @XmlElement(name = "Comment_id")
 	@Column ( name = "id" )
     protected Long commentId;
     
@@ -106,5 +111,13 @@ public class Comment {
     public void setClient(Long value) {
         this.clientId = value;
     }
+
+	public Long getLocalCommentId() {
+		return localCommentId;
+	}
+
+	public void setLocalCommentId(Long localCommentId) {
+		this.localCommentId = localCommentId;
+	}
 
 }

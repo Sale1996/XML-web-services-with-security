@@ -25,6 +25,7 @@ public class DTOPriceConverter {
 		PriceDTO dto = new PriceDTO();
 		dto.setAccommodationUnit(accommodationUnitConverter.convertToDTO(price.getAccommodationUnit()));
 		dto.setAmount(price.getAmount());
+		dto.setLocalPriceId(price.getLocalPriceId());
 		dto.setPriceId(price.getPriceId());
 		dto.setDateFrom(price.getDateFrom());
 		dto.setDateTo(price.getDateTo());
@@ -48,6 +49,7 @@ public class DTOPriceConverter {
 		
 		newCandidate.setAccommodationUnit(accommodationUnitConverter.convertFromDTO(dto.getAccommodationUnit()));
 		newCandidate.setAmount(dto.getAmount());
+		newCandidate.setLocalPriceId(dto.getLocalPriceId());
 		newCandidate.setPriceId(dto.getPriceId());
 		newCandidate.setDateFrom(dto.getDateFrom());
 		newCandidate.setDateTo(dto.getDateTo());

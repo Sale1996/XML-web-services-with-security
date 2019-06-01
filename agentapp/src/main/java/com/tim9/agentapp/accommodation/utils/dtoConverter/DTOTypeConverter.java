@@ -22,6 +22,7 @@ public class DTOTypeConverter {
 		
 		TypeDTO dto = new TypeDTO();
 		
+		dto.setLocalTypeId(type.getLocalTypeId());
 		dto.setTypeId(type.getTypeId());
 		dto.setTypeName(type.getTypeName());
 		
@@ -41,6 +42,7 @@ public class DTOTypeConverter {
 		
 		Type newCandidate = new Type();
 		
+		newCandidate.setLocalTypeId(dto.getLocalTypeId());
 		newCandidate.setTypeId(dto.getTypeId());
 		newCandidate.setTypeName(dto.getTypeName());
 		

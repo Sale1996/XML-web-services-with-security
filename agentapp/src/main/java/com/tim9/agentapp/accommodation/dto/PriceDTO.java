@@ -24,6 +24,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Price")
 public class PriceDTO {
 
+    @XmlElement(name = "Local_price_id")
+    protected Long localPriceId;
+    
+    
     @XmlElement(name = "Price_id")
     protected Long priceId;
     
@@ -92,4 +96,13 @@ public class PriceDTO {
 	public void setAccommodationUnit(AccommodationUnitDTO accommodationUnit) {
 		this.accommodationUnit = accommodationUnit;
 	}
+
+	public Long getLocalPriceId() {
+		return localPriceId;
+	}
+
+	public void setLocalPriceId(Long localPriceId) {
+		this.localPriceId = localPriceId;
+	}
+	
 }

@@ -22,6 +22,7 @@ public class DTOExtraFieldConverter {
 		
 		ExtraFieldDTO dto = new ExtraFieldDTO();
 		
+		dto.setLocalExtraFieldId(extraField.getLocalExtraFieldId());
 		dto.setExtraFieldId(extraField.getExtraFieldId());
 		dto.setExtraFieldName(extraField.getExtraFieldName());
 		dto.setExtraPrice(extraField.getExtraPrice());
@@ -44,6 +45,7 @@ public class DTOExtraFieldConverter {
 		
 		ExtraField newCandidate = new ExtraField();
 		
+		newCandidate.setLocalExtraFieldId(dto.getLocalExtraFieldId());
 		newCandidate.setExtraFieldId(dto.getExtraFieldId());
 		newCandidate.setExtraFieldName(dto.getExtraFieldName());
 		newCandidate.setExtraPrice(dto.getExtraPrice());

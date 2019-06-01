@@ -22,6 +22,7 @@ public class DTOCategoryConverter {
 		
 		CategoryDTO dto = new CategoryDTO();
 		
+		dto.setLocalCategoryId(category.getLocalCategoryId());
 		dto.setCategoryId(category.getCategoryId());
 		dto.setCategoryName(category.getCategoryName());
 		
@@ -41,6 +42,7 @@ public class DTOCategoryConverter {
 		
 		Category newCandidate = new Category();
 		
+		newCandidate.setLocalCategoryId(dto.getLocalCategoryId());
 		newCandidate.setCategoryId(dto.getCategoryId());
 		newCandidate.setCategoryName(dto.getCategoryName());
 		

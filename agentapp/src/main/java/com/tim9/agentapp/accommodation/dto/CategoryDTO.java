@@ -21,6 +21,10 @@ import javax.xml.bind.annotation.XmlType;
 
 public class CategoryDTO {
 
+    @XmlElement(name = "Local_category_id")
+    protected Long localCategoryId;
+    
+    
     @XmlElement(name = "Category_id")
     protected Long categoryId;
     
@@ -47,5 +51,13 @@ public class CategoryDTO {
     public void setCategoryName(String value) {
         this.categoryName = value;
     }
+
+	public Long getLocalCategoryId() {
+		return localCategoryId;
+	}
+
+	public void setLocalCategoryId(Long localCategoryId) {
+		this.localCategoryId = localCategoryId;
+	}
 
 }

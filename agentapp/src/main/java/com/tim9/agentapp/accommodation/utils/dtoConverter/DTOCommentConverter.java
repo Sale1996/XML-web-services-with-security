@@ -26,6 +26,7 @@ public class DTOCommentConverter {
 		
 		CommentDTO dto = new CommentDTO();
 		
+		dto.setLocalCommentId(comment.getLocalCommentId());
 		dto.setCommentId(comment.getCommentId());
 		dto.setAccommodation(accommodationConverter.convertToDTO(comment.getAccommodation()));
 		dto.setClient(comment.getClient());
@@ -49,6 +50,7 @@ public class DTOCommentConverter {
 		
 		Comment newCandidate = new Comment();
 		
+		newCandidate.setLocalCommentId(dto.getLocalCommentId());
 		newCandidate.setCommentId(dto.getCommentId());
 		newCandidate.setAccommodation(accommodationConverter.convertFromDTO(dto.getAccommodation()));
 		newCandidate.setClient(dto.getClient());

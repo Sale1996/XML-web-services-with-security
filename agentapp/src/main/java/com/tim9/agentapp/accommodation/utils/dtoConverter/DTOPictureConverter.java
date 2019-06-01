@@ -22,6 +22,7 @@ public class DTOPictureConverter {
 		
 		PictureDTO dto = new PictureDTO();
 		
+		dto.setLocalPictureId(picture.getLocalPictureId());
 		dto.setPictureId(picture.getPictureId());
 		dto.setPicUrl(picture.getPicUrl());
 		
@@ -41,6 +42,7 @@ public class DTOPictureConverter {
 		
 		Picture newCandidate = new Picture();
 		
+		newCandidate.setLocalPictureId(dto.getLocalPictureId());
 		newCandidate.setPictureId(dto.getPictureId());
 		newCandidate.setPicUrl(dto.getPicUrl());
 		

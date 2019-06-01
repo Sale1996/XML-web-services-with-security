@@ -19,6 +19,7 @@ public class DTOCityConverter {
 		
 		CityDTO dto = new CityDTO();
 		
+		dto.setLocalCityId(city.getLocalCityId());
 		dto.setCityId(city.getCityId());
 		dto.setxCord(city.getXCord());
 		dto.setyCord(city.getYCord());
@@ -38,6 +39,7 @@ public class DTOCityConverter {
 		
 		City newCity = new City();
 		
+		newCity.setLocalCityId(dto.getLocalCityId());
 		newCity.setName(dto.getName());
 		newCity.setXCord(dto.getxCord());
 		newCity.setyCord(dto.getyCord());

@@ -21,6 +21,10 @@ import javax.xml.bind.annotation.XmlType;
 
 public class PictureDTO {
 
+    @XmlElement(name = "Local_picture_id")
+    protected Long localPictureId;
+    
+    
     @XmlElement(name = "Picture_id")
     protected Long pictureId;
     
@@ -47,5 +51,13 @@ public class PictureDTO {
     public void setPicUrl(String value) {
         this.picUrl = value;
     }
+
+	public Long getLocalPictureId() {
+		return localPictureId;
+	}
+
+	public void setLocalPictureId(Long localPictureId) {
+		this.localPictureId = localPictureId;
+	}
 
 }

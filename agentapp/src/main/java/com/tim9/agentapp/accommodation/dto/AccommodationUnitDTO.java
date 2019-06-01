@@ -24,6 +24,9 @@ import javax.xml.bind.annotation.XmlType;
 
 public class AccommodationUnitDTO {
 
+    @XmlElement(name = "Local_accommodation_unit_id")
+    protected Long localAccommodationUnitId;
+    
     @XmlElement(name = "Accommodation_unit_id")
     protected Long accommodationUnitId;
     
@@ -113,5 +116,13 @@ public class AccommodationUnitDTO {
         }
         return this.price;
     }
+
+	public Long getLocalAccommodationUnitId() {
+		return localAccommodationUnitId;
+	}
+
+	public void setLocalAccommodationUnitId(Long localAccommodationUnitId) {
+		this.localAccommodationUnitId = localAccommodationUnitId;
+	}
 
 }

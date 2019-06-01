@@ -8,6 +8,7 @@
 
 package com.tim9.agentapp.accommodation.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,16 +34,18 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table( name= "acccomodations" )
 public class Accommodation {
-	
-	@XmlElement(name = "LocalAccommodation_id")
+
+    @XmlElement(name = "Local_accommodation_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
 	@Column ( name = "localId" )
     protected Long localAccommodationId;
-
+    
+    
     @XmlElement(name = "Accommodation_id")
 	@Column ( name = "id" )
-    protected Long accommodationId;    
+    protected Long accommodationId;
+    
     
     @XmlElement(name = "Name", required = true)
     @Column ( name="name", nullable = true )
@@ -68,6 +71,11 @@ public class Accommodation {
     @XmlElement(name = "Counted_number_of_beds")
     @Transient
     protected int countedNumberOfBeds;
+    
+    
+    @XmlElement(name="AgentId",required = true)
+    @Column(name="agent_id")
+    protected Long agentId;
 
     
     @XmlElement(name = "Accommodation_units")
@@ -84,8 +92,6 @@ public class Accommodation {
 	@OneToMany (mappedBy="accommodation")
 	protected List<Picture> pictures;
 
-	
-	
 	public String getAccommodationName() {
 		return accommodationName;
 	}
@@ -118,14 +124,6 @@ public class Accommodation {
 	public void setPictures(List<Picture> pictures) {
 		this.pictures = pictures;
 	}
-	
-	public Long getLocalAccommodationId() {
-        return localAccommodationId;
-    }
-
-    public void setLocalAccommodationId(Long value) {
-        this.localAccommodationId = value;
-    }
 
 	public Long getAccommodationId() {
         return accommodationId;
@@ -169,6 +167,22 @@ public class Accommodation {
 
 	public void setCountedNumberOfBeds(int countedNumberOfBeds) {
 		this.countedNumberOfBeds = countedNumberOfBeds;
+	}
+
+	public Long getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(Long agentId) {
+		this.agentId = agentId;
+	}
+
+	public Long getLocalAccommodationId() {
+		return localAccommodationId;
+	}
+
+	public void setLocalAccommodationId(Long localAccommodationId) {
+		this.localAccommodationId = localAccommodationId;
 	}
 
 }

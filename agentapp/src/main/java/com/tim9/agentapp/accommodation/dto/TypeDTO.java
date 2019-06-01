@@ -19,9 +19,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Type")
 public class TypeDTO {
 
+    @XmlElement(name = "Local_type_id")
+    protected Long localTypeId;
+    
     @XmlElement(name = "Type_id")
     protected Long typeId;
-    
     
     @XmlElement(name = "Type_name", required = true)
     protected String typeName;
@@ -45,5 +47,15 @@ public class TypeDTO {
     public void setTypeName(String value) {
         this.typeName = value;
     }
+
+
+	public Long getLocalTypeId() {
+		return localTypeId;
+	}
+
+
+	public void setLocalTypeId(Long localTypeId) {
+		this.localTypeId = localTypeId;
+	}
 
 }

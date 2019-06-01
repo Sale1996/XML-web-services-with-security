@@ -8,9 +8,6 @@
 
 package com.tim9.agentapp.accommodation.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,8 +20,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Accommodation")
 public class AccommodationDTO {
 
-	@XmlElement(name = "LocalAccommodation_id")
+    @XmlElement(name = "Local_accommodation_id")
     protected Long localAccommodationId;
+
 
 	@XmlElement(name = "Accommodation_id")
     protected Long accommodationId;
@@ -44,47 +42,15 @@ public class AccommodationDTO {
     @XmlElement(name = "Counted_number_of_beds")
     protected int countedNumberOfBeds;
     
+    @XmlElement(name="AgentId",required = true)
+    protected Long agentId;
     
-    public String getAccommodationName() {
-		return accommodationName;
-	}
 
-	public void setAccommodationName(String accommodationName) {
-		this.accommodationName = accommodationName;
-	}
-
-
-	@XmlElement(name = "X_cord")
-    protected double xCord;
-    
-    
-    @XmlElement(name = "Y_cord")
-    protected double yCord;
-    
-    
+     
     @XmlElement(name = "Number_of_days_before_cancelation")
     protected int numberOfDaysBeforeCancelation;
 
-    
-	@XmlElement(name = "Accommodation_pictures")
-	protected List<PictureDTO> pictures = new ArrayList<PictureDTO>();
-
-	
-    public List<PictureDTO> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(List<PictureDTO> pictures) {
-		this.pictures = pictures;
-	}
-	
-	public Long getLocalAccommodationId() {
-        return localAccommodationId;
-    }
-
-    public void setLocalAccommodationId(Long value) {
-        this.localAccommodationId = value;
-    }
+   
     
     public Long getAccommodationId() {
         return accommodationId;
@@ -103,25 +69,14 @@ public class AccommodationDTO {
         this.description = value;
     }
 
+    public String getAccommodationName() {
+		return accommodationName;
+	}
 
-    public double getXCord() {
-        return xCord;
-    }
+	public void setAccommodationName(String accommodationName) {
+		this.accommodationName = accommodationName;
+	}
 
-
-    public void setXCord(double value) {
-        this.xCord = value;
-    }
-
-
-    public double getYCord() {
-        return yCord;
-    }
-
-
-    public void setYCord(double value) {
-        this.yCord = value;
-    }
 
 
     public int getNumberOfDaysBeforeCancelation() {
@@ -147,6 +102,22 @@ public class AccommodationDTO {
 
 	public void setCountedNumberOfBeds(int countedNumberOfBeds) {
 		this.countedNumberOfBeds = countedNumberOfBeds;
+	}
+
+	public Long getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(Long agentId) {
+		this.agentId = agentId;
+	}
+
+	public Long getLocalAccommodationId() {
+		return localAccommodationId;
+	}
+
+	public void setLocalAccommodationId(Long localAccommodationId) {
+		this.localAccommodationId = localAccommodationId;
 	}
 
 }

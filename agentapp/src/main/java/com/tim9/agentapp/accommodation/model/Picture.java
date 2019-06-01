@@ -29,9 +29,14 @@ import javax.xml.bind.annotation.XmlType;
 @Table( name= "pictures" )
 public class Picture {
 
-    @XmlElement(name = "Picture_id")
+    @XmlElement(name = "Local_picture_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
+	@Column ( name = "localId" )
+    protected Long localPictureId;
+    
+    
+    @XmlElement(name = "Picture_id")
 	@Column ( name = "id" )
     protected Long pictureId;
     
@@ -65,5 +70,13 @@ public class Picture {
     public void setPicUrl(String value) {
         this.picUrl = value;
     }
+
+	public Long getLocalPictureId() {
+		return localPictureId;
+	}
+
+	public void setLocalPictureId(Long localPictureId) {
+		this.localPictureId = localPictureId;
+	}
 
 }

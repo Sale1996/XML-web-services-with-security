@@ -22,6 +22,10 @@ import javax.xml.bind.annotation.XmlType;
 
 public class ExtraFieldDTO {
 
+    @XmlElement(name = "Local_extra_field_id")
+    protected Long localExtraFieldId;
+    
+    
     @XmlElement(name = "Extra_field_id")
     protected Long extraFieldId;
     
@@ -75,5 +79,13 @@ public class ExtraFieldDTO {
     public void setOptional(boolean value) {
         this.optional = value;
     }
+
+	public Long getLocalExtraFieldId() {
+		return localExtraFieldId;
+	}
+
+	public void setLocalExtraFieldId(Long localExtraFieldId) {
+		this.localExtraFieldId = localExtraFieldId;
+	}
 
 }

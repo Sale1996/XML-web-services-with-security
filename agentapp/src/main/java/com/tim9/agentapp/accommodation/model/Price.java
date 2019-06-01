@@ -33,9 +33,14 @@ import javax.xml.bind.annotation.XmlType;
 @Table( name= "prices" )
 public class Price {
 
-    @XmlElement(name = "Price_id")
+    @XmlElement(name = "Local_price_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
+	@Column ( name = "localId" )
+    protected Long localPriceId;
+    
+    
+    @XmlElement(name = "Price_id")
 	@Column ( name = "id" )
     protected Long priceId;
     
@@ -108,4 +113,13 @@ public class Price {
 	public void setAccommodationUnit(AccommodationUnit accommodationUnit) {
 		this.accommodationUnit = accommodationUnit;
 	}
+
+	public Long getLocalPriceId() {
+		return localPriceId;
+	}
+
+	public void setLocalPriceId(Long localPriceId) {
+		this.localPriceId = localPriceId;
+	}
+	
 }

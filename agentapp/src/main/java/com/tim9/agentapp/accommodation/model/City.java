@@ -1,5 +1,6 @@
 package com.tim9.agentapp.accommodation.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,15 +17,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {})
+@XmlType(name = "", propOrder = {
+    "cityId",
+    "name",
+    "xCord",
+    "yCord"
+})
 @XmlRootElement(name = "City")
 @Entity
 @Table( name= "cities" )
 public class City {
 	
-    @XmlElement(name = "city_id")
+    @XmlElement(name = "Local_city_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
+	@Column ( name = "localId" )
+    protected Long localCityId;
+    
+    @XmlElement(name = "city_id")
 	@Column ( name = "id" )
     protected Long cityId;
     
@@ -46,6 +56,17 @@ public class City {
     @OneToMany (mappedBy="city")
     protected List<Accommodation> accommodations;
        
+    @XmlElement(name = "LastUpdated")
+	@Column
+	private LocalDateTime lastUpdated;
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
     
     public Long getCityId() {
 		return cityId;
@@ -106,8 +127,12 @@ public class City {
 		this.yCord = yCord;
 	}
 
+	public Long getLocalCityId() {
+		return localCityId;
+	}
 
-    
-    
+	public void setLocalCityId(Long localCityId) {
+		this.localCityId = localCityId;
+	}    
 
 }
