@@ -5,7 +5,7 @@ export interface Comment {
     commentId: number;
     commentBody: string;
     isApproved: boolean;
-    clientId: number;
+    client: number;
     accommodation: Accommodation;
 
 }

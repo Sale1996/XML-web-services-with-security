@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-user-review',
@@ -13,11 +15,17 @@ export class UserReviewComponent implements OnInit {
   collectionSize = 200;
   pageSize: number;
   pageSizes: number[] = [25, 50, 100];
+  comments$: Observable<Comment[]>;
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
   ngOnInit() {
     this.pageSize = this.pageSizes[0];
+    this.getComments();
+  }
+
+  getComments() {
+    this.comments$ = this.commentService.getComments();
   }
 
   changePageSize() {

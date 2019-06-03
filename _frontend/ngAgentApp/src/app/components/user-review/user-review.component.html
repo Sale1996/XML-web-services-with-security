@@ -26,34 +26,18 @@
           <th scope="col">User</th>
           <th scope="col">Comment</th>
           <th scope="col">Accommodation</th>
-          <th scope="col" width="150">Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>Danijel Venus</td>
-          <td>Nije lose, ali nije ni dobro.</td>
-          <td>Hotel Elan</td>
-          <td><span class="blue-badge">26th July 2022</span></td>
+        <ng-container *ngIf="comments$ | async as comments; else loading">
+          <tr *ngFor="let comment of comments">
+            <th scope="row"><span class="blue-badge">{{comment.commentId}}</span></th>
+            <td>{{comment.client}}</td>
+            <td>{{comment.commentBody}}</td>
+            <td>{{comment.accommodation.accommodationName}}</td>
+          </tr>
+        </ng-container>
 
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">2</span></th>
-          <td>Mieoslav Zaric</td>
-          <td>Odlican smestaj! Salim se, los je. Salim se.</td>
-          <td>Hotel Elan</td>
-          <td><span class="blue-badge">1st June 2020</span></td>
-
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">3</span></th>
-          <td>Veljko Petrovic</td>
-          <td>Pa ja ovo prvi put vidim!</td>
-          <td>Hotel Elan</td>
-          <td><span class="blue-badge">11th january 2020</span></td>
-
-        </tr>
       </tbody>
     </table>
   </div>
