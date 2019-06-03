@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { City } from '../model/city.model';
+import { Reservation } from '../model/reservation.model';
 
 
 const httpOptions = {
@@ -14,12 +14,17 @@ const httpOptions = {
 @Injectable({
     providedIn: 'root'
 })
-export class CityService {
+export class ReservationService {
 
     constructor(private http: HttpClient) { }
 
 
-    getCities(): Observable<City[]> {
-        return this.http.get<City[]>(environment.apiUrlCity);
+    getReservations(): Observable<Reservation[]> {
+        return this.http.get<Reservation[]>(environment.apiUrlReservation);
+    }
+
+
+    confirmReservation(id): Observable<Boolean> {
+        return this.http.put<Boolean>(environment.apiUrlReservation + '/confirm', id, httpOptions);
     }
 }

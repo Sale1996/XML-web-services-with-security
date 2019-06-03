@@ -32,51 +32,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>Marko Markovic</td>
-          <td>Hotel Prezident</td>
-          <td><span class="blue-badge">26th July 2022</span></td>
-          <td><span class="blue-badge">26th Sept. 2022</span></td>
-          <td>40 000 rsd</td>
-          <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2">
-              <svg class="icon">
-                <use xlink:href="#Checkmark_Icon"></use>
-              </svg>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>Marko Markovic</td>
-          <td>Hotel Prezident</td>
-          <td><span class="blue-badge">26th July 2022</span></td>
-          <td><span class="blue-badge">26th Sept. 2022</span></td>
-          <td>40 000 rsd</td>
-          <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2">
-              <svg class="icon">
-                <use xlink:href="#Checkmark_Icon"></use>
-              </svg>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>Marko Markovic</td>
-          <td>Hotel Prezident</td>
-          <td><span class="blue-badge">26th July 2022</span></td>
-          <td><span class="blue-badge">26th Sept. 2022</span></td>
-          <td>40 000 rsd</td>
-          <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2">
-              <svg class="icon">
-                <use xlink:href="#Checkmark_Icon"></use>
-              </svg>
-            </span>
-          </td>
-        </tr>
+        <ng-container *ngIf="reservations$ | async as reservations; else loading">
+          <tr *ngFor="let reservation of reservations">
+            <th scope="row"><span class="blue-badge"></span>{{reservation.reservationId}}</th>
+            <td>{{reservation.client}}</td>
+            <td>{{reservation.accommodationUnit}}</td>
+            <td><span class="blue-badge">{{reservation.dateFrom}}</span></td>
+            <td><span class="blue-badge">{{reservation.dateTo}}</span></td>
+            <td>{{reservation.finalPrice}} rsd</td>
+            <td class="float-right">
+              <ng-container *ngIf="!reservation.confirmation">
+                <span role="button" class="table-btn table-btn-success borderless mr-2"
+                  (click)="confirmReservation(reservation.reservationId)">
+                  <svg class="icon">
+                    <use xlink:href="#Checkmark_Icon"></use>
+                  </svg>
+                </span>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-container>
+
       </tbody>
     </table>
   </div>

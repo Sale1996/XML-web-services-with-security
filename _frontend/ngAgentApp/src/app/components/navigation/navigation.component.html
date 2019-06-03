@@ -21,18 +21,20 @@
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="accommodation">Accommodation</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" routerLink="accommodation-units">Accommodation units</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" routerLink="reservations">Reservations</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" routerLink="inbox">Inbox</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" routerLink="user-reviews">User reviews</a>
-      </li>
+      <ng-container *ngIf="getLocalStorageItem()">
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" routerLink="accommodation-units">Accommodation units</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" routerLink="reservations">Reservations</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" routerLink="inbox">Inbox</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" routerLink="user-reviews">User reviews</a>
+        </li>
+      </ng-container>
     </ul>
     <a routerLink="profile">
       <span class="navbar-text mr-2">

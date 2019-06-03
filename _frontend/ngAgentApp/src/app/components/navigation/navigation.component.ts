@@ -10,20 +10,27 @@ import { AccommodationService } from 'src/app/services/accommodation.service';
 })
 export class NavigationComponent implements OnInit {
 
-  accommodaiton$: Observable<Accommodation>;
-
 
   constructor(private accommodationService: AccommodationService) { }
 
   ngOnInit() {
-    // this.getAccommodationService();
+    this.getAccommodationService();
   }
 
 
   getAccommodationService() {
-    this.accommodaiton$ = this.accommodationService.getAccommodationById(1);
-    // localStorage.setItem('accommodation', this.accommodaiton);
+    this.accommodationService.getAccommodationById(1).subscribe(
+      data => {
+        localStorage.setItem('accommodation', data.accommodationId.toString());
+      },
+      error => {
+        localStorage.removeItem('accommodation');
+      }
+    );
+  }
 
+  getLocalStorageItem() {
+    return localStorage.getItem('accommodation');
   }
 
 }

@@ -1,9 +1,9 @@
 <div class="px-5 pt-5">
   <div class="page-header">
-    <h4>Hotel Elan</h4>
+    <h4>{{accommodationName}}</h4>
   </div>
 
-  <form [formGroup]="accommodationForm">
+  <form [formGroup]="accommodationForm" (ngSubmit)="onSubmit()">
     <div class="row mt-4">
       <div class="col-md-6">
         <div class="form-group">
@@ -17,7 +17,7 @@
         <div class="form-group">
           <label for="NumberOdDays" class="col-form-label col-form-label-sm">Number of days before cancelation<span
               class="text-danger">*</span></label>
-          <input type="text" formControlName="NumberOdDays" class="form-control form-control-sm"
+          <input type="number" formControlName="numberOfDaysBeforeCancelation" class="form-control form-control-sm"
             placeholder="Enter number of days" required>
         </div>
         <div class="form-group">
@@ -27,24 +27,23 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="city" class="col-form-label col-form-label-sm">City<span class="text-danger">*</span></label>
-          <select type="text" formControlName="city" class="form-control form-control-sm" required>
-            <option value="1">Srbobran</option>
-            <option value="2">Klisa</option>
-            <option value="3">Kosjeric</option>
-            <option value="4">Lazarevac</option>
-          </select>
+          <ng-container *ngIf="cities$ | async as cities; else loading">
+            <label for="city" class="col-form-label col-form-label-sm">City<span class="text-danger">*</span></label>
+            <select type="text" formControlName="city" class="form-control form-control-sm" required>
+              <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
+            </select>
+          </ng-container>
+
         </div>
         <div class="form-group">
           <label for="picture" class="col-form-label col-form-label-sm">Pictures<span
               class="text-danger">*</span></label>
-          <input type="text" formControlName="picture" class="form-control form-control-sm"
-            placeholder="Nesto sa slikama" required>
+          <input type="text" class="form-control form-control-sm" placeholder="Nesto sa slikama" required>
         </div>
       </div>
     </div>
     <div class="modal-footer d-flex justify-content-start  pt-2 pb-5">
-      <button type="submit" [disabled]="!agentForm.valid" class="btn btn-primary">Change accommodation</button>
+      <button type="submit" [disabled]="!accommodationForm.valid" class="btn btn-primary">{{submitBtnText}}</button>
     </div>
   </form>
 </div>
