@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Agent } from 'src/app/model/agent.model';
+import { AgentService } from 'src/app/services/agent.service';
 
 @Component({
   selector: 'app-agents-single-modal',
@@ -9,11 +10,12 @@ import { Agent } from 'src/app/model/agent.model';
 })
 export class AgentsSingleModalComponent implements OnInit {
 
-  @Output() agent: EventEmitter<any> = new EventEmitter();
   agentForm: FormGroup;
   passwordForm: FormGroup;
+  agentFullName: string;
+  agentId: number;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private agentService: AgentService) { }
 
   ngOnInit() {
 
@@ -27,20 +29,46 @@ export class AgentsSingleModalComponent implements OnInit {
     });
 
     this.passwordForm = this.formBuilder.group({
-      id: [''],
       password1: [''],
       password2: ['']
-    })
+    });
+
+    this.getAgentById(1);
+  }
+
+  getAgentById(id: number) {
+    this.agentService.getAgentById(id).subscribe(
+      (agent: Agent) => {
+        this.agentForm.patchValue(agent);
+        this.agentFullName = agent.firstName + " " + agent.lastName;
+        this.agentId = agent.id;
+      }
+    )
   }
 
   onSubmit() {
     if (this.agentForm.valid) {
-      this.agent.emit(this.agentForm.value as Agent);
+      this.agentService.updateAgent(this.agentForm.value as Agent).subscribe(
+        (agent: Agent) => {
+          this.agentFullName = agent.firstName + " " + agent.lastName;
+        }
+      );
     }
   }
 
   onSubmitPassword() {
+    if (this.passwordForm.valid) {
+      var agent = this.agentForm.value as Agent;
+      if (this.passwordForm.value.password1 === this.passwordForm.value.password2) {
+        agent.password = this.passwordForm.value.password1;
+        this.agentService.changePassword(agent).subscribe(
+          () => {
+            console.log("uspesno")
+          }
+        );
+      }
 
+    }
   }
 
 }
