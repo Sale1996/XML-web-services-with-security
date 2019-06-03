@@ -22,37 +22,21 @@
     <table class="table table-borderless table-hover">
       <thead>
         <tr>
-          <th scope="col">Sender</th>
-          <th scope="col">Reciever</th>
-          <th scope="col">Reserved accommodation unit</th>
+          <th scope="col">User</th>
+          <th scope="col">Reservation Id</th>
           <th scope="col">Preview</th>
           <th scope="col" width="150">Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr (click)="openMessageModal(10)">
-          <td>Danijel Venus</td>
-          <td>Veljko Petrovic</td>
-          <td>Hotel Elan</td>
-          <td>Nije lose, ali nije ni dobro...</td>
-          <td><span class="blue-badge">26th July 2022, 15:00</span></td>
-
-        </tr>
-        <tr (click)="openMessageModal(20)">
-          <td>Mieoslav Zaric</td>
-          <td>Veljko Petrovic</td>
-          <td>Hotel Elan</td>
-          <td>Odlican smestaj! Salim se, los je. Salim se.</td>
-          <td><span class="blue-badge">1st June 2020, 15:00</span></td>
-
-        </tr>
-        <tr (click)="openMessageModal()">
-          <td>Veljko Petrovic</td>
-          <td>Zoran Lukac</td>
-          <td>Hotel Elan</td>
-          <td>Pa ja ovo prvi put vidim!</td>
-          <td><span class="blue-badge">11th january 2020, 15:00</span></td>
-        </tr>
+        <ng-container *ngIf="messages$ | async as messages; else loading">
+          <tr *ngFor="let message of messages" (click)="openMessageModal(message)">
+            <td>{{message.userId}}</td>
+            <td>{{message.reservationId}}</td>
+            <td>{{message.messageBody}}</td>
+            <td>{{message.messageTime}}</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
