@@ -1,11 +1,18 @@
 package com.tim9.reservationservice.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +22,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.tim9.reservationservice.services.ReservationService;
+import com.tim9.reservationserviceClient.dtos.RatingDTO;
 import com.tim9.reservationserviceClient.dtos.ReservationDTO;
 
 import io.swagger.annotations.Api;
@@ -70,6 +79,11 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService reservationService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
 
 	@GetMapping("")
@@ -136,4 +150,40 @@ public class ReservationController {
 		else
 			return new ResponseEntity< ReservationDTO > ( HttpStatus.NOT_FOUND );
 	}
+	
+	@PostMapping("/rating")
+	@ApiOperation( value = "Create a rating.", notes = "Returns the rating being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
+	@ApiResponses( value = {
+					@ApiResponse( code = 201 , message = "Created"),
+					@ApiResponse( code = 400, message= "Bad request")
+	})
+	public ResponseEntity<String> createRating(@RequestBody RatingDTO rating) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<RatingDTO> entity = new HttpEntity<RatingDTO>(rating, headers);
+		
+		String url = "http://localhost:8010/rating-service/us-central1/createRating";
+		
+		String rest= restTemplate.postForObject(url, entity, String.class);
+						
+		return new ResponseEntity<String>(rest, HttpStatus.OK);
+	}
+	
+	@GetMapping("/rating/{id}")
+	@ApiOperation( value = "Finds one rating by reservation id.", notes = "Returns found rating.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity<RatingDTO> getRatingByReservationId(@PathVariable("id") Long id) {
+		
+		String url = "http://localhost:8010/rating-service/us-central1/getRatingByReservationId?id=" + id;
+		
+		ResponseEntity<RatingDTO> response = restTemplate.getForEntity(url, RatingDTO.class);
+		
+		return new ResponseEntity<RatingDTO>(response.getBody(), HttpStatus.OK);
+		
+	}
+	
+	
 }
