@@ -17,40 +17,33 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.tim9.userservice.config.LocalDateTimeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "messageId",
-    "messageBody",
-    "messageTime",
-    "userId",
-    "recieved",
-    "opened",
-    "reservationId"
-})
-@XmlRootElement(name = "Message")
+@XmlType(name = "message")
+//@XmlRootElement(name = "Message")
 @Entity
 public class Message {
 
-    @XmlElement(name = "Message_id")
+    @XmlElement(name = "messageId", required = true)
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     @Column
     protected Long messageId;
     
-    @XmlElement(name = "Message_body", required = true)
+    @XmlElement(name = "messageBody", required = true)
     @Column
     protected String messageBody;
     
-    @XmlElement(name = "Message_time", required = true)
-    @XmlSchemaType(name = "date")
+    @XmlElement(name = "messageTime", required = true)
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     @Column
     protected LocalDateTime messageTime;
      
-    @XmlElement(name = "user", required = true)
+    @XmlElement(name = "userId", required = true)
     @Column
     protected Long userId;
     
@@ -66,7 +59,8 @@ public class Message {
     @Column
     protected Long reservationId;
     
-    @XmlElement(name = "LastUpdated")
+    @XmlElement(name = "lastUpdated")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     @Column
     protected LocalDateTime lastUpdated;
 

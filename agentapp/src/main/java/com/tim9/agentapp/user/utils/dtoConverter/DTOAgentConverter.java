@@ -30,6 +30,21 @@ public class DTOAgentConverter {
 		return dto;
 	}
 	
+	public AgentDTO convertToDTOFromClient(com.tim9.agentapp.user.wsdl.Agent agent) {
+		
+		AgentDTO dto = new AgentDTO();
+		
+		dto.setId(agent.getId());
+		dto.setFirstName(agent.getFirstName());
+		dto.setLastName(agent.getLastName());
+		dto.setEmail(agent.getEmail());
+		dto.setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
+		dto.setActivated(agent.isActivated());
+		dto.setRole(agent.getRole());
+		
+		return dto;
+	}
+	
 	public Agent convertFromDTO(AgentDTO dto) {
 		
 		Optional<Agent> agent = agentRepository.findById(dto.getId());

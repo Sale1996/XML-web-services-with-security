@@ -9,16 +9,8 @@ import javax.xml.bind.annotation.XmlType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "id",
-    "firstName",
-    "lastName",
-    "email",
-    "business_registration_number",
-    "activated",
-    "password"
-})
-@XmlRootElement(name = "Agent")
+@XmlType(name = "")
+@XmlRootElement(name = "agentdto")
 @JsonIgnoreProperties(value = "password", allowGetters=false, allowSetters=true)
 public class AgentDTO {
 	

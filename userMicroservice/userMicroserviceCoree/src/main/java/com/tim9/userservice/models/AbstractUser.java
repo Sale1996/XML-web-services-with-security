@@ -15,17 +15,13 @@ import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AbstractUser", propOrder = {
-    "firstName",
-    "lastName",
-    "email",
-    "password",
-    "role"
-})
+@XmlType(name = "AbstractUser")
 @XmlSeeAlso({
     Agent.class,
     User.class
@@ -39,23 +35,23 @@ public class AbstractUser {
 	@Column
 	private Long id;
 	
-    @XmlElement(required = true)
+    @XmlElement(name = "firstName", required = true)
     @Column
     protected String firstName;
     
-    @XmlElement(required = true)
+    @XmlElement(name = "lastName", required = true)
     @Column
     protected String lastName;
     
-    @XmlElement(required = true)
+    @XmlElement(name = "email", required = true)
     @Column
     protected String email;
     
-    @XmlElement(required = true)
+    @XmlElement(name = "password", required = true)
     @Column
     protected String password;
     
-    @XmlElement(required = true)
+    @XmlElement(name = "role", required = true)
     @Column
     protected String role;
 

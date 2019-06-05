@@ -5,12 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.user.dto.AgentDTO;
+import com.tim9.agentapp.user.dto.UserDTO;
 import com.tim9.agentapp.user.model.Agent;
 import com.tim9.agentapp.user.repository.AgentRepository;
+import com.tim9.agentapp.user.soapclient.UserClient;
 import com.tim9.agentapp.user.utils.dtoConverter.DTOAgentConverter;
+import com.tim9.agentapp.user.wsdl.GetAgentResponse;
 
 @Service
 public class AgentService {
@@ -19,9 +24,12 @@ public class AgentService {
 	
 	private final DTOAgentConverter dtoAgentConverter;
 	
-	public AgentService(final AgentRepository agentRepository, final DTOAgentConverter dtoAgentConverter) {
+	private final UserClient userClient;
+	
+	public AgentService(final AgentRepository agentRepository, final DTOAgentConverter dtoAgentConverter, final UserClient userClient) {
 		this.agentRepository = agentRepository;
 		this.dtoAgentConverter = dtoAgentConverter;
+		this.userClient = userClient;
 	}
 	
 	public List<AgentDTO> findAll(){
@@ -119,6 +127,13 @@ public class AgentService {
 		}
 		
 		return new AgentDTO();
+	}
+	
+	public AgentDTO syncDatabase(){
+		
+		GetAgentResponse getAgentResponse = userClient.getAgent("4");
+		
+		return dtoAgentConverter.convertToDTOFromClient(getAgentResponse.getAgent());
 	}
 	
 }

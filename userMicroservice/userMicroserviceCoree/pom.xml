@@ -81,7 +81,43 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-    
-  </dependencies>  
-  
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+  </dependencies>
+  <build>
+  	<plugins>
+  		<plugin>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>jaxb2-maven-plugin</artifactId>
+		    <version>2.4</version>
+		    <executions>
+		        <execution>
+		            <goals>
+		                <goal>schemagen</goal>
+		            </goals>
+		            <phase>generate-resources</phase>
+		            <configuration>
+		                <sources>
+		                    <source>src/main/java/com/tim9/userservice/models</source>
+		                </sources>
+		                <outputDirectory>${project.build.directory}/schemas</outputDirectory>
+		                <transformSchemas>
+					      <transformSchema>
+					        <uri>http://tim9.com</uri>
+					        <toFile>userService.xsd</toFile>
+					      </transformSchema>
+					    </transformSchemas>
+		            </configuration>
+		        </execution>
+		    </executions>
+		</plugin>
+  	</plugins>
+  </build>
 </project>

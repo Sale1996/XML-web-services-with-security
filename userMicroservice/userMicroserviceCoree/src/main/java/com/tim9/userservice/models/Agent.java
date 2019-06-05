@@ -14,19 +14,21 @@ import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.tim9.userservice.config.LocalDateTimeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Agent", propOrder = {
-    "businessRegistrationNumber",
-    "activated"
-})
+@XmlType(name = "agent")
+@XmlRootElement(name = "Agent")
 @Entity
 public class Agent extends AbstractUser {
 
 	
-    @XmlElement(name = "business_registration_number", required = true)
+    @XmlElement(name = "businessRegistrationNumber", required = true)
     @Column
     protected String businessRegistrationNumber;
     
@@ -34,41 +36,26 @@ public class Agent extends AbstractUser {
     @Column
     protected Boolean activated;
     
-    @XmlElement(name = "LastSync")
+    @XmlElement(name = "lastSync", required = true)
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     @Column
     protected LocalDateTime lastSync;
-    
-    public Boolean getActivated() {
+
+	public String getBusinessRegistrationNumber() {
+		return businessRegistrationNumber;
+	}
+
+	public void setBusinessRegistrationNumber(String businessRegistrationNumber) {
+		this.businessRegistrationNumber = businessRegistrationNumber;
+	}
+
+	public Boolean getActivated() {
 		return activated;
 	}
 
 	public void setActivated(Boolean activated) {
 		this.activated = activated;
 	}
-
-	/**
-     * Gets the value of the businessRegistrationNumber property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getBusinessRegistrationNumber() {
-        return businessRegistrationNumber;
-    }
-
-    /**
-     * Sets the value of the businessRegistrationNumber property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setBusinessRegistrationNumber(String value) {
-        this.businessRegistrationNumber = value;
-    }
 
 	public LocalDateTime getLastSync() {
 		return lastSync;

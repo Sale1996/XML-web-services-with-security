@@ -1,6 +1,5 @@
 package com.tim9.userservice.services;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,6 +55,17 @@ public class AgentService {
 		
 		return new AgentDTO();		
 	}
+	
+	
+	public Agent findByIdNOTDTO(long id){
+		
+		Optional<Agent> agent = agentRepository.findById(id);
+		
+			return agent.get();		
+	}
+	
+	
+	
 	
 	public AgentDTO update(long id, AgentDTO agent){
 		
