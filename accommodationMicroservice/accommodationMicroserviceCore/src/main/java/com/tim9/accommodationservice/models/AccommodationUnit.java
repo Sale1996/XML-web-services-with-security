@@ -32,14 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "accommodationUnitId",
-    "numberOfPeople",
-    "category",
-    "type",
-    "extraField",
-    "price"
-})
+@XmlType(name = "")
 @XmlRootElement(name = "Accommodation_unit")
 @Entity
 @Table( name= "accomodation_units" )

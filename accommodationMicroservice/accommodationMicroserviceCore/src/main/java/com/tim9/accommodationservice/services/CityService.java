@@ -139,4 +139,17 @@ public class CityService {
 		
 	}
 
+	public List<City> findAllSoap() {
+		
+		Optional< List<City> > cities = Optional.of( cityRepository.findAll() );
+			
+		if ( cities.isPresent() ) {
+			return cities.get();		
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+
 }

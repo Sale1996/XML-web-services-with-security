@@ -142,4 +142,18 @@ public class ExtraFieldService {
 		
 	}
 
+	public List<ExtraField> findAllSoap() {
+		
+		Optional< List<ExtraField> > extraFields = Optional.of( extraFieldRepository.findAll() );
+				
+		if ( extraFields.isPresent() ) {
+			
+			return extraFields.get();
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+
 }

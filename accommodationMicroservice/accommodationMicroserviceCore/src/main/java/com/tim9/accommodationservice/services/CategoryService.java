@@ -137,4 +137,21 @@ public class CategoryService {
 		
 	}
 
+	public List<Category> getAllCategoriesSoap() {
+		
+		Optional< List<Category> > categories = Optional.of( categoryRepository.findAll() );
+				
+		if ( categories.isPresent() ) {
+			
+			return categories.get();
+			
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+
+
+
 }

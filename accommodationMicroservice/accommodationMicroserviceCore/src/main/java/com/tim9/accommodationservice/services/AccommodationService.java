@@ -153,6 +153,24 @@ public class AccommodationService {
 		
 	}
 
+	public AccommodationDTO findByAgentId(long id) {
+		
+		Optional< Accommodation > accommodation = accommodationRepository.findOneByAgentId(id);
+		
+		
+		if ( accommodation.isPresent() ) {
+			
+			return accommodationConverter.convertToDTO(accommodation.get());
+		
+		}
+		else {
+			
+			return new AccommodationDTO();
+			
+		}
+		
+	}
+
 
 
 }

@@ -17,12 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "cityId",
-    "name",
-    "xCord",
-    "yCord"
-})
+@XmlType(name = "")
 @XmlRootElement(name = "City")
 @Entity
 @Table( name= "cities" )

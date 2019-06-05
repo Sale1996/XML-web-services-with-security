@@ -11,6 +11,8 @@ package com.tim9.accommodationservice.models;
 import javax.xml.bind.annotation.XmlRegistry;
 
 
+
+
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
@@ -40,6 +42,17 @@ public class ObjectFactory {
      * Create an instance of {@link AccommodationUnit }
      * 
      */
+    
+    
+    public GetAccommodationUnitsRequest createGetAccommodationUnitsRequest() {
+        return new GetAccommodationUnitsRequest();
+    }
+
+    public GetAccommodationUnitsResponse createGetAccommodationUnitsResponse() {
+        return new GetAccommodationUnitsResponse();
+    }
+    
+    
     public AccommodationUnit createAccommodationUnit() {
         return new AccommodationUnit();
     }
@@ -48,8 +61,34 @@ public class ObjectFactory {
      * Create an instance of {@link Category }
      * 
      */
+    
+    public GetCategoriesRequest createGetCategoriesRequest() {
+        return new GetCategoriesRequest();
+    }
+
+    public GetCategoriesResponse createGetCategoriesResponse() {
+        return new GetCategoriesResponse();
+    }
+    
     public Category createCategory() {
         return new Category();
+    }
+    
+    
+    /**
+     * 
+     * Create an instance of {@link City }
+     */
+    public GetCitiesRequest createGetCitiesRequest() {
+        return new GetCitiesRequest();
+    }
+
+    public GetCitiesResponse createGetCitiesResponse() {
+        return new GetCitiesResponse();
+    }
+    
+    public City createCity() {
+        return new City();
     }
 
     /**
@@ -64,6 +103,15 @@ public class ObjectFactory {
      * Create an instance of {@link ExtraField }
      * 
      */
+    
+    public GetExtraFieldsRequest createGetExtraFieldsRequest() {
+        return new GetExtraFieldsRequest();
+    }
+
+    public GetExtraFieldsResponse createGetExtraFieldsResponse() {
+        return new GetExtraFieldsResponse();
+    }
+    
     public ExtraField createExtraField() {
         return new ExtraField();
     }
@@ -80,6 +128,15 @@ public class ObjectFactory {
      * Create an instance of {@link Comment }
      * 
      */
+    
+    public GetCommentsRequest createGetCommentsRequest() {
+        return new GetCommentsRequest();
+    }
+
+    public GetCommentsResponse createGetCommentsResponse() {
+        return new GetCommentsResponse();
+    }
+    
     public Comment createComment() {
         return new Comment();
     }
@@ -88,6 +145,15 @@ public class ObjectFactory {
      * Create an instance of {@link Accommodation }
      * 
      */
+    
+    public GetAccommodationRequest createGetAccommodationRequest() {
+        return new GetAccommodationRequest();
+    }
+
+    public GetAccommodationResponse createGetAccommodationResponse() {
+        return new GetAccommodationResponse();
+    }
+    
     public Accommodation createAccommodation() {
         return new Accommodation();
     }

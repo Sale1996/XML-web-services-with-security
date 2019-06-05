@@ -5,6 +5,6 @@
 // Generated on: 2019.04.22 at 11:50:21 AM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.lukacvetinovic.com/backend-tim-9", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://tim9.com/accommodationService", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.tim9.accommodationservice.models;
-;
+

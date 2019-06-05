@@ -121,4 +121,20 @@ public class AccommodationUnitService {
 		
 	}
 
+	public List<AccommodationUnit> findAllByAccommodationAgentId(long id) {
+		
+		Optional< List<AccommodationUnit> > accommodationUnits = Optional.of ( accommodationUnitRepository.findAllByAccommodationAgentId(id) );
+		
+		
+		if ( accommodationUnits.isPresent() ) {
+			
+			return accommodationUnits.get();
+			
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+
 }

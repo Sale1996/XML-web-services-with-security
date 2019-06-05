@@ -141,4 +141,17 @@ public class CommentService {
 		
 	}
 
+	public List<Comment> findAllCommentsByAgentId(long id) {
+		
+		Optional< List<Comment> > comments = Optional.of( commentRepository.findAllByAccommodationAgentId(id));
+		
+		if ( comments.isPresent() ) {
+			return comments.get();		
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+
 }

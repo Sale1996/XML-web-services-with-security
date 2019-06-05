@@ -1,6 +1,7 @@
 package com.tim9.accommodationservice.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,4 +29,6 @@ public interface AccommodationRepository extends JpaRepository<Accommodation,Lon
 							"			select * from akom left outer join accommodation.acccomodations on akom.accommodation = accommodation.acccomodations.id "
 							+ " where countedNumberOfBeds > ?2 ", nativeQuery = true)
 			public List<Accommodation> searchAccommodations(Long city, int numberOfGuests);
+
+			public Optional<Accommodation> findOneByAgentId(long id);
 }

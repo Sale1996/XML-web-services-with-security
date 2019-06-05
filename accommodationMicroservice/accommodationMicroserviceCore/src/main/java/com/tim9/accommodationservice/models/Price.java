@@ -28,9 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-
-})
+@XmlType(name = "")
 @XmlRootElement(name = "Price")
 @Entity
 @Table( name= "prices" )
