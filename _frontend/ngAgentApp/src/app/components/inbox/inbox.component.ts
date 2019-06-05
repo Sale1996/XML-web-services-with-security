@@ -30,7 +30,7 @@ export class InboxComponent implements OnInit {
     this.messages$ = this.messageService.getMessages();
   }
 
-  openMessageModal(id: number) {
+  openMessageModal(message: Message) {
     const agentModalRef = this.modalService.open(MessageModalComponent,
       {
         size: 'lg',
@@ -38,8 +38,12 @@ export class InboxComponent implements OnInit {
         backdropClass: 'custom-modal-backdrop',
         backdrop: 'static'
       });
-    agentModalRef.componentInstance.id = id;
-    agentModalRef.componentInstance.messageEmiter.subscribe();
+    agentModalRef.componentInstance.messageInput = message;
+    agentModalRef.componentInstance.messageEmiter.subscribe(
+      (data) => {
+        this.getMessages();
+      }
+    );
 
 
   }

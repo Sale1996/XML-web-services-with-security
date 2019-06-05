@@ -1,5 +1,5 @@
 <div class="modal-header px-5 pt-5 pb-4">
-  <h4 class="modal-title">{{id}}</h4>
+  <h4 class="modal-title">{{messageInput.userId}}</h4>
   <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless"
     (click)="activeModal.dismiss('Cross click')">
     <svg class="icon">
@@ -12,13 +12,7 @@
 
 
   <div class="modal-body px-5">
-    <p>Lorem ipsum dolor sit amet, vitae mollis aperiam per no, has rebum legimus appellantur ea. Libris referrentur
-      eos et,
-      eu quis quando principes mei. Augue nobis eam ad, ipsum ridens viderer ne eam. Ex sea mazim legimus.
-      Alii eligendi definiebas per an, vim at consequat definitionem, mazim placerat gloriatur vel ut. Probo
-      tamquam equidem in pro. Ex autem ullum est. Id nobis utroque maluisset quo, fugit vivendo blandit nam te.
-      Ei minim option deserunt mea, aeque virtute blandit ius no. Ea his dicunt insolens, dolor democritum et his,
-      ferri simul eu duo.
+    <p>{{messageInput.messageBody}}
     </p>
     <div class="form-group">
       <label for="message">Write Response:</label>

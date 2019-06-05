@@ -21,4 +21,8 @@ export class MessageService {
     getMessages(): Observable<Message[]> {
         return this.http.get<Message[]>(environment.apiUrlMessage);
     }
+
+    createMessage(message: Message): Observable<Message> {
+        return this.http.post<Message>(environment.apiUrlMessage, message, httpOptions);
+    }
 }
