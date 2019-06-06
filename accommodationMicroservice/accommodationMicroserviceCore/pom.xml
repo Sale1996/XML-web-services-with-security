@@ -84,7 +84,6 @@
 	</dependencies>
 
 	<build>
-  <pluginManagement>
   	<plugins>
   		<plugin>
 		    <groupId>org.codehaus.mojo</groupId>
@@ -103,7 +102,7 @@
 		                <outputDirectory>${project.build.directory}/schemas</outputDirectory>
 		                <transformSchemas>
 					      <transformSchema>
-					        <uri>http://tim9.com/accommodationService</uri>
+					        <uri>http://tim9.com</uri>
 					        <toFile>accommodationService.xsd</toFile>
 					      </transformSchema>
 					    </transformSchemas>
@@ -112,7 +111,6 @@
 		    </executions>
 		</plugin>
   	</plugins>
-  	</pluginManagement>
   </build>
 
 	<dependencyManagement>

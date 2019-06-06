@@ -23,8 +23,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.tim9.accommodationservice.config.LocalDateAdapter;
+import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,7 +45,7 @@ public class Price {
     
     
     @XmlElement(name = "Date_from", required = true)
-    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
 	@Column ( name = "date_from" )
     protected LocalDate dateFrom;
     
@@ -52,7 +55,7 @@ public class Price {
     protected float amount;
     
     @XmlElement(name = "Date_to", required = true)
-    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
 	@Column ( name = "date_to" )
     protected LocalDate dateTo;
     
@@ -63,6 +66,7 @@ public class Price {
     protected AccommodationUnit accommodationUnit;
 
     @XmlElement(name = "LastUpdated")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
 	@Column
 	private LocalDateTime lastUpdated;
 

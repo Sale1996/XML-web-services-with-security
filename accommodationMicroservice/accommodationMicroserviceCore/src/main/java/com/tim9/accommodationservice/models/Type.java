@@ -23,6 +23,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
@@ -47,6 +50,7 @@ public class Type {
     protected List<AccommodationUnit> units;
 
     @XmlElement(name = "LastUpdated")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
 	@Column
 	private LocalDateTime lastUpdated;
 
