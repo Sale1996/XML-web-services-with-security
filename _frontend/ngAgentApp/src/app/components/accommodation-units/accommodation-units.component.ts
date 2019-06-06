@@ -4,6 +4,9 @@ import { AccommodationUnitModalComponent } from './accommodation-unit-modal/acco
 import { UnitPricesModalComponent } from './unit-prices-modal/unit-prices-modal.component';
 import { UnitExtraFieldsModalComponent } from './unit-extra-fields-modal/unit-extra-fields-modal.component';
 import { UnitOccupancyModalComponent } from './unit-occupancy-modal/unit-occupancy-modal.component';
+import { AccommodationUnit } from 'src/app/model/accommodation-unit.model';
+import { Observable } from 'rxjs';
+import { AccommodationUnitService } from 'src/app/services/accommodation-unit.service';
 
 @Component({
   selector: 'app-accommodation-units',
@@ -17,8 +20,10 @@ export class AccommodationUnitsComponent implements OnInit {
   collectionSize = 200;
   pageSize: number;
   pageSizes: number[] = [25, 50, 100];
+  accommmodaitonUnits$: Observable<AccommodationUnit[]>;
 
-  constructor(private modalService: NgbModal) {
+
+  constructor(private modalService: NgbModal, private unitService: AccommodationUnitService) {
     this.pageSize = this.pageSizes[0];
 
   }
@@ -27,6 +32,15 @@ export class AccommodationUnitsComponent implements OnInit {
   }
 
 
+  getAllUnits() {
+    this.accommmodaitonUnits$ = this.unitService.getUnits();
+  }
+
+  deleteUnit(id: number) {
+    this.unitService.deleteUnit(id).subscribe((data) => {
+      this.getAllUnits();
+    });
+  }
 
   openUnitOccupancyModal() {
     const newUnitOccupancyModalRef = this.modalService.open(UnitOccupancyModalComponent,
@@ -47,26 +61,34 @@ export class AccommodationUnitsComponent implements OnInit {
         backdropClass: 'custom-modal-backdrop'
       });
     newUnitModalRef.componentInstance.unit.subscribe(
-      () => {
-        const newPriceModal = this.modalService.open(UnitPricesModalComponent,
-          {
-            size: 'lg',
-            centered: true,
-            backdropClass: 'custom-modal-backdrop'
-          });
-        newPriceModal.componentInstance.price.subscribe(
+      (unit: AccommodationUnit) => {
+        //pravimo akomodaciju
+        this.unitService.createUnit(unit).subscribe((data: AccommodationUnit) => {
 
-          () => {
-            const newExtraFieldModal = this.modalService.open(UnitExtraFieldsModalComponent,
-              {
-                size: 'lg',
-                centered: true,
-                backdropClass: 'custom-modal-backdrop'
-              });
-            newExtraFieldModal.componentInstance.service.subscribe();
-          }
+          const newPriceModal = this.modalService.open(UnitPricesModalComponent,
+            {
+              size: 'lg',
+              centered: true,
+              backdropClass: 'custom-modal-backdrop'
+            });
+          newPriceModal.componentInstance.unitId = data.accommodationUnitId;
+          newPriceModal.componentInstance.price.subscribe(
 
-        );
+            () => {
+              const newExtraFieldModal = this.modalService.open(UnitExtraFieldsModalComponent,
+                {
+                  size: 'lg',
+                  centered: true,
+                  backdropClass: 'custom-modal-backdrop'
+                });
+              newExtraFieldModal.componentInstance.service.subscribe();
+            }
+
+          );
+
+        });
+
+
         //ovde otvaramo novi modul...
       }
     );
