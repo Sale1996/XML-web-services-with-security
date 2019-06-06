@@ -80,10 +80,7 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
-	@Autowired
-	private RestTemplate restTemplate;
 	
-	Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
 
 	@GetMapping("")
@@ -149,41 +146,5 @@ public class ReservationController {
 			return new ResponseEntity< ReservationDTO > ( deletedResrevation,HttpStatus.OK );
 		else
 			return new ResponseEntity< ReservationDTO > ( HttpStatus.NOT_FOUND );
-	}
-	
-	@PostMapping("/rating")
-	@ApiOperation( value = "Create a rating.", notes = "Returns the rating being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
-	@ApiResponses( value = {
-					@ApiResponse( code = 201 , message = "Created"),
-					@ApiResponse( code = 400, message= "Bad request")
-	})
-	public ResponseEntity<String> createRating(@RequestBody RatingDTO rating) {
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-		HttpEntity<RatingDTO> entity = new HttpEntity<RatingDTO>(rating, headers);
-		
-		String url = "http://localhost:8010/rating-service/us-central1/createRating";
-		
-		String rest= restTemplate.postForObject(url, entity, String.class);
-						
-		return new ResponseEntity<String>(rest, HttpStatus.OK);
-	}
-	
-	@GetMapping("/rating/{id}")
-	@ApiOperation( value = "Finds one rating by reservation id.", notes = "Returns found rating.", httpMethod="GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
-							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity<RatingDTO> getRatingByReservationId(@PathVariable("id") Long id) {
-		
-		String url = "http://localhost:8010/rating-service/us-central1/getRatingByReservationId?id=" + id;
-		
-		ResponseEntity<RatingDTO> response = restTemplate.getForEntity(url, RatingDTO.class);
-		
-		return new ResponseEntity<RatingDTO>(response.getBody(), HttpStatus.OK);
-		
-	}
-	
-	
+	}	
 }

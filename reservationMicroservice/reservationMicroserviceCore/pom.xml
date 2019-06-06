@@ -106,13 +106,13 @@
 		            <phase>generate-resources</phase>
 		            <configuration>
 		                <sources>
-		                    <source>src/main/java/com/tim9/userservice/models</source>
+		                    <source>src/main/java/com/tim9/reservationservice/models</source>
 		                </sources>
 		                <outputDirectory>${project.build.directory}/schemas</outputDirectory>
 		                <transformSchemas>
 					      <transformSchema>
-					        <uri>http://tim9.com</uri>
-					        <toFile>userService.xsd</toFile>
+					        <uri>http://tim9.com/reservations</uri>
+					        <toFile>reservationService.xsd</toFile>
 					      </transformSchema>
 					    </transformSchemas>
 		            </configuration>

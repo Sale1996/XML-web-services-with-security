@@ -23,18 +23,18 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		return new ServletRegistrationBean(servlet, "/ws/*");
 	}
 	
-	@Bean(name = "reservations")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema userServiceSchema) {
-		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("ReservationServicePort");
-		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://tim9.com/reservations");
-		wsdl11Definition.setSchema(userServiceSchema);
-		return wsdl11Definition;
-	}
-	
-	@Bean
-	public XsdSchema userServiceSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("reservationService.xsd"));
-	}
+//	@Bean(name = "reservations")
+//	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema reservationServiceSchema) {
+//		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+//		wsdl11Definition.setPortTypeName("ReservationServicePort");
+//		wsdl11Definition.setLocationUri("/ws");
+//		wsdl11Definition.setTargetNamespace("http://tim9.com/reservations");
+//		wsdl11Definition.setSchema(reservationServiceSchema);
+//		return wsdl11Definition;
+//	}
+//	
+//	@Bean
+//	public XsdSchema reservationServiceSchema() {
+//		return new SimpleXsdSchema(new ClassPathResource("reservationService.xsd"));
+//	}
 }

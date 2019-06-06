@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -28,47 +28,9 @@ import com.tim9.reservationservice.config.LocalDateTimeAdapter;
 
 import ch.qos.logback.core.net.server.Client;
 
-
-/**
- * <p>Java class for anonymous complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;all>
- *         &lt;element name="Reservation_id">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}long">
- *               &lt;minInclusive value="1"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="Date_from" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="Date_to" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="Final_price">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}float">
- *               &lt;minInclusive value="1"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="Confirmation" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element ref="{http://www.lukacvetinovic.com/backend-tim-9}Accommodation_unit"/>
- *         &lt;element name="Client" type="{http://www.lukacvetinovic.com/backend-tim-9-user}Client"/>
- *       &lt;/all>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "reservation")
-//@XmlRootElement(name = "Reservation")
+@XmlRootElement(name = "Reservation")
 @Entity
 public class Reservation {
 
@@ -97,8 +59,7 @@ public class Reservation {
     @XmlElement(name = "Client", required = true)
     @Column
     protected Long client;
-    @XmlElement(name = "LastUpdated", required = true)
-    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
+    @XmlTransient
     @Column
     protected LocalDateTime LastUpdated;
 

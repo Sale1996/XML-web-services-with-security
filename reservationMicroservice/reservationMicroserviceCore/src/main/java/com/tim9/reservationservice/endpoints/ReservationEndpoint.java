@@ -20,7 +20,7 @@ public class ReservationEndpoint {
 	public ReservationEndpoint(ReservationRepository repository) {
 		this.repository = repository;
 	}
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getReservationRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getReservationsRequest")
 	@ResponsePayload
 	public GetReservationsResponse getReservations(@RequestPayload GetReservationsRequest request) {
 		GetReservationsResponse response = new GetReservationsResponse();

@@ -29,35 +29,22 @@ import javax.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-
-    /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: io.spring.guides.gs_producing_web_service
-     * 
-     */
     public ObjectFactory() {
     }
 
-    /**
-     * Create an instance of {@link GetCountryRequest }
-     * 
-     */
-    public GetReservationsRequest createGetReservationRequest() {
+    public GetReservationsRequest createGetReservationsRequest() {
         return new GetReservationsRequest();
     }
 
-    /**
-     * Create an instance of {@link GetCountryResponse }
-     * 
-     */
-    public GetReservationsResponse createGetReservationResponse() {
+    public GetReservationsResponse createGetReservationsResponse() {
         return new GetReservationsResponse();
     }
-
-    /**
-     * Create an instance of {@link Country }
-     * 
-     */
+    
     public Reservation createReservation() {
         return new Reservation();
+    }
+    
+    public Rating createRating() {
+        return new Rating();
     }
 }
