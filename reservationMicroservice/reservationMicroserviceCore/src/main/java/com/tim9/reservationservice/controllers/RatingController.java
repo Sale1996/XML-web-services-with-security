@@ -1,7 +1,5 @@
 package com.tim9.reservationservice.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -53,13 +51,27 @@ public class RatingController {
 		return new ResponseEntity<String>(rest, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/reservation/{id}")
 	@ApiOperation( value = "Finds one rating by reservation id.", notes = "Returns found rating.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
 	public ResponseEntity<RatingDTO> getRatingByReservationId(@PathVariable("id") Long id) {
 		
 		String url = "http://localhost:8010/rating-service/us-central1/getRatingByReservationId?id=" + id;
+		
+		ResponseEntity<RatingDTO> response = restTemplate.getForEntity(url, RatingDTO.class);
+		
+		return new ResponseEntity<RatingDTO>(response.getBody(), HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/accommodation/{id}")
+	@ApiOperation( value = "Finds one rating by accommodation id.", notes = "Returns found rating.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity<RatingDTO> getRatingByAccommodationId(@PathVariable("id") Long id) {
+		
+		String url = "http://localhost:8010/rating-service/us-central1/getRatingByAccommodationId?accommodation_id=" + id;
 		
 		ResponseEntity<RatingDTO> response = restTemplate.getForEntity(url, RatingDTO.class);
 		
