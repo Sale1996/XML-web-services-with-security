@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -24,7 +25,7 @@ import com.tim9.userservice.config.LocalDateTimeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "message")
-//@XmlRootElement(name = "Message")
+@XmlRootElement(name = "Message")
 @Entity
 public class Message {
 

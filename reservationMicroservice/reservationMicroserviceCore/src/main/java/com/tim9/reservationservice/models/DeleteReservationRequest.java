@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "getReservationsRequest")
-public class GetReservationsRequest {
+@XmlRootElement(name = "deleteReservationRequest")
+public class DeleteReservationRequest {
 
 	@XmlElement(required = true)
 	protected Long id;

@@ -1,5 +1,7 @@
 package com.tim9.reservationservice.models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,15 +10,16 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.tim9.reservationservice.config.LocalDateTimeAdapter;
+
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Rating", propOrder = {
-    "id",
-    "reservation_id",
-    "rating",
-    "comment"
-})
+@XmlType(name = "Rating")
+@XmlRootElement(name = "Rating")
 @Entity
 public class Rating {
 	
@@ -30,6 +33,14 @@ public class Rating {
     @Column
     protected Long reservation_id;
     
+    @XmlElement(name = "accommodation_id", required = true)
+    @Column
+    protected Long accommodation_id;
+    
+    @XmlElement(name = "isConfirmed", required = true)
+    @Column
+    protected boolean isConfirmed;
+    
     @XmlElement(name = "rating", required = true)
     @Column
     protected int rating;
@@ -37,6 +48,11 @@ public class Rating {
     @XmlElement(name = "comment")
     @Column
     protected String comment;
+    
+    @XmlElement(name = "lastUpdated")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
+    @Column
+    protected LocalDateTime lastUpdated;
 
 	public Long getId() {
 		return id;
@@ -69,6 +85,32 @@ public class Rating {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	public Long getAccommodation_id() {
+		return accommodation_id;
+	}
+
+	public void setAccommodation_id(Long accommodation_id) {
+		this.accommodation_id = accommodation_id;
+	}
+
+	public boolean isConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setConfirmed(boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
+	}
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+	
+	
     
 
 }

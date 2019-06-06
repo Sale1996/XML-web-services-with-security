@@ -8,17 +8,17 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "getReservationsRequest")
-public class GetReservationsRequest {
+@XmlRootElement(name = "createReservationResponse")
+public class CreateReservationResponse {
 
 	@XmlElement(required = true)
-	protected Long id;
+	protected Reservation reservation;
 	
-	public Long getId() {
-		return id;
+	public Reservation getReservation() {
+		return reservation;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 }
