@@ -21,10 +21,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.tim9.reservationservice.config.LocalDateTimeAdapter;
 
 import ch.qos.logback.core.net.server.Client;
 
@@ -67,10 +67,8 @@ import ch.qos.logback.core.net.server.Client;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-
-})
-@XmlRootElement(name = "Reservation")
+@XmlType(name = "reservation")
+//@XmlRootElement(name = "Reservation")
 @Entity
 public class Reservation {
 
@@ -80,11 +78,11 @@ public class Reservation {
 	@Column
     protected Long reservationId;
     @XmlElement(name = "Date_from", required = true)
-    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     @Column
     protected LocalDateTime dateFrom;
     @XmlElement(name = "Date_to", required = true)
-    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     @Column
     protected LocalDateTime dateTo;
     @XmlElement(name = "Final_price")
@@ -100,6 +98,7 @@ public class Reservation {
     @Column
     protected Long client;
     @XmlElement(name = "LastUpdated", required = true)
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     @Column
     protected LocalDateTime LastUpdated;
 

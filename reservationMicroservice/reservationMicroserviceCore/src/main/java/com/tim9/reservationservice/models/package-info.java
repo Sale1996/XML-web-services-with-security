@@ -5,5 +5,5 @@
 // Generated on: 2019.06.01 at 10:28:48 PM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://tim9.com/Reservations", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://tim9.com/reservations", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.tim9.reservationservice.models;
