@@ -1,7 +1,7 @@
 <div class="modal-header px-5 pt-5">
   <h4 class="modal-title">Add extra service</h4>
   <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless"
-    (click)="activeModal.dismiss('Cross click')">
+    (click)="closeWindow()">
     <svg class="icon">
       <use xlink:href="#Close_Icon"></use>
     </svg>
@@ -25,7 +25,8 @@
     </div>
 
     <div class="d-flex justify-content-start px-5 pt-2 pb-5">
-      <button type="submit" [disabled]="!additionalServiceForm.valid" class="btn btn-primary">{{submitBtnText}}</button>
+      <button type="submit" [disabled]="!additionalServiceForm.valid" (click)="onSubmit()"
+        class="btn btn-primary">{{submitBtnText}}</button>
     </div>
 
     <div class="tableFixHead flex-grow-1">
@@ -59,7 +60,7 @@
 
   </div>
   <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
-    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Ok</button>
+    <button type="button" class="btn btn-secondary" (click)="closeWindow()">Ok</button>
   </div>
 </form>
 

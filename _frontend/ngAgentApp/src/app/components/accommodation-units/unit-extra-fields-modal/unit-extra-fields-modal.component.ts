@@ -41,9 +41,13 @@ export class UnitExtraFieldsModalComponent implements OnInit {
 */
   onSubmit() {
     if (this.additionalServiceForm.valid) {
-      this.service.emit(this.additionalServiceForm.value); //as ExtraField
-      this.activeModal.close();
+      //dodaj....
     }
+  }
+
+  closeWindow() {
+    this.service.emit(this.additionalServiceForm.value); //as ExtraField
+    this.activeModal.close();
   }
 
 }

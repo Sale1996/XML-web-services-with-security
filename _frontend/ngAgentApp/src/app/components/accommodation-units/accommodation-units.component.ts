@@ -73,5 +73,34 @@ export class AccommodationUnitsComponent implements OnInit {
   }
 
 
+  openChangeUnitModal() {
+    const newUnitModalRef = this.modalService.open(AccommodationUnitModalComponent,
+      {
+        size: 'lg',
+        centered: true,
+        backdropClass: 'custom-modal-backdrop'
+      });
+    newUnitModalRef.componentInstance.unit.subscribe();
+  }
+
+  openPricesModal() {
+    const newPriceModal = this.modalService.open(UnitPricesModalComponent,
+      {
+        size: 'lg',
+        centered: true,
+        backdropClass: 'custom-modal-backdrop'
+      });
+    newPriceModal.componentInstance.price.subscribe();
+  }
+
+  openExtraFiledsModal() {
+    const newExtraFieldModal = this.modalService.open(UnitExtraFieldsModalComponent,
+      {
+        size: 'lg',
+        centered: true,
+        backdropClass: 'custom-modal-backdrop'
+      });
+    newExtraFieldModal.componentInstance.service.subscribe();
+  }
 
 }

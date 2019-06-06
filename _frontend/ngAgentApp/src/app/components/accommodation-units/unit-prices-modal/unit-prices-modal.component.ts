@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UnitPricesModalComponent implements OnInit {
 
-
+  @Input() id: number;
   @Output() price: EventEmitter<any> = new EventEmitter();
   priceForm: FormGroup;
 
@@ -28,10 +28,13 @@ export class UnitPricesModalComponent implements OnInit {
 
   onSubmit() {
     if (this.priceForm.valid) {
-      this.price.emit(this.priceForm.value); //as accommodationUnit
-      this.activeModal.close();
-      //ovde otvaramo novi modul...
+
     }
+  }
+
+  closeModal() {
+    this.price.emit(this.priceForm.value); //as accommodationUnit
+    this.activeModal.close();
   }
 
 }
