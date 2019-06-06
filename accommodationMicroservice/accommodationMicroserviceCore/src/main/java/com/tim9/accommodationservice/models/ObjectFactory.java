@@ -53,6 +53,31 @@ public class ObjectFactory {
     }
     
     
+    public CreateAccommodationUnitRequest createCreateAccommodationUnitRequest() {
+        return new CreateAccommodationUnitRequest();
+    }
+
+    public CreateAccommodationUnitResponse createCreateAccommodationUnitResponse() {
+        return new CreateAccommodationUnitResponse();
+    }
+    
+    public EditAccommodationUnitRequest createEditAccommodationUnitRequest() {
+        return new EditAccommodationUnitRequest();
+    }
+
+    public EditAccommodationUnitResponse createEditAccommodationUnitResponse() {
+        return new EditAccommodationUnitResponse();
+    }
+    
+    public DeleteAccommodationUnitRequest createDeleteAccommodationUnitRequest() {
+        return new DeleteAccommodationUnitRequest();
+    }
+
+    public DeleteAccommodationUnitResponse createDeleteAccommodationUnitResponse() {
+        return new DeleteAccommodationUnitResponse();
+    }
+    
+    
     public AccommodationUnit createAccommodationUnit() {
         return new AccommodationUnit();
     }
@@ -152,6 +177,23 @@ public class ObjectFactory {
 
     public GetAccommodationResponse createGetAccommodationResponse() {
         return new GetAccommodationResponse();
+    }
+    
+    public CreateAccommodationRequest createCreateAccommodationRequest() {
+        return new CreateAccommodationRequest();
+    }
+
+    public CreateAccommodationResponse createCreateAccommodationResponse() {
+        return new CreateAccommodationResponse();
+    }
+    
+    
+    public EditAccommodationRequest createEditAccommodationRequest() {
+        return new EditAccommodationRequest();
+    }
+
+    public EditAccommodationResponse createEditAccommodationResponse() {
+        return new EditAccommodationResponse();
     }
     
     public Accommodation createAccommodation() {
