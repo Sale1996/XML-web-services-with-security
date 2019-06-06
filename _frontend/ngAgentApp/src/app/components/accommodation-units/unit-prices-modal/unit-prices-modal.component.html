@@ -1,7 +1,7 @@
 <div class="modal-header px-5 pt-5">
   <h4 class="modal-title">Unit prices</h4>
   <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless"
-    (click)="activeModal.dismiss('Cross click')">
+    (click)="closeModal()">
     <svg class="icon">
       <use xlink:href="#Close_Icon"></use>
     </svg>
@@ -79,7 +79,7 @@
       </table>
     </div>
     <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
-      <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Ok</button>
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Ok</button>
     </div>
   </div>
 </form>
