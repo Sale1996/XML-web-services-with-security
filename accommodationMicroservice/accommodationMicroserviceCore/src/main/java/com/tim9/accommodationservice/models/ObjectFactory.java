@@ -207,5 +207,63 @@ public class ObjectFactory {
     public Picture createPicture() {
         return new Picture();
     }
+    
+    public CreatePictureRequest createCreatePictureRequest() {
+    	return new CreatePictureRequest();
+    }
+    
+    public CreatePictureResponse createCreatePictureResponse() {
+    	return new CreatePictureResponse();
+    }
+    
+    public CreatePriceRequest createCreatePriceRequest() {
+    	return new CreatePriceRequest();
+    }
+    
+    public CreatePriceResponse createCreatePriceResponse() {
+    	return new CreatePriceResponse();
+    }
+    
+    public DeletePictureRequest createDeletePictureRequest() {
+    	return new DeletePictureRequest();
+    }
+    
+    public DeletePictureResponse createDeletePictureResponse() {
+    	return new DeletePictureResponse();
+    }
+    
+    public DeletePriceRequest createDeletePriceRequest() {
+    	return new DeletePriceRequest();
+    }
+    
+    public DeletePriceResponse createDeletePriceResponse() {
+    	return new DeletePriceResponse();
+    }
+    
+    public GetPictureRequest createGetPictureRequest() {
+    	return new GetPictureRequest();
+    }
+    
+    public GetPictureResponse createGetPictureResponse() {
+    	return new GetPictureResponse();
+    }
+    
+    public GetPriceRequest createGetPriceRequests() {
+    	return new GetPriceRequest();
+    }
+    
+    public GetPriceResponse createGetPriceResponse() {
+    	return new GetPriceResponse();
+    }
+    
+    public GetTypeRequest createGetTypeRequest() {
+    	return new GetTypeRequest();
+    }
+    
+    public GetTypeResponse createGetTypeResponse() {
+    	return new GetTypeResponse();
+    }
+    
+    
 
 }

@@ -136,5 +136,19 @@ public class PriceService {
 		return new PriceDTO();
 		
 	}
+	
+	public List<Price> findAllSoap() {
+		
+		Optional< List<Price> > prices = Optional.of( priceRepository.findAll() );
+			
+		if ( prices.isPresent() ) {
+			return prices.get();		
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+
 
 }

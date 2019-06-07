@@ -33,7 +33,7 @@ import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 @Entity
 @Table( name= "types" )
 public class Type {
-
+	
     @XmlElement(name = "Type_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )

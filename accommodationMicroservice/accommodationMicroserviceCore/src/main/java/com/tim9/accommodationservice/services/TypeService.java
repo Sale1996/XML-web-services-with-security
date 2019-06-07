@@ -120,5 +120,18 @@ public class TypeService {
 		return new TypeDTO();
 		
 	}
+	
+	public List<Type> findAllSoap() {
+		
+		Optional< List<Type> > types = Optional.of( typeRepository.findAll() );
+			
+		if ( types.isPresent() ) {
+			return types.get();		
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
 
 }

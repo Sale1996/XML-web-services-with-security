@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tim9.accommodationservice.models.City;
 import com.tim9.accommodationservice.models.Picture;
 import com.tim9.accommodationservice.repository.PictureRepository;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOPictureConverter;
@@ -113,6 +114,19 @@ public class PictureService {
 		}
 		
 		return new PictureDTO();
+		
+	}
+	
+	public List<Picture> findAllSoap() {
+		
+		Optional< List<Picture> > pictures = Optional.of( pictureRepository.findAll() );
+			
+		if ( pictures.isPresent() ) {
+			return pictures.get();		
+		}
+			
+		return Collections.emptyList();
+
 		
 	}
 

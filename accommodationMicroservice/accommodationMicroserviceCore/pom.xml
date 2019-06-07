@@ -83,8 +83,9 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+<build>
   	<plugins>
+  	
   		<plugin>
 		    <groupId>org.codehaus.mojo</groupId>
 		    <artifactId>jaxb2-maven-plugin</artifactId>
@@ -96,6 +97,7 @@
 		            </goals>
 		            <phase>generate-resources</phase>
 		            <configuration>
+		            	<generateEpisode>false</generateEpisode>
 		                <sources>
 		                    <source>src/main/java/com/tim9/accommodationservice/models</source>
 		                </sources>
@@ -111,7 +113,7 @@
 		    </executions>
 		</plugin>
   	</plugins>
-  </build>
+  </build> 
 
 	<dependencyManagement>
 		<dependencies>
