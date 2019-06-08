@@ -25,8 +25,7 @@ public class MessageEndpoint {
 	@ResponsePayload
 	public GetMessagesResponse getMessages(@RequestPayload GetMessagesRequest request) {
 		GetMessagesResponse response = new GetMessagesResponse();
-		response.setMessages(messageRepository.findMessagesByReservationId(Long.parseLong(request.getId())).get());
-		//	response.setMessage(new Message());
+		response.setMessages(messageRepository.findMessagesByReservationId(request.getReservationId()).get());
 		return response;
 	}
 }

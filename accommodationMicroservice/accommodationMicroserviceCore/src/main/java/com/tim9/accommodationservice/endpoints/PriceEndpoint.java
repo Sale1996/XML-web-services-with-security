@@ -47,7 +47,7 @@ public class PriceEndpoint {
 	@ResponsePayload
 	public DeletePriceResponse getAccommodationUnits(@RequestPayload DeletePriceRequest request) {
 		DeletePriceResponse response = new DeletePriceResponse();
-		response.setPrice(dtoPriceConverter.convertFromDTO(priceService.delete((Long.parseLong(request.getId())))));
+		response.setPrice(dtoPriceConverter.convertFromDTO(priceService.delete(request.getId())));
 		return response;
 	}
 

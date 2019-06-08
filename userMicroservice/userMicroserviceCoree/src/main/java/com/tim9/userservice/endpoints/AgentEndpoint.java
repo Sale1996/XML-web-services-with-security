@@ -24,7 +24,7 @@ public class AgentEndpoint {
 	public GetAgentResponse getAgent(@RequestPayload GetAgentRequest request) {
 //		return agentService.findById(request.getId());
 		 GetAgentResponse gar =  new GetAgentResponse();
-		 gar.setAgent(agentService.findByIdNOTDTO(Long.parseLong(request.getId())));
+		 gar.setAgent(agentService.findByIdNOTDTO(request.getId()));
 		return gar;
 	}
 }

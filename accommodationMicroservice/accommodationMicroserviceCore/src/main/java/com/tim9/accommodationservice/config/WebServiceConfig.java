@@ -23,18 +23,18 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		return new ServletRegistrationBean(servlet, "/accommodationService/ws/*");
 	}
 	
-//	@Bean(name = "accommodations")
-//	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema accommodationServiceSchema) {
-//		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-//		wsdl11Definition.setPortTypeName("AccommodationServicePort");
-//		wsdl11Definition.setLocationUri("/accommodationService/ws");
-//		wsdl11Definition.setTargetNamespace("http://tim9.com/accommodationService");
-//		wsdl11Definition.setSchema(accommodationServiceSchema);
-//		return wsdl11Definition;
-//	}
-//	
-//	@Bean
-//	public XsdSchema accommodationServiceSchema() {
-//		return new SimpleXsdSchema(new ClassPathResource("accommodationService.xsd"));
-//	}
+	@Bean(name = "accommodations")
+	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema accommodationServiceSchema) {
+		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+		wsdl11Definition.setPortTypeName("AccommodationServicePort");
+		wsdl11Definition.setLocationUri("/accommodationService/ws");
+		wsdl11Definition.setTargetNamespace("http://tim9.com/accommodationService");
+		wsdl11Definition.setSchema(accommodationServiceSchema);
+		return wsdl11Definition;
+	}
+	
+	@Bean
+	public XsdSchema accommodationServiceSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("accommodationService.xsd"));
+	}
 }

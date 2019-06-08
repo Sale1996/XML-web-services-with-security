@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tim9.com/reservations" elementFormDefault="qualified" targetNamespace="http://tim9.com/reservations" version="1.0">
+
+  <xs:element name="Rating" type="tns:Rating"/>
+
+  <xs:element name="Reservation" type="tns:reservation"/>
+
+  <xs:element name="createReservationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="reservation" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createReservationsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="reservation" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteReservationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deleteReservationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="reservation" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getReservationsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getReservationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="reservations" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateReservationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="reservation" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateReservationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="reservation" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="reservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Reservation_id" type="xs:long"/>
+      <xs:element name="Date_from" type="xs:string"/>
+      <xs:element name="Date_to" type="xs:string"/>
+      <xs:element name="Final_price" type="xs:float"/>
+      <xs:element name="Confirmation" type="xs:boolean"/>
+      <xs:element name="Accommodation_unit" type="xs:long"/>
+      <xs:element name="Client" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Rating">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element name="reservation_id" type="xs:long"/>
+      <xs:element name="accommodation_id" type="xs:long"/>
+      <xs:element name="isConfirmed" type="xs:boolean"/>
+      <xs:element name="rating" type="xs:int"/>
+      <xs:element minOccurs="0" name="comment" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

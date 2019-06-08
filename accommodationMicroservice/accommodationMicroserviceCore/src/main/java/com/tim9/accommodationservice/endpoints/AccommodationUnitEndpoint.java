@@ -34,7 +34,7 @@ public class AccommodationUnitEndpoint {
 	@ResponsePayload
 	public GetAccommodationUnitsResponse getAccommodationUnits(@RequestPayload GetAccommodationUnitsRequest request) {
 		GetAccommodationUnitsResponse response = new GetAccommodationUnitsResponse();
-		response.setAccommodationUnits(accommodationUnitService.findAllByAccommodationAgentId(Long.parseLong(request.getId())));
+		response.setAccommodationUnits(accommodationUnitService.findAllByAccommodationAgentId(request.getId()));
 		return response;
 	}
 	
@@ -62,7 +62,7 @@ public class AccommodationUnitEndpoint {
 	@ResponsePayload
 	public DeleteAccommodationUnitResponse getAccommodationUnits(@RequestPayload DeleteAccommodationUnitRequest request) {
 		DeleteAccommodationUnitResponse response = new DeleteAccommodationUnitResponse();
-		response.setAccommodationUnit(unitConverter.convertFromDTO(accommodationUnitService.delete((Long.parseLong(request.getId())))));
+		response.setAccommodationUnit(unitConverter.convertFromDTO(accommodationUnitService.delete((request.getId()))));
 		return response;
 	}
 }

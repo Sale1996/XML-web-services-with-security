@@ -151,10 +151,42 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="createPictureRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="picture"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createPictureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="picture"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createPriceRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="price"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createPriceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="price"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="deleteAccommodationUnitRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="xs:string"/>
+        <xs:element name="id" type="xs:long"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -163,6 +195,38 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="accommodationUnit"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deletePictureRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deletePictureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="picture"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deletePriceRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="deletePriceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="price"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -202,7 +266,7 @@
   <xs:element name="getAccommodationRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="xs:string"/>
+        <xs:element name="id" type="xs:long"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -218,7 +282,7 @@
   <xs:element name="getAccommodationUnitsRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="xs:string"/>
+        <xs:element name="id" type="xs:long"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -262,7 +326,7 @@
   <xs:element name="getCommentsRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="xs:string"/>
+        <xs:element name="agentId" type="xs:long"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -285,6 +349,52 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="extraFields"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getPictureRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getPictureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="picture"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getPriceRequests">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getPriceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="price"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getTypeRequest">
+    <xs:complexType>
+      <xs:sequence/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getTypeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="type"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -48,7 +48,7 @@ public class PictureEndpoint {
 	@ResponsePayload
 	public DeletePictureResponse getAccommodationUnits(@RequestPayload DeletePictureRequest request) {
 		DeletePictureResponse response = new DeletePictureResponse();
-		response.setPicture(dtoPictureConverter.convertFromDTO(pictureService.delete((Long.parseLong(request.getId())))));
+		response.setPicture(dtoPictureConverter.convertFromDTO(pictureService.delete(request.getId())));
 		return response;
 	}
 	

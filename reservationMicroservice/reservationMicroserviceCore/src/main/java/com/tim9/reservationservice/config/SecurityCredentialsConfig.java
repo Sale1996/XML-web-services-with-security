@@ -49,6 +49,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 		    .antMatchers(HttpMethod.GET, "/ratings/**").permitAll()
 		    .antMatchers(HttpMethod.POST, "/ratings/**").permitAll()
 		    .antMatchers(HttpMethod.POST, "/ws/**").permitAll()
+		    .antMatchers(HttpMethod.GET, "/ws/**").permitAll()
 		    // any other requests must be authenticated
 		    .anyRequest().authenticated();
 	}

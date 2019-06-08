@@ -56,36 +56,68 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 				</plugin>
+				<!--
 				<plugin>
 				    <groupId>org.jvnet.jaxb2.maven2</groupId>
 				    <artifactId>maven-jaxb2-plugin</artifactId>
-				    <version>0.14</version>
+				    <version>0.14.0</version>
 				    <executions>
 				        <execution>
+				        	<id>schema1-generate</id>
 				            <goals>
 				                <goal>generate</goal>
 				            </goals>
+				            <configuration>
+						        <schemaLanguage>WSDL</schemaLanguage>
+						        <generateDirectory>src/main/java</generateDirectory>
+						        <generatePackage>com.tim9.agentapp.user.wsdl</generatePackage>
+						        <schemas>
+						            <schema>
+						                <url>http://localhost:8080/ws/users.wsdl</url>
+						            </schema>
+						        </schemas>
+						    </configuration>
+				        </execution>
+				        <execution>
+				        	<id>schema2-generate</id>
+				            <goals>
+				                <goal>generate</goal>
+				            </goals>
+				            <configuration>
+						        <schemaLanguage>WSDL</schemaLanguage>
+						        <generateDirectory>src/main/java</generateDirectory>
+						        <generatePackage>com.tim9.agentapp.accommodation.wsdl</generatePackage>
+						        <schemas>
+						            <schema>
+						                <url>http://localhost:8081/accommodationService/ws/accommodations.wsdl</url>
+						            </schema>
+						        </schemas>
+						    </configuration>
+				        </execution>
+				        <execution>
+				        	<id>schema3-generate</id>
+				            <goals>
+				                <goal>generate</goal>
+				            </goals>
+				            <configuration>
+						        <schemaLanguage>WSDL</schemaLanguage>
+						        <generateDirectory>src/main/java</generateDirectory>
+						        <generatePackage>com.tim9.agentapp.reservation.wsdl</generatePackage>
+						        <schemas>
+						            <schema>
+						                <url>http://localhost:8082/ws/reservations.wsdl</url>
+						            </schema>
+						        </schemas>
+						    </configuration>
 				        </execution>
 				    </executions>
-				    <configuration>
-				        <schemaLanguage>WSDL</schemaLanguage>
-				        <generateDirectory>src/main/java</generateDirectory>
-				        <generatePackage>com.tim9.agentapp.user.wsdl</generatePackage>
-				        <schemas>
-				            <schema>
-				                <url>http://localhost:8080/ws/users.wsdl</url>
-				            </schema>
-				        </schemas>
-				    </configuration>
-				</plugin>
+				</plugin>-->
 			</plugins>
-		</pluginManagement>
 	</build>
 
 </project>

@@ -3,10 +3,14 @@ package com.tim9.agentapp.user.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.tim9.agentapp.user.model.Agent;
 
 public interface AgentRepository extends JpaRepository<Agent, Long> {
 	
+	@Query(value="SELECT * FROM agent a WHERE a.id = ?1", nativeQuery = true)
 	public Optional<Agent> findById(long id);
+	public Optional<Agent> findByLocalId(long id);
+	public void deleteByLocalId(long id);
 }

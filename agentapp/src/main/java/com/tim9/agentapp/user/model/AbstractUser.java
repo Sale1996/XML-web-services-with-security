@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -32,12 +33,15 @@ import javax.xml.bind.annotation.XmlType;
 })
 @MappedSuperclass
 public class AbstractUser {
+		
+	@Column()
+	private Long id;
 	
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private Long id;
+	@XmlTransient
+	private Long localId;
 	
     @XmlElement(required = true)
     @Column
@@ -106,7 +110,12 @@ public class AbstractUser {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-   
 
+	public Long getLocalId() {
+		return localId;
+	}
+
+	public void setLocalId(Long localId) {
+		this.localId = localId;
+	}
 }

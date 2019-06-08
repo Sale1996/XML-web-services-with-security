@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tim9.accommodationservice.services.AccommodationService;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
-import com.tim9.accommodationserviceclient.dtos.AccommodationSearchDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -91,7 +89,7 @@ public class AccommodationController {
 	}
 
 	@PostMapping("")
-	@PreAuthorize("hasAuthority('CREATE_ACCOMMODATION')")
+//	@PreAuthorize("hasAuthority('CREATE_ACCOMMODATION')")
 	@ApiOperation( value = "Create an accommodation.", notes = "Returns the accommodation being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
@@ -106,7 +104,7 @@ public class AccommodationController {
 	}
 
 	@PutMapping("/{accommodationId}")
-	@PreAuthorize("hasAuthority('UPDATE_ACCOMMODATION')")
+//	@PreAuthorize("hasAuthority('UPDATE_ACCOMMODATION')")
 	@ApiOperation( value= "Change an accommodation", notes = "Returns the accommodation being changed", httpMethod="PUT")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
@@ -123,7 +121,7 @@ public class AccommodationController {
 	}
 
 	@DeleteMapping("/{accommodationId}")
-	@PreAuthorize("hasAuthority('DELETE_ACCOMMODATION')")
+//	@PreAuthorize("hasAuthority('DELETE_ACCOMMODATION')")
 	@ApiOperation( value = "Delete an accommodation.", notes = "Returns the accommodation being deleted", httpMethod="DELETE")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),

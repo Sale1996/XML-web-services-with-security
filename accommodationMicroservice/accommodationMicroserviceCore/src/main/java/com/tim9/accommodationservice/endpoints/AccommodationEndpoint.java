@@ -33,7 +33,7 @@ public class AccommodationEndpoint {
 	@ResponsePayload
 	public GetAccommodationResponse getAccommodation(@RequestPayload GetAccommodationRequest request) {
 		GetAccommodationResponse response = new GetAccommodationResponse();
-		response.setAccommodation(accommodationConverter.convertFromDTO(accommodationService.findByAgentId(Long.parseLong(request.getId()))));
+		response.setAccommodation(accommodationConverter.convertFromDTO(accommodationService.findByAgentId(request.getId())));
 		return response;
 	}
 	

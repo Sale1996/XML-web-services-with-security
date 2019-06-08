@@ -4,7 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import com.tim9.agentapp.user.soapclient.UserClient;
+import com.tim9.agentapp.user.soapclient.AgentClient;
+import com.tim9.agentapp.user.soapclient.MessageClient;
 
 @Configuration
 public class UserConfiguration {
@@ -18,8 +19,17 @@ public class UserConfiguration {
 	}
 
 	@Bean
-	public UserClient userClient(Jaxb2Marshaller marshaller) {
-		UserClient client = new UserClient();
+	public AgentClient agentClient(Jaxb2Marshaller marshaller) {
+		AgentClient client = new AgentClient();
+		client.setDefaultUri("http://localhost:8080/ws");
+		client.setMarshaller(marshaller);
+		client.setUnmarshaller(marshaller);
+		return client;
+	}
+	
+	@Bean
+	public MessageClient messageClient(Jaxb2Marshaller marshaller) {
+		MessageClient client = new MessageClient();
 		client.setDefaultUri("http://localhost:8080/ws");
 		client.setMarshaller(marshaller);
 		client.setUnmarshaller(marshaller);

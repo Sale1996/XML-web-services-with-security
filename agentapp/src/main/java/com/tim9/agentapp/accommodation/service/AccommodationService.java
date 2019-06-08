@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tim9.agentapp.accommodation.dto.AccommodationDTO;
 import com.tim9.agentapp.accommodation.model.Accommodation;
 import com.tim9.agentapp.accommodation.repository.AccommodationRepository;
+import com.tim9.agentapp.accommodation.soapclient.AccommodationClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOAccommodationConverter;
 
 @Service
@@ -22,6 +23,9 @@ public class AccommodationService {
 	
 	@Autowired
 	DTOAccommodationConverter accommodationConverter;
+	
+	@Autowired
+	AccommodationClient accommodationClient;
 	
 	
 	public List<AccommodationDTO> findAll() {

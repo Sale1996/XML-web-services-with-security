@@ -100,12 +100,9 @@ public class AgentController {
 	
 	@GetMapping("/update")
 	@ApiOperation( value = "Sync Database", httpMethod = "GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})
-	public ResponseEntity< AgentDTO > syncDatabase(){
-		AgentDTO agent = new AgentDTO();
-		agent = agentService.syncDatabase();
-		return (agent.getId() != -1) ? new ResponseEntity< AgentDTO > (agent, HttpStatus.OK) : new ResponseEntity<AgentDTO>(HttpStatus.NOT_FOUND);
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK")})
+	public ResponseEntity< Boolean > syncDatabase(){
+		return (agentService.syncDatabase()) ? new ResponseEntity< Boolean > (true, HttpStatus.OK) : new ResponseEntity<Boolean>(false, HttpStatus.OK);
 	}
 	
 }

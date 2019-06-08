@@ -7,20 +7,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "id"
-})
+@XmlType(name = "")
 @XmlRootElement(name = "getMessagesRequest")
 public class GetMessagesRequest {
 
 	@XmlElement(required = true)
-    protected String id;
+    protected Long reservationId;
 
-	public String getId() {
-		return id;
+	public Long getReservationId() {
+		return reservationId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setReservationId(Long id) {
+		this.reservationId = id;
 	}
 }

@@ -25,7 +25,7 @@ public class CommentEndpoint {
 	@ResponsePayload
 	public GetCommentsResponse getComments(@RequestPayload GetCommentsRequest request) {
 		GetCommentsResponse response = new GetCommentsResponse();
-		response.setComments(commentService.findAllCommentsByAgentId(Long.parseLong(request.getId())));
+		response.setComments(commentService.findAllCommentsByAgentId(request.getAgentId()));
 		return response;
 	}
 }

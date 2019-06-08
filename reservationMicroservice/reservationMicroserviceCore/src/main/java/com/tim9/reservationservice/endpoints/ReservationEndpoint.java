@@ -42,7 +42,7 @@ public class ReservationEndpoint {
 	@ResponsePayload
 	public GetReservationsResponse getReservationsForAgent(@RequestPayload GetReservationsRequest request) {
 		GetReservationsResponse response = new GetReservationsResponse();
-		response.setReservations(repository.findByAccommodation(request.getId()));
+//		response.setReservations(repository.findByAccommodation(request.getId()));
 		return response;
 	}
 	

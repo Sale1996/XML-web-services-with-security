@@ -14,13 +14,13 @@ import javax.xml.bind.annotation.XmlType;
 public class GetAgentRequest {
 	
 	@XmlElement(name = "id")
-	protected String id;
+	protected Long id;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 }
