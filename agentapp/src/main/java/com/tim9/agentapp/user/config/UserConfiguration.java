@@ -10,7 +10,7 @@ import com.tim9.agentapp.user.soapclient.MessageClient;
 @Configuration
 public class UserConfiguration {
 	@Bean
-	public Jaxb2Marshaller marshaller() {
+	public Jaxb2Marshaller marshallerForUser() {
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 		// this package must match the package in the <generatePackage> specified in
 		// pom.xml
@@ -19,11 +19,11 @@ public class UserConfiguration {
 	}
 
 	@Bean
-	public AgentClient agentClient(Jaxb2Marshaller marshaller) {
+	public AgentClient agentClient(Jaxb2Marshaller marshallerForUser) {
 		AgentClient client = new AgentClient();
 		client.setDefaultUri("http://localhost:8080/ws");
-		client.setMarshaller(marshaller);
-		client.setUnmarshaller(marshaller);
+		client.setMarshaller(marshallerForUser);
+		client.setUnmarshaller(marshallerForUser);
 		return client;
 	}
 	
