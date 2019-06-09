@@ -3,7 +3,7 @@ package com.tim9.agentapp.accommodation.soapclient;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
-import com.tim9.agentapp.accommodation.model.Picture;
+import com.tim9.agentapp.accommodation.wsdl.Picture;
 import com.tim9.agentapp.accommodation.wsdl.CreatePictureRequest;
 import com.tim9.agentapp.accommodation.wsdl.CreatePictureResponse;
 import com.tim9.agentapp.accommodation.wsdl.DeletePictureRequest;

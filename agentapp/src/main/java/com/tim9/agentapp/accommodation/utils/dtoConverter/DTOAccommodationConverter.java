@@ -39,6 +39,37 @@ public class DTOAccommodationConverter {
 		
 	}
 	
+	public  com.tim9.agentapp.accommodation.wsdl.Accommodation convertToWsdl(Accommodation accommodation){
+		
+		com.tim9.agentapp.accommodation.wsdl.Accommodation wsdl = new com.tim9.agentapp.accommodation.wsdl.Accommodation();
+		
+		wsdl.setAccommodationId(accommodation.getAccommodationId());
+		wsdl.setDescription(accommodation.getDescription());
+		wsdl.setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
+		wsdl.setName(accommodation.getAccommodationName());
+		//wsdl.setCity(cityConverter.convertToWsdl(accommodation.getCity()));
+		wsdl.setCountedNumberOfBeds(accommodation.getCountedNumberOfBeds());
+		wsdl.setAgentId(accommodation.getAgentId());
+			
+		return wsdl;
+		
+	}
+	
+	public Accommodation convertFromWsdl(com.tim9.agentapp.accommodation.wsdl.Accommodation accommodation) {
+				
+		Accommodation bean = new Accommodation();
+		
+		bean.setAccommodationId(accommodation.getAccommodationId());
+		bean.setDescription(accommodation.getDescription());
+		bean.setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
+		bean.setAccommodationName(accommodation.getName());
+		//wsdl.setCity(cityConverter.convertToWsdl(accommodation.getCity()));
+		bean.setCountedNumberOfBeds(accommodation.getCountedNumberOfBeds());
+		bean.setAgentId(accommodation.getAgentId());
+		
+		return bean;
+	}
+	
 	public Accommodation convertFromDTO( AccommodationDTO dto ) {
 		
 		Optional<Accommodation> accommodation = accommodationRepository.findById(dto.getAccommodationId());

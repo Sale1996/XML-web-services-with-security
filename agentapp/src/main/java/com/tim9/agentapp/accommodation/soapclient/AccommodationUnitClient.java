@@ -3,7 +3,7 @@ package com.tim9.agentapp.accommodation.soapclient;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
-import com.tim9.agentapp.accommodation.model.AccommodationUnit;
+import com.tim9.agentapp.accommodation.wsdl.AccommodationUnit;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationUnitRequest;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.DeleteAccommodationUnitRequest;

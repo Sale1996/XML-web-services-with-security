@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@XmlType(name = "category")
 @XmlRootElement(name = "Category")
 @Entity
 @Table( name= "categories" )

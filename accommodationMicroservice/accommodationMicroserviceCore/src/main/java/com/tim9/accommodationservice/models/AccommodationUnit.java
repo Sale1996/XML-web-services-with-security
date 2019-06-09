@@ -35,7 +35,7 @@ import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@XmlType(name = "accommodationUnit")
 @XmlRootElement(name = "Accommodation_unit")
 @Entity
 @Table( name= "accomodation_units" )

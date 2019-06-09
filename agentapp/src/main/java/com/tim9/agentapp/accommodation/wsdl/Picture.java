@@ -10,25 +10,23 @@ package com.tim9.agentapp.accommodation.wsdl;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for city complex type.
+ * <p>Java class for picture complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="city"&gt;
+ * &lt;complexType name="picture"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="city_id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="X_cord" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="Y_cord" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
- *         &lt;element name="LastUpdated" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="pictureId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
+ *         &lt;element name="picUrl" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="accommodation" type="{http://tim9.com/accommodationService}accommodation" minOccurs="0"/&gt;
+ *         &lt;element name="lastUpdated" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,103 +36,89 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "city", propOrder = {
-    "cityId",
-    "name",
-    "xCord",
-    "yCord",
+@XmlType(name = "picture", propOrder = {
+    "pictureId",
+    "picUrl",
+    "accommodation",
     "lastUpdated"
 })
-public class City {
+public class Picture {
 
-    @XmlElement(name = "city_id")
-    protected Long cityId;
-    protected String name;
-    @XmlElement(name = "X_cord")
-    protected double xCord;
-    @XmlElement(name = "Y_cord")
-    protected double yCord;
-    @XmlElement(name = "LastUpdated")
+    protected Long pictureId;
+    protected String picUrl;
+    protected Accommodation accommodation;
     protected String lastUpdated;
 
     /**
-     * Gets the value of the cityId property.
+     * Gets the value of the pictureId property.
      * 
      * @return
      *     possible object is
      *     {@link Long }
      *     
      */
-    public Long getCityId() {
-        return cityId;
+    public Long getPictureId() {
+        return pictureId;
     }
 
     /**
-     * Sets the value of the cityId property.
+     * Sets the value of the pictureId property.
      * 
      * @param value
      *     allowed object is
      *     {@link Long }
      *     
      */
-    public void setCityId(Long value) {
-        this.cityId = value;
+    public void setPictureId(Long value) {
+        this.pictureId = value;
     }
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the picUrl property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getPicUrl() {
+        return picUrl;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the picUrl property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setPicUrl(String value) {
+        this.picUrl = value;
     }
 
     /**
-     * Gets the value of the xCord property.
+     * Gets the value of the accommodation property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Accommodation }
+     *     
      */
-    public double getXCord() {
-        return xCord;
+    public Accommodation getAccommodation() {
+        return accommodation;
     }
 
     /**
-     * Sets the value of the xCord property.
+     * Sets the value of the accommodation property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Accommodation }
+     *     
      */
-    public void setXCord(double value) {
-        this.xCord = value;
-    }
-
-    /**
-     * Gets the value of the yCord property.
-     * 
-     */
-    public double getYCord() {
-        return yCord;
-    }
-
-    /**
-     * Sets the value of the yCord property.
-     * 
-     */
-    public void setYCord(double value) {
-        this.yCord = value;
+    public void setAccommodation(Accommodation value) {
+        this.accommodation = value;
     }
 
     /**

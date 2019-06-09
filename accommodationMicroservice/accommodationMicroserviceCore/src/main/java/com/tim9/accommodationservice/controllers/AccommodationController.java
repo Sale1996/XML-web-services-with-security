@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tim9.accommodationservice.models.Accommodation;
 import com.tim9.accommodationservice.services.AccommodationService;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
 
@@ -34,6 +35,7 @@ public class AccommodationController {
 	
 	@Autowired
 	private AccommodationService accommodationService;
+
  
 //	GET metodama mogu pristupati SVI
 
@@ -48,7 +50,8 @@ public class AccommodationController {
 		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>(accommodations, HttpStatus.NOT_FOUND);
 
 	}
-	
+
+
 	
 	@GetMapping("/search/{city}/{numberOfGuest}")
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod = "GET")

@@ -30,7 +30,7 @@ import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@XmlType(name = "extraField")
 @XmlRootElement(name = "Extra_field")
 @Entity
 @Table( name= "extra_fields" )

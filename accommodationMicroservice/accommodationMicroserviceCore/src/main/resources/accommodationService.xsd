@@ -1,124 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tim9.com/accommodationService" elementFormDefault="qualified" targetNamespace="http://tim9.com/accommodationService" version="1.0">
 
-  <xs:element name="Accommodation">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Accommodation_id" type="xs:long"/>
-        <xs:element name="Name" type="xs:string"/>
-        <xs:element name="Description" type="xs:string"/>
-        <xs:element name="Number_of_days_before_cancelation" type="xs:int"/>
-        <xs:element ref="tns:City"/>
-        <xs:element name="Counted_number_of_beds" type="xs:int"/>
-        <xs:element name="AgentId" type="xs:long"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Accommodation" type="tns:accommodation"/>
 
-  <xs:element name="AccommodationUnit">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Accommodation_unit_id" type="xs:long"/>
-        <xs:element name="Number_of_people" type="xs:int"/>
-        <xs:element ref="tns:Category"/>
-        <xs:element ref="tns:Type"/>
-        <xs:element ref="tns:Accommodation"/>
-        <xs:element maxOccurs="unbounded" ref="tns:Extra_field"/>
-        <xs:element maxOccurs="unbounded" ref="tns:Price"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Accommodation_unit" type="tns:accommodationUnit"/>
 
-  <xs:element name="Category">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Category_id" type="xs:long"/>
-        <xs:element name="Category_name" type="xs:string"/>
-        <xs:element maxOccurs="unbounded" minOccurs="0" name="Accommodation_units_of_category"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Category" type="tns:category"/>
 
-  <xs:element name="City">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="city_id" type="xs:long"/>
-        <xs:element minOccurs="0" name="name" type="xs:string"/>
-        <xs:element name="X_cord" type="xs:double"/>
-        <xs:element name="Y_cord" type="xs:double"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="City" type="tns:city"/>
 
-  <xs:element name="Comment">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Comment_id" type="xs:long"/>
-        <xs:element name="Comment_body" type="xs:string"/>
-        <xs:element name="Is_approved" type="xs:boolean"/>
-        <xs:element ref="tns:Accommodation"/>
-        <xs:element name="Client" type="xs:long"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Comment" type="tns:comment"/>
 
-  <xs:element name="Extra_field">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Extra_field_id" type="xs:long"/>
-        <xs:element name="Extra_field_name" type="xs:string"/>
-        <xs:element name="Extra_price" type="xs:float"/>
-        <xs:element name="Optional" type="xs:boolean"/>
-        <xs:element maxOccurs="unbounded" minOccurs="0" name="Accommodation_Units"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Extra_field" type="tns:extraField"/>
 
-  <xs:element name="Picture">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="pictureId" type="xs:long"/>
-        <xs:element minOccurs="0" name="picUrl" type="xs:string"/>
-        <xs:element minOccurs="0" name="accommodation"/>
-        <xs:element minOccurs="0" name="lastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Picture" type="tns:picture"/>
 
-  <xs:element name="Price">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Price_id" type="xs:long"/>
-        <xs:element name="Date_from" type="xs:string"/>
-        <xs:element name="Amount" type="xs:float"/>
-        <xs:element name="Date_to" type="xs:string"/>
-        <xs:element minOccurs="0" name="Accommodation_Unit"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Price" type="tns:price"/>
 
-  <xs:element name="Type">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="Type_id" type="xs:long"/>
-        <xs:element name="Type_name" type="xs:string"/>
-        <xs:element maxOccurs="unbounded" minOccurs="0" name="Accommodation_units_of_type"/>
-        <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="Type" type="tns:type"/>
 
   <xs:element name="createAccommodationRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodation"/>
+        <xs:element name="accommodation" type="tns:accommodation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -126,7 +30,7 @@
   <xs:element name="createAccommodationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodation"/>
+        <xs:element name="accommodation" type="tns:accommodation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -134,7 +38,7 @@
   <xs:element name="createAccommodationUnitRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodationUnit"/>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -142,7 +46,7 @@
   <xs:element name="createAccommodationUnitResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodationUnit"/>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -150,7 +54,7 @@
   <xs:element name="createPictureRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="picture"/>
+        <xs:element name="picture" type="tns:picture"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -158,7 +62,7 @@
   <xs:element name="createPictureResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="picture"/>
+        <xs:element name="picture" type="tns:picture"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -166,7 +70,7 @@
   <xs:element name="createPriceRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="price"/>
+        <xs:element name="price" type="tns:price"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -174,7 +78,7 @@
   <xs:element name="createPriceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="price"/>
+        <xs:element name="price" type="tns:price"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -190,7 +94,7 @@
   <xs:element name="deleteAccommodationUnitResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodationUnit"/>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -206,7 +110,7 @@
   <xs:element name="deletePictureResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="picture"/>
+        <xs:element name="picture" type="tns:picture"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -222,7 +126,7 @@
   <xs:element name="deletePriceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="price"/>
+        <xs:element name="price" type="tns:price"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -230,7 +134,7 @@
   <xs:element name="editAccommodationRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodation"/>
+        <xs:element name="accommodation" type="tns:accommodation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -238,7 +142,7 @@
   <xs:element name="editAccommodationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodation"/>
+        <xs:element name="accommodation" type="tns:accommodation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -246,7 +150,7 @@
   <xs:element name="editAccommodationUnitRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodationUnit"/>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -254,7 +158,7 @@
   <xs:element name="editAccommodationUnitResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodationUnit"/>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -270,7 +174,7 @@
   <xs:element name="getAccommodationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="accommodation"/>
+        <xs:element name="accommodation" type="tns:accommodation"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -286,7 +190,7 @@
   <xs:element name="getAccommodationUnitsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="accommodationUnits"/>
+        <xs:element maxOccurs="unbounded" name="accommodationUnits" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -300,7 +204,7 @@
   <xs:element name="getCategoriesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="categories"/>
+        <xs:element maxOccurs="unbounded" name="categories" type="tns:category"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -314,7 +218,7 @@
   <xs:element name="getCitiesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="cities"/>
+        <xs:element maxOccurs="unbounded" name="cities" type="tns:city"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -330,7 +234,7 @@
   <xs:element name="getCommentsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="comments"/>
+        <xs:element maxOccurs="unbounded" name="comments" type="tns:comment"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -344,7 +248,7 @@
   <xs:element name="getExtraFieldsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="extraFields"/>
+        <xs:element maxOccurs="unbounded" name="extraFields" type="tns:extraField"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -360,7 +264,7 @@
   <xs:element name="getPictureResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="picture"/>
+        <xs:element maxOccurs="unbounded" name="picture" type="tns:picture"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -376,13 +280,7 @@
   <xs:element name="getPriceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="price">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="price"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element maxOccurs="unbounded" name="price" type="tns:price"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -396,8 +294,104 @@
   <xs:element name="getTypeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="type"/>
+        <xs:element maxOccurs="unbounded" name="type" type="tns:type"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="accommodation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Accommodation_id" type="xs:long"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Description" type="xs:string"/>
+      <xs:element name="Number_of_days_before_cancelation" type="xs:int"/>
+      <xs:element ref="tns:City"/>
+      <xs:element name="Counted_number_of_beds" type="xs:int"/>
+      <xs:element name="AgentId" type="xs:long"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="city">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="city_id" type="xs:long"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element name="X_cord" type="xs:double"/>
+      <xs:element name="Y_cord" type="xs:double"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accommodationUnit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Accommodation_unit_id" type="xs:long"/>
+      <xs:element name="Number_of_people" type="xs:int"/>
+      <xs:element ref="tns:Category"/>
+      <xs:element ref="tns:Type"/>
+      <xs:element ref="tns:Accommodation"/>
+      <xs:element maxOccurs="unbounded" ref="tns:Extra_field"/>
+      <xs:element maxOccurs="unbounded" ref="tns:Price"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="category">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Category_id" type="xs:long"/>
+      <xs:element name="Category_name" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Accommodation_units_of_category" type="tns:accommodationUnit"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="type">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Type_id" type="xs:long"/>
+      <xs:element name="Type_name" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Accommodation_units_of_type" type="tns:accommodationUnit"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="extraField">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extra_field_id" type="xs:long"/>
+      <xs:element name="Extra_field_name" type="xs:string"/>
+      <xs:element name="Extra_price" type="xs:float"/>
+      <xs:element name="Optional" type="xs:boolean"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Accommodation_Units" type="tns:accommodationUnit"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="price">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Price_id" type="xs:long"/>
+      <xs:element name="Date_from" type="xs:string"/>
+      <xs:element name="Amount" type="xs:float"/>
+      <xs:element name="Date_to" type="xs:string"/>
+      <xs:element minOccurs="0" name="Accommodation_Unit" type="tns:accommodationUnit"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="comment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Comment_id" type="xs:long"/>
+      <xs:element name="Comment_body" type="xs:string"/>
+      <xs:element name="Is_approved" type="xs:boolean"/>
+      <xs:element ref="tns:Accommodation"/>
+      <xs:element name="Client" type="xs:long"/>
+      <xs:element minOccurs="0" name="LastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="picture">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="pictureId" type="xs:long"/>
+      <xs:element minOccurs="0" name="picUrl" type="xs:string"/>
+      <xs:element minOccurs="0" name="accommodation" type="tns:accommodation"/>
+      <xs:element minOccurs="0" name="lastUpdated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>

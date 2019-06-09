@@ -3,7 +3,7 @@ package com.tim9.agentapp.accommodation.soapclient;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
-import com.tim9.agentapp.accommodation.model.Price;
+import com.tim9.agentapp.accommodation.wsdl.Price;
 import com.tim9.agentapp.accommodation.wsdl.CreatePriceResponse;
 import com.tim9.agentapp.accommodation.wsdl.DeletePriceRequest;
 import com.tim9.agentapp.accommodation.wsdl.DeletePriceResponse;
