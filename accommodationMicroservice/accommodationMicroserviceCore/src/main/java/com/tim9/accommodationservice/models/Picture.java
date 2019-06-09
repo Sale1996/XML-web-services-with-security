@@ -34,24 +34,20 @@ import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 @Table( name= "pictures" )
 public class Picture {
 
-    @XmlElement(name = "Picture_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
 	@Column ( name = "id" )
     protected Long pictureId;
     
     
-    @XmlElement(name = "Pic_url", required = true)
 	@Column ( name = "pic_url" )
     protected String picUrl;
     
     
-    @XmlElement(name="Accommodation", required = true)
     @ManyToOne ()
 	@JoinColumn (name="accommodation",nullable = false)
     protected Accommodation accommodation;
 
-    @XmlElement(name = "LastUpdated")
     @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
 	@Column
 	private LocalDateTime lastUpdated;

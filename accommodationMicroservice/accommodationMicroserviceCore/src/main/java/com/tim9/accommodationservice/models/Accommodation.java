@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -75,18 +76,18 @@ public class Accommodation {
     @Column(name="agent_id")
     protected Long agentId;
 
-    
-    @XmlElement(name = "Accommodation_units")
+    @XmlTransient
+//    @XmlElement(name = "Accommodation_units")
     @OneToMany (mappedBy="accommodation")
     protected List<AccommodationUnit> units;
-    
-    
-	@XmlElement(name ="Accommodation_comments")
+
+    @XmlTransient
+//	@XmlElement(name ="Accommodation_comments")
 	@OneToMany (mappedBy="accommodation")
     protected List<Comment> comments;
-	
-	
-	@XmlElement(name = "Accommodation_pictures")
+
+    @XmlTransient
+//	@XmlElement(name = "Accommodation_pictures")
 	@OneToMany (mappedBy="accommodation")
 	protected List<Picture> pictures;
 	

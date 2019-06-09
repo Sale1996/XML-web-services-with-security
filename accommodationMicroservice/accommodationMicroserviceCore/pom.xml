@@ -92,7 +92,7 @@
 		                <outputDirectory>${project.build.directory}/schemas</outputDirectory>
 		                <transformSchemas>
 					      <transformSchema>
-					        <uri>http://tim9.com</uri>
+					        <uri>http://tim9.com/accommodationService</uri>
 					        <toFile>accommodationService.xsd</toFile>
 					      </transformSchema>
 					    </transformSchemas>

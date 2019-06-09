@@ -117,6 +117,29 @@
 				        </execution>
 				    </executions>
 				</plugin>-->
+				<!--<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				    <artifactId>maven-jaxb2-plugin</artifactId>
+				    <version>0.14.0</version>
+				<executions>
+				<execution>
+				        	<id>schema2-generate</id>
+				            <goals>
+				                <goal>generate</goal>
+				            </goals>
+				            <configuration>
+						        <schemaLanguage>WSDL</schemaLanguage>
+						        <generateDirectory>src/main/java</generateDirectory>
+						        <generatePackage>com.tim9.agentapp.accommodation.wsdl</generatePackage>
+						        <schemas>
+						            <schema>
+						                <url>http://localhost:8081/accommodationService/ws/accommodations.wsdl</url>
+						            </schema>
+						        </schemas>
+						    </configuration>
+				        </execution>
+				        </executions>
+				        </plugin>-->
 			</plugins>
 	</build>
 
