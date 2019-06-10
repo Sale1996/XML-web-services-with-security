@@ -123,7 +123,7 @@ public class PriceService {
 
 	public PriceDTO delete(Long id) {
 		
-		Optional< Price > priceToDelete = priceRepository.findById(id);
+		Optional< Price > priceToDelete = priceRepository.findByPriceId(id);
 		
 		if( priceToDelete.isPresent() ) {
 			

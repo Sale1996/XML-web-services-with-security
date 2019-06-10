@@ -20,11 +20,13 @@ public class PriceEndpoint {
 	
 	private static final String NAMESPACE_URI = "http://tim9.com/accommodationService";
 	private PriceService priceService;
+	
 	private DTOPriceConverter dtoPriceConverter;
 	
 	@Autowired
-	public PriceEndpoint(PriceService priceService) {
+	public PriceEndpoint(PriceService priceService, DTOPriceConverter dtoPriceConverter) {
 		this.priceService = priceService;
+		this.dtoPriceConverter = dtoPriceConverter;
 	}
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPricesRequest")
