@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "getPricesRequests")
+@XmlRootElement(name = "getPricesRequest")
 public class GetPricesRequest {
 	
 	@XmlElement(required = true)

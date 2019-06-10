@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -70,7 +71,7 @@ public class AccommodationUnit {
     protected Accommodation accommodation;
     
     
-    @XmlElement(name = "Extra_field", required = true)
+    @XmlTransient
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "accommodation_unit_extra_fields",
             joinColumns = { @JoinColumn( name = "accommodation_id" ) },
@@ -78,8 +79,8 @@ public class AccommodationUnit {
     protected List<ExtraField> extraFields;
     
     
-    @XmlElement(name = "Price", required = true)
-	@OneToMany (mappedBy="accommodationUnit")
+    @XmlTransient
+    @OneToMany (mappedBy="accommodationUnit")
     protected List<Price> price;
 
     @XmlElement(name = "LastUpdated")

@@ -31,7 +31,7 @@ public class PriceEndpoint {
 	@ResponsePayload
 	public GetPricesResponse getPrices(@RequestPayload GetPricesRequest request) {
 		GetPricesResponse response = new GetPricesResponse();
-		response.setPrice(priceService.findAllSoap());
+		response.setPrice(priceService.findAllSoap(request.getId()));
 		return response;
 	}
 	

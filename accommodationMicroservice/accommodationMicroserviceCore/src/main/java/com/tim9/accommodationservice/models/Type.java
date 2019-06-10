@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -45,8 +46,8 @@ public class Type {
 	@Column ( name = "name" )
     protected String typeName;
     
-    @XmlElement(name="Accommodation_units_of_type")
-	@OneToMany (mappedBy="unitType")
+    @XmlTransient
+    @OneToMany (mappedBy="unitType")
     protected List<AccommodationUnit> units;
 
     @XmlElement(name = "LastUpdated")
