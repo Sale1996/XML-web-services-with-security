@@ -10,8 +10,8 @@ import com.tim9.accommodationservice.models.CreatePriceRequest;
 import com.tim9.accommodationservice.models.CreatePriceResponse;
 import com.tim9.accommodationservice.models.DeletePriceRequest;
 import com.tim9.accommodationservice.models.DeletePriceResponse;
-import com.tim9.accommodationservice.models.GetPriceRequest;
-import com.tim9.accommodationservice.models.GetPriceResponse;
+import com.tim9.accommodationservice.models.GetPricesRequest;
+import com.tim9.accommodationservice.models.GetPricesResponse;
 import com.tim9.accommodationservice.services.PriceService;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOPriceConverter;
 
@@ -27,10 +27,10 @@ public class PriceEndpoint {
 		this.priceService = priceService;
 	}
 
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPriceRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPricesRequest")
 	@ResponsePayload
-	public GetPriceResponse getPrices(@RequestPayload GetPriceRequest request) {
-		GetPriceResponse response = new GetPriceResponse();
+	public GetPricesResponse getPrices(@RequestPayload GetPricesRequest request) {
+		GetPricesResponse response = new GetPricesResponse();
 		response.setPrice(priceService.findAllSoap());
 		return response;
 	}

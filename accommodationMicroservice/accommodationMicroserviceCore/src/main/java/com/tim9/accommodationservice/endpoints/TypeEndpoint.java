@@ -6,8 +6,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import com.tim9.accommodationservice.models.GetTypeRequest;
-import com.tim9.accommodationservice.models.GetTypeResponse;
+import com.tim9.accommodationservice.models.GetTypesRequest;
+import com.tim9.accommodationservice.models.GetTypesResponse;
 import com.tim9.accommodationservice.services.TypeService;
 
 @Endpoint
@@ -21,10 +21,10 @@ public class TypeEndpoint {
 		this.typeService = typeService;
 	}
 
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTypeRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTypesRequest")
 	@ResponsePayload
-	public GetTypeResponse getPrices(@RequestPayload GetTypeRequest request) {
-		GetTypeResponse response = new GetTypeResponse();
+	public GetTypesResponse getTypes(@RequestPayload GetTypesRequest request) {
+		GetTypesResponse response = new GetTypesResponse();
 		response.setType(typeService.findAllSoap());
 		return response;
 	}

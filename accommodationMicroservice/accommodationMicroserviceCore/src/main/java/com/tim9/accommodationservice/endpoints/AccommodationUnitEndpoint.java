@@ -10,8 +10,8 @@ import com.tim9.accommodationservice.models.CreateAccommodationUnitRequest;
 import com.tim9.accommodationservice.models.CreateAccommodationUnitResponse;
 import com.tim9.accommodationservice.models.DeleteAccommodationUnitRequest;
 import com.tim9.accommodationservice.models.DeleteAccommodationUnitResponse;
-import com.tim9.accommodationservice.models.EditAccommodationUnitRequest;
-import com.tim9.accommodationservice.models.EditAccommodationUnitResponse;
+import com.tim9.accommodationservice.models.UpdateAccommodationUnitRequest;
+import com.tim9.accommodationservice.models.UpdateAccommodationUnitResponse;
 import com.tim9.accommodationservice.models.GetAccommodationUnitsRequest;
 import com.tim9.accommodationservice.models.GetAccommodationUnitsResponse;
 import com.tim9.accommodationservice.services.AccommodationUnitService;
@@ -49,10 +49,10 @@ public class AccommodationUnitEndpoint {
 	}
 	
 	
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "editAccommodationUnitRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateAccommodationUnitRequest")
 	@ResponsePayload
-	public EditAccommodationUnitResponse editAccommodationUnit(@RequestPayload EditAccommodationUnitRequest request) {
-		EditAccommodationUnitResponse response = new EditAccommodationUnitResponse();
+	public UpdateAccommodationUnitResponse updateAccommodationUnit(@RequestPayload UpdateAccommodationUnitRequest request) {
+		UpdateAccommodationUnitResponse response = new UpdateAccommodationUnitResponse();
 		response.setAccommodationUnit(unitConverter.convertFromDTO(accommodationUnitService.update(request.getAccommodationUnit().getAccommodationUnitId(),unitConverter.convertToDTO(request.getAccommodationUnit()))));
 		return response;
 	}

@@ -8,8 +8,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.tim9.accommodationservice.models.CreateAccommodationRequest;
 import com.tim9.accommodationservice.models.CreateAccommodationResponse;
-import com.tim9.accommodationservice.models.EditAccommodationRequest;
-import com.tim9.accommodationservice.models.EditAccommodationResponse;
+import com.tim9.accommodationservice.models.UpdateAccommodationRequest;
+import com.tim9.accommodationservice.models.UpdateAccommodationResponse;
 import com.tim9.accommodationservice.models.GetAccommodationRequest;
 import com.tim9.accommodationservice.models.GetAccommodationResponse;
 import com.tim9.accommodationservice.services.AccommodationService;
@@ -47,10 +47,10 @@ public class AccommodationEndpoint {
 	}
 	
 	
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "editAccommodationRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateAccommodationRequest")
 	@ResponsePayload
-	public EditAccommodationResponse editAccommodation(@RequestPayload EditAccommodationRequest request) {
-		EditAccommodationResponse response = new EditAccommodationResponse();
+	public UpdateAccommodationResponse updateAccommodation(@RequestPayload UpdateAccommodationRequest request) {
+		UpdateAccommodationResponse response = new UpdateAccommodationResponse();
 		response.setAccommodation(accommodationConverter.convertFromDTO(accommodationService.update(request.getAccommodation().getAccommodationId(),accommodationConverter.convertToDTO(request.getAccommodation()))));
 		return response;
 	}

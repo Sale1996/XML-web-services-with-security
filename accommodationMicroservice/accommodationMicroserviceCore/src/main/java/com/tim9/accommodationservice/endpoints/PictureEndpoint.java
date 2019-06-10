@@ -10,8 +10,8 @@ import com.tim9.accommodationservice.models.CreatePictureRequest;
 import com.tim9.accommodationservice.models.CreatePictureResponse;
 import com.tim9.accommodationservice.models.DeletePictureRequest;
 import com.tim9.accommodationservice.models.DeletePictureResponse;
-import com.tim9.accommodationservice.models.GetPictureRequest;
-import com.tim9.accommodationservice.models.GetPictureResponse;
+import com.tim9.accommodationservice.models.GetPicturesRequest;
+import com.tim9.accommodationservice.models.GetPicturesResponse;
 import com.tim9.accommodationservice.services.PictureService;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOPictureConverter;
 
@@ -28,10 +28,10 @@ public class PictureEndpoint {
 		this.dtoPictureConverter = dtoPictureConverter;
 	}
 
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPictureRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPicturesRequest")
 	@ResponsePayload
-	public GetPictureResponse getPictures(@RequestPayload GetPictureRequest request) {
-		GetPictureResponse response = new GetPictureResponse();
+	public GetPicturesResponse getPictures(@RequestPayload GetPicturesRequest request) {
+		GetPicturesResponse response = new GetPicturesResponse();
 		response.setPicture(pictureService.findAllSoap());
 		return response;
 	}

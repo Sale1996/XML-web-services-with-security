@@ -61,12 +61,12 @@ public class ObjectFactory {
         return new CreateAccommodationUnitResponse();
     }
     
-    public EditAccommodationUnitRequest createEditAccommodationUnitRequest() {
-        return new EditAccommodationUnitRequest();
+    public UpdateAccommodationUnitRequest createUpdateAccommodationUnitRequest() {
+        return new UpdateAccommodationUnitRequest();
     }
 
-    public EditAccommodationUnitResponse createEditAccommodationUnitResponse() {
-        return new EditAccommodationUnitResponse();
+    public UpdateAccommodationUnitResponse createUpdateAccommodationUnitResponse() {
+        return new UpdateAccommodationUnitResponse();
     }
     
     public DeleteAccommodationUnitRequest createDeleteAccommodationUnitRequest() {
@@ -188,12 +188,12 @@ public class ObjectFactory {
     }
     
     
-    public EditAccommodationRequest createEditAccommodationRequest() {
-        return new EditAccommodationRequest();
+    public UpdateAccommodationRequest createUpdateAccommodationRequest() {
+        return new UpdateAccommodationRequest();
     }
 
-    public EditAccommodationResponse createEditAccommodationResponse() {
-        return new EditAccommodationResponse();
+    public UpdateAccommodationResponse createUpdateAccommodationResponse() {
+        return new UpdateAccommodationResponse();
     }
     
     public Accommodation createAccommodation() {
@@ -206,6 +206,14 @@ public class ObjectFactory {
      */
     public Picture createPicture() {
         return new Picture();
+    }
+    
+    public GetPicturesRequest createGetPicturesRequest() {
+    	return new GetPicturesRequest();
+    }
+    
+    public GetPicturesResponse createGetPicturesResponse() {
+    	return new GetPicturesResponse();
     }
     
     public CreatePictureRequest createCreatePictureRequest() {
@@ -240,28 +248,28 @@ public class ObjectFactory {
     	return new DeletePriceResponse();
     }
     
-    public GetPictureRequest createGetPictureRequest() {
-    	return new GetPictureRequest();
+    public GetPicturesRequest createGetPictureRequest() {
+    	return new GetPicturesRequest();
     }
     
-    public GetPictureResponse createGetPictureResponse() {
-    	return new GetPictureResponse();
+    public GetPicturesResponse createGetPictureResponse() {
+    	return new GetPicturesResponse();
     }
     
-    public GetPriceRequest createGetPriceRequests() {
-    	return new GetPriceRequest();
+    public GetPricesRequest createGetPricesRequests() {
+    	return new GetPricesRequest();
     }
     
-    public GetPriceResponse createGetPriceResponse() {
-    	return new GetPriceResponse();
+    public GetPricesResponse createGetPricesResponse() {
+    	return new GetPricesResponse();
     }
     
-    public GetTypeRequest createGetTypeRequest() {
-    	return new GetTypeRequest();
+    public GetTypesRequest createGetTypesRequest() {
+    	return new GetTypesRequest();
     }
     
-    public GetTypeResponse createGetTypeResponse() {
-    	return new GetTypeResponse();
+    public GetTypesResponse createGetTypesResponse() {
+    	return new GetTypesResponse();
     }
     
     

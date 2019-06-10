@@ -1,7 +1,5 @@
 package com.tim9.accommodationservice.models;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -10,19 +8,17 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "getTypeResponse")
-public class GetTypeResponse {
+@XmlRootElement(name = "getPicturesRequest")
+public class GetPicturesRequest {
 
 	@XmlElement(required = true)
-    protected List<Type> type;
+    protected Long id;
 
-	public List<Type> getType() {
-		return type;
+	public Long getId() {
+		return id;
 	}
 
-	public void setType(List<Type> type) {
-		this.type = type;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	
 }

@@ -10,20 +10,19 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "getPriceResponse")
-public class GetPriceResponse {
-	
+@XmlRootElement(name = "getTypesResponse")
+public class GetTypesResponse {
+
 	@XmlElement(required = true)
-    protected List<Price> price;
+    protected List<Type> type;
 
-	public List<Price> getPrice() {
-		return price;
+	public List<Type> getType() {
+		return type;
 	}
 
-	public void setPrice(List<Price> price) {
-		this.price = price;
+	public void setType(List<Type> type) {
+		this.type = type;
 	}
-	
 	
 	
 }

@@ -131,38 +131,6 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="editAccommodationRequest">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="accommodation" type="tns:accommodation"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="editAccommodationResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="accommodation" type="tns:accommodation"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="editAccommodationUnitRequest">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="editAccommodationUnitResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
   <xs:element name="getAccommodationRequest">
     <xs:complexType>
       <xs:sequence>
@@ -253,7 +221,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="getPictureRequest">
+  <xs:element name="getPicturesRequest">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="id" type="xs:long"/>
@@ -261,7 +229,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="getPictureResponse">
+  <xs:element name="getPicturesResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="picture" type="tns:picture"/>
@@ -269,7 +237,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="getPriceRequests">
+  <xs:element name="getPricesRequests">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="id" type="xs:long"/>
@@ -277,7 +245,7 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="getPriceResponse">
+  <xs:element name="getPricesResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="price" type="tns:price"/>
@@ -285,16 +253,48 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="getTypeRequest">
+  <xs:element name="getTypesRequest">
     <xs:complexType>
       <xs:sequence/>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="getTypeResponse">
+  <xs:element name="getTypesResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="type" type="tns:type"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAccommodationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accommodation" type="tns:accommodation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAccommodationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accommodation" type="tns:accommodation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAccommodationUnitRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAccommodationUnitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

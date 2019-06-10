@@ -10,11 +10,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "accommodationUnit"
 })
-@XmlRootElement(name = "editAccommodationUnitResponse")
-public class EditAccommodationUnitResponse {
+@XmlRootElement(name = "updateAccommodationUnitRequest")
+public class UpdateAccommodationUnitRequest {
 
 	@XmlElement(required = true)
-    protected AccommodationUnit accommodationUnit;
+    protected AccommodationUnit  accommodationUnit;
 
 	
 	

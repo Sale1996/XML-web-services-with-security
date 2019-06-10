@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "accommodation"
 })
-@XmlRootElement(name = "editAccommodationResponse")
-public class EditAccommodationResponse {
+@XmlRootElement(name = "updateAccommodationResponse")
+public class UpdateAccommodationResponse {
 
 	@XmlElement(required = true)
     protected Accommodation  accommodation;
