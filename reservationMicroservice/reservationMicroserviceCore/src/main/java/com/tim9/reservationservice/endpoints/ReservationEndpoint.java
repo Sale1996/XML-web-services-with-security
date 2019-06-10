@@ -8,6 +8,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import com.tim9.reservationservice.models.ConfirmReservationRequest;
 import com.tim9.reservationservice.models.CreateReservationRequest;
 import com.tim9.reservationservice.models.CreateReservationResponse;
 import com.tim9.reservationservice.models.DeleteReservationRequest;
@@ -73,6 +74,17 @@ public class ReservationEndpoint {
 		DeleteReservationResponse response = new DeleteReservationResponse();
 		response.setReservation(repository.findById(request.getId()).get());
 		repository.deleteById(request.getId());
+		return response;
+	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "confirmReservationRequest")
+	@ResponsePayload
+	public UpdateReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest request) {
+		UpdateReservationResponse response = new UpdateReservationResponse();
+		Reservation r = repository.findById(request.getId()).get();
+		r.setConfirmation(true);
+		r.setLastUpdated(LocalDateTime.now());
+		response.setReservation(repository.save(r));
 		return response;
 	}
 }
