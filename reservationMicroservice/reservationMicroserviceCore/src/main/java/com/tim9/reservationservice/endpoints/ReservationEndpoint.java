@@ -46,7 +46,7 @@ public class ReservationEndpoint {
 		return response;
 	}
 	
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateReservationsRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateReservationRequest")
 	@ResponsePayload
 	public UpdateReservationResponse updateReservation(@RequestPayload UpdateReservationRequest request) {
 		UpdateReservationResponse response = new UpdateReservationResponse();
@@ -56,7 +56,7 @@ public class ReservationEndpoint {
 		return response;
 	}
 	
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "createReservationsRequest")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "createReservationRequest")
 	@ResponsePayload
 	public CreateReservationResponse createReservation(@RequestPayload CreateReservationRequest request) {
 		CreateReservationResponse response = new CreateReservationResponse();

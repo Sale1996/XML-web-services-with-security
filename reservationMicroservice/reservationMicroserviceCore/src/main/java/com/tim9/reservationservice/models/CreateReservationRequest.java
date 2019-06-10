@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "createReservationsRequest")
+@XmlRootElement(name = "createReservationRequest")
 public class CreateReservationRequest {
 
 	@XmlElement(required = true)
