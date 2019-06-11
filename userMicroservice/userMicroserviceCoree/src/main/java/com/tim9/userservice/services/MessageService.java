@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tim9.userservice.dtoConverters.DTOMessageConverter;
 import com.tim9.userservice.models.Message;
 import com.tim9.userservice.repositories.MessageRepository;
-
-import dtos.MessageDTO;
+import com.tim9.userserviceClient.dtos.MessageDTO;
 
 @Service
 public class MessageService {

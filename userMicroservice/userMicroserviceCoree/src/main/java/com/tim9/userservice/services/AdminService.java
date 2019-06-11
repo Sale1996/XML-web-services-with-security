@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tim9.userservice.dtoConverters.DTOAdminConverter;
 import com.tim9.userservice.models.Admin;
 import com.tim9.userservice.repositories.AdminRepository;
-
-import dtos.AdminDTO;
+import com.tim9.userserviceClient.dtos.AdminDTO;
 
 @Service
 public class AdminService {

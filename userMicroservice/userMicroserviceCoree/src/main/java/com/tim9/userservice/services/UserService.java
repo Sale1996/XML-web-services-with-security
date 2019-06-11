@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tim9.userservice.dtoConverters.DTOUserConverter;
 import com.tim9.userservice.models.User;
 import com.tim9.userservice.repositories.UserRepository;
-
-import dtos.UserDTO;
+import com.tim9.userserviceClient.dtos.UserDTO;
 
 @Service
 public class UserService {

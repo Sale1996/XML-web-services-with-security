@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.tim9.userservice.models.Admin;
 import com.tim9.userservice.repositories.AdminRepository;
-
-import dtos.AdminDTO;
+import com.tim9.userserviceClient.dtos.AdminDTO;
 
 
 @Component

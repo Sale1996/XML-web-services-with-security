@@ -6,24 +6,37 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.accommodationservice.models.Accommodation;
+import com.tim9.accommodationservice.models.City;
 import com.tim9.accommodationservice.repository.AccommodationRepository;
+import com.tim9.accommodationservice.repository.CityRepository;
+import com.tim9.accommodationservice.utils.DatasFromUserMicroservice;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
-import com.tim9.accommodationserviceclient.dtos.AccommodationSearchDTO;
+import com.tim9.userserviceClient.dtos.AgentDTO;
 
 @Service
 public class AccommodationService {
 
-	@Autowired
 	AccommodationRepository accommodationRepository;
+	CityRepository  cityRepository;
 	
-	
-	@Autowired
 	DTOAccommodationConverter accommodationConverter;
+	
+	DatasFromUserMicroservice userMicroservise;
+	
+	
+	public AccommodationService(AccommodationRepository accommodaitonRepository, DTOAccommodationConverter accommodationConverter,
+			CityRepository cityRepository, DatasFromUserMicroservice userMicroservice) {
+
+			this.accommodationRepository = accommodaitonRepository;
+			this.cityRepository = cityRepository;
+			this.accommodationConverter = accommodationConverter;
+			this.userMicroservise = userMicroservice;
+			
+	}
 	
 	
 	public List<AccommodationDTO> findAll() {
@@ -57,22 +70,15 @@ public class AccommodationService {
 
 		
 		if ( accommodations.isPresent() ) {
-			
-			for        ( Accommodation	 candidate : accommodations.get() ) {
-				
-				
-				
-				
-				
-				dtoAccommodations.add(accommodationConverter		.convertToDTO(candidate));
-				
+			for( Accommodation candidate : accommodations.get() ) {
+				dtoAccommodations.add(accommodationConverter.convertToDTO(candidate));			
 			}
 
 			return dtoAccommodations;
 			
 		}
 			
-		return Collections.emptyList(            );
+		return Collections.emptyList();
 
 		
 	}
@@ -103,6 +109,10 @@ public class AccommodationService {
 			
 		accommodation.setAccommodationId(-1l);
 		
+		if(!validateAccommodaiton(accommodation)) {
+			return new AccommodationDTO();
+		}
+		
 		Accommodation Accommodation = accommodationConverter.convertFromDTO(accommodation);
 		Accommodation.setLastUpdated(LocalDateTime.now());
 		Accommodation = accommodationRepository.save(Accommodation);
@@ -118,6 +128,10 @@ public class AccommodationService {
 		Optional<Accommodation> accommodationForChange = accommodationRepository.findById(id);
 		
 		if( accommodationForChange.isPresent() && accommodation!=null ) {
+			
+			if(!validateAccommodaiton(accommodation)) {
+				return new AccommodationDTO();
+			}
 										
 			accommodationForChange.get().setDescription(accommodation.getDescription());
 			accommodationForChange.get().setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
@@ -169,6 +183,35 @@ public class AccommodationService {
 			
 		}
 		
+	}
+	
+	
+	private boolean validateAccommodaiton(AccommodationDTO accommodation) {
+		
+		boolean isValid = true;
+		
+		
+		if(accommodation.getAccommodationName().equals("") || accommodation.getCountedNumberOfBeds()<0 || accommodation.getNumberOfDaysBeforeCancelation()<0) {
+			isValid = false;
+		}
+		
+		//checking city's existence
+		
+		Optional<City> city = cityRepository.findById(accommodation.getCity().getCityId());
+		
+		if(!city.isPresent()) {
+			isValid = false;
+		}
+		
+		//checking existence of agent
+		AgentDTO agent = userMicroservise.getAgentById(accommodation.getAgentId());
+		
+		if(agent.getId()==null) {
+			isValid = false;
+		}
+		
+		
+		return isValid;
 	}
 
 

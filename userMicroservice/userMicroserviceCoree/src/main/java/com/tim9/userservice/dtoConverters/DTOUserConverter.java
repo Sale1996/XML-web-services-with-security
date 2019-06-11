@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.tim9.userservice.models.User;
 import com.tim9.userservice.repositories.UserRepository;
-
-import dtos.UserDTO;
+import com.tim9.userserviceClient.dtos.UserDTO;
 
 @Component
 public class DTOUserConverter {

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.tim9.accommodationserviceclient.dtos.TypeDTO;
 
 
-@FeignClient(name="typeClient", url = "https://localhost:8081/types")
+@FeignClient(name="typeClient", url = "http://localhost:8081/types")
 public interface TypeClient {
 
 	

@@ -1,4 +1,4 @@
-package dtos;
+package com.tim9.userserviceClient.dtos;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

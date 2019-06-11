@@ -1,4 +1,4 @@
-package dtos;
+package com.tim9.userserviceClient.dtos;
 
 import java.time.LocalDateTime;
 

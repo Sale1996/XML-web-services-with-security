@@ -30,14 +30,15 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin("http://localhost:4200")
 public class AccommodationController {
 
-	//@Autowired
-//	private RestTemplate rest;
 	
-	@Autowired
 	private AccommodationService accommodationService;
 
+	
+	
+	public AccommodationController(AccommodationService service) {
+		this.accommodationService = service;
+	}
  
-//	GET metodama mogu pristupati SVI
 
 	@GetMapping("")
 	@ApiOperation( value = "Returns all accommodations", httpMethod = "GET")
@@ -102,7 +103,7 @@ public class AccommodationController {
 		
 		AccommodationDTO savedAccommodation = accommodationService.save(accommodation);
 		
-		return ( savedAccommodation!=null )? new ResponseEntity< AccommodationDTO > ( savedAccommodation, HttpStatus.CREATED ) : new ResponseEntity< AccommodationDTO > (savedAccommodation, HttpStatus.BAD_REQUEST );
+		return ( savedAccommodation.getAccommodationId()!=null )? new ResponseEntity< AccommodationDTO > ( savedAccommodation, HttpStatus.CREATED ) : new ResponseEntity< AccommodationDTO > (savedAccommodation, HttpStatus.BAD_REQUEST );
 
 	}
 

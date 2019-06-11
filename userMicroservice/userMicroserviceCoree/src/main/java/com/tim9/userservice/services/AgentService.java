@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tim9.userservice.dtoConverters.DTOAgentConverter;
 import com.tim9.userservice.models.Agent;
 import com.tim9.userservice.repositories.AgentRepository;
-
-import dtos.AgentDTO;
+import com.tim9.userserviceClient.dtos.AgentDTO;
 
 @Service
 public class AgentService {

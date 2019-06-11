@@ -15,7 +15,7 @@ import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
 import com.tim9.accommodationserviceclient.dtos.AccommodationSearchDTO;
 
 
-@FeignClient(name="accommodationClient", url = "https://localhost:8081/accommodations")
+@FeignClient(name="accommodationClient", url = "http://localhost:8081/accommodations")
 public interface AccommodationClient {
 
 

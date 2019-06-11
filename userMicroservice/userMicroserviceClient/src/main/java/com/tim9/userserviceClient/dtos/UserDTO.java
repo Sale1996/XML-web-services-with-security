@@ -1,4 +1,4 @@
-package dtos;
+package com.tim9.userserviceClient.dtos;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -9,10 +9,19 @@ import javax.xml.bind.annotation.XmlType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "agentdto")
+@XmlType(name = "", propOrder = {
+    "id",
+    "firstName",
+    "lastName",
+    "email",
+    "telephone_number",
+    "address",
+    "activated",
+    "password"
+})
+@XmlRootElement(name = "User")
 @JsonIgnoreProperties(value = "password", allowGetters=false, allowSetters=true)
-public class AgentDTO {
+public class UserDTO {
 	
 	@XmlElement(name = "id")
 	protected Long id;
@@ -25,11 +34,14 @@ public class AgentDTO {
     
     @XmlElement(name = "email")
     protected String email;
-	
-    @XmlElement(name = "business_registration_number")
-    protected String businessRegistrationNumber;
     
-    @XmlElement(name = "activated", required = true)
+    @XmlElement(name = "telephoneNumber")
+    protected String telephoneNumber;
+    
+    @XmlElement(name = "address")
+    protected String address;
+    
+    @XmlElement(name = "activated")
     protected Boolean activated;
     
     @XmlElement(name = "password")
@@ -38,15 +50,7 @@ public class AgentDTO {
     @XmlElement(name = "role")
     protected String role;
     
-    public AgentDTO() {}
-    
-	public Boolean getActivated() {
-		return activated;
-	}
-
-	public void setActivated(Boolean activated) {
-		this.activated = activated;
-	}
+    public UserDTO() {}
 
 	public Long getId() {
 		return id;
@@ -80,12 +84,28 @@ public class AgentDTO {
 		this.email = email;
 	}
 
-	public String getBusinessRegistrationNumber() {
-		return businessRegistrationNumber;
+	public String getTelephoneNumber() {
+		return telephoneNumber;
 	}
 
-	public void setBusinessRegistrationNumber(String businessRegistrationNumber) {
-		this.businessRegistrationNumber = businessRegistrationNumber;
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Boolean getActivated() {
+		return activated;
+	}
+
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
 	}
 
 	public String getPassword() {
@@ -103,6 +123,6 @@ public class AgentDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
+  
 
-    
 }
