@@ -17,14 +17,19 @@ import com.tim9.accommodationserviceclient.dtos.TypeDTO;
 @Service
 public class TypeService {
 	
-	@Autowired
+	
 	TypeRepository typeRepository;
 	
-	@Autowired
 	DTOTypeConverter typeConverter;
 	
 	
+	
+	public TypeService(TypeRepository typeRepository, DTOTypeConverter typeConverter) {
+		this.typeRepository = typeRepository;
+		this.typeConverter = typeConverter;
+	}
 
+	
 	
 	public List<TypeDTO> findAll() {
 		

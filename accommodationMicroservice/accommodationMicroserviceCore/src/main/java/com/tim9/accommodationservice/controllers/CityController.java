@@ -29,9 +29,13 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "http://localhost:4200")
 public class CityController {
 
-	@Autowired
+	
 	CityService cityService;
 	
+	
+	public CityController(CityService cityService) {
+		this.cityService = cityService;
+	}
 	
 	
 	@GetMapping("")

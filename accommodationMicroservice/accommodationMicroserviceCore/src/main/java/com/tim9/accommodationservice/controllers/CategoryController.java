@@ -30,8 +30,12 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController {
 
-	@Autowired
+	
 	CategoryService categoryService;
+	
+	public CategoryController(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
 	
 	
 	
@@ -51,7 +55,7 @@ public class CategoryController {
 	@ApiOperation( value = "Finds one Category by id.", notes = "Returns found Category.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< CategoryDTO > getOneSkillById (@PathVariable("id") Long id){
+	public ResponseEntity< CategoryDTO > getOneCategoryById (@PathVariable("id") Long id){
 		
 		CategoryDTO categoryDTO = categoryService.findById(id);
 		

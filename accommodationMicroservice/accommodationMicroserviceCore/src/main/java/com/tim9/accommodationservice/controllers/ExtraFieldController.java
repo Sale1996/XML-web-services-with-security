@@ -30,8 +30,12 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ExtraFieldController {
 
-	@Autowired
+	
 	ExtraFieldService extraFieldService;
+	
+	public ExtraFieldController(ExtraFieldService extraFieldService) {
+		this.extraFieldService = extraFieldService;
+	}
 	
 	
 	

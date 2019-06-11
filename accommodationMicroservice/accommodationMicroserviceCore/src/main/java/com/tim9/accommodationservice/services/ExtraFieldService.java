@@ -17,11 +17,17 @@ import com.tim9.accommodationserviceclient.dtos.ExtraFieldDTO;
 @Service
 public class ExtraFieldService {
 	
-	@Autowired
+	
 	ExtraFieldRepository extraFieldRepository;
 	
-	@Autowired
+	
 	DTOExtraFieldConverter extraFieldConverter;
+	
+	
+	public ExtraFieldService(ExtraFieldRepository extraFieldRepository, DTOExtraFieldConverter extraFieldConverter) {
+		this.extraFieldConverter = extraFieldConverter;
+		this.extraFieldRepository = extraFieldRepository;
+	}
 	
 	
 

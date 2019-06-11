@@ -29,9 +29,13 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin("http://localhost:4200")
 public class TypeController {
 
-	@Autowired
+	
 	TypeService typeService;
 	
+	
+	public TypeController(TypeService typeService) {
+		this.typeService = typeService;
+	}
 	
 	
 	@GetMapping("")

@@ -80,15 +80,15 @@ public class AccommodationController {
 		
 	}
 
-	@GetMapping("/agent/{username}")
+	@GetMapping("/agent/{id}")
 	@ApiOperation( value = "Finds accommodations by agent username.", notes = "Returns found accommodation.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByAgent(@PathVariable String username) {
+	public ResponseEntity< AccommodationDTO > getAccommodationsByAgent(@PathVariable Long id) {
 		
-		List< AccommodationDTO > accommodations = accommodationService.findByName(username);
+		AccommodationDTO accommodation = accommodationService.findByAgentId(id);
 		
-		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>(accommodations, HttpStatus.NOT_FOUND);
+		return ( accommodation.getAccommodationId()!=null )? new ResponseEntity< AccommodationDTO > (accommodation, HttpStatus.OK ) : new ResponseEntity<AccommodationDTO>(accommodation, HttpStatus.NOT_FOUND);
 
 	}
 

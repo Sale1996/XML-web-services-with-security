@@ -14,6 +14,7 @@ import com.tim9.accommodationservice.repository.AccommodationRepository;
 import com.tim9.accommodationservice.repository.CityRepository;
 import com.tim9.accommodationservice.utils.DatasFromUserMicroservice;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
+import com.tim9.accommodationservice.utils.dtoConverters.DTOCityConverter;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
 import com.tim9.userserviceClient.dtos.AgentDTO;
 
@@ -24,17 +25,19 @@ public class AccommodationService {
 	CityRepository  cityRepository;
 	
 	DTOAccommodationConverter accommodationConverter;
+	DTOCityConverter cityConverter;
 	
 	DatasFromUserMicroservice userMicroservise;
 	
 	
 	public AccommodationService(AccommodationRepository accommodaitonRepository, DTOAccommodationConverter accommodationConverter,
-			CityRepository cityRepository, DatasFromUserMicroservice userMicroservice) {
+			CityRepository cityRepository, DatasFromUserMicroservice userMicroservice, DTOCityConverter cityConverter) {
 
 			this.accommodationRepository = accommodaitonRepository;
 			this.cityRepository = cityRepository;
 			this.accommodationConverter = accommodationConverter;
 			this.userMicroservise = userMicroservice;
+			this.cityConverter = cityConverter;
 			
 	}
 	
@@ -136,9 +139,9 @@ public class AccommodationService {
 			accommodationForChange.get().setDescription(accommodation.getDescription());
 			accommodationForChange.get().setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
 			accommodationForChange.get().setLastUpdated(LocalDateTime.now());
-			//liste jos ne diramo
+			accommodationForChange.get().setAccommodationName(accommodation.getAccommodationName());
+			accommodationForChange.get().setCity(cityConverter.convertFromDTO(accommodation.getCity()));
 			
-			//ovde bi trebali da ispitamo jos da li postoji izmenjeni city i ako postoji da ga psotavimo ....
 			accommodationRepository.save(accommodationForChange.get());
 			
 			accommodation.setAccommodationId(accommodationForChange.get().getAccommodationId());

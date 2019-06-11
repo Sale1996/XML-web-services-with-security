@@ -6,10 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tim9.accommodationservice.models.City;
 import com.tim9.accommodationservice.models.Picture;
 import com.tim9.accommodationservice.repository.PictureRepository;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOPictureConverter;
@@ -18,11 +16,21 @@ import com.tim9.accommodationserviceclient.dtos.PictureDTO;
 @Service
 public class PictureService {
 	
-	@Autowired
+	
 	PictureRepository pictureRepository;
 	
-	@Autowired
+	
 	DTOPictureConverter pictureConverter;
+	
+	
+	
+	public PictureService(PictureRepository pictureRepository, DTOPictureConverter pictureConverter) {
+		this.pictureConverter = pictureConverter;
+		this.pictureRepository = pictureRepository;
+	}
+	
+	
+	
 
 	public List<PictureDTO> findAll() {
 		

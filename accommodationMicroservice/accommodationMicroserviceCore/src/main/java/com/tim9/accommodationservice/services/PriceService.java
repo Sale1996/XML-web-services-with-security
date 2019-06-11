@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.accommodationservice.models.Price;
@@ -17,11 +16,18 @@ import com.tim9.accommodationserviceclient.dtos.PriceDTO;
 @Service
 public class PriceService {
 	
-	@Autowired
+	
 	PriceRepository priceRepository;
 	
-	@Autowired
+	
 	DTOPriceConverter priceConverter;
+	
+	
+	
+	public PriceService(PriceRepository priceRepository, DTOPriceConverter priceConverter) {
+		this.priceRepository = priceRepository;
+		this.priceConverter = priceConverter;
+	}
 	
 	
 

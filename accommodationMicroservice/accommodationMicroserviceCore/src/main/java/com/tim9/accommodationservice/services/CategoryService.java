@@ -17,11 +17,16 @@ import com.tim9.accommodationserviceclient.dtos.CategoryDTO;
 @Service
 public class CategoryService {
 	
-	@Autowired
+	
 	CategoryRepository categoryRepository;
 	
-	@Autowired
 	DTOCategoryConverter categoryConverter;
+	
+	
+	public CategoryService(CategoryRepository categoryRepository, DTOCategoryConverter categoryConverter) {
+		this.categoryRepository = categoryRepository;
+		this.categoryConverter = categoryConverter;
+	}
 	
 	
 

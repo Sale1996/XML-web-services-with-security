@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.accommodationservice.models.City;
@@ -17,11 +16,17 @@ import com.tim9.accommodationserviceclient.dtos.CityDTO;
 @Service
 public class CityService {
 	
-	@Autowired
+	
 	CityRepository cityRepository;
 	
-	@Autowired
+	
 	DTOCityConverter cityConverter;
+	
+	
+	public CityService(CityRepository cityRepository, DTOCityConverter cityConverter) {
+		this.cityConverter = cityConverter;
+		this.cityRepository = cityRepository;
+	}
 	
 	
 
