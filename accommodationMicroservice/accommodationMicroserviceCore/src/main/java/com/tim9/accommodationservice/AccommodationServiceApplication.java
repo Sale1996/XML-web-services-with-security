@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 //@EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.tim9.accommodationserviceclient.feignClients", "com.tim9.userserviceClient.feignClients"})
+@EnableFeignClients(basePackages = {"com.tim9.accommodationserviceclient.feignClients", "com.tim9.userserviceClient.feignClients", "com.tim9.reservationserviceClient.feignClients"})
 public class AccommodationServiceApplication {
 	
 //	@Bean

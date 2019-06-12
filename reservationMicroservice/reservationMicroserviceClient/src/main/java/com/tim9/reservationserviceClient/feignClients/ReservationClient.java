@@ -3,6 +3,7 @@ package com.tim9.reservationserviceClient.feignClients;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,6 @@ public interface ReservationClient {
 	@DeleteMapping("/{reservationId}")	
 	public ReservationDTO deleteResrevation(@PathVariable("reservationId") long id);
 	
-	@GetMapping("searchFromAccommodations/{dateFrom}/{dateTo}")
+	@PostMapping("/searchFromAccommodations/{dateFrom}/{dateTo}")
 	public List<Long> getAccommodationUnitIdsForPeriod(@RequestBody List<Long> accommodationIds, @PathVariable("dateFrom") String dateFrom, @PathVariable("dateTo") String dateTo);
 }

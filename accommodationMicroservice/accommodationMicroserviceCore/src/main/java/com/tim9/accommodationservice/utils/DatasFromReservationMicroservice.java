@@ -20,10 +20,14 @@ public class DatasFromReservationMicroservice {
 	
 	public List<Long> getAccommodationUnitIds(List<Long> accommodationIds, String dateFrom, String dateTo) {
 		try {
+			//reservationClient.getReservations();
 			return reservationClient.getAccommodationUnitIdsForPeriod(accommodationIds, dateFrom, dateTo);
+			//return Collections.emptyList();
+
 		}
 		catch(FeignException f) {
 			return Collections.emptyList();
 		}
+		
 	}
 }

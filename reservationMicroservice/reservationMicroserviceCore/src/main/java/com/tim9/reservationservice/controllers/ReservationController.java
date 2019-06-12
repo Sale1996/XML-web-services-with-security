@@ -149,7 +149,7 @@ public class ReservationController {
 	}
 	
 	
-	@GetMapping("searchFromAccommodations/{dateFrom}/{dateTo}")
+	@PostMapping("/searchFromAccommodations/{dateFrom}/{dateTo}")
 	//@ApiOperation( value = "Finds one reservation by id.", notes = "Returns found reservation.", httpMethod="GET")
 	//@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 	//						 @ApiResponse( code = 404, message = "Not Found")})
