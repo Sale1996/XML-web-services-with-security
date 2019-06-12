@@ -1,8 +1,11 @@
+import { ReservationService } from './../../services/reservation.service';
 import { Location } from '@angular/common';
 import { Message } from './../../model/message.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
+import { Reservation } from 'src/app/model/reservation.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -16,42 +19,28 @@ export class ProfileComponent implements OnInit {
   readonly = false;
   messageForm: FormGroup;
   messageObj: Message = new Message();
+  reservations: Reservation[];
+  reservation: Reservation;
 
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private location: Location
+    private location: Location,
+    private reservationService: ReservationService
   ) { }
 
   ngOnInit() {
-    this.messageForm = this.formBuilder.group({
-      id: [''],
-      password: [''],
-      body: ['']
-    });
+
+    this.getReservations();
 
   }
 
-  onSubmit() {
-    // if (this.messageForm.valid) {
-    //   this.messageService.sendMessage(this.messageService.value as User).subscribe(
-    //     (user: User) => console.log(user)
-    //   );
-    // }
-
-    this.messageObj.messageBody = this.messageForm.controls['body'].value;
-    this.messageObj.recieved = false; // ovo je poslana poruka (od strane klijenta), a ne primljena
-    this.messageObj.opened = false;
-
-    console.log('AAAAAAAAAAAAAAAAAAAAAAA: ', this.messageObj.messageBody);  // ZASTO OVO IGNORISE
-
-    this.messageService.sendMessage(this.messageObj).subscribe((response) => {
-      console.log('Response is: ', this.messageObj.messageBody);  // ZASTO OVO IGNORISE
-      this.location.back();
-   },
-   (error) => {
-      // catch the error
-      console.error('An error occurred, ', error);
-   });
+  getReservations(): void {
+    this.reservationService.getReservation().subscribe(reservation => this.reservations = reservation);
   }
+
+
+
+
+
 }
