@@ -65,28 +65,18 @@ public class Reservation {
 
     public Reservation() {}
     
-    public Reservation(long id, long roomId, String roomName, float price) {
-		this.reservationId = id;
-		this.accommodationUnit = roomId;
-	//	this.roomName = roomName;			VIDECEMO ZA OVO DA LI JE NEOPHODNO
-	//	this.price = price;					NISU SE BAS USAGLASILI LUKA I SALE
-	}
+//    public Reservation(long id, long roomId, String roomName, float price) {
+//		this.reservationId = id;
+//		this.accommodationUnit = roomId;
+//	//	this.roomName = roomName;			VIDECEMO ZA OVO DA LI JE NEOPHODNO
+//	//	this.price = price;					NISU SE BAS USAGLASILI LUKA I SALE
+//	}
     
     /**
      * Gets the value of the reservationId property.
      * 
      */
-    public long getReservationId() {
-        return reservationId;
-    }
-
-    /**
-     * Sets the value of the reservationId property.
-     * 
-     */
-    public void setReservationId(long value) {
-        this.reservationId = value;
-    }
+    
 
     /**
      * Gets the value of the dateFrom property.
@@ -224,8 +214,14 @@ public class Reservation {
 		LastUpdated = lastUpdated;
 	}
 
+	public Long getReservationId() {
+		return reservationId;
+	}
+
 	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
 	}
+
+	
 
 }
