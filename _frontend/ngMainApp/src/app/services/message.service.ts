@@ -20,4 +20,8 @@ export class MessageService {
   sendMessage(message: Message): Observable<Message> {
     return this.http.post<Message>(this.messageUrl, message, httpOptions);
   }
+  // zakuco sam id dok logovanje ne bude gotovo
+  getMessages(): Observable<Message[]> {
+    return this.http.get<Message[]>(environment.apiMessages + '/1');
+  }
 }
