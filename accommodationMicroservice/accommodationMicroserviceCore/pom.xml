@@ -76,6 +76,13 @@
   			<artifactId>userMicroserviceClient</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.tim9</groupId>
+		    <artifactId>reservationMicroserviceClient</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 
 <build>

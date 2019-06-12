@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.tim9.reservationserviceClient.dtos.ReservationDTO;
 import com.tim9.reservationservice.models.Reservation;
@@ -99,4 +100,8 @@ public class ReservationService {
 		return new ReservationDTO();
 	}
 	
+	public List<Long> getAccommodationUnitIdsForPeriod(List<Long> accommodationIds, String dateFrom, String dateTo) {
+		
+		return reservationRepository.findAccommodationUnitIds(accommodationIds, LocalDateTime.parse(dateFrom), LocalDateTime.parse(dateTo));
+	}
 }

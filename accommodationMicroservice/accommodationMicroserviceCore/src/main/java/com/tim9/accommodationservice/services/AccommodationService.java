@@ -12,6 +12,7 @@ import com.tim9.accommodationservice.models.Accommodation;
 import com.tim9.accommodationservice.models.City;
 import com.tim9.accommodationservice.repository.AccommodationRepository;
 import com.tim9.accommodationservice.repository.CityRepository;
+import com.tim9.accommodationservice.utils.DatasFromReservationMicroservice;
 import com.tim9.accommodationservice.utils.DatasFromUserMicroservice;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOCityConverter;
@@ -28,15 +29,17 @@ public class AccommodationService {
 	DTOCityConverter cityConverter;
 	
 	DatasFromUserMicroservice userMicroservise;
+	DatasFromReservationMicroservice reservationMicroservice;
 	
 	
 	public AccommodationService(AccommodationRepository accommodaitonRepository, DTOAccommodationConverter accommodationConverter,
-			CityRepository cityRepository, DatasFromUserMicroservice userMicroservice, DTOCityConverter cityConverter) {
+			CityRepository cityRepository, DatasFromUserMicroservice userMicroservice, DTOCityConverter cityConverter, DatasFromReservationMicroservice reservationMicroservice) {
 
 			this.accommodationRepository = accommodaitonRepository;
 			this.cityRepository = cityRepository;
 			this.accommodationConverter = accommodationConverter;
 			this.userMicroservise = userMicroservice;
+			this.reservationMicroservice = reservationMicroservice;
 			this.cityConverter = cityConverter;
 			
 	}
@@ -65,8 +68,11 @@ public class AccommodationService {
 		
 	}
 	
-	public List<AccommodationDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests) {
+	/*************************************************************/
+	
+	public List<AccommodationDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests, String dateFrom, String dateTo) {
 		
+		/*
 		Optional< List<Accommodation> > accommodations = Optional.of ( accommodationRepository.searchAccommodations(city, numberOfGuests) );
 		
 		ArrayList < AccommodationDTO > dtoAccommodations = new ArrayList< AccommodationDTO >();
@@ -83,9 +89,28 @@ public class AccommodationService {
 			
 		return Collections.emptyList();
 
+		*/
 		
+		// ovde se dobavljaju sve akomodacije koje se nalaze na navedenoj lokaciji
+		Optional<List<Long>> accommodationIds = Optional.of(accommodationRepository.findAccommodationIdsByCity(city));
+		
+		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
+		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), dateFrom, dateTo);
+		
+		// sad treba iz  baze izvuci sve akomodacije cije slobodne jedinice imaju potreban kapacitet
+		Optional< List<Accommodation> > accommodations = accommodationRepository.searchAccommodations(accommodationIds.get(), accommodationUnits, numberOfGuests );
+		ArrayList < AccommodationDTO > dtoAccommodations = new ArrayList< AccommodationDTO >();
+		if ( accommodations.isPresent() ) {
+			for ( Accommodation candidate : accommodations.get() ) {
+				dtoAccommodations.add(accommodationConverter.convertToDTO(candidate));
+			}
+			return dtoAccommodations;
+		}
+		return Collections.emptyList();
 	}
-
+	
+/************************************************************************/
+	
 	public AccommodationDTO findById(long id) {
 		
 		Optional< Accommodation > accommodation = accommodationRepository.findById(id);

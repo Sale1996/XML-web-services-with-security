@@ -56,6 +56,11 @@ public class Reservation {
     @XmlElement(name = "Accommodation_unit", required = true)
     @Column
     protected Long accommodationUnit;
+    
+    @XmlElement(name = "Accommodation", required = true)
+    @Column
+    protected Long accommodation;
+    
     @XmlElement(name = "Client", required = true)
     @Column
     protected Long client;
@@ -222,6 +227,11 @@ public class Reservation {
 		this.reservationId = reservationId;
 	}
 
-	
+	public Long getAccommodation() {
+		return accommodation;
+	}
 
+	public void setAccommodation(Long accommodation) {
+		this.accommodation = accommodation;
+	}
 }

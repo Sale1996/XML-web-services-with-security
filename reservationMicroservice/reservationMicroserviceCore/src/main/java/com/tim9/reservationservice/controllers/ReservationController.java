@@ -146,5 +146,17 @@ public class ReservationController {
 			return new ResponseEntity< ReservationDTO > ( deletedResrevation,HttpStatus.OK );
 		else
 			return new ResponseEntity< ReservationDTO > ( HttpStatus.NOT_FOUND );
-	}	
+	}
+	
+	
+	@GetMapping("searchFromAccommodations/{dateFrom}/{dateTo}")
+	//@ApiOperation( value = "Finds one reservation by id.", notes = "Returns found reservation.", httpMethod="GET")
+	//@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+	//						 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity<List<Long>> getAccommodationUnitIdsForPeriod(@RequestBody List<Long> accommodationIds, @PathVariable("dateFrom") String dateFrom, @PathVariable("dateTo") String dateTo) {
+		
+		return new ResponseEntity<List<Long>>(reservationService.getAccommodationUnitIdsForPeriod(accommodationIds, dateFrom, dateTo), HttpStatus.OK);
+	}
+	
+	
 }
