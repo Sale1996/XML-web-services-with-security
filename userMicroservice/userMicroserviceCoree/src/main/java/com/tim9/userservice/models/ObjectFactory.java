@@ -73,4 +73,27 @@ public class ObjectFactory {
         return new Message();
     }
 
+    public CreateMessageRequest createCreateMessageRequest() {
+        return new CreateMessageRequest();
+    }
+
+    public CreateMessageResponse createCreateMessageResponse() {
+        return new CreateMessageResponse();
+    }
+    
+    public UpdateMessageRequest createUpdateMessageRequest() {
+        return new UpdateMessageRequest();
+    }
+
+    public UpdateMessageResponse createUpdateMessageResponse() {
+        return new UpdateMessageResponse();
+    }
+    
+    public UpdateAgentRequest createUpdateAgentRequest() {
+        return new UpdateAgentRequest();
+    }
+
+    public UpdateAgentResponse createUpdateAgentResponse() {
+        return new UpdateAgentResponse();
+    }
 }

@@ -9,12 +9,15 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.tim9.reservationservice.models.ConfirmReservationRequest;
+import com.tim9.reservationservice.models.ConfirmReservationResponse;
 import com.tim9.reservationservice.models.CreateReservationRequest;
 import com.tim9.reservationservice.models.CreateReservationResponse;
 import com.tim9.reservationservice.models.DeleteReservationRequest;
 import com.tim9.reservationservice.models.DeleteReservationResponse;
 import com.tim9.reservationservice.models.GetReservationsRequest;
+import com.tim9.reservationservice.models.GetReservationsRequestAgent;
 import com.tim9.reservationservice.models.GetReservationsResponse;
+import com.tim9.reservationservice.models.GetReservationsResponseAgent;
 import com.tim9.reservationservice.models.Reservation;
 import com.tim9.reservationservice.models.UpdateReservationRequest;
 import com.tim9.reservationservice.models.UpdateReservationResponse;
@@ -31,7 +34,7 @@ public class ReservationEndpoint {
 		this.repository = repository;
 	}
 	
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getReservationsRequestClient")
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getReservationsRequest")
 	@ResponsePayload
 	public GetReservationsResponse getReservationsForClient(@RequestPayload GetReservationsRequest request) {
 		GetReservationsResponse response = new GetReservationsResponse();
@@ -41,8 +44,8 @@ public class ReservationEndpoint {
 	
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getReservationsRequestAgent")
 	@ResponsePayload
-	public GetReservationsResponse getReservationsForAgent(@RequestPayload GetReservationsRequest request) {
-		GetReservationsResponse response = new GetReservationsResponse();
+	public GetReservationsResponseAgent getReservationsForAgent(@RequestPayload GetReservationsRequestAgent request) {
+		GetReservationsResponseAgent response = new GetReservationsResponseAgent();
 //		response.setReservations(repository.findByAccommodation(request.getId()));
 		return response;
 	}
@@ -79,8 +82,8 @@ public class ReservationEndpoint {
 	
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "confirmReservationRequest")
 	@ResponsePayload
-	public UpdateReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest request) {
-		UpdateReservationResponse response = new UpdateReservationResponse();
+	public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest request) {
+		ConfirmReservationResponse response = new ConfirmReservationResponse();
 		Reservation r = repository.findById(request.getId()).get();
 		r.setConfirmation(true);
 		r.setLastUpdated(LocalDateTime.now());

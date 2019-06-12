@@ -47,4 +47,44 @@ public class ObjectFactory {
     public Rating createRating() {
         return new Rating();
     }
+    
+    public ConfirmReservationRequest createConfirmReservationRequest() {
+        return new ConfirmReservationRequest();
+    }
+
+    public ConfirmReservationResponse createConfirmReservationResponse() {
+        return new ConfirmReservationResponse();
+    }
+    
+    public UpdateReservationRequest createUpdateReservationRequest() {
+        return new UpdateReservationRequest();
+    }
+
+    public UpdateReservationResponse createUpdateReservationResponse() {
+        return new UpdateReservationResponse();
+    }
+    
+    public CreateReservationRequest createCreateReservationRequest() {
+        return new CreateReservationRequest();
+    }
+
+    public CreateReservationResponse createCreateReservationResponse() {
+        return new CreateReservationResponse();
+    }
+    
+    public DeleteReservationRequest createDeleteReservationRequest() {
+        return new DeleteReservationRequest();
+    }
+
+    public DeleteReservationResponse createDeleteReservationResponse() {
+        return new DeleteReservationResponse();
+    }
+    
+    public GetReservationsRequestAgent createGetReservationsRequestAgent() {
+        return new GetReservationsRequestAgent();
+    }
+
+    public GetReservationsResponseAgent createGetReservationsResponseAgent() {
+        return new GetReservationsResponseAgent();
+    }
 }
