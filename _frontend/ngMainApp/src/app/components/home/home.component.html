@@ -13,6 +13,7 @@
           <div class="col-4">
             <label for="formGroupExampleInput">WHERE</label>
             <ng-select [items]="cities" bindLabel="name" bindValue="cityId" formControlName="where" placeholder="Select city"></ng-select>
+            <small *ngIf="homeFormGroup.controls.where.errors?.required && homeFormGroup.controls.where.touched" class="form-text text-danger">*Required</small>
           </div>
 
           <div class="col-2">
@@ -24,6 +25,7 @@
                   <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button"></button>
                 </div>
               </div>
+              <small *ngIf="homeFormGroup.controls.checkin.errors?.required && homeFormGroup.controls.checkin.touched" class="form-text text-danger">*Required</small>
             </div>
           </div>
 
@@ -36,23 +38,24 @@
                   <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
                 </div>
               </div>
+              <small *ngIf="homeFormGroup.controls.checkout.errors?.required && homeFormGroup.controls.checkout.touched" class="form-text text-danger">*Required</small>
             </div>
           </div>
 
           <div class="col-2">
             <label for="formGroupExampleInput">GUESTS</label>
             <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="guests">
-                <option selected>Choose...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+            <small *ngIf="homeFormGroup.controls.guests.errors?.required && homeFormGroup.controls.guests.touched" class="form-text text-danger">*Required</small>
           </div>
 
           <div class="col-2">
-            <button id="btnSearch" type="submit" class="btn btn-primary float-right">Search</button>
+            <button id="btnSearch" [disabled]="!homeFormGroup.valid" type="submit" class="btn btn-primary float-right">Search</button>
           </div>
 
       </div>
@@ -70,18 +73,15 @@
     <div class="col">
 
       <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="btnGroupSort" ngbDropdownToggle>Price</button>
+        <button class="btn btn-outline-primary" id="btnGroupSort" ngbDropdownToggle>Sort by</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button ngbDropdownItem>Price (Low to High)</button>
           <button ngbDropdownItem>Price (High to Low)</button>
+          <button ngbDropdownItem>Guests Rating</button>
+          <button ngbDropdownItem>Distance</button>
+          <button ngbDropdownItem>Category</button>
         </div>
       </div>
-
-      <button type="button" class="btn btn-outline-primary" id="btnGroupSort">Guests Rating</button>
-
-      <button type="button" class="btn btn-outline-primary" id="btnGroupSort">Distance</button>
-
-      <button type="button" class="btn btn-outline-primary" id="btnGroupSort">Category</button>
 
       <button type="button" class="btn btn-outline-primary" id="btnFilter" data-toggle="modal" data-target="#filterBy">Filter by</button>
 
@@ -90,25 +90,20 @@
 
     <div class="row">
 
-      <!-- <div *ngFor="let accommodation of accommodations"> -->
-
         <div *ngFor="let accommodation of accommodations">
           <div class="col">
 
               <div class="card" style="width: 18rem;">
                   <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
-                    <p class="card-text">{{accommodation.accommodationName}}</p>
+                    <h5 class="card-title">{{accommodation.accommodationName}}</h5>
                     <p class="card-text">{{accommodation.description}}</p>
-                    <h5 class="card-title">Central Point Apartment </h5>
-                    <p class="card-text">$32/night</p>
                     <button type="submit" class="btn btn-primary btn-sm" (click)="openAccommodationModalSeeAvailability(accommodation)">See availability</button>
                   </div>
               </div>
             </div>
         </div>
 
-      <!-- </div> -->
     </div>
 </div>
 

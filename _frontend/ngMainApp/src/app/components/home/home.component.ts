@@ -8,6 +8,8 @@ import {AccommodationService } from './../../services/accommodation.service';
 import { Location } from '@angular/common';
 import { Reservation } from 'src/app/model/reservation.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +22,8 @@ export class HomeComponent implements OnInit {
   accommodations: Accommodation[];
   accommodation: Accommodation;
   where: Number;
-  checkin: Number;
-  checkout: Number;
+  checkin: String;
+  checkout: String;
   guests: Number;
   rooms: Number;
   reservations: Reservation[];
@@ -32,6 +34,7 @@ export class HomeComponent implements OnInit {
   local_accomm: Accommodation;
   searchShow: boolean;
   accommodationShow: boolean;
+  model1: Date;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,10 +46,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.homeFormGroup = this.formBuilder.group({
-      where: [''],
-      checkin: [''],
-      checkout: [''],
-      guests: ['']
+      where: ['', Validators.required],
+      checkin: ['', Validators.required],
+      checkout: ['', Validators.required],
+      guests: ['', Validators.required]
     });
 
     this.searchShow = true;
@@ -54,17 +57,22 @@ export class HomeComponent implements OnInit {
     this.getCities();
   }
 
-  searchFlights(where: Number, checkin: Number, checkout: Number, guests: Number) {
+  searchFlights(where: Number, checkin: String, checkout: String, guests: Number) {
 
     this.accommodationService.searchAccommotions(where, checkin, checkout, guests).subscribe(
       accommodation => this.accommodations = accommodation
     );
+
   }
 
   prepareData(){
     this.where = this.homeFormGroup.controls['where'].value;
-    this.checkin = this.homeFormGroup.controls['checkin'].value;
-    this.checkout = this.homeFormGroup.controls['checkout'].value;
+    this.checkin = moment(this.homeFormGroup.controls['checkin'].value).toISOString();
+    this.checkin = this.checkin.substring(0, this.checkin.length - 1);
+
+    this.checkout = moment(this.homeFormGroup.controls['checkout'].value).toISOString();
+    this.checkout = this.checkout.substring(0, this.checkout.length - 1);
+
     this.guests = this.homeFormGroup.controls['guests'].value;
   }
 

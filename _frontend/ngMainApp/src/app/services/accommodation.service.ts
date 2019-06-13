@@ -21,8 +21,8 @@ export class AccommodationService {
     private http: HttpClient
   ) { }
 
-  searchAccommotions(where: Number, checkin: Number, checkout: Number, guests: Number): Observable<Accommodation[]> {
-    return this.http.get<Accommodation[]>(this.accommodationtUrl + '/search/' + where + '/' + guests);
+  searchAccommotions(where: Number, checkin: String, checkout: String, guests: Number): Observable<Accommodation[]> {
+    return this.http.get<Accommodation[]>(this.accommodationtUrl + '/search/' + where + '/' + guests + '/' + checkin + '/' + checkout);
   }
 
   getCities(): Observable<City[]> {
