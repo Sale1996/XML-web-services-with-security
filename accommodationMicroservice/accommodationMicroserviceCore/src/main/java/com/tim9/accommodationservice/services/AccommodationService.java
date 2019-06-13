@@ -96,7 +96,8 @@ public class AccommodationService {
 		
 		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
 		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), dateFrom, dateTo);
-		
+		// -1 se dodaje zato sto upit IN ne moze da se radi sa praznom listom (ukoliko reservationMicroservice vrati praznu listu)
+		accommodationUnits.add(-1l);
 		// sad treba iz  baze izvuci sve akomodacije cije slobodne jedinice imaju potreban kapacitet
 		Optional< List<Accommodation> > accommodations = accommodationRepository.searchAccommodations(accommodationIds.get(), accommodationUnits, numberOfGuests );
 		ArrayList < AccommodationDTO > dtoAccommodations = new ArrayList< AccommodationDTO >();

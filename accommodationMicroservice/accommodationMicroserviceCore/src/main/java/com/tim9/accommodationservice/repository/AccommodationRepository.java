@@ -39,6 +39,7 @@ public interface AccommodationRepository extends JpaRepository<Accommodation,Lon
 			@Query(value = "with capacities as ( \r\n " + 
 					"	SELECT *, sum( number_of_people ) as capacity FROM accommodation.accomodation_units where accommodation in ( ?1 ) and id not in ( ?2 ) \r\n " + 
 					"	group by accommodation ) \r\n " + 
-					"	select * from accommodation.acccomodations, capacities where accommodation.acccomodations.id = capacities.accommodation and capacities.capacity >= ?1; ", nativeQuery = true)
+					"	select * from accommodation.acccomodations, capacities where accommodation.acccomodations.id = capacities.accommodation and capacities.capacity >= ?3 ; ", nativeQuery = true)
+		
 			public Optional<List<Accommodation>> searchAccommodations(List<Long> accommodations, List<Long> accommodationUnits, int numberOfGuests);
 }
