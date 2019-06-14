@@ -53,7 +53,7 @@ public class AccommodationController {
 
 
 	
-	@GetMapping("/search/{city}/{numberOfGuest}/{dateFrom}/{dateTo}/{distance}/{type}/{category}")
+	@GetMapping("/search/{city}/{numberOfGuest}/{dateFrom}/{dateTo}")
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	

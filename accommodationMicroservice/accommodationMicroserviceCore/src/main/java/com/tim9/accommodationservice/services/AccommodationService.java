@@ -98,8 +98,12 @@ public class AccommodationService {
 		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
 		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), dateFrom, dateTo);
 		
+		accommodationUnits.add(-1l);
+		
+		search.getExtraFields().add(-1l);
+		
 		// sad treba iz  baze izvuci sve akomodacije cije slobodne jedinice imaju potreban kapacitet
-		Optional<List<Accommodation>> accommodations = accommodationRepository.searchAccommodations(accommodationIds.get(), accommodationUnits, numberOfGuests, search.getType(), search.getCategory(), search.getExtraFields(),search.getExtraFields().size());
+		Optional<List<Accommodation>> accommodations = accommodationRepository.searchAccommodations(accommodationIds.get(), accommodationUnits, numberOfGuests, search.getType(), search.getCategory(), search.getExtraFields(),search.getExtraFields().size()-1);
 		ArrayList < AccommodationDTO > dtoAccommodations = new ArrayList< AccommodationDTO >();
 		if ( accommodations.isPresent() ) {
 			for ( Accommodation candidate : accommodations.get() ) {
