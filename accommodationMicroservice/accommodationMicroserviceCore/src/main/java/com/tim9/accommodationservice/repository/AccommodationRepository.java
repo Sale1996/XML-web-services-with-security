@@ -30,16 +30,27 @@ public interface AccommodationRepository extends JpaRepository<Accommodation,Lon
 					+ " where countedNumberOfBeds > ?2 ", nativeQuery = true)
 			public List<Accommodation> searchAccommodations(Long city, int numberOfGuests);
 */
-			@Query(value = "select id from accommodation.acccomodations "
-					+ " where city=?1 ", nativeQuery = true)
-			public List<Long> findAccommodationIdsByCity(Long city);
+			@Query(value = "select id from acccomodations where if(-1!=?2, city in ( \r\n" + 
+					"	SELECT id FROM accommodation.cities \r\n" + 
+					"    where sqrt(pow(y_cord - (select y_cord from cities where id=?1 ),2) + \r\n" + 
+					"    pow(x_cord - (select x_cord from cities where id=?1),2))< ?2), city = ?1 )", nativeQuery = true)
+			public List<Long> findAccommodationIdsByCity(Long city, Integer distance);
 					
 			public Optional<Accommodation> findOneByAgentId(long id);
 			
-			@Query(value = "with capacities as ( \r\n " + 
-					"	SELECT *, sum( number_of_people ) as capacity FROM accommodation.accomodation_units where accommodation in ( ?1 ) and id not in ( ?2 ) \r\n " + 
-					"	group by accommodation ) \r\n " + 
-					"	select * from accommodation.acccomodations, capacities where accommodation.acccomodations.id = capacities.accommodation and capacities.capacity >= ?3 ; ", nativeQuery = true)
-		
-			public Optional<List<Accommodation>> searchAccommodations(List<Long> accommodations, List<Long> accommodationUnits, int numberOfGuests);
+			@Query(value = "with capacities as ( \r\n" + 
+					"	with tab as ( \r\n" + 
+					"	SELECT accommodation_id, count(accommodation_id) as cnt \r\n" + 
+					"    FROM accommodation.accommodation_unit_extra_fields \r\n" + 
+					"    where extra_field_id in ?6 group by accommodation_id \r\n" + 
+					"	SELECT *, sum(number_of_people) as capacity FROM accommodation.accomodation_units \r\n" + 
+					"    where accommodation in ?1 and id not in ?2 and \r\n" + 
+					"    IF(?4 !=-1 , if(unit_type= ?4 ,1,0),1) and IF(?5 != -1, if(unit_category = ?5 , 1 ,0),1) \r\n" + 
+					"	and if(?7>0, accommodation.accomodation_units.id in ( select accommodation_id from tab  where cnt = ?7 ),1) \r\n" + 
+					"    group by accommodation \r\n" + 
+					") \r\n" + 
+					"select * from accommodation.acccomodations, capacities where \r\n" + 
+					"accommodation.acccomodations.id = capacities.accommodation \r\n" + 
+					"and capacities.capacity >= ?3 ;", nativeQuery = true)
+			public Optional<List<Accommodation>> searchAccommodations(List<Long> accommodations, List<Long> accommodationUnits, int numberOfGuests, Long type, Long category, List<Long> extraFields, int len);
 }

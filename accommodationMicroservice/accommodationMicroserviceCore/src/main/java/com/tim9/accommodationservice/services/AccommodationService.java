@@ -17,6 +17,7 @@ import com.tim9.accommodationservice.utils.DatasFromUserMicroservice;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOCityConverter;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
+import com.tim9.accommodationserviceclient.dtos.SearchDTO;
 import com.tim9.userserviceClient.dtos.AgentDTO;
 
 @Service
@@ -70,7 +71,7 @@ public class AccommodationService {
 	
 	/*************************************************************/
 	
-	public List<AccommodationDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests, String dateFrom, String dateTo) {
+	public List<AccommodationDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests, String dateFrom, String dateTo, SearchDTO search) {
 		
 		/*
 		Optional< List<Accommodation> > accommodations = Optional.of ( accommodationRepository.searchAccommodations(city, numberOfGuests) );
@@ -92,14 +93,13 @@ public class AccommodationService {
 		*/
 		
 		// ovde se dobavljaju sve akomodacije koje se nalaze na navedenoj lokaciji
-		Optional<List<Long>> accommodationIds = Optional.of(accommodationRepository.findAccommodationIdsByCity(city));
+		Optional<List<Long>> accommodationIds = Optional.of(accommodationRepository.findAccommodationIdsByCity(city, search.getDistance()));
 		
 		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
 		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), dateFrom, dateTo);
-		// -1 se dodaje zato sto upit IN ne moze da se radi sa praznom listom (ukoliko reservationMicroservice vrati praznu listu)
-		accommodationUnits.add(-1l);
+		
 		// sad treba iz  baze izvuci sve akomodacije cije slobodne jedinice imaju potreban kapacitet
-		Optional< List<Accommodation> > accommodations = accommodationRepository.searchAccommodations(accommodationIds.get(), accommodationUnits, numberOfGuests );
+		Optional<List<Accommodation>> accommodations = accommodationRepository.searchAccommodations(accommodationIds.get(), accommodationUnits, numberOfGuests, search.getType(), search.getCategory(), search.getExtraFields(),search.getExtraFields().size());
 		ArrayList < AccommodationDTO > dtoAccommodations = new ArrayList< AccommodationDTO >();
 		if ( accommodations.isPresent() ) {
 			for ( Accommodation candidate : accommodations.get() ) {
