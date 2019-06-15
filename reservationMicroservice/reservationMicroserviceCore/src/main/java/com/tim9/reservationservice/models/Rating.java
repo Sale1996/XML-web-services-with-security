@@ -37,13 +37,13 @@ public class Rating {
     @Column
     protected Long accommodation_id;
     
-    @XmlElement(name = "isConfirmed", required = true)
-    @Column
-    protected boolean isConfirmed;
-    
     @XmlElement(name = "rating", required = true)
     @Column
     protected int rating;
+     
+    @XmlElement(name = "verified", required = true)
+    @Column
+    protected Boolean verified;
     
     @XmlElement(name = "comment")
     @Column
@@ -94,14 +94,6 @@ public class Rating {
 		this.accommodation_id = accommodation_id;
 	}
 
-	public boolean isConfirmed() {
-		return isConfirmed;
-	}
-
-	public void setConfirmed(boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
-	}
-
 	public LocalDateTime getLastUpdated() {
 		return lastUpdated;
 	}
@@ -109,8 +101,14 @@ public class Rating {
 	public void setLastUpdated(LocalDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-	
-	
-    
 
+	public Boolean getVerified() {
+		return verified;
+	}
+
+	public void setVerified(Boolean verified) {
+		this.verified = verified;
+	}
+	
+	
 }

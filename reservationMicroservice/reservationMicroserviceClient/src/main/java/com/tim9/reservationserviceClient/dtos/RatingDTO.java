@@ -20,7 +20,7 @@ public class RatingDTO {
     protected Long reservation_id;
     
     @XmlElement(name = "accommodation_id", required = true)
-    protected int accommodation_id;
+    protected Long accommodation_id;
     
     @XmlElement(name = "rating", required = true)
     protected int rating;
@@ -28,11 +28,11 @@ public class RatingDTO {
     @XmlElement(name = "comment")
     protected String comment;
     
-    @XmlElement(name = "isConfirmed", required = true)
-    protected boolean isConfirmed;
-    
+    @XmlElement(name = "verified")
+    protected Boolean verified;
+      
     @XmlElement(name = "lastUpdated", required = true)
-    protected LocalDateTime lastUpdated;
+    protected String lastUpdated;
 
 	public Long getId() {
 		return id;
@@ -66,28 +66,29 @@ public class RatingDTO {
 		this.comment = comment;
 	}
 
-	public int getAccommodation_id() {
+	public Long getAccommodation_id() {
 		return accommodation_id;
 	}
 
-	public void setAccommodation_id(int accommodation_id) {
+	public void setAccommodation_id(Long accommodation_id) {
 		this.accommodation_id = accommodation_id;
 	}
 
-	public boolean isConfirmed() {
-		return isConfirmed;
-	}
-
-	public void setConfirmed(boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
-	}
-
-	public LocalDateTime getLastUpdated() {
+	public String getLastUpdated() {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(LocalDateTime lastUpdated) {
+	public void setLastUpdated(String lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+
+	public Boolean getVerified() {
+		return verified;
+	}
+
+	public void setVerified(Boolean verified) {
+		this.verified = verified;
+	}
   
+	
 }

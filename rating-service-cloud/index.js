@@ -8,14 +8,14 @@ exports.createRating = function createRating(req, res) {
     let rating = req.body.rating;
     let comment = req.body.comment;
     let accommodation_id = req.body.accommodation_id;
-    let isConfirmed = req.body.isConfirmed;
-    let lastUpdated = req.body.lastUpdated;
+    let verified = req.body.verified;
+    let last_updated = req.body.lastUpdated;
 
-    var sql = "INSERT INTO rating (id, reservation_id, rating, comment, accommodation_id, isConfirmed, lastUpdated) values (?, ?, ?, ?, ?, ?, ?)";
+    var sql = "INSERT INTO rating (id, reservation_id, rating, comment, accommodation_id, verified, last_updated) values (?, ?, ?, ?, ?, ?, ?)";
 
-    db.query(sql,[id, reservation_id, rating, comment, accommodation_id, isConfirmed, lastUpdated], function (err, result) {
+    db.query(sql,[id, reservation_id, rating, comment, accommodation_id, verified, last_updated], function (err, result) {
         if (err) 
-            res.status(400).send('Bad request');
+            res.status(400).send('Bad Request');
         else 
             res.status(200).send('Created');
     });
@@ -24,13 +24,13 @@ exports.createRating = function createRating(req, res) {
 require('@google/cloud-debug');
 exports.getRatingByReservationId = function getRatingByReservationId(req, res) {
 
-    var sql = "select * from rating where id=" + req.query.id;
+    var sql = "select * from rating where reservation_id=" + req.query.id;
 
     db.query(sql, (err, result)=> {
         if (err) 
             res.status(404).send('Not Found');
         else 
-            res.status(200).send(result[0]);
+            res.status(200).send(result);
     });
 };
 
@@ -43,6 +43,6 @@ exports.getRatingByAccommodationId = function getRatingByAccommodationId(req, re
         if (err) 
             res.status(404).send('Not Found');
         else 
-            res.status(200).send(result[0]);
+            res.status(200).send(result);
     });
 };

@@ -3,6 +3,7 @@ package com.tim9.reservationservice.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.tim9.reservationserviceClient.dtos.RatingDTO;
@@ -38,17 +40,38 @@ public class RatingController {
 					@ApiResponse( code = 400, message= "Bad request")
 	})
 	public ResponseEntity<String> createRating(@RequestBody RatingDTO rating) {
-
+		
+		System.out.println("usao:************************************************");
+		//System.out.println("usao:************************************************" + rating.isConfirmed());
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
+		
+			
 		HttpEntity<RatingDTO> entity = new HttpEntity<RatingDTO>(rating, headers);
+		
+		System.out.println("usao:************************************************" + entity);
 		
 		String url = "http://localhost:8010/rating-service/us-central1/createRating";
 		
-		String rest= restTemplate.postForObject(url, entity, String.class);
-						
-		return new ResponseEntity<String>(rest, HttpStatus.OK);
+		ResponseEntity<String> rest = null;
+		
+		try {			
+			rest = restTemplate.exchange(
+	                url,
+	                HttpMethod.POST,
+	                entity,
+	                String.class
+	        );
+			
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("*********************" + rest);
+		return new ResponseEntity<String>(rest.getBody(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/reservation/{id}")
@@ -59,6 +82,7 @@ public class RatingController {
 		
 		String url = "http://localhost:8010/rating-service/us-central1/getRatingByReservationId?id=" + id;
 		
+			
 		ResponseEntity<RatingDTO> response = restTemplate.getForEntity(url, RatingDTO.class);
 		
 		return new ResponseEntity<RatingDTO>(response.getBody(), HttpStatus.OK);
