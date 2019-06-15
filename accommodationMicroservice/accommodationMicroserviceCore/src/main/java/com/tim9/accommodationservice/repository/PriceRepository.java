@@ -15,4 +15,6 @@ public interface PriceRepository extends JpaRepository<Price,Long> {
 
 	Optional<Price> findByPriceId(Long id);
 
+	List<Price> findAllByAccommodationUnitAccommodationAccommodationId(Long id);
+
 }
