@@ -6,14 +6,18 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import com.tim9.accommodationservice.models.AddExtraFieldToUnitRequest;
+import com.tim9.accommodationservice.models.AddExtraFieldToUnitResponse;
 import com.tim9.accommodationservice.models.CreateAccommodationUnitRequest;
 import com.tim9.accommodationservice.models.CreateAccommodationUnitResponse;
 import com.tim9.accommodationservice.models.DeleteAccommodationUnitRequest;
 import com.tim9.accommodationservice.models.DeleteAccommodationUnitResponse;
-import com.tim9.accommodationservice.models.UpdateAccommodationUnitRequest;
-import com.tim9.accommodationservice.models.UpdateAccommodationUnitResponse;
 import com.tim9.accommodationservice.models.GetAccommodationUnitsRequest;
 import com.tim9.accommodationservice.models.GetAccommodationUnitsResponse;
+import com.tim9.accommodationservice.models.RemoveExtraFieldFromUnitRequest;
+import com.tim9.accommodationservice.models.RemoveExtraFieldFromUnitResponse;
+import com.tim9.accommodationservice.models.UpdateAccommodationUnitRequest;
+import com.tim9.accommodationservice.models.UpdateAccommodationUnitResponse;
 import com.tim9.accommodationservice.services.AccommodationUnitService;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationUnitConverter;
 
@@ -63,6 +67,23 @@ public class AccommodationUnitEndpoint {
 	public DeleteAccommodationUnitResponse getAccommodationUnits(@RequestPayload DeleteAccommodationUnitRequest request) {
 		DeleteAccommodationUnitResponse response = new DeleteAccommodationUnitResponse();
 		response.setAccommodationUnit(unitConverter.convertFromDTO(accommodationUnitService.delete((request.getId()))));
+		return response;
+	}
+	
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "addExtraFieldToUnitRequest")
+	@ResponsePayload
+	public AddExtraFieldToUnitResponse addExtraFieldToUnit(@RequestPayload  AddExtraFieldToUnitRequest request) {
+		AddExtraFieldToUnitResponse response = new AddExtraFieldToUnitResponse();
+		response.setAccommodationUnit(accommodationUnitService.addExtraField(request.getUnitId(), request.getExtraFieldId()));
+		return response;
+	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "removeExtraFieldFromUnitRequest")
+	@ResponsePayload
+	public RemoveExtraFieldFromUnitResponse removeExtraFieldFromUnit(@RequestPayload  RemoveExtraFieldFromUnitRequest request) {
+		RemoveExtraFieldFromUnitResponse response = new RemoveExtraFieldFromUnitResponse();
+		response.setAccommodationUnit(accommodationUnitService.removeExtraField(request.getUnitId(), request.getExtraFieldId()));
 		return response;
 	}
 }

@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 import com.tim9.accommodationservice.models.Accommodation;
 import com.tim9.accommodationservice.models.AccommodationUnit;
 import com.tim9.accommodationservice.models.Category;
+import com.tim9.accommodationservice.models.ExtraField;
 import com.tim9.accommodationservice.models.Type;
 import com.tim9.accommodationservice.repository.AccommodationRepository;
 import com.tim9.accommodationservice.repository.AccommodationUnitRepository;
 import com.tim9.accommodationservice.repository.CategoryRepository;
+import com.tim9.accommodationservice.repository.ExtraFieldRepository;
 import com.tim9.accommodationservice.repository.TypeRepository;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationUnitConverter;
@@ -30,6 +32,7 @@ public class AccommodationUnitService {
 	AccommodationRepository accommodationRepository;
 	TypeRepository typeRepository;
 	CategoryRepository categoryRepository;
+	ExtraFieldRepository extraFieldRepository;
 	
 	
 	DTOAccommodationUnitConverter accommodationUnitConverter;
@@ -41,7 +44,8 @@ public class AccommodationUnitService {
 	
 	public AccommodationUnitService(AccommodationUnitRepository unitRepository, DTOAccommodationUnitConverter unitConverter,
 			AccommodationRepository accommodationRepository, TypeRepository typeRepository, CategoryRepository categoryRepository,
-			DTOCategoryConverter categoryConverter, DTOTypeConverter typeConverter, DTOAccommodationConverter accommodationConverter) {
+			DTOCategoryConverter categoryConverter, DTOTypeConverter typeConverter, DTOAccommodationConverter accommodationConverter,
+			ExtraFieldRepository extraFieldRepository) {
 		
 		this.accommodationUnitRepository = unitRepository;
 		this.accommodationUnitConverter = unitConverter;
@@ -51,6 +55,7 @@ public class AccommodationUnitService {
 		this.categoryConverter = categoryConverter;
 		this.typeConverter = typeConverter;
 		this.accommodationConverter = accommodationConverter;
+		this.extraFieldRepository = extraFieldRepository;
 		
 		
 	}
@@ -175,6 +180,63 @@ public class AccommodationUnitService {
 		return Collections.emptyList();
 
 		
+	}
+	
+	
+	public AccommodationUnit addExtraField(Long accommodationUnitId, Long extraFieldId) {
+		
+		
+		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(accommodationUnitId);
+		Optional<ExtraField> extraField = extraFieldRepository.findById(extraFieldId);
+		
+		if(!unit.isPresent() || !extraField.isPresent()) {
+			
+			return new AccommodationUnit();
+		
+		}
+		
+		//if unit already has same extra field, we wont add it twice
+		for(ExtraField field : unit.get().getExtraFields()) {
+			if(field.getExtraFieldId() == extraField.get().getExtraFieldId()) {
+				return new AccommodationUnit();
+
+			}
+		}
+		
+		
+		unit.get().getExtraFields().add(extraField.get());
+		accommodationUnitRepository.save(unit.get());
+		
+		
+		
+		return unit.get();
+	}
+	
+	
+	public AccommodationUnit removeExtraField(Long accommodationUnitId, Long extraFieldId) {
+		
+		
+		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(accommodationUnitId);
+		Optional<ExtraField> extraField = extraFieldRepository.findById(extraFieldId);
+		
+		if(!unit.isPresent() || !extraField.isPresent()) {
+			
+			return new AccommodationUnit();
+		
+		}
+		
+		for(ExtraField field : unit.get().getExtraFields()) {
+			if(field.getExtraFieldId() == extraField.get().getExtraFieldId()) {
+				unit.get().getExtraFields().remove(field);
+				break;
+			}
+		}
+		
+		accommodationUnitRepository.save(unit.get());
+		
+		
+		
+		return unit.get();
 	}
 	
 	

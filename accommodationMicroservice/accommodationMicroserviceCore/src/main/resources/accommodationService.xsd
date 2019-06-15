@@ -19,6 +19,23 @@
 
   <xs:element name="Type" type="tns:type"/>
 
+  <xs:element name="addExtraFieldToUnitRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="unitId" type="xs:long"/>
+        <xs:element name="extraFieldId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="addExtraFieldToUnitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="createAccommodationRequest">
     <xs:complexType>
       <xs:sequence>
@@ -263,6 +280,23 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="type" type="tns:type"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="removeExtraFieldFromUnitRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="unitId" type="xs:long"/>
+        <xs:element name="extraFieldId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="removeExtraFieldFromUnitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accommodationUnit" type="tns:accommodationUnit"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
