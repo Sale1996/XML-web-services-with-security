@@ -8,7 +8,11 @@ export const environment = {
   apiAccomodations: 'http://localhost:8081/accommodations',
   apiCities: 'http://localhost:8081/cities',
   apiMessages: 'http://localhost:8080/message',
-  apiReservations: 'http://localhost:8082/reservations'
+  apiReservations: 'http://localhost:8082/reservations',
+  apiRating: 'http://localhost:8082/ratings',
+  apiExtraField: 'http://localhost:8081/extraFields',
+  apiCategories: 'http://localhost:8081/categories',
+  apiTypes: 'http://localhost:8081/types',
 };
 
 /*

@@ -1,3 +1,4 @@
+import { Search } from './../model/search.model';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,8 +22,8 @@ export class AccommodationService {
     private http: HttpClient
   ) { }
 
-  searchAccommotions(where: Number, checkin: String, checkout: String, guests: Number): Observable<Accommodation[]> {
-    return this.http.get<Accommodation[]>(this.accommodationtUrl + '/search/' + where + '/' + guests + '/' + checkin + '/' + checkout);
+  searchAccommotions(where: Number, checkin: String, checkout: String, guests: Number, search: Search): Observable<Accommodation[]> {
+    return this.http.post<Accommodation[]>(this.accommodationtUrl + '/search/' + where + '/' + guests + '/' + checkin + '/' + checkout, search, httpOptions);
   }
 
   getCities(): Observable<City[]> {

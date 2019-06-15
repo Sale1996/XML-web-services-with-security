@@ -53,8 +53,8 @@ public class AccommodationController {
 
 
 	
-	@GetMapping("/search/{city}/{numberOfGuest}/{dateFrom}/{dateTo}")
-	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod = "GET")
+	@PostMapping("/search/{city}/{numberOfGuest}/{dateFrom}/{dateTo}")
+	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
 	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests, @PathVariable("dateFrom") String dateFrom, @PathVariable("dateTo") String dateTo, @RequestBody SearchDTO search) {

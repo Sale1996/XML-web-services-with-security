@@ -41,18 +41,15 @@ public class RatingController {
 	})
 	public ResponseEntity<String> createRating(@RequestBody RatingDTO rating) {
 		
-		System.out.println("usao:************************************************");
-		//System.out.println("usao:************************************************" + rating.isConfirmed());
-		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
+		rating.setId((long) 44); // nemoj zaboravis da promenis
 		
+		System.out.println(rating.toString() + "**************************************************************************");
 			
 		HttpEntity<RatingDTO> entity = new HttpEntity<RatingDTO>(rating, headers);
-		
-		System.out.println("usao:************************************************" + entity);
-		
+				
 		String url = "http://localhost:8010/rating-service/us-central1/createRating";
 		
 		ResponseEntity<String> rest = null;
@@ -66,11 +63,9 @@ public class RatingController {
 	        );
 			
 		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("*********************" + rest);
 		return new ResponseEntity<String>(rest.getBody(), HttpStatus.OK);
 	}
 	

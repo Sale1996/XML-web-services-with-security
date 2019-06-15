@@ -1,3 +1,8 @@
+import { ExtraFieldService } from './../../services/extra-field.service';
+import { CategoryService } from './../../services/category.service';
+import { TypeService } from './../../services/type.service';
+import { Category } from './../../model/category.model';
+import { ExtraField } from './../../model/extra-field.model';
 import { HomeSingleModalComponent } from './home-single-modal/home-single-modal.component';
 import { City } from './../../model/city.model';
 import { ReservationService } from './../../services/reservation.service';
@@ -10,6 +15,8 @@ import { Reservation } from 'src/app/model/reservation.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { Search } from 'src/app/model/search.model';
+import { Type } from 'src/app/model/type.model';
 
 @Component({
   selector: 'app-home',
@@ -36,10 +43,24 @@ export class HomeComponent implements OnInit {
   accommodationShow: boolean;
   model1: Date;
 
+  // search modal
+  searchObj: Search;
+  extraFiled: ExtraField;
+  extraFileds: ExtraField[];
+  type: Type;
+  types: Type[];
+  category: Category;
+  categories: Category[];
+
+
+
   constructor(
     private formBuilder: FormBuilder,
     private accommodationService: AccommodationService,
     private reservationService: ReservationService,
+    private typeService: TypeService,
+    private categoryService: CategoryService,
+    private extraFieldService: ExtraFieldService,
     private location: Location,
     private modalService: NgbModal
   ) { }
@@ -57,9 +78,26 @@ export class HomeComponent implements OnInit {
     this.getCities();
   }
 
-  searchFlights(where: Number, checkin: String, checkout: String, guests: Number) {
+  getExtraFields(): void {
+    this.typeService.getTypes().subscribe(type => this.types = type);
+  }
 
-    this.accommodationService.searchAccommotions(where, checkin, checkout, guests).subscribe(
+  getCategories(): void  {
+    this.categoryService.getCategories().subscribe(category => this.categories = category);
+  }
+
+  getTypes(): void  {
+    this.extraFieldService.getExtraFields().subscribe(extraFiled => this.extraFileds = extraFiled);
+  }
+
+  searchAcommodations(where: Number, checkin: String, checkout: String, guests: Number) {
+
+    // this.searchObj.category
+    // this.searchObj.distance
+    // this.searchObj.type
+    // this.searchObj.extraFields
+
+    this.accommodationService.searchAccommotions(where, checkin, checkout, guests, this.searchObj).subscribe(
       accommodation => this.accommodations = accommodation
     );
 
@@ -95,9 +133,18 @@ export class HomeComponent implements OnInit {
 
   onSubmit() {
     this.prepareData();
-    this.searchFlights(this.where, this.checkin, this.checkout, this.guests);
+    this.searchAcommodations(this.where, this.checkin, this.checkout, this.guests);
     this.searchShow = false;
     this.accommodationShow = true;
+
+  }
+
+  // problem
+  dataFilter() {
+
+    this.getExtraFields();
+    this.getCategories();
+    this.getTypes();
   }
 
   reserve() {
