@@ -3,7 +3,6 @@ package com.tim9.userserviceClient.feignClients;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +20,9 @@ public interface AgentClient {
 		
 	@GetMapping("/{agentId}")
 	public AgentDTO getAgentById(@PathVariable("agentId") long id);
+	
+	@GetMapping("email/{email}")
+	public AgentDTO getAgentByEmail(@PathVariable("email") String email);
 	
 	@PostMapping("")
 	public AgentDTO createAgent(@RequestBody AgentDTO agent);

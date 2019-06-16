@@ -9,5 +9,6 @@ import com.tim9.userservice.models.Agent;
 public interface AgentRepository extends JpaRepository<Agent, Long> {
 	
 	public Optional<Agent> findById(long id);
+	public Optional<Agent> findByEmail(String email);
 	public Agent deleteById(long id);
 }

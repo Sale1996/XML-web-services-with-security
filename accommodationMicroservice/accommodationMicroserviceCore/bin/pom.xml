@@ -2,29 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.tim9</groupId>
-    <artifactId>userMicroservice</artifactId>
+    <artifactId>accommodationMicroservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>userMicroserviceCoree</artifactId>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  <artifactId>accommodationMicroserviceCore</artifactId>
+  
+  
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.tim9</groupId>
-   			<artifactId>userMicroserviceClient</artifactId>
+   			<artifactId>accommodationMicroserviceClient</artifactId>
     		<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
@@ -50,22 +42,10 @@
 		    <artifactId>httpclient</artifactId>
 		    <version>4.5.8</version>
 		</dependency>
-<!--  
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>
-				spring-cloud-starter-netflix-eureka-client
-			</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>-->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
+		
+		
+		
 		<dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -81,7 +61,6 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
@@ -90,18 +69,11 @@
 			<groupId>wsdl4j</groupId>
 			<artifactId>wsdl4j</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-  </dependencies>
-  <build>
+	</dependencies>
+
+<build>
   	<plugins>
+  	
   		<plugin>
 		    <groupId>org.codehaus.mojo</groupId>
 		    <artifactId>jaxb2-maven-plugin</artifactId>
@@ -113,14 +85,15 @@
 		            </goals>
 		            <phase>generate-resources</phase>
 		            <configuration>
+		            	<generateEpisode>false</generateEpisode>
 		                <sources>
-		                    <source>src/main/java/com/tim9/userservice/models</source>
+		                    <source>src/main/java/com/tim9/accommodationservice/models</source>
 		                </sources>
 		                <outputDirectory>${project.build.directory}/schemas</outputDirectory>
 		                <transformSchemas>
 					      <transformSchema>
 					        <uri>http://tim9.com</uri>
-					        <toFile>userService.xsd</toFile>
+					        <toFile>accommodationService.xsd</toFile>
 					      </transformSchema>
 					    </transformSchemas>
 		            </configuration>
@@ -128,5 +101,17 @@
 		    </executions>
 		</plugin>
   	</plugins>
-  </build>
+  </build> 
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Greenwich.SR1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

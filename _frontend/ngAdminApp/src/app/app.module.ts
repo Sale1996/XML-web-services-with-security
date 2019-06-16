@@ -32,6 +32,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { UserReviewComponent } from './components/user-review/user-review.component';
 import { UsersComponent } from './components/users/users.component';
 import { ConfirmationModalComponent } from './_shared/confirmation-modal/confirmation-modal.component';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,11 @@ import { ConfirmationModalComponent } from './_shared/confirmation-modal/confirm
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
       multi: true
     }
   ],

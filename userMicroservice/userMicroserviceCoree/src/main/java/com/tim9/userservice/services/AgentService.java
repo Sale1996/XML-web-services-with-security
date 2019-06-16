@@ -55,6 +55,18 @@ public class AgentService {
 		return new AgentDTO();		
 	}
 	
+//	public AgentDTO findByEmail(String email){
+//		
+//		Optional<Agent> agent = agentRepository.findByEmail(email);
+//		
+//		if (agent.isPresent()) {
+//			
+//			return dtoAgentConverter.convertToDTO(agent.get());	
+//		}
+//		
+//		return new AgentDTO();		
+//	}
+	
 	
 	public Agent findByIdNOTDTO(long id){
 		

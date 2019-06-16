@@ -9,5 +9,6 @@ import com.tim9.userservice.models.Admin;
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 	
 	public Optional<Admin> findById(long id);
+	public Optional<Admin> findByEmail(String email);
 	public Admin deleteById(long id);
 }
