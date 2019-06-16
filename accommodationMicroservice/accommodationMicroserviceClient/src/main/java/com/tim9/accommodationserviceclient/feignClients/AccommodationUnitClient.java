@@ -19,23 +19,23 @@ public interface AccommodationUnitClient {
 
 	
 	@GetMapping("")
-	public ResponseEntity< List<AccommodationUnitDTO> > getAllAccommodationUnits ();
+	public List<AccommodationUnitDTO> getAllAccommodationUnits ();
 	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity< AccommodationUnitDTO > getOneAccommodationUnitById (@PathVariable("id") Long id);
+	public AccommodationUnitDTO  getOneAccommodationUnitById (@PathVariable("id") Long id);
 	
 	
 	@PostMapping("")
-	public ResponseEntity< AccommodationUnitDTO > addAccommodationUnit ( @RequestBody AccommodationUnitDTO dto );
+	public AccommodationUnitDTO  addAccommodationUnit ( @RequestBody AccommodationUnitDTO dto );
 	
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< AccommodationUnitDTO > updateAccommodationUnit (@PathVariable("id") Long id, @RequestBody AccommodationUnitDTO accommodationUnitDTO );
+	public AccommodationUnitDTO  updateAccommodationUnit (@PathVariable("id") Long id, @RequestBody AccommodationUnitDTO accommodationUnitDTO );
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity< AccommodationUnitDTO > deleteAccommodationUnit (@PathVariable("id") Long id);
+	public AccommodationUnitDTO  deleteAccommodationUnit (@PathVariable("id") Long id);
 	
 }

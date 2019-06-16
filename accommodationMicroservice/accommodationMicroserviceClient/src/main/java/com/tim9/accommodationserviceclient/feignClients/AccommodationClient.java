@@ -20,29 +20,29 @@ public interface AccommodationClient {
 
 
 	@GetMapping("")
-	public ResponseEntity< List<AccommodationDTO> > getAccommodations();
+	public List<AccommodationDTO>  getAccommodations();
 	
 	
 	@GetMapping("/search/{city}/{numberOfGuest}")
-	public ResponseEntity< List<AccommodationSearchDTO> > getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests);
+	public List<AccommodationSearchDTO> getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests);
 	
 	
 
 	@GetMapping("/{accommodationId}")
-	public ResponseEntity<  AccommodationDTO > getAccommodationById(@PathVariable("accommodationId") long id);
+	public AccommodationDTO getAccommodationById(@PathVariable("accommodationId") long id);
 	
 	
 	@GetMapping("/agent/{username}")
-	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByAgent(@PathVariable String username);
+	public List<AccommodationDTO> getAccommodationsByAgent(@PathVariable String username);
 
 	@PostMapping("")
-	public ResponseEntity< AccommodationDTO > createAccommodation(@RequestBody AccommodationDTO accommodation);
+	public AccommodationDTO createAccommodation(@RequestBody AccommodationDTO accommodation);
 
 	@PutMapping("/{accommodationId}")
-	public ResponseEntity< AccommodationDTO > updateAccommodation(@PathVariable("accommodationId") long id, @RequestBody AccommodationDTO accommodation);
+	public AccommodationDTO updateAccommodation(@PathVariable("accommodationId") long id, @RequestBody AccommodationDTO accommodation);
 
 	@DeleteMapping("/{accommodationId}")
-	public ResponseEntity< AccommodationDTO > deleteAccommodation(@PathVariable("accommodationId") long id);
+	public AccommodationDTO deleteAccommodation(@PathVariable("accommodationId") long id);
 	
 
 }

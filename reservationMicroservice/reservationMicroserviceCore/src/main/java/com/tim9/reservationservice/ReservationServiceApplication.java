@@ -13,6 +13,7 @@ import org.apache.http.ssl.SSLContexts;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 //import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
@@ -24,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 //@EnableEurekaClient
+@EnableFeignClients(basePackages = {"com.tim9.accommodationserviceclient.feignClients", "com.tim9.userserviceClient.feignClients", "com.tim9.reservationserviceClient.feignClients"})
 public class ReservationServiceApplication {
 	
 //	@Bean

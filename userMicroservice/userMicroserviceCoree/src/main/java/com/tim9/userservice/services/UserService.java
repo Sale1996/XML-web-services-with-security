@@ -79,12 +79,18 @@ public class UserService {
 		return new UserDTO();
 	}
 	
-	public Boolean changePassword(long id, UserDTO user){
+	public Boolean changePassword(long id, UserDTO user, String email){
 		
 		Optional<User> userForChange = userRepository.findById(id);
 		
 		if(userForChange.isPresent() && user != null) {
 										
+			if(!userForChange.get().getEmail().equals(email)) {
+				
+				return false;
+			
+			}
+			
 			userForChange.get().setPassword(user.getPassword());
 
 			userRepository.save(userForChange.get());

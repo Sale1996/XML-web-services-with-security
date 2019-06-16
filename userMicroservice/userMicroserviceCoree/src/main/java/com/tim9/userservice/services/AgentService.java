@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.http.impl.cookie.BrowserCompatSpecFactory.SecurityLevel;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.netflix.config.DeploymentContext.ContextKey;
 import com.tim9.userservice.dtoConverters.DTOAgentConverter;
 import com.tim9.userservice.models.Agent;
 import com.tim9.userservice.repositories.AgentRepository;
@@ -114,22 +117,6 @@ public class AgentService {
 		return agent;
 	}
 	
-	public Boolean changePassword(long id, AgentDTO agent){
-		
-		Optional<Agent> agentForChange = agentRepository.findById(id);
-		
-		if(agentForChange.isPresent() && agent != null) {
-										
-			agentForChange.get().setPassword(agent.getPassword());
-
-			agentRepository.save(agentForChange.get());
-					
-			return true;		
-		}
-		
-		return false;
-	}
-	
 	public Boolean changeStatus(long id, AgentDTO agent){
 		
 		Optional<Agent> agentForChange = agentRepository.findById(id);
@@ -158,6 +145,28 @@ public class AgentService {
 		}
 		
 		return new AgentDTO();
+	}
+
+	public Boolean changePassword(long id, AgentDTO agent, String email) {
+		
+		Optional<Agent> agentForChange = agentRepository.findById(id);
+		
+		if(agentForChange.isPresent() && agent != null) {
+			
+			if(!agentForChange.get().getEmail().equals(email)) {
+				
+				return false;
+			
+			}
+										
+			agentForChange.get().setPassword(agent.getPassword());
+
+			agentRepository.save(agentForChange.get());
+					
+			return true;		
+		}
+		
+		return false;
 	}
 	
 }

@@ -76,11 +76,11 @@ public class ReservationController {
 	
 	// delete reserv by id
 	
-
-	@Autowired
 	private ReservationService reservationService;
 	
-	
+	public ReservationController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
 
 
 	@GetMapping("")

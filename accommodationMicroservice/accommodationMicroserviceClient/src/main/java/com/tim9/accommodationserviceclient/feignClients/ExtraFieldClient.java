@@ -20,22 +20,22 @@ public interface ExtraFieldClient {
 
 	
 	@GetMapping("")
-	public ResponseEntity< List<ExtraFieldDTO> > getAllExtraFields ();	
+	public List<ExtraFieldDTO> getAllExtraFields ();	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity< ExtraFieldDTO > getOneExtraFieldById (@PathVariable("id") Long id);
+	public ExtraFieldDTO getOneExtraFieldById (@PathVariable("id") Long id);
 	
 	
 	@PostMapping("")
-	public ResponseEntity< ExtraFieldDTO > addExtraField ( @RequestBody ExtraFieldDTO dto );
+	public ExtraFieldDTO addExtraField ( @RequestBody ExtraFieldDTO dto );
 	
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< ExtraFieldDTO > updateExtraField (@PathVariable("id") Long id, @RequestBody ExtraFieldDTO extraFieldDTO );
+	public ExtraFieldDTO updateExtraField (@PathVariable("id") Long id, @RequestBody ExtraFieldDTO extraFieldDTO );
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity< ExtraFieldDTO > deleteExtraField (@PathVariable("id") Long id);
+	public ExtraFieldDTO deleteExtraField (@PathVariable("id") Long id);
 	
 }

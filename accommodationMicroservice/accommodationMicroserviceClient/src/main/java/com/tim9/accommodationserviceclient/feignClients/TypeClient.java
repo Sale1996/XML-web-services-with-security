@@ -19,23 +19,23 @@ public interface TypeClient {
 
 	
 	@GetMapping("")	
-	public ResponseEntity< List<TypeDTO> > getAllTypes ();
+	public List<TypeDTO> getAllTypes ();
 	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity< TypeDTO > getOneTypeById (@PathVariable("id") Long id);
+	public TypeDTO getOneTypeById (@PathVariable("id") Long id);
 	
 	
 	@PostMapping("")
-	public ResponseEntity< TypeDTO > addType ( @RequestBody TypeDTO dto );
+	public TypeDTO addType ( @RequestBody TypeDTO dto );
 	
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< TypeDTO > updateType (@PathVariable("id") Long id, @RequestBody TypeDTO typeDTO );
+	public TypeDTO updateType (@PathVariable("id") Long id, @RequestBody TypeDTO typeDTO );
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity< TypeDTO > deleteType (@PathVariable("id") Long id);
+	public TypeDTO deleteType (@PathVariable("id") Long id);
 	
 }

@@ -18,19 +18,19 @@ import com.tim9.accommodationserviceclient.dtos.PriceDTO;
 public interface PriceClient{
 	
 	@GetMapping("")
-	public ResponseEntity< List<PriceDTO> > getAllPrices ();
+	public List<PriceDTO> getAllPrices ();
 	
 	@GetMapping("/{id}")
-	public ResponseEntity< PriceDTO > getOnePriceById (@PathVariable("id") Long id);
+	public PriceDTO getOnePriceById (@PathVariable("id") Long id);
 	
 	@PostMapping("")
-	public ResponseEntity< PriceDTO > addPrice ( @RequestBody PriceDTO dto );
+	public PriceDTO addPrice ( @RequestBody PriceDTO dto );
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< PriceDTO > updatePrice (@PathVariable("id") Long id, @RequestBody PriceDTO priceDTO );
+	public PriceDTO updatePrice (@PathVariable("id") Long id, @RequestBody PriceDTO priceDTO );
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity< PriceDTO > deletePrice (@PathVariable("id") Long id);
+	public PriceDTO deletePrice (@PathVariable("id") Long id);
 
 }

@@ -87,12 +87,18 @@ public class AdminService {
 		return admin;
 	}
 	
-	public Boolean changePassword(long id, AdminDTO admin){
+	public Boolean changePassword(long id, AdminDTO admin, String email){
 		
 		Optional<Admin> adminForChange = adminRepository.findById(id);
 		
 		if(adminForChange.isPresent() && admin != null) {
-										
+					
+				if(!adminForChange.get().getEmail().equals(email)) {
+				
+				return false;
+			
+			}
+			
 			adminForChange.get().setPassword(admin.getPassword());
 
 			adminRepository.save(adminForChange.get());

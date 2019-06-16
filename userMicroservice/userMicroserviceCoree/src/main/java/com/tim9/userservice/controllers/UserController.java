@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -91,7 +93,10 @@ public class UserController {
 			 @ApiResponse( code = 400, message ="Bad Request")})
 	public ResponseEntity< Boolean > changePasswordUser(@PathVariable("userId") long id, @RequestBody UserDTO user) { 
 		
-		Boolean userToUpdate = userService.changePassword(id, user);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = (String)auth.getPrincipal();
+		
+		Boolean userToUpdate = userService.changePassword(id, user, email);
 		
 	    return ( userToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
 

@@ -2,6 +2,7 @@ package com.tim9.reservationservice.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,13 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 			"  \r\n" + 
 			" (date_from < ?3 and date_to > ?3))", nativeQuery = true)
 	public List<Long> findAccommodationUnitIds(List<Long> accommodationIds, LocalDateTime dateFrom, LocalDateTime dateTo);
+
+	@Query(value = "SELECT * FROM reservations.reservation where accommodation_unit= ?1 and \r\n" + 
+			" \r\n" + 
+			" ((date_from < ?2 and date_to > ?2) or \r\n" + 
+			" (date_from > ?2 and date_to < ?3) or \r\n" + 
+			"  \r\n" + 
+			" (date_from < ?3 and date_to > ?3))", nativeQuery = true)
+	public Optional<Reservation> checkIfAccommodationUnitIsFreeForPeriod(Long accommodationUnit, String dateFrom,
+			String dateTo);
 }

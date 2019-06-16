@@ -18,23 +18,23 @@ import com.tim9.accommodationserviceclient.dtos.CategoryDTO;
 public interface CategoryClient {
 	
 	@GetMapping("")
-	public ResponseEntity< List<CategoryDTO> > getAllCategories ();
+	public List<CategoryDTO> getAllCategories ();
 	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity< CategoryDTO > getOneSkillById (@PathVariable("id") Long id);
+	public CategoryDTO getOneSkillById (@PathVariable("id") Long id);
 	
 	
 	@PostMapping("")
-	public ResponseEntity< CategoryDTO > addCategory ( @RequestBody CategoryDTO dto );
+	public CategoryDTO addCategory ( @RequestBody CategoryDTO dto );
 	
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< CategoryDTO > updateCategory (@PathVariable("id") Long id, @RequestBody CategoryDTO categoryDTO );
+	public CategoryDTO updateCategory (@PathVariable("id") Long id, @RequestBody CategoryDTO categoryDTO );
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity< CategoryDTO > deleteCategory (@PathVariable("id") Long id);
+	public CategoryDTO deleteCategory (@PathVariable("id") Long id);
 	
 }

@@ -40,7 +40,17 @@ public class RatingController {
 					@ApiResponse( code = 400, message= "Bad request")
 	})
 	public ResponseEntity<String> createRating(@RequestBody RatingDTO rating) {
-		
+		/*
+		 * 
+		 * Rezervacija mora da postoji i da je potvrdjena
+		 * 
+		 * Korisnik koji daje rejting mora biti vezan za tu rezervaciju
+		 * 
+		 * Rejting mora biti izmedju 1-5
+		 * 
+		 * Komentar po defaultu staviti da nije odobren..
+		 * 
+		 * */
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		

@@ -19,23 +19,23 @@ import com.tim9.accommodationserviceclient.dtos.CityDTO;
 public interface CityClient {
 		
 	@GetMapping("")
-	public ResponseEntity< List<CityDTO> > getAllCities ();
+	public List<CityDTO> getAllCities ();
 	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity< CityDTO > getOneCityById (@PathVariable("id") Long id);
+	public CityDTO getOneCityById (@PathVariable("id") Long id);
 	
 	
 	@PostMapping("")
-	public ResponseEntity< CityDTO > addCity ( @RequestBody CityDTO dto );
+	public CityDTO addCity ( @RequestBody CityDTO dto );
 	
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< CityDTO > updateCity (@PathVariable("id") Long id, @RequestBody CityDTO CityDTO );
+	public CityDTO updateCity (@PathVariable("id") Long id, @RequestBody CityDTO CityDTO );
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity< CityDTO > deleteCity (@PathVariable("id") Long id);
+	public CityDTO deleteCity (@PathVariable("id") Long id);
 	
 }

@@ -19,22 +19,22 @@ public interface PictureClient {
 
 
 	@GetMapping("")
-	public ResponseEntity< List<PictureDTO> > getAllPictures ();	
+	public List<PictureDTO>  getAllPictures ();	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity< PictureDTO > getOnePictureById (@PathVariable("id") Long id);
+	public PictureDTO  getOnePictureById (@PathVariable("id") Long id);
 	
 	
 	@PostMapping("")
-	public ResponseEntity< PictureDTO > addPicture  ( @RequestBody PictureDTO dto );
+	public PictureDTO  addPicture  ( @RequestBody PictureDTO dto );
 	
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< PictureDTO > updatePicture  (@PathVariable("id") Long id, @RequestBody PictureDTO pictureDTO );
+	public PictureDTO updatePicture  (@PathVariable("id") Long id, @RequestBody PictureDTO pictureDTO );
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity< PictureDTO > deletePicture  (@PathVariable("id") Long id);
+	public PictureDTO deletePicture  (@PathVariable("id") Long id);
 	
 }

@@ -6,23 +6,32 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.util.unit.DataUnit;
 
-import com.tim9.reservationserviceClient.dtos.ReservationDTO;
+import com.tim9.accommodationserviceclient.dtos.AccommodationUnitDTO;
 import com.tim9.reservationservice.models.Reservation;
 import com.tim9.reservationservice.repository.ReservationRepository;
+import com.tim9.reservationservice.utils.DatasFromAccommodationMicroservice;
+import com.tim9.reservationservice.utils.DatasFromUserMicroservice;
 import com.tim9.reservationservice.utils.dtoConverters.DTOReservationConverter;
+import com.tim9.reservationserviceClient.dtos.ReservationDTO;
+import com.tim9.userserviceClient.dtos.UserDTO;
 
 @Service
 public class ReservationService {
 
-	@Autowired
-	ReservationRepository reservationRepository;
+	private ReservationRepository reservationRepository;
+	private DTOReservationConverter reservationConverter;
+	private DatasFromUserMicroservice userData;
+	private DatasFromAccommodationMicroservice accommData;
 	
-	@Autowired
-	DTOReservationConverter reservationConverter;
+	public ReservationService(ReservationRepository reservationRepository, DTOReservationConverter reservationConverter, DatasFromUserMicroservice userData, DatasFromAccommodationMicroservice accommData) {
+		this.reservationRepository = reservationRepository;
+		this.reservationConverter = reservationConverter;
+		this.accommData = accommData;
+		this.userData = userData;
+	}
 
 	public List<ReservationDTO> findAll() {
 		
@@ -53,6 +62,19 @@ public class ReservationService {
 	}
 	
 	public ReservationDTO save(ReservationDTO reservation) {
+		
+		AccommodationUnitDTO unit = accommData.getById(reservation.getAccommodationUnit());
+		UserDTO client = userData.getById(reservation.getClient());
+		
+		//proveri da li ima vec neka rezervacija za isti taj unit u tom vremenskom periodu..
+		Optional<Reservation> rezervacija = reservationRepository.checkIfAccommodationUnitIsFreeForPeriod(reservation.getAccommodationUnit(), reservation.getDateFrom(), reservation.getDateTo());
+
+		
+		if(unit.getAccommodationUnitId() == null || client.getId()== null || rezervacija.isPresent()) {
+			return new ReservationDTO();
+		}
+		
+		
 		
 		reservation.setReservationId(-1l);
 		Reservation Reservation = reservationConverter.convertFromDTO(reservation);
