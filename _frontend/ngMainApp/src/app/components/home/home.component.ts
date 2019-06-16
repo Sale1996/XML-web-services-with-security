@@ -26,6 +26,7 @@ import { Type } from 'src/app/model/type.model';
 export class HomeComponent implements OnInit {
 
   homeFormGroup: FormGroup;
+  filterByFormGroup: FormGroup;
   accommodations: Accommodation[];
   accommodation: Accommodation;
   where: Number;
@@ -44,7 +45,7 @@ export class HomeComponent implements OnInit {
   model1: Date;
 
   // search modal
-  searchObj: Search;
+  searchObj: Search = new Search();
   extraFiled: ExtraField;
   extraFileds: ExtraField[];
   type: Type;
@@ -73,9 +74,65 @@ export class HomeComponent implements OnInit {
       guests: ['', Validators.required]
     });
 
+    this.filterByFormGroup = this.formBuilder.group({
+      exampleRadios: [null], // distance
+      exampleRadiosC: [null], // category
+      exampleRadiosT: [null], // type
+      exampleRadiosE: [] // extra
+    });
+
+
+
     this.searchShow = true;
     this.accommodationShow = false;
     this.getCities();
+  }
+
+  save(){
+
+    if(this.filterByFormGroup.controls['exampleRadios'].value == null) {
+
+      this.searchObj.distance = -1;
+
+    } else {
+
+      this.searchObj.distance = this.filterByFormGroup.controls['exampleRadios'].value;
+
+    }
+
+    if(this.filterByFormGroup.controls['exampleRadiosC'].value == null) {
+
+      this.searchObj.category = -1;
+
+    } else {
+
+      this.searchObj.category = this.filterByFormGroup.controls['exampleRadiosC'].value;
+
+    }
+
+    if(this.filterByFormGroup.controls['exampleRadiosT'].value == null) {
+
+      this.searchObj.type = -1;
+
+    } else {
+
+      this.searchObj.type = this.filterByFormGroup.controls['exampleRadiosT'].value;
+
+    }
+
+    if(this.filterByFormGroup.controls['exampleRadiosE'].value == null) {
+
+      this.searchObj.extraFields = [];
+
+    } else {
+
+      this.searchObj.extraFields = this.filterByFormGroup.controls['extraFields'].value;
+
+    }
+
+    this.accommodationService.searchAccommotions(this.where, this.checkin, this.checkout, this.guests, this.searchObj).subscribe(
+      accommodation => this.accommodations = accommodation
+    );
   }
 
   getExtraFields(): void {
@@ -92,10 +149,10 @@ export class HomeComponent implements OnInit {
 
   searchAcommodations(where: Number, checkin: String, checkout: String, guests: Number) {
 
-    // this.searchObj.category
-    // this.searchObj.distance
-    // this.searchObj.type
-    // this.searchObj.extraFields
+    this.searchObj.category = -1;
+    this.searchObj.distance = -1;
+    this.searchObj.type = -1;
+    this.searchObj.extraFields = [];
 
     this.accommodationService.searchAccommotions(where, checkin, checkout, guests, this.searchObj).subscribe(
       accommodation => this.accommodations = accommodation
@@ -139,12 +196,12 @@ export class HomeComponent implements OnInit {
 
   }
 
-  // problem
   dataFilter() {
 
     this.getExtraFields();
     this.getCategories();
     this.getTypes();
+
   }
 
   reserve() {

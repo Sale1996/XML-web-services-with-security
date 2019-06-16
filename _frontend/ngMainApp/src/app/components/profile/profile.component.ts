@@ -57,14 +57,12 @@ export class ProfileComponent implements OnInit {
     this.ratingService.createRating(this.ratingObj).subscribe((response) => {
       console.log('Response is: ', response);
       this.location.back();
-   },
-   (error) => {
-      // catch the error
-      console.error('An error occurred, ', error);
    });
+
   }
   prepareData() {
 
+    this.ratingObj.id = -1;
     this.ratingObj.rating = this.ratingFormGroup.controls['num'].value;
     this.ratingObj.comment = this.ratingFormGroup.controls['comment'].value;
     this.ratingObj.accommodation_id = 1;
