@@ -3,6 +3,8 @@ package com.tim9.userservice.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +51,10 @@ public class MessageController {
 	})
 	public ResponseEntity< MessageDTO > createMessage(@RequestBody MessageDTO message) {
 		
-		MessageDTO savedMessage = messageService.save(message);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = (String)auth.getPrincipal();
+		
+		MessageDTO savedMessage = messageService.save(message, email);
 		
 		return ( savedMessage.getMessageId() != null )? new ResponseEntity< MessageDTO > ( savedMessage, HttpStatus.CREATED ) : new ResponseEntity< MessageDTO > ( HttpStatus.BAD_REQUEST );
 

@@ -1,4 +1,4 @@
-package com.tim9.userservice.utilss;
+package com.tim9.userservice.utils;
 
 import java.util.Collections;
 import java.util.List;
