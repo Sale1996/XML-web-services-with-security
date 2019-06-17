@@ -1,3 +1,4 @@
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { HttpClient } from 'selenium-webdriver/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,7 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AccommodationsComponent } from './components/accommodations/accommodations.component';
 import { AccommodationListComponent } from './components/accommodations/accommodation-list/accommodation-list.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { LoginComponent } from './components/login/login.component';
@@ -45,7 +46,13 @@ import { HomeSingleModalComponent } from './components/home/home-single-modal/ho
   entryComponents: [
     HomeSingleModalComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

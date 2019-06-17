@@ -31,9 +31,6 @@ public class RatingDTO {
     @XmlElement(name = "verified")
     protected Boolean verified;
       
-    @XmlElement(name = "lastUpdated", required = true)
-    protected String lastUpdated;
-
 	public Long getId() {
 		return id;
 	}
@@ -72,14 +69,6 @@ public class RatingDTO {
 
 	public void setAccommodation_id(Long accommodation_id) {
 		this.accommodation_id = accommodation_id;
-	}
-
-	public String getLastUpdated() {
-		return lastUpdated;
-	}
-
-	public void setLastUpdated(String lastUpdated) {
-		this.lastUpdated = lastUpdated;
 	}
 
 	public Boolean getVerified() {

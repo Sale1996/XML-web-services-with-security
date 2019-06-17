@@ -46,12 +46,14 @@ export class HomeComponent implements OnInit {
 
   // search modal
   searchObj: Search = new Search();
-  extraFiled: ExtraField;
-  extraFileds: ExtraField[];
+  extraField: ExtraField;
+  extraFields: ExtraField[];
   type: Type;
   types: Type[];
   category: Category;
   categories: Category[];
+
+  extraFieldsNew: number[];
 
 
 
@@ -86,6 +88,7 @@ export class HomeComponent implements OnInit {
     this.searchShow = true;
     this.accommodationShow = false;
     this.getCities();
+    this.extraFieldsNew = [];
   }
 
   save(){
@@ -120,15 +123,18 @@ export class HomeComponent implements OnInit {
 
     }
 
-    if(this.filterByFormGroup.controls['exampleRadiosE'].value == null) {
+    if(this.extraFieldsNew.length > 0) {
 
-      this.searchObj.extraFields = [];
+      this.searchObj.extraFields = this.extraFieldsNew;
 
     } else {
 
-      this.searchObj.extraFields = this.filterByFormGroup.controls['extraFields'].value;
+      this.searchObj.extraFields = [];
 
     }
+
+    console.log(this.searchObj);
+
 
     this.accommodationService.searchAccommotions(this.where, this.checkin, this.checkout, this.guests, this.searchObj).subscribe(
       accommodation => this.accommodations = accommodation
@@ -144,7 +150,7 @@ export class HomeComponent implements OnInit {
   }
 
   getTypes(): void  {
-    this.extraFieldService.getExtraFields().subscribe(extraFiled => this.extraFileds = extraFiled);
+    this.extraFieldService.getExtraFields().subscribe(extraFiled => this.extraFields = extraFiled);
   }
 
   searchAcommodations(where: Number, checkin: String, checkout: String, guests: Number) {
@@ -175,16 +181,35 @@ export class HomeComponent implements OnInit {
 
     // bice izmenaa
 
-    console.log('EEEEEEEEEEEEEEEEEEEEEEEE:  ', this.local_accomm);
-
     // this.reservationObj.dateFrom = this.homeFormGroup.controls['checkin'].value; 2019-06-28T18:44:27.534
     // this.reservationObj.dateTo = this.homeFormGroup.controls['checkout'].value;
     this.reservationObj.client = 1; // ulogovan korisnik
-    this.reservationObj.accommodationUnit = this.local_accomm.accommodationId;
+    // this.reservationObj.accommodationUnit = this.local_accomm.accommodationId;
     this.reservationObj.confirmation = false;
     this.reservationObj.finalPrice = 100; // cena puta dani
     this.reservationObj.dateFrom = '2019-05-28T20:29:44';
     this.reservationObj.dateTo = '2019-05-28T20:29:44';
+
+  }
+
+  extraFieldFun(extra: ExtraField, event) {
+
+    if (event.target.checked) {
+
+      this.extraFieldsNew.push(extra.extraFieldId);
+
+    } else {
+
+      let index = this.extraFieldsNew.indexOf(extra.extraFieldId);
+
+      if(index !== -1) {
+        this.extraFieldsNew.splice(index, 1);
+      }
+
+    }
+
+    console.log('EEEEEEEEEEEEEEEEEEEEEEEE:  ', this.extraFieldsNew);
+
 
   }
 
