@@ -13,19 +13,17 @@
           <div class="col-4">
             <label for="formGroupExampleInput">WHERE</label>
             <ng-select [items]="cities" bindLabel="name" bindValue="cityId" formControlName="where" placeholder="Select city"></ng-select>
-            <small *ngIf="homeFormGroup.controls.where.errors?.required && homeFormGroup.controls.where.touched" class="form-text text-danger">*Required</small>
           </div>
 
           <div class="col-2">
             <label for="formGroupExampleInput">CHECK-IN</label>
             <div class="form-group">
               <div class="input-group">
-                <input class="form-control" formControlName="checkin" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model1" ngbDatepicker #c="ngbDatepicker">
+                <input class="form-control" formControlName="checkin" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #c="ngbDatepicker">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button"></button>
                 </div>
               </div>
-              <small *ngIf="homeFormGroup.controls.checkin.errors?.required && homeFormGroup.controls.checkin.touched" class="form-text text-danger">*Required</small>
             </div>
           </div>
 
@@ -33,12 +31,11 @@
             <label for="formGroupExampleInput">CHECKOUT</label>
             <div class="form-group">
               <div class="input-group">
-                <input class="form-control" formControlName="checkout" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker">
+                <input class="form-control" formControlName="checkout" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
                 </div>
               </div>
-              <small *ngIf="homeFormGroup.controls.checkout.errors?.required && homeFormGroup.controls.checkout.touched" class="form-text text-danger">*Required</small>
             </div>
           </div>
 
@@ -51,7 +48,6 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-            <small *ngIf="homeFormGroup.controls.guests.errors?.required && homeFormGroup.controls.guests.touched" class="form-text text-danger">*Required</small>
           </div>
 
           <div class="col-2">
@@ -127,33 +123,33 @@
                   <label><b>Distance</b></label>
                     <div class="form-group">
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="option1" formControlName="exampleRadios">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="5" formControlName="exampleRadios">
                         <label class="form-check-label" for="gridCheck">
-                          0 - 500m
+                          5km
                         </label>
                       </div>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="option2" formControlName="exampleRadios">
+                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="10" formControlName="exampleRadios">
                           <label class="form-check-label" for="gridCheck">
-                            500 - 2000m
+                            10km
                           </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="option3" formControlName="exampleRadios">
+                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="20" formControlName="exampleRadios">
                           <label class="form-check-label" for="gridCheck">
-                            2000 - 5000m
+                            20km
                           </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="option4" formControlName="exampleRadios">
+                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios" value="100" formControlName="exampleRadios">
                           <label class="form-check-label" for="gridCheck">
-                              5000m+
+                              100km
                           </label>
                         </div>
                     </div>
@@ -191,9 +187,9 @@
                 <div class="col">
                     <label><b>Extra Fileds</b></label>
 
-                    <div *ngFor="let extraFiled of extraFileds">
+                    <div *ngFor="let extraFiled of extraFields">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" name="exampleRadiosE" id="defaultCheck1" formControlName="exampleRadiosE">
+                        <input class="form-check-input" type="checkbox" (click)="extraFieldFun(extraFiled, $event)" value="{{extraFiled.extraFieldId}}" name="exampleRadiosE" id="defaultCheck1" formControlName="exampleRadiosE">
                         <label class="form-check-label" for="defaultCheck1"> {{extraFiled.extraFieldName}}, {{extraFiled.extraPrice}}e </label>
                       </div>
                     </div>

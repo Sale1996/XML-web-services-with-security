@@ -9,11 +9,10 @@ exports.createRating = function createRating(req, res) {
     let comment = req.body.comment;
     let accommodation_id = req.body.accommodation_id;
     let verified = req.body.verified;
-    let last_updated = req.body.lastUpdated;
 
-    var sql = "INSERT INTO rating (id, reservation_id, rating, comment, accommodation_id, verified, last_updated) values (?, ?, ?, ?, ?, ?, ?)";
+    var sql = "INSERT INTO rating (id, reservation_id, rating, comment, accommodation_id, verified) values (?, ?, ?, ?, ?, ?)";
 
-    db.query(sql,[id, reservation_id, rating, comment, accommodation_id, verified, last_updated], function (err, result) {
+    db.query(sql,[id, reservation_id, rating, comment, accommodation_id, verified], function (err, result) {
         if (err) 
             res.status(400).send('Bad Request');
         else 

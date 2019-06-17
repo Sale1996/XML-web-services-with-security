@@ -6,5 +6,4 @@ export class Rating {
   rating: number;
   comment: string;
   verified: boolean;
-  lastUpdated: string;
 }

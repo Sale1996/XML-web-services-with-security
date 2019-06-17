@@ -194,9 +194,10 @@ a, a:hover {
     color: rgb(218, 43, 43);
 }
 .ng-invalid:not(form)  {
+    border-bottom: 1px solid !important;
     border-bottom-color: rgb(218, 43, 43) !important;
 }
-.form-control.form-control-sm.ng-untouched.ng-pristine.ng-invalid {
+.form-control.ng-untouched.ng-pristine.ng-invalid, select.ng-untouched.ng-pristine.ng-invalid, ng-select.ng-untouched.ng-pristine.ng-invalid {
     border-color: rgb(206, 212, 218) !important;
 }
 .form-control-sm {

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiUrlAuth: 'http://localhost:8080/',
   apiUrlUser: 'http://localhost:8080/user',
   apiAccomodations: 'http://localhost:8081/accommodations',
   apiCities: 'http://localhost:8081/cities',

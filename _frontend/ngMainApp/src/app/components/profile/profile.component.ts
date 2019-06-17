@@ -54,6 +54,8 @@ export class ProfileComponent implements OnInit {
 
     this.prepareData();
 
+    console.log(this.ratingObj);
+
     this.ratingService.createRating(this.ratingObj).subscribe((response) => {
       console.log('Response is: ', response);
       this.location.back();
@@ -68,7 +70,6 @@ export class ProfileComponent implements OnInit {
     this.ratingObj.accommodation_id = 1;
     this.ratingObj.reservation_id = 2;
     this.ratingObj.verified = false;
-    this.ratingObj.lastUpdated = null;
 
   }
 
