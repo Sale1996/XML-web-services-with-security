@@ -22,12 +22,12 @@ export class AuthGuard implements CanActivate {
       if (state.url === '/login') {
         return true;
       } else {
-        location.assign('/login');
+        this.router.navigate(['/login']);
         return false;
       }
     } else {
       if (state.url === '/login') {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/code-book']);
         return false;
       }
       return true;

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  userEmail: string;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.userEmail = this.authService.getEmailFromToken(localStorage.getItem('access_token'));
   }
 
 }

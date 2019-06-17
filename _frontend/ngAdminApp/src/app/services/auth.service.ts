@@ -22,27 +22,9 @@ export class AuthService {
     ) { }
 
   login(credentials: Credentials) {
-    // return this.http.post<any>(`${environment.apiUrlAuth}auth`, credentials, httpOptions)
-    //     .pipe(map((jwtResponse: HttpResponse<any>) => {
-    //         // login successful if there's a jwt token in the response
-    //         // if (jwtResponse && jwtResponse.access_token) {
-    //         //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //         //     localStorage.setItem('access_token', JSON.stringify(jwtResponse.access_token));
-    //         //     localStorage.setItem('expires_in', JSON.stringify(jwtResponse.expires_in));
-    //         //     localStorage.setItem('email', JSON.stringify(jwtResponse.email));
-    //         //     localStorage.setItem('role', JSON.stringify(jwtResponse.role));
-    //         //     localStorage.setItem('user_id', JSON.stringify(jwtResponse.user_id));
-    //         //     this.sharedData.changeMessage(jwtResponse.email);
-    //         // }
-
-    //         console.log(jwtResponse.headers);
-
-    //         return jwtResponse;
-    //     }));
-
-      return this.http.post(`${environment.apiUrlAuth}auth`,credentials,httpOptions).pipe(map(((res: HttpResponse<any>) => {
+      return this.http.post(`${environment.apiUrlAuth}auth`, credentials, httpOptions).pipe(map(((res: HttpResponse<any>) => {
         localStorage.setItem('access_token', JSON.stringify(res.headers.get('Authorization').split(' ')[1]));
-        location.assign('/code-book');
+        this.router.navigate(['/code-book']);
       })));
   }
 
@@ -71,5 +53,15 @@ export class AuthService {
     } else {
       return !(date.valueOf() > new Date().valueOf());
     }
+  }
+
+  getEmailFromToken(token: string): string {
+    const decoded = jwt_decode(token);
+
+    if (decoded.sub === undefined) {
+      return '';
+    }
+
+    return decoded.sub;
   }
 }
