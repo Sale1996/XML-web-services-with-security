@@ -62,6 +62,7 @@ public class MessageService {
 			return new MessageDTO();
 		}
 		
+		
 		if(user.get().getId() != message.getUserId() || message.getUserId() != reservation.getClient()) {
 			return new MessageDTO();
 		}

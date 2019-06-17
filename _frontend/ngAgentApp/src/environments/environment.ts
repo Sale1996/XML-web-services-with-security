@@ -15,7 +15,9 @@ export const environment = {
   apiUrlMessage: "http://localhost:8095/message",
   // apiUrlPicture: "https://localhost:8080/accommodations",
   apiUrlPrice: "http://localhost:8095/price",
-  apiUrlReservation: "http://localhost:8095/reservations"
+  apiUrlReservation: "http://localhost:8095/reservations",
+  apiUrlAuth: 'http://localhost:8080/',
+
 };
 
 /*

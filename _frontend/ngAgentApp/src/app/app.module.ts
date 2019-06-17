@@ -18,6 +18,8 @@ import { AccommodationUnitModalComponent } from './components/accommodation-unit
 import { UnitPricesModalComponent } from './components/accommodation-units/unit-prices-modal/unit-prices-modal.component';
 import { UnitExtraFieldsModalComponent } from './components/accommodation-units/unit-extra-fields-modal/unit-extra-fields-modal.component';
 import { UnitOccupancyModalComponent } from './components/accommodation-units/unit-occupancy-modal/unit-occupancy-modal.component';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { UnitOccupancyModalComponent } from './components/accommodation-units/un
     UnitPricesModalComponent,
     UnitExtraFieldsModalComponent,
     UnitOccupancyModalComponent,
+    LoginComponent
 
   ],
   imports: [
@@ -45,7 +48,13 @@ import { UnitOccupancyModalComponent } from './components/accommodation-units/un
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     MessageModalComponent,

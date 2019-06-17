@@ -1,5 +1,5 @@
 <div class="site">
-  <div class="top-bar">
+  <div *ngIf="this.isLoggedIn()" class="top-bar">
     <app-navigation></app-navigation>
   </div>
   <div class="main">
