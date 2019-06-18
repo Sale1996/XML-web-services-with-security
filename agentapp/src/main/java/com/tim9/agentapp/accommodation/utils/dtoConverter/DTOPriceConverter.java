@@ -26,7 +26,7 @@ public class DTOPriceConverter {
 		dto.setAccommodationUnit(accommodationUnitConverter.convertToDTO(price.getAccommodationUnit()));
 		dto.setAmount(price.getAmount());
 		dto.setLocalPriceId(price.getLocalPriceId());
-		dto.setPriceId(price.getPriceId());
+		dto.setPriceId(price.getLocalPriceId());
 		dto.setDateFrom(price.getDateFrom());
 		dto.setDateTo(price.getDateTo());
 		

@@ -10,14 +10,19 @@ import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.accommodation.dto.AccommodationUnitDTO;
 import com.tim9.agentapp.accommodation.model.AccommodationUnit;
+import com.tim9.agentapp.accommodation.model.ExtraFieldLocal;
 import com.tim9.agentapp.accommodation.repository.AccommodationUnitRepository;
+import com.tim9.agentapp.accommodation.repository.ExtraFieldRepository;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOAccommodationUnitConverter;
+import com.tim9.agentapp.accommodation.wsdl.ExtraField;
 
 @Service
 public class AccommodationUnitService {
 	
 	@Autowired
 	AccommodationUnitRepository accommodationUnitRepository;
+	@Autowired
+	ExtraFieldRepository extraFieldRepository;
 	
 	@Autowired
 	DTOAccommodationUnitConverter accommodationUnitConverter;
@@ -116,6 +121,63 @@ public class AccommodationUnitService {
 		
 		return new AccommodationUnitDTO();
 		
+	}
+	
+	
+	public AccommodationUnitDTO addExtraField(Long accommodationUnitId, Long extraFieldId) {
+		
+		
+		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(accommodationUnitId);
+		Optional<ExtraFieldLocal> extraField = extraFieldRepository.findById(extraFieldId);
+		
+		if(!unit.isPresent() || !extraField.isPresent()) {
+			
+			return new AccommodationUnitDTO();
+		
+		}
+		
+		//if unit already has same extra field, we wont add it twice
+		for(ExtraFieldLocal field : unit.get().getExtraField()) {
+			if(field.getExtraFieldId() == extraField.get().getExtraFieldId()) {
+				return new AccommodationUnitDTO();
+
+			}
+		}
+		
+		
+		unit.get().getExtraField().add(extraField.get());
+		accommodationUnitRepository.save(unit.get());
+		
+		
+		
+		return accommodationUnitConverter.convertToDTO(unit.get());
+	}
+	
+	
+	public AccommodationUnitDTO removeExtraField(Long accommodationUnitId, Long extraFieldId) {
+		
+		
+		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(accommodationUnitId);
+		Optional<ExtraFieldLocal> extraField = extraFieldRepository.findById(extraFieldId);
+		
+		if(!unit.isPresent() || !extraField.isPresent()) {
+			
+			return new AccommodationUnitDTO();
+		
+		}
+		
+		for(ExtraFieldLocal field : unit.get().getExtraField()) {
+			if(field.getExtraFieldId() == extraField.get().getExtraFieldId()) {
+				unit.get().getExtraField().remove(field);
+				break;
+			}
+		}
+		
+		accommodationUnitRepository.save(unit.get());
+		
+		
+		
+		return accommodationUnitConverter.convertToDTO(unit.get());
 	}
 
 }

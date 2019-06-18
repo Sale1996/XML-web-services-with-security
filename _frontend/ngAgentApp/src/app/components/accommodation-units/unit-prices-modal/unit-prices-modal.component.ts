@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Price } from 'src/app/model/price.model';
 import { Observable } from 'rxjs';
 import { PriceService } from 'src/app/services/price.service';
+import { AccommodationUnit } from 'src/app/model/accommodation-unit.model';
 
 @Component({
   selector: 'app-unit-prices-modal',
@@ -12,7 +13,7 @@ import { PriceService } from 'src/app/services/price.service';
 })
 export class UnitPricesModalComponent implements OnInit {
 
-  @Input() unitId: number;
+  @Input() unit: AccommodationUnit;
   @Output() price: EventEmitter<any> = new EventEmitter();
   priceForm: FormGroup;
   prices$: Observable<Price[]>;
@@ -25,7 +26,7 @@ export class UnitPricesModalComponent implements OnInit {
       id: [''],
       dateFrom: [''],
       dateTo: [''],
-      unitPrice: ['']
+      amount: ['']
 
     });
 
@@ -33,8 +34,15 @@ export class UnitPricesModalComponent implements OnInit {
 
   }
 
+
+  deletePrice(id: number) {
+    this.priceService.deletePrice(id).subscribe(() => {
+      this.getAllPricesOfAccommodationUnit();
+    })
+  }
+
   getAllPricesOfAccommodationUnit() {
-    this.prices$ = this.priceService.getPrices(this.unitId);
+    this.prices$ = this.priceService.getPrices(this.unit.accommodationUnitId);
   }
 
   deletePriceFromAccommodationUnit(priceIdd: number) {
@@ -51,12 +59,17 @@ export class UnitPricesModalComponent implements OnInit {
 
   onSubmit() {
     if (this.priceForm.valid) {
+      var newPrice = (this.priceForm.value as Price);
+      newPrice.accommodationUnit = this.unit;
+
+      this.priceService.createPrice(newPrice).subscribe((data) => {
+        this.getAllPricesOfAccommodationUnit();
+      });
 
     }
   }
 
   closeModal() {
-    this.price.emit(this.priceForm.value); //as accommodationUnit
     this.activeModal.close();
   }
 

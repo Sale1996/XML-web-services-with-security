@@ -76,9 +76,14 @@ public class PriceService {
 		}
 		
 		dto.setPriceId(-1l);
+		
 			
 		Price price = priceConverter.convertFromDTO(dto);
+		price.setLocalPriceId(-1l);
+		price.setPriceId(-1l);
+
 		price = priceRepository.save(price);
+		
 		
 		dto.setPriceId(price.getPriceId());
 		

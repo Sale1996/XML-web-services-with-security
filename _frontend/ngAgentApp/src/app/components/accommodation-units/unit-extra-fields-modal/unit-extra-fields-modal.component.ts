@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExtraFieldService } from 'src/app/services/extra-field.service';
 import { ExtraField } from 'src/app/model/extra-field.model';
 import { Observable } from 'rxjs';
+import { AccommodationUnitService } from 'src/app/services/accommodation-unit.service';
 
 @Component({
   selector: 'app-unit-extra-fields-modal',
@@ -18,8 +19,9 @@ export class UnitExtraFieldsModalComponent implements OnInit {
   additionalServiceForm: FormGroup;
   unitExtraFields$: Observable<ExtraField[]>;
   extraFields$: Observable<ExtraField[]>;
+  selectedExtraField: number;
 
-  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private extraFieldService: ExtraFieldService) { }
+  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private extraFieldService: ExtraFieldService, private accommodationUnitService: AccommodationUnitService) { }
 
   ngOnInit() {
 
@@ -29,8 +31,7 @@ export class UnitExtraFieldsModalComponent implements OnInit {
 
 
     if (this.id) {
-      this.submitBtnText = 'Save Changes';
-      // this.getAdditionalServiceById(this.id);
+      this.submitBtnText = 'Add Service';
     } else {
       this.submitBtnText = 'Add Service';
     }
@@ -49,9 +50,23 @@ export class UnitExtraFieldsModalComponent implements OnInit {
     this.extraFields$ = this.extraFieldService.getExtraFields();
   }
 
-  onSubmit() {
+
+
+  removeExtraFieldFromUnit(serviceId) {
+    this.accommodationUnitService.removeExtraFieldFromUnit(this.id, serviceId).subscribe(() => {
+      this.getAllExtraFieldsOfAccommodationUnit();
+    });
+  }
+
+  addExtraFieldToUnit() {
     if (this.additionalServiceForm.valid) {
-      //dodaj....
+      //dodaj servis u unit....
+      var chosenExtraField = this.selectedExtraField;
+      this.accommodationUnitService.addExtraFieldToUnit(this.id, chosenExtraField).subscribe(
+        () => {
+          this.getAllExtraFieldsOfAccommodationUnit();
+        }
+      );
     }
   }
 

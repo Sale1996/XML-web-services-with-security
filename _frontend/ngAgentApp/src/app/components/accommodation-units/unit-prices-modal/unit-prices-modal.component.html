@@ -19,9 +19,8 @@
             placeholder="Enter date from" required>
         </div>
         <div class="form-group">
-          <label for="unitPrice" class="col-form-label col-form-label-sm">Price<span
-              class="text-danger">*</span></label>
-          <input type="text" formControlName="unitPrice" class="form-control form-control-sm" placeholder="Enter price"
+          <label for="amount" class="col-form-label col-form-label-sm">Price<span class="text-danger">*</span></label>
+          <input type="number" formControlName="amount" class="form-control form-control-sm" placeholder="Enter price"
             required>
         </div>
       </div>
@@ -56,7 +55,8 @@
               <td><span class="blue-badge">{{price.dateFrom}}</span></td>
               <td><span class="blue-badge">{{price.dateTo}}</span></td>
               <td class="float-right">
-                <span role="button" class="table-btn table-btn-danger borderless mr-2">
+                <span role="button" class="table-btn table-btn-danger borderless mr-2"
+                  (click)="deletePrice(price.priceId)">
                   <svg class="icon">
                     <use xlink:href="#Delete_Icon"></use>
                   </svg>

@@ -31,4 +31,12 @@ export class AccommodationUnitService {
         return this.http.post<AccommodationUnit>(environment.apiUrlAccommodationUnit, unit, httpOptions);
     }
 
+    addExtraFieldToUnit(unitId: number, extraFieldId: number) {
+        return this.http.put<AccommodationUnit>(environment.apiUrlAccommodationUnit + '/addService/' + unitId + '/' + extraFieldId, httpOptions);
+    }
+
+    removeExtraFieldFromUnit(unitId: number, extraFieldId: number) {
+        return this.http.put<AccommodationUnit>(environment.apiUrlAccommodationUnit + '/removeService/' + unitId + '/' + extraFieldId, httpOptions);
+    }
+
 }

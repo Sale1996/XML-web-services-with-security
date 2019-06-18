@@ -1,4 +1,5 @@
 import { Accommodation } from './accommodation.model';
+import { AccommodationUnit } from './accommodation-unit.model';
 
 export interface Price {
 
@@ -6,6 +7,6 @@ export interface Price {
     dateFrom: Date;
     dateTo: Date;
     amount: number;
-    accommodation: Accommodation;
+    accommodationUnit: AccommodationUnit;
 
 }

@@ -108,14 +108,14 @@ export class AccommodationUnitsComponent implements OnInit {
     newUnitModalRef.componentInstance.unit.subscribe();
   }
 
-  openPricesModal(id: number) {
+  openPricesModal(unit: AccommodationUnit) {
     const newPriceModal = this.modalService.open(UnitPricesModalComponent,
       {
         size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
-    newPriceModal.componentInstance.unitId = id;
+    newPriceModal.componentInstance.unit = unit;
     newPriceModal.componentInstance.price.subscribe();
   }
 

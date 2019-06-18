@@ -35,6 +35,8 @@ public class AccommodationUnitController {
 	
 	
 	
+	
+	
 	@GetMapping("")
 	@ApiOperation( value = "Returns all accommodationUnits", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
@@ -101,6 +103,33 @@ public class AccommodationUnitController {
 		AccommodationUnitDTO deletedAccommodationUnitDTO = accommodationUnitService.delete(id);
 		
 		return (deletedAccommodationUnitDTO.getAccommodationUnitId() != null ) ? new ResponseEntity< AccommodationUnitDTO > ( deletedAccommodationUnitDTO,HttpStatus.OK ) : new ResponseEntity< AccommodationUnitDTO > ( HttpStatus.NOT_FOUND );
+
+	}
+	
+	
+	@PutMapping("/addService/{unitId}/{extraFieldId}")
+	@ApiOperation( value= "Add extra field to unit", notes = "Returns the accommodation Unit being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< AccommodationUnitDTO > addExtraFieldToUnit (@PathVariable("unitId") Long unitId, @PathVariable("extraFieldId") Long extraFieldId){
+			
+		AccommodationUnitDTO accommodationUnitToUpdate = accommodationUnitService.addExtraField(unitId, extraFieldId);
+		
+	    return ( accommodationUnitToUpdate.getAccommodationUnitId() != null )? new ResponseEntity< AccommodationUnitDTO > ( accommodationUnitToUpdate, HttpStatus.OK ) : new ResponseEntity< AccommodationUnitDTO > ( HttpStatus.BAD_REQUEST );
+
+	}
+	
+	@PutMapping("/removeService/{unitId}/{extraFieldId}")
+	@ApiOperation( value= "Remove extra field from unit", notes = "Returns the accommodation Unit being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< AccommodationUnitDTO > removeExtraFieldToUnit (@PathVariable("unitId") Long unitId, @PathVariable("extraFieldId") Long extraFieldId){
+			
+		AccommodationUnitDTO accommodationUnitToUpdate = accommodationUnitService.removeExtraField(unitId, extraFieldId);
+		
+	    return ( accommodationUnitToUpdate.getAccommodationUnitId() != null )? new ResponseEntity< AccommodationUnitDTO > ( accommodationUnitToUpdate, HttpStatus.OK ) : new ResponseEntity< AccommodationUnitDTO > ( HttpStatus.BAD_REQUEST );
 
 	}
 	

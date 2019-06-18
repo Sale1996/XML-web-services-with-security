@@ -7,7 +7,7 @@
     </svg>
   </span>
 </div>
-<form [formGroup]="additionalServiceForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="additionalServiceForm" (ngSubmit)="addExtraFieldToUnit()">
   <div class="modal-body px-5">
     <div class="row mt-4">
       <div class="col-md">
@@ -15,8 +15,9 @@
           <ng-container *ngIf="extraFields$ | async as extraFields; else loading">
             <label for="extraFieldId" class="col-form-label col-form-label-sm">Extra field<span
                 class="text-danger"></span></label>
-            <select type="text" formControlName="extraFieldId" class="form-control form-control-sm" required>
-              <option *ngFor="let e of extraFields" [ngValue]="e">{{e.extraFieldName}}</option>
+            <select [(ngModel)]="selectedExtraField" formControlName="extraFieldId" class="form-control form-control-sm"
+              required>
+              <option *ngFor="let e of extraFields" value={{e.extraFieldId}}>{{e.extraFieldName}}</option>
             </select>
           </ng-container>
 
@@ -48,7 +49,8 @@
               <td>{{unitExtraField.extraPrice}}</td>
               <td class="float-right">
                 <span role="button" class="table-btn table-btn-danger borderless mr-2" data-toggle="tooltip"
-                  data-placement="bottom" title="Remove Service">
+                  data-placement="bottom" title="Remove Service"
+                  (click)="removeExtraFieldFromUnit(unitExtraField.extraFieldId)">
                   <svg class="icon">
                     <use xlink:href="#Delete_Icon"></use>
                   </svg>
