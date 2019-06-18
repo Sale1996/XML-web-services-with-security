@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.accommodation.dto.ExtraFieldDTO;
 import com.tim9.agentapp.accommodation.model.ExtraFieldLocal;
+import com.tim9.agentapp.accommodation.repository.ExtraFieldRepository;
 import com.tim9.agentapp.accommodation.soapclient.ExtraFieldClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOExtraFieldConverter;
 import com.tim9.agentapp.accommodation.wsdl.ExtraField;
@@ -20,6 +21,9 @@ public class ExtraFieldService {
 	
 	@Autowired
 	ExtraFieldClient extraFieldClient;
+	
+	@Autowired
+	ExtraFieldRepository extraFieldRepository;
 	
 	@Autowired
 	DTOExtraFieldConverter extraFieldConverter;
@@ -65,13 +69,13 @@ public class ExtraFieldService {
 
 	public List<ExtraFieldDTO> findAllByUnit(Long id) {
 		
-		Optional< List<ExtraField> > extraFields = Optional.of( extraFieldRepository.findAllByAccommodationUnitsLocalAccommodationUnitId(id) );
+		Optional< List<ExtraFieldLocal> > extraFields = Optional.of( extraFieldRepository.findAllByAccommodationUnitsLocalAccommodationUnitId(id) );
 		
 		ArrayList < ExtraFieldDTO > dtoExtraFields = new ArrayList<ExtraFieldDTO>();
 		
 		if ( extraFields.isPresent() ) {
 			
-			for ( ExtraField extraField : extraFields.get() ) {
+			for ( ExtraFieldLocal extraField : extraFields.get() ) {
 				
 				dtoExtraFields.add(extraFieldConverter.convertToDTO(extraField));
 				

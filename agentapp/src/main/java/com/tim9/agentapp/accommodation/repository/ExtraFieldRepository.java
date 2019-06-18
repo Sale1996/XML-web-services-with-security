@@ -11,6 +11,6 @@ public interface ExtraFieldRepository extends JpaRepository<ExtraFieldLocal, Lon
 
 	Optional<ExtraFieldLocal> findByExtraFieldName(String extraFieldName);
 
-	List<ExtraField> findAllByAccommodationUnitsLocalAccommodationUnitId(Long id);
+	List<ExtraFieldLocal> findAllByAccommodationUnitsLocalAccommodationUnitId(Long id);
 
 }
