@@ -87,21 +87,21 @@ public class AgentController {
 
 	}
 	
-	@PutMapping("/pass/{agentId}")
-	@ApiOperation( value= "Change a password", notes = "Returns the user being changed", httpMethod="PUT")
-	@ApiResponses( value = { 
-			 @ApiResponse( code = 200, message ="OK"),
-			 @ApiResponse( code = 400, message ="Bad Request")})
-	public ResponseEntity< Boolean > changePasswordUser(@PathVariable("agentId") long id, @RequestBody AgentDTO agent) { 
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = (String)auth.getPrincipal();
-		
-		Boolean agentToUpdate = agentService.changePassword(id, agent, email);
-		
-	    return ( agentToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
-
-	}
+//	@PutMapping("/pass/{agentId}")
+//	@ApiOperation( value= "Change a password", notes = "Returns the user being changed", httpMethod="PUT")
+//	@ApiResponses( value = { 
+//			 @ApiResponse( code = 200, message ="OK"),
+//			 @ApiResponse( code = 400, message ="Bad Request")})
+//	public ResponseEntity< Boolean > changePasswordUser(@PathVariable("agentId") long id, @RequestBody AgentDTO agent) { 
+//		
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		String email = (String)auth.getPrincipal();
+//		
+//		Boolean agentToUpdate = agentService.changePassword(id, agent, email);
+//		
+//	    return ( agentToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
+//
+//	}
 	
 	@PutMapping("/status/{agentId}")
 	@ApiOperation( value= "Change a status", notes = "Returns the user being changed", httpMethod="PUT")

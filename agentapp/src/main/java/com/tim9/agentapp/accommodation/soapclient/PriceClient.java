@@ -3,21 +3,21 @@ package com.tim9.agentapp.accommodation.soapclient;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
-import com.tim9.agentapp.accommodation.wsdl.Price;
 import com.tim9.agentapp.accommodation.wsdl.CreatePriceResponse;
 import com.tim9.agentapp.accommodation.wsdl.DeletePriceRequest;
 import com.tim9.agentapp.accommodation.wsdl.DeletePriceResponse;
-import com.tim9.agentapp.accommodation.wsdl.GetPriceRequests;
-import com.tim9.agentapp.accommodation.wsdl.GetPriceResponse;
+import com.tim9.agentapp.accommodation.wsdl.GetPricesRequest;
+import com.tim9.agentapp.accommodation.wsdl.GetPricesResponse;
+import com.tim9.agentapp.accommodation.wsdl.Price;
 
 public class PriceClient extends WebServiceGatewaySupport {
 
-	public GetPriceResponse getPrices(Long id) {
+	public GetPricesResponse GetPricess(Long id) {
 
-		GetPriceRequests request = new GetPriceRequests();
+		GetPricesRequest request = new GetPricesRequest();
 		request.setId(id);
 
-		GetPriceResponse response = (GetPriceResponse) getWebServiceTemplate()
+		GetPricesResponse response = (GetPricesResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
 						new SoapActionCallback(""));
 

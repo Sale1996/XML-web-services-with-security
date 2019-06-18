@@ -8,17 +8,17 @@ import com.tim9.agentapp.accommodation.wsdl.CreatePictureRequest;
 import com.tim9.agentapp.accommodation.wsdl.CreatePictureResponse;
 import com.tim9.agentapp.accommodation.wsdl.DeletePictureRequest;
 import com.tim9.agentapp.accommodation.wsdl.DeletePictureResponse;
-import com.tim9.agentapp.accommodation.wsdl.GetPictureRequest;
-import com.tim9.agentapp.accommodation.wsdl.GetPictureResponse;
+import com.tim9.agentapp.accommodation.wsdl.GetPicturesRequest;
+import com.tim9.agentapp.accommodation.wsdl.GetPicturesResponse;
 
 public class PictureClient extends WebServiceGatewaySupport {
 
-	public GetPictureResponse getPictures(Long id) {
+	public GetPicturesResponse GetPicturess(Long id) {
 
-		GetPictureRequest request = new GetPictureRequest();
+		GetPicturesRequest request = new GetPicturesRequest();
 		request.setId(id);
 
-		GetPictureResponse response = (GetPictureResponse) getWebServiceTemplate()
+		GetPicturesResponse response = (GetPicturesResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
 						new SoapActionCallback(""));
 

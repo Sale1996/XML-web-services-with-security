@@ -1,8 +1,5 @@
 package com.tim9.userservice.utils;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.tim9.reservationserviceClient.dtos.ReservationDTO;
@@ -21,12 +18,14 @@ public class DatasFromReservationMicroservice {
 	
 	
 	public ReservationDTO getReservationById(Long id) {
+		ReservationDTO reservation = null;
 		try {
-			return reservationClient.getReservationById(id);
+			reservation = reservationClient.getReservationById(id);
 		}
 		catch(FeignException f) {
 			return new ReservationDTO();
 		}
+		return reservation;
 	}
 	
 	

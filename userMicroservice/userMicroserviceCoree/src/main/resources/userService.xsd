@@ -9,6 +9,22 @@
 
   <xs:element name="User" type="tns:User"/>
 
+  <xs:element name="createMessageRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="message" type="tns:message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createMessageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="message" type="tns:message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="getAgentRequest">
     <xs:complexType>
       <xs:sequence>
@@ -37,6 +53,56 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="messages" type="tns:message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAgentPasswordRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="email" type="xs:string"/>
+        <xs:element name="newPassword" type="xs:string"/>
+        <xs:element name="oldPassword" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAgentPasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="success" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAgentRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="agent" type="tns:agent"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateAgentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="agent" type="tns:agent"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateMessageRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="message" type="tns:message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateMessageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="message" type="tns:message"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
