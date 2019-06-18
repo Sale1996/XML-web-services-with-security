@@ -26,13 +26,13 @@
 
       <tr *ngFor="let reservation of reservations">
         <ng-container *ngIf="reservation.confirmation">
-          <th scope="row">1</th>
-          <td>{{reservation.dateFrom}}</td>
-          <td>{{reservation.dateTo}}</td>
-          <td>{{reservation.finalPrice}}</td>
-          <td>{{reservation.accommodationUnit}}</td>
-          <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal">Send Message</button>
-          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+            <th scope="row">1</th>
+            <td>{{reservation.dateFrom}}</td>
+            <td>{{reservation.dateTo}}</td>
+            <td>{{reservation.finalPrice}}</td>
+            <td>{{reservation.accommodationUnit}}</td>
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal">Send Message</button>
+            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
        </ng-container>
       </tr>
 

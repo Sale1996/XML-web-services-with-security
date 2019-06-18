@@ -60,6 +60,18 @@ public class UserService {
 		return new UserDTO();	
 	}
 	
+	public UserDTO findByEmail(String email){
+		
+		Optional<User> user = userRepository.findByEmail(email);
+		
+		if (user.isPresent()) {
+			
+			return dtoUserConverter.convertToDTO(user.get());	
+		}
+		
+		return new UserDTO();	
+	}
+	
 	public UserDTO update(long id, UserDTO user){
 		
 		Optional<User> userForChange = userRepository.findById(id);
