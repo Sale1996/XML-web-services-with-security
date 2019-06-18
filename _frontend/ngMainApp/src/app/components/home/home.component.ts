@@ -1,3 +1,7 @@
+import { AuthService } from './../../services/auth.service';
+import { User } from './../../model/user.model';
+import { AccommodationUnitService } from './../../services/accommodation-unit.service';
+import { AccommodationUnit } from './../../model/accommodation-unit.model';
 import { ExtraFieldService } from './../../services/extra-field.service';
 import { CategoryService } from './../../services/category.service';
 import { TypeService } from './../../services/type.service';
@@ -17,6 +21,7 @@ import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter} from '@ng-bootstrap
 import * as moment from 'moment';
 import { Search } from 'src/app/model/search.model';
 import { Type } from 'src/app/model/type.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +35,8 @@ export class HomeComponent implements OnInit {
   accommodations: Accommodation[];
   accommodation: Accommodation;
   where: Number;
-  checkin: String;
-  checkout: String;
+  checkin: string;
+  checkout: string;
   guests: Number;
   rooms: Number;
   reservations: Reservation[];
@@ -55,6 +60,12 @@ export class HomeComponent implements OnInit {
 
   extraFieldsNew: number[];
 
+  accommodationUnit: AccommodationUnit;
+  accommodationUnits: AccommodationUnit[];
+
+  userEmail: string;
+  userLog: User;
+
 
 
   constructor(
@@ -65,7 +76,10 @@ export class HomeComponent implements OnInit {
     private categoryService: CategoryService,
     private extraFieldService: ExtraFieldService,
     private location: Location,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private accommodationUnitService: AccommodationUnitService,
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -83,7 +97,8 @@ export class HomeComponent implements OnInit {
       exampleRadiosE: [] // extra
     });
 
-
+    this.userEmail = this.authService.getEmailFromToken(localStorage.getItem('access_token'));
+    this.getCurUser();
 
     this.searchShow = true;
     this.accommodationShow = false;
@@ -91,9 +106,16 @@ export class HomeComponent implements OnInit {
     this.extraFieldsNew = [];
   }
 
+
+  getCurUser() {
+
+    this.userService.getUserByEmail(this.userEmail).subscribe(userC => this.userLog = userC);
+
+  }
+
   save(){
 
-    if(this.filterByFormGroup.controls['exampleRadios'].value == null) {
+    if (this.filterByFormGroup.controls['exampleRadios'].value == null) {
 
       this.searchObj.distance = -1;
 
@@ -103,7 +125,7 @@ export class HomeComponent implements OnInit {
 
     }
 
-    if(this.filterByFormGroup.controls['exampleRadiosC'].value == null) {
+    if (this.filterByFormGroup.controls['exampleRadiosC'].value == null) {
 
       this.searchObj.category = -1;
 
@@ -113,7 +135,7 @@ export class HomeComponent implements OnInit {
 
     }
 
-    if(this.filterByFormGroup.controls['exampleRadiosT'].value == null) {
+    if (this.filterByFormGroup.controls['exampleRadiosT'].value == null) {
 
       this.searchObj.type = -1;
 
@@ -123,7 +145,7 @@ export class HomeComponent implements OnInit {
 
     }
 
-    if(this.extraFieldsNew.length > 0) {
+    if (this.extraFieldsNew.length > 0) {
 
       this.searchObj.extraFields = this.extraFieldsNew;
 
@@ -136,9 +158,20 @@ export class HomeComponent implements OnInit {
     console.log(this.searchObj);
 
 
-    this.accommodationService.searchAccommotions(this.where, this.checkin, this.checkout, this.guests, this.searchObj).subscribe(
+    this.accommodationService.searchAccommotions(this.where, this.guests, this.searchObj).subscribe(
       accommodation => this.accommodations = accommodation
     );
+  }
+
+  getAccommodations(id: number, search: Search, accommodationModalRef) {
+
+    return this.accommodationUnitService.getAccommotionUnits(id, search).subscribe(accommodationUnit => {
+
+      this.accommodationUnits = accommodationUnit;
+      accommodationModalRef.componentInstance.accommodationUnit = this.accommodationUnit;
+      accommodationModalRef.componentInstance.accommodationUnits = this.accommodationUnits;
+
+    });
   }
 
   getExtraFields(): void {
@@ -153,14 +186,17 @@ export class HomeComponent implements OnInit {
     this.extraFieldService.getExtraFields().subscribe(extraFiled => this.extraFields = extraFiled);
   }
 
+
   searchAcommodations(where: Number, checkin: String, checkout: String, guests: Number) {
 
+    this.searchObj.dateFrom =  this.checkin;
+    this.searchObj.dateTo = this.checkout;
     this.searchObj.category = -1;
     this.searchObj.distance = -1;
     this.searchObj.type = -1;
     this.searchObj.extraFields = [];
 
-    this.accommodationService.searchAccommotions(where, checkin, checkout, guests, this.searchObj).subscribe(
+    this.accommodationService.searchAccommotions(where, guests, this.searchObj).subscribe(
       accommodation => this.accommodations = accommodation
     );
 
@@ -168,38 +204,14 @@ export class HomeComponent implements OnInit {
 
   prepareData(){
     this.where = this.homeFormGroup.controls['where'].value;
-    this.checkin = moment(this.homeFormGroup.controls['checkin'].value).toISOString();
-    this.checkin = this.checkin.substring(0, this.checkin.length - 1);
 
     this.checkout = moment(this.homeFormGroup.controls['checkout'].value).toISOString();
     this.checkout = this.checkout.substring(0, this.checkout.length - 1);
 
+    this.checkin = moment(this.homeFormGroup.controls['checkin'].value).toISOString();
+    this.checkin = this.checkin.substring(0, this.checkin.length - 1);
+
     this.guests = this.homeFormGroup.controls['guests'].value;
-  }
-
-  prepareDataReservation(){
-
-    // bice izmenaa
-
-    this.reservationObj = {
-      reservationId: 1,
-      dateFrom: '2019-05-28T20:29:44',
-      dateTo: '2019-05-28T20:29:44',
-      finalPrice: 3,
-      confirmation: true,
-      accommodationUnit: 1,
-      client: 2,
-    }
-
-    // this.reservationObj.dateFrom = this.homeFormGroup.controls['checkin'].value; 2019-06-28T18:44:27.534
-    // this.reservationObj.dateTo = this.homeFormGroup.controls['checkout'].value;
-    // this.reservationObj.client = 1; // ulogovan korisnik
-    // // this.reservationObj.accommodationUnit = this.local_accomm.accommodationId;
-    // this.reservationObj.confirmation = {};
-    // this.reservationObj.finalPrice = 100; // cena puta dani
-    // this.reservationObj.dateFrom = '2019-05-28T20:29:44';
-    // this.reservationObj.dateTo = '2019-05-28T20:29:44';
-
   }
 
   extraFieldFun(extra: ExtraField, event) {
@@ -239,9 +251,19 @@ export class HomeComponent implements OnInit {
 
   }
 
-  reserve() {
+  reserve(accommodationUnit: AccommodationUnit) {
 
-    this.prepareDataReservation();
+    this.reservationObj = {
+
+      dateFrom: this.checkin,
+      dateTo: this.checkout,
+      finalPrice: 100,
+      confirmation: false,
+      accommodationUnit: accommodationUnit.accommodationUnitId,
+      client: this.userLog.id,
+    }
+
+    console.log(this.reservationObj);
 
     this.reservationService.reserve(this.reservationObj).subscribe((response) => {
       console.log('Response is: ', response);
@@ -267,17 +289,25 @@ export class HomeComponent implements OnInit {
 
       this.local_accomm = a;
       accommodationModalRef.componentInstance.accommodation = a;
+      console.log(this.accommodationUnits);
+
+      this.getAccommodations(a.accommodationId, this.searchObj, accommodationModalRef);
+
+
 
       accommodationModalRef.componentInstance.answer.subscribe(
-        (answer: string) => {
+        (accommodationUnit: AccommodationUnit) => {
 
-            if(answer === 'reserve') {
+            if(accommodationUnit !== null) {
 
-              this.reserve();
+              this.reserve(accommodationUnit);
             }
 
         }
       );
+
+
+
   }
 
 }

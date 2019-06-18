@@ -1,10 +1,9 @@
+import { AccommodationUnit } from './../model/accommodation-unit.model';
 import { Search } from './../model/search.model';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Accommodation } from './../model/accommodation.model';
-import { City } from './../model/city.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,21 +12,17 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AccommodationService {
+export class AccommodationUnitService {
 
   private accommodationtUrl = environment.apiAccomodations;
-  private citiestUrl = environment.apiCities;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  searchAccommotions(where: Number, guests: Number, search: Search): Observable<Accommodation[]> {
-    return this.http.post<Accommodation[]>(this.accommodationtUrl + '/search/' + where + '/' + guests, search, httpOptions);
-  }
 
-  getCities(): Observable<City[]> {
-    return this.http.get<City[]>(this.citiestUrl);
+  getAccommotionUnits(id: number, search: Search): Observable<AccommodationUnit[]> {
+    return this.http.post<AccommodationUnit[]>(this.accommodationtUrl + '/searchUnits/' + id, search, httpOptions);
   }
 
 

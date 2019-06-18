@@ -12,14 +12,36 @@
       <p class="card-text">{{ accommodation.description }}</p>
       <hr>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam est magna, tristique et risus nec, condimentum lobortis purus.
-        Donec luctus pharetra ligula facilisis blandit. Proin vestibulum lectus quis neque venenatis, eget iaculis ligula dapibus.
-        Pellentesque elementum, justo eu imperdiet pharetra, risus odio tempus sem, ut facilisis nunc sapien non urna. Vestibulum ac
-        lacus eu diam fermentum euismod ac at leo. Suspendisse fermentum lacus eget risus condimentum varius nec nec odio.
-      </p>
+      <div class="row">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Accommodation</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Extra Fields</th>
+                    <th scope="col">Number of People</th>
+                    <th scope="col">Type</th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tbody>
 
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="activeModal.close('Close click')">Close</button>
-    <button type="button" class="btn btn-primary" (click)="onReserve()">Reserve</button>
+                <tr *ngFor="let accommodationUnit of accommodationUnits">
+                  <ng-container>
+                      <th scope="row">1</th>
+                      <td>{{accommodationUnit.accomodation }}</td>
+                      <td>{{accommodationUnit.category }}</td>
+                      <td>{{accommodationUnit.extraField }}</td>
+                      <td>{{accommodationUnit.numberOfPeople }}</td>
+                      <td>{{accommodationUnit.type}}</td>
+
+                      <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal" (click)="onReserve(accommodationUnit)">Reserve</button>
+                 </ng-container>
+                </tr>
+
+              </tbody>
+          </table>
+      </div>
+
 </div>

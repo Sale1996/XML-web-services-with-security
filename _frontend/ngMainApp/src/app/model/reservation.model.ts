@@ -1,5 +1,5 @@
 export interface Reservation {
-  reservationId: number;
+  reservationId?: number;
   dateFrom: string;
   dateTo: string;
   finalPrice: number;

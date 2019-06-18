@@ -71,15 +71,18 @@ public class ReservationService {
 
 		
 		if(unit.getAccommodationUnitId() == null || client.getId()== null || rezervacija.isPresent()) {
+
 			return new ReservationDTO();
 		}
-		
 		
 		
 		reservation.setReservationId(-1l);
 		Reservation Reservation = reservationConverter.convertFromDTO(reservation);
 		Reservation.setLastUpdated(LocalDateTime.now());
+		System.out.println(unit.getAccomodation().getAccommodationId() + "dada");
+		Reservation.setAccommodation(unit.getAccomodation().getAccommodationId());
 		Reservation = reservationRepository.save(Reservation);
+		
 		reservation.setReservationId(Reservation.getReservationId());
 		
 		return reservation;
