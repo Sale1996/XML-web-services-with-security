@@ -39,69 +39,31 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>apartman</td>
-          <td>kategorija</td>
-          <td>3</td>
-          <td><button (click)="openPricesModal()">open prices</button></td>
-          <td><button (click)="openExtraFiledsModal()">open extra fields</button></td>
-          <td><button class="table-btn-success" (click)="openUnitOccupancyModal()">manage occupancy</button></td>
-          <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2" (click)="openChangeUnitModal()">
-              <svg class="icon">
-                <use xlink:href="#Edit_Icon"></use>
-              </svg>
-            </span>
-            <span role="button" class="table-btn table-btn-danger borderless">
-              <svg class="icon">
-                <use xlink:href="#Delete_Icon"></use>
-              </svg>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>apartman</td>
-          <td>kategorija</td>
-          <td>3</td>
-          <td><a>open prices</a></td>
-          <td><a>open extra fields</a></td>
-          <td><button class="table-btn-success" (click)="openUnitOccupancyModal()">manage occupancy</button></td>
-          <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2" (click)="openNewUnitModal()">
-              <svg class="icon">
-                <use xlink:href="#Edit_Icon"></use>
-              </svg>
-            </span>
-            <span role="button" class="table-btn table-btn-danger borderless">
-              <svg class="icon">
-                <use xlink:href="#Delete_Icon"></use>
-              </svg>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>apartman</td>
-          <td>kategorija</td>
-          <td>3</td>
-          <td><a>open prices</a></td>
-          <td><a>open extra fields</a></td>
-          <td><button class="table-btn-success" (click)="openUnitOccupancyModal()">manage occupancy</button></td>
-          <td class="float-right">
-            <span role="button" class="table-btn table-btn-success borderless mr-2" (click)="openNewUnitModal()">
-              <svg class="icon">
-                <use xlink:href="#Edit_Icon"></use>
-              </svg>
-            </span>
-            <span role="button" class="table-btn table-btn-danger borderless">
-              <svg class="icon">
-                <use xlink:href="#Delete_Icon"></use>
-              </svg>
-            </span>
-          </td>
-        </tr>
+        <ng-container *ngIf="accommmodaitonUnits$ | async as units; else loading">
+          <tr *ngFor="let unit of units">
+            <th scope="row"><span class="blue-badge">{{unit.accommodationUnitId}}</span></th>
+            <td>{{unit.type.typeName}}</td>
+            <td>{{unit.category.categoryName}}</td>
+            <td>{{unit.numberOfPeople}}</td>
+            <td><button (click)="openPricesModal(unit.accommodationUnitId)">open prices</button></td>
+            <td><button (click)="openExtraFiledsModal(unit.accommodationUnitId)">open extra fields</button></td>
+            <td><button class="table-btn-success" (click)="openUnitOccupancyModal(unit.accommodationUnitId)">manage
+                occupancy</button></td>
+            <td class="float-right">
+              <span role="button" class="table-btn table-btn-success borderless mr-2"
+                (click)="openChangeUnitModal(unit.accommodationUnitId)">
+                <svg class="icon">
+                  <use xlink:href="#Edit_Icon"></use>
+                </svg>
+              </span>
+              <span role="button" class="table-btn table-btn-danger borderless">
+                <svg class="icon">
+                  <use xlink:href="#Delete_Icon"></use>
+                </svg>
+              </span>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>

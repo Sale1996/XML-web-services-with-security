@@ -50,10 +50,7 @@ public class DTOAccommodationUnitConverter {
 			dto.getExtraField().add(extraFieldConverter.convertToDTO(extraField));
 		}
 
-		for(Price price : accommodationUnit.getPrice()) {
-			dto.getPrice().add(priceConverter.convertToDTO(price));
-		}
-		
+
 
 		
 		return dto;
@@ -83,9 +80,7 @@ public class DTOAccommodationUnitConverter {
 			newBean.getExtraField().add(extraFieldConverter.convertFromDTO(extraField));
 		}
 
-		for(PriceDTO price : dto.getPrice()) {
-			newBean.getPrice().add(priceConverter.convertFromDTO(price));
-		}
+
 
 		
 		return newBean;

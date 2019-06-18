@@ -49,32 +49,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"><span class="blue-badge">1</span></th>
-            <td>800</td>
-            <td><span class="blue-badge">26th July 2022</span></td>
-            <td><span class="blue-badge">26th Sept. 2022</span></td>
-            <td class="float-right">
-              <span role="button" class="table-btn table-btn-danger borderless mr-2">
-                <svg class="icon">
-                  <use xlink:href="#Delete_Icon"></use>
-                </svg>
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="blue-badge">1</span></th>
-            <td>900</td>
-            <td><span class="blue-badge">26th Sept. 2022</span></td>
-            <td><span class="blue-badge">26th Oct. 2022</span></td>
-            <td class="float-right">
-              <span role="button" class="table-btn table-btn-danger borderless mr-2">
-                <svg class="icon">
-                  <use xlink:href="#Delete_Icon"></use>
-                </svg>
-              </span>
-            </td>
-          </tr>
+          <ng-container *ngIf="prices$ | async as prices; else loading">
+            <tr *ngFor="let price of prices">
+              <th scope="row"><span class="blue-badge">{{price.priceId}}</span></th>
+              <td>{{price.amount}}</td>
+              <td><span class="blue-badge">{{price.dateFrom}}</span></td>
+              <td><span class="blue-badge">{{price.dateTo}}</span></td>
+              <td class="float-right">
+                <span role="button" class="table-btn table-btn-danger borderless mr-2">
+                  <svg class="icon">
+                    <use xlink:href="#Delete_Icon"></use>
+                  </svg>
+                </span>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
