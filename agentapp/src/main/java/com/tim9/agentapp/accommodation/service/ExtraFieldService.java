@@ -3,17 +3,16 @@ package com.tim9.agentapp.accommodation.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.accommodation.dto.ExtraFieldDTO;
-import com.tim9.agentapp.accommodation.model.ExtraFieldLocal;
 import com.tim9.agentapp.accommodation.repository.ExtraFieldRepository;
 import com.tim9.agentapp.accommodation.soapclient.ExtraFieldClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOExtraFieldConverter;
 import com.tim9.agentapp.accommodation.wsdl.ExtraField;
+import com.tim9.agentapp.accommodation.wsdl.GetExtraFieldsByUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.GetExtraFieldsResponse;
 
 @Service
@@ -69,22 +68,18 @@ public class ExtraFieldService {
 
 	public List<ExtraFieldDTO> findAllByUnit(Long id) {
 		
-		Optional< List<ExtraFieldLocal> > extraFields = Optional.of( extraFieldRepository.findAllByAccommodationUnitsLocalAccommodationUnitId(id) );
+		GetExtraFieldsByUnitResponse response =  extraFieldClient.getExtraFieldsByUnit(id);
+		List<ExtraFieldDTO> dtoExtraFields = new ArrayList<ExtraFieldDTO>();
 		
-		ArrayList < ExtraFieldDTO > dtoExtraFields = new ArrayList<ExtraFieldDTO>();
-		
-		if ( extraFields.isPresent() ) {
+		if(!response.getExtraFields().isEmpty()) {
 			
-			for ( ExtraFieldLocal extraField : extraFields.get() ) {
-				
-				dtoExtraFields.add(extraFieldConverter.convertToDTO(extraField));
-				
+			for ( ExtraField extraField : response.getExtraFields() ) {
+				dtoExtraFields.add(extraFieldConverter.convertToDTOFromClient(extraField));	
 			}
 			
 			return dtoExtraFields;
-			
 		}
-			
+		
 		return Collections.emptyList();
 
 		

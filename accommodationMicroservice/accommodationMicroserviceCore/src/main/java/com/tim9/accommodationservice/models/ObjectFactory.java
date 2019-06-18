@@ -272,6 +272,14 @@ public class ObjectFactory {
     	return new GetTypesResponse();
     }
     
+    public GetExtraFieldsByUnitRequest createGetExtraFieldsByUnitRequest() {
+    	return new GetExtraFieldsByUnitRequest();
+    }
+    
+    public GetExtraFieldsByUnitResponse createGetExtraFieldsByUnitResponse() {
+    	return new GetExtraFieldsByUnitResponse();
+    }
+    
     
 
 }
