@@ -31,6 +31,10 @@ export class AccommodationUnitService {
         return this.http.post<AccommodationUnit>(environment.apiUrlAccommodationUnit, unit, httpOptions);
     }
 
+    updateUnit(unit: AccommodationUnit): Observable<AccommodationUnit> {
+        return this.http.post<AccommodationUnit>(environment.apiUrlAccommodationUnit + '/' + unit.accommodationUnitId, unit, httpOptions);
+    }
+
     addExtraFieldToUnit(unitId: number, extraFieldId: number) {
         return this.http.put<AccommodationUnit>(environment.apiUrlAccommodationUnit + '/addService/' + unitId + '/' + extraFieldId, httpOptions);
     }

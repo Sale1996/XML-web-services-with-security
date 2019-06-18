@@ -74,7 +74,7 @@ export class AccommodationUnitsComponent implements OnInit {
               centered: true,
               backdropClass: 'custom-modal-backdrop'
             });
-          newPriceModal.componentInstance.unitId = data.accommodationUnitId;
+          newPriceModal.componentInstance.unitId = data;
           newPriceModal.componentInstance.price.subscribe(
 
             () => {
@@ -84,6 +84,7 @@ export class AccommodationUnitsComponent implements OnInit {
                   centered: true,
                   backdropClass: 'custom-modal-backdrop'
                 });
+              newExtraFieldModal.componentInstance.id = data.accommodationUnitId;
               newExtraFieldModal.componentInstance.service.subscribe();
             }
 
@@ -98,13 +99,14 @@ export class AccommodationUnitsComponent implements OnInit {
   }
 
 
-  openChangeUnitModal() {
+  openChangeUnitModal(unit: AccommodationUnit) {
     const newUnitModalRef = this.modalService.open(AccommodationUnitModalComponent,
       {
         size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
+    newUnitModalRef.componentInstance.inputUnit = unit;
     newUnitModalRef.componentInstance.unit.subscribe();
   }
 

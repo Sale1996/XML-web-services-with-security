@@ -1,5 +1,5 @@
 <div class="modal-header px-5 pt-5">
-  <h4 class="modal-title">Add new accommodation unit</h4>
+  <h4 class="modal-title">{{title}} Accommodaiton unit</h4>
   <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless"
     (click)="activeModal.dismiss('Cross click')">
     <svg class="icon">
@@ -12,13 +12,12 @@
     <div class="row mt-4">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="type" class="col-form-label col-form-label-sm">Type<span class="text-danger">*</span></label>
-          <select type="text" formControlName="type" class="form-control form-control-sm" required>
-            <option value="1">Type1</option>
-            <option value="2">Type2</option>
-            <option value="3">Type3</option>
-            <option value="4">Type4</option>
-          </select>
+          <ng-container *ngIf="types$ | async as types; else loading">
+            <label for="type" class="col-form-label col-form-label-sm">Type<span class="text-danger"></span></label>
+            <select formControlName="type" class="form-control form-control-sm" required>
+              <option *ngFor="let t of types" [ngValue]="t">{{t.typeName}}</option>
+            </select>
+          </ng-container>
         </div>
       </div>
       <div class="col-md-6">
@@ -33,20 +32,19 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="category" class="col-form-label col-form-label-sm">Category<span
-              class="text-danger">*</span></label>
-          <select type="text" formControlName="category" class="form-control form-control-sm" required>
-            <option value="1">Category1</option>
-            <option value="2">Category2</option>
-            <option value="3">Category3</option>
-            <option value="4">Category4</option>
-          </select>
+          <ng-container *ngIf="categories$ | async as categories; else loading">
+            <label for="category" class="col-form-label col-form-label-sm">Category<span
+                class="text-danger"></span></label>
+            <select formControlName="category" class="form-control form-control-sm" required>
+              <option *ngFor="let c of categories" [ngValue]="c">{{c.categoryName}}</option>
+            </select>
+          </ng-container>
         </div>
       </div>
     </div>
   </div>
   <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
-    <button type="submit" [disabled]="!unitForm.valid" class="btn btn-primary">Add acoommodation unit</button>
+    <button type="submit" [disabled]="!unitForm.valid" class="btn btn-primary">{{submitButtonText}}</button>
     <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cancel</button>
   </div>
 </form>

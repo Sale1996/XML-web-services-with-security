@@ -51,12 +51,13 @@
                 occupancy</button></td>
             <td class="float-right">
               <span role="button" class="table-btn table-btn-success borderless mr-2"
-                (click)="openChangeUnitModal(unit.accommodationUnitId)">
+                (click)="openChangeUnitModal(unit)">
                 <svg class="icon">
                   <use xlink:href="#Edit_Icon"></use>
                 </svg>
               </span>
-              <span role="button" class="table-btn table-btn-danger borderless">
+              <span role="button" class="table-btn table-btn-danger borderless"
+                (click)="deleteUnit(unit.accommodationUnitId)">
                 <svg class="icon">
                   <use xlink:href="#Delete_Icon"></use>
                 </svg>
