@@ -7,12 +7,10 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.user.dto.AgentDTO;
-import com.tim9.agentapp.user.dto.UserDTO;
+import com.tim9.agentapp.user.dto.UpdatePasswordDTO;
 import com.tim9.agentapp.user.model.Agent;
 import com.tim9.agentapp.user.repository.AgentRepository;
 import com.tim9.agentapp.user.soapclient.AgentClient;
@@ -101,17 +99,23 @@ public class AgentService {
 		return agent;
 	}
 	
-	public Boolean changePassword(long id, AgentDTO agent){
+	public Boolean changePassword(UpdatePasswordDTO password){
 		
-		Optional<Agent> agentForChange = agentRepository.findByLocalId(id);
+		Optional<Agent> agentForChange = agentRepository.findByEmail(password.getEmail());
 		
-		if(agentForChange.isPresent() && agent != null) {
+		if(agentForChange.isPresent()) {
 										
-			agentForChange.get().setPassword(agent.getPassword());
+			if(!agentForChange.get().getPassword().equals(password.getOldPassword())) {
+				
+				return false;
+			
+			}
+										
+			agentForChange.get().setPassword(password.getNewPassword());
 
 			agentRepository.save(agentForChange.get());
 					
-			return true;		
+			return true;			
 		}
 		
 		return false;

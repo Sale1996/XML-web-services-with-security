@@ -147,19 +147,41 @@ public class AgentService {
 		return new AgentDTO();
 	}
 
-	public Boolean changePassword(long id, AgentDTO agent, String email) {
+//	public Boolean changePassword(long id, AgentDTO agent, String email) {
+//		
+//		Optional<Agent> agentForChange = agentRepository.findById(id);
+//		
+//		if(agentForChange.isPresent() && agent != null) {
+//			
+//			if(!agentForChange.get().getEmail().equals(email)) {
+//				
+//				return false;
+//			
+//			}
+//										
+//			agentForChange.get().setPassword(agent.getPassword());
+//
+//			agentRepository.save(agentForChange.get());
+//					
+//			return true;		
+//		}
+//		
+//		return false;
+//	}
+	
+	public Boolean changePassword(String email, String oldPassword, String newPassword) {
 		
-		Optional<Agent> agentForChange = agentRepository.findById(id);
+		Optional<Agent> agentForChange = agentRepository.findByEmail(email);
 		
-		if(agentForChange.isPresent() && agent != null) {
+		if(agentForChange.isPresent()) {
 			
-			if(!agentForChange.get().getEmail().equals(email)) {
+			if(!agentForChange.get().getPassword().equals(oldPassword)) {
 				
 				return false;
 			
 			}
 										
-			agentForChange.get().setPassword(agent.getPassword());
+			agentForChange.get().setPassword(newPassword);
 
 			agentRepository.save(agentForChange.get());
 					

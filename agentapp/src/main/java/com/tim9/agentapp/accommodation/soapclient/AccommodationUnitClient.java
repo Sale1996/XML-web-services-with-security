@@ -8,10 +8,10 @@ import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationUnitRequest;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.DeleteAccommodationUnitRequest;
 import com.tim9.agentapp.accommodation.wsdl.DeleteAccommodationUnitResponse;
-import com.tim9.agentapp.accommodation.wsdl.EditAccommodationUnitRequest;
-import com.tim9.agentapp.accommodation.wsdl.EditAccommodationUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.GetAccommodationUnitsRequest;
 import com.tim9.agentapp.accommodation.wsdl.GetAccommodationUnitsResponse;
+import com.tim9.agentapp.accommodation.wsdl.UpdateAccommodationUnitRequest;
+import com.tim9.agentapp.accommodation.wsdl.UpdateAccommodationUnitResponse;
 
 public class AccommodationUnitClient extends WebServiceGatewaySupport {
 
@@ -51,12 +51,12 @@ public class AccommodationUnitClient extends WebServiceGatewaySupport {
 		return response;
 	}
 	
-	public EditAccommodationUnitResponse updateAccommodationUnit(AccommodationUnit accommodationUnit) {
+	public UpdateAccommodationUnitResponse updateAccommodationUnit(AccommodationUnit accommodationUnit) {
 
-		EditAccommodationUnitRequest request = new EditAccommodationUnitRequest();
+		UpdateAccommodationUnitRequest request = new UpdateAccommodationUnitRequest();
 		request.setAccommodationUnit(accommodationUnit);
 
-		EditAccommodationUnitResponse response = (EditAccommodationUnitResponse) getWebServiceTemplate()
+		UpdateAccommodationUnitResponse response = (UpdateAccommodationUnitResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
 						new SoapActionCallback(""));
 

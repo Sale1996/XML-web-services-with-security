@@ -9,6 +9,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import com.tim9.userservice.models.Agent;
 import com.tim9.userservice.models.GetAgentRequest;
 import com.tim9.userservice.models.GetAgentResponse;
+import com.tim9.userservice.models.UpdateAgentPasswordRequest;
+import com.tim9.userservice.models.UpdateAgentPasswordResponse;
 import com.tim9.userservice.models.UpdateAgentRequest;
 import com.tim9.userservice.models.UpdateAgentResponse;
 import com.tim9.userservice.repositories.AgentRepository;
@@ -40,6 +42,17 @@ public class AgentEndpoint {
 		UpdateAgentResponse response = new UpdateAgentResponse();
 		Agent m = request.getAgent();
 		response.setAgent(agentRepository.save(m));
+		return response;
+	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateAgentPasswordRequest")
+	@ResponsePayload
+	public UpdateAgentPasswordResponse updateAgent(@RequestPayload UpdateAgentPasswordRequest request) {
+		UpdateAgentPasswordResponse response = new UpdateAgentPasswordResponse();
+		String email = request.getEmail();
+		String oldPassword = request.getOldPassword();
+		String newPassword = request.getNewPassword();
+		response.setSuccess(agentService.changePassword(email, oldPassword, newPassword));
 		return response;
 	}
 }

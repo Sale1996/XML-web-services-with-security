@@ -1,5 +1,6 @@
 package com.tim9.userservice.utils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,13 +22,24 @@ public class DatasFromReservationMicroservice {
 	
 	
 	public ReservationDTO getReservationById(Long id) {
+		ReservationDTO reservation = null;
 		try {
-			return reservationClient.getReservationById(id);
+			reservation = reservationClient.getReservationById(id);
 		}
 		catch(FeignException f) {
 			return new ReservationDTO();
 		}
+		return reservation;
 	}
 	
-	
+	public List<Long> getAccommodationClients(Long accommodationId) {
+		List<Long> clients = new ArrayList<>();
+		try {
+			clients = reservationClient.getAccommodationClients(accommodationId);
+		}
+		catch(FeignException f) {
+			return clients;
+		}
+		return clients;
+	}
 }

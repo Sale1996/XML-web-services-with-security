@@ -96,4 +96,20 @@ public class ObjectFactory {
     public UpdateAgentResponse createUpdateAgentResponse() {
         return new UpdateAgentResponse();
     }
+    
+    public UpdateAgentPasswordRequest updateAgentPasswordRequest() {
+        return new UpdateAgentPasswordRequest();
+    }
+
+    public UpdateAgentPasswordResponse updateAgentPasswordResponse() {
+        return new UpdateAgentPasswordResponse();
+    }
+
+    public GetUsersRequest createGetUsersRequest() {
+        return new GetUsersRequest();
+    }
+
+    public GetUsersResponse createGetUsersResponse() {
+        return new GetUsersResponse();
+    }
 }

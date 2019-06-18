@@ -4,12 +4,30 @@ import java.util.List;
 
 public class SearchDTO {
 
+	private String dateFrom;
+	private String dateTo;
 	private Integer distance;
 	private Long type;
 	private Long category;
 	private List<Long> extraFields;
 
 	public SearchDTO() {}
+
+	public String getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public String getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(String dateTo) {
+		this.dateTo = dateTo;
+	}
 
 	public Integer getDistance() {
 		return distance;

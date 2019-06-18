@@ -64,4 +64,27 @@ public class ExtraFieldService {
 		}
 		
 	}
+
+	public List<ExtraFieldDTO> findAllByUnit(Long id) {
+		
+		Optional< List<ExtraField> > extraFields = Optional.of( extraFieldRepository.findAllByAccommodationUnitsLocalAccommodationUnitId(id) );
+		
+		ArrayList < ExtraFieldDTO > dtoExtraFields = new ArrayList<ExtraFieldDTO>();
+		
+		if ( extraFields.isPresent() ) {
+			
+			for ( ExtraField extraField : extraFields.get() ) {
+				
+				dtoExtraFields.add(extraFieldConverter.convertToDTO(extraField));
+				
+			}
+			
+			return dtoExtraFields;
+			
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
 }

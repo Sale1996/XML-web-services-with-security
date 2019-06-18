@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tim9.agentapp.user.dto.AgentDTO;
-import com.tim9.agentapp.user.dto.UserDTO;
+import com.tim9.agentapp.user.dto.UpdatePasswordDTO;
 import com.tim9.agentapp.user.service.AgentService;
-import com.tim9.agentapp.user.wsdl.GetAgentResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -85,14 +84,14 @@ public class AgentController {
 
 	}
 	
-	@PutMapping("/pass/{agentId}")
+	@PutMapping("/pass")
 	@ApiOperation( value= "Change a password", notes = "Returns the user being changed", httpMethod="PUT")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
 			 @ApiResponse( code = 400, message ="Bad Request")})
-	public ResponseEntity< Boolean > changePasswordUser(@PathVariable("agentId") long id, @RequestBody AgentDTO agent) { 
+	public ResponseEntity< Boolean > changePasswordUser(@RequestBody UpdatePasswordDTO password) { 
 		
-		Boolean agentToUpdate = agentService.changePassword(id, agent);
+		Boolean agentToUpdate = agentService.changePassword(password);
 		
 	    return ( agentToUpdate.booleanValue() == true )? new ResponseEntity< Boolean > ( true, HttpStatus.OK ) : new ResponseEntity< Boolean > ( HttpStatus.BAD_REQUEST );
 

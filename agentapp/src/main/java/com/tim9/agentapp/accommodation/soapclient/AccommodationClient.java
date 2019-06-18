@@ -9,8 +9,8 @@ import com.tim9.agentapp.accommodation.wsdl.Accommodation;
 import com.tim9.agentapp.accommodation.wsdl.City;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationRequest;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationResponse;
-import com.tim9.agentapp.accommodation.wsdl.EditAccommodationRequest;
-import com.tim9.agentapp.accommodation.wsdl.EditAccommodationResponse;
+import com.tim9.agentapp.accommodation.wsdl.UpdateAccommodationRequest;
+import com.tim9.agentapp.accommodation.wsdl.UpdateAccommodationResponse;
 import com.tim9.agentapp.accommodation.wsdl.GetAccommodationRequest;
 import com.tim9.agentapp.accommodation.wsdl.GetAccommodationResponse;
 
@@ -50,12 +50,12 @@ public class AccommodationClient extends WebServiceGatewaySupport {
 		return response;
 	}
 	
-	public EditAccommodationResponse updateAccommodation(Accommodation accommodation) {
+	public UpdateAccommodationResponse updateAccommodation(Accommodation accommodation) {
 
-		EditAccommodationRequest request = new EditAccommodationRequest();
+		UpdateAccommodationRequest request = new UpdateAccommodationRequest();
 		request.setAccommodation(accommodation);
 
-		EditAccommodationResponse response = (EditAccommodationResponse) getWebServiceTemplate()
+		UpdateAccommodationResponse response = (UpdateAccommodationResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
 						new SoapActionCallback(""));
 

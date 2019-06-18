@@ -53,13 +53,13 @@ public class AccommodationController {
 
 
 	
-	@PostMapping("/search/{city}/{numberOfGuest}/{dateFrom}/{dateTo}")
+	@PostMapping("/search/{city}/{numberOfGuest}")
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
-	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests, @PathVariable("dateFrom") String dateFrom, @PathVariable("dateTo") String dateTo, @RequestBody SearchDTO search) {
+	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests, @RequestBody SearchDTO search) {
 		
-		List< AccommodationDTO > accommodations = accommodationService.findAllByCityAndNumberOfGuests(city,numberOfGuests,dateFrom,dateTo, search);
+		List< AccommodationDTO > accommodations = accommodationService.findAllByCityAndNumberOfGuests(city,numberOfGuests, search);
 		
 		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>(accommodations, HttpStatus.NOT_FOUND);
 

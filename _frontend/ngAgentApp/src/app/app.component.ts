@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ngAgentApp';
+
+  isLoggedIn(): boolean {
+    if (localStorage.hasOwnProperty('access_token')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
