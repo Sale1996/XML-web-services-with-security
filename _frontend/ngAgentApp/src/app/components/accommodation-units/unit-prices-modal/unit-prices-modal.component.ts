@@ -29,6 +29,7 @@ export class UnitPricesModalComponent implements OnInit {
 
     });
 
+    this.getAllPricesOfAccommodationUnit();
 
   }
 

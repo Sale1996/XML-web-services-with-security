@@ -134,4 +134,27 @@ public class PriceService {
 		
 	}
 
+	public List<PriceDTO> findAllByUnit(Long id) {
+		
+		Optional< List<Price> > prices = Optional.of( priceRepository.findAllByAccommodationUnitLocalAccommodationUnitId(id) );
+		
+		ArrayList < PriceDTO > dtoPrices = new ArrayList<PriceDTO>();
+		
+		if ( prices.isPresent() ) {
+			
+			for ( Price price : prices.get() ) {
+				
+				dtoPrices.add(priceConverter.convertToDTO(price));
+				
+			}
+			
+			return dtoPrices;
+			
+		}
+			
+		return Collections.emptyList();
+
+		
+	}
+
 }

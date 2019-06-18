@@ -12,14 +12,14 @@
     <div class="row mt-4">
       <div class="col-md">
         <div class="form-group">
-          <label for="extraFieldId" class="col-form-label col-form-label-sm">Extra field<span
-              class="text-danger">*</span></label>
-          <select type="text" formControlName="extraFieldId" class="form-control form-control-sm" required>
-            <option value="1">Extra field1</option>
-            <option value="2">Extra field2</option>
-            <option value="3">Extra field3</option>
-            <option value="4">Extra field4</option>
-          </select>
+          <ng-container *ngIf="extraFields$ | async as extraFields; else loading">
+            <label for="extraFieldId" class="col-form-label col-form-label-sm">Extra field<span
+                class="text-danger"></span></label>
+            <select type="text" formControlName="extraFieldId" class="form-control form-control-sm" required>
+              <option *ngFor="let e of extraFields" [ngValue]="e">{{e.extraFieldName}}</option>
+            </select>
+          </ng-container>
+
         </div>
       </div>
     </div>
@@ -40,19 +40,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"><span class="blue-badge">1</span></th>
-            <td>Naziv <span class="blue-badge">OPTIONAL</span></td>
-            <td>20€</td>
-            <td class="float-right">
-              <span role="button" class="table-btn table-btn-danger borderless mr-2" data-toggle="tooltip"
-                data-placement="bottom" title="Remove Service" (click)="deleteService(service)">
-                <svg class="icon">
-                  <use xlink:href="#Delete_Icon"></use>
-                </svg>
-              </span>
-            </td>
-          </tr>
+          <ng-container *ngIf="unitExtraFields$ | async as unitExtraFields; else loading">
+            <tr *ngFor="let unitExtraField of unitExtraFields">
+              <th scope="row"><span class="blue-badge">{{unitExtraField.extraFieldId}}</span></th>
+              <td>{{unitExtraField.extraFieldName}} <span *ngIf="unitExtraField.optional"
+                  class="blue-badge">OPTIONAL</span></td>
+              <td>{{unitExtraField.extraPrice}}</td>
+              <td class="float-right">
+                <span role="button" class="table-btn table-btn-danger borderless mr-2" data-toggle="tooltip"
+                  data-placement="bottom" title="Remove Service">
+                  <svg class="icon">
+                    <use xlink:href="#Delete_Icon"></use>
+                  </svg>
+                </span>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>

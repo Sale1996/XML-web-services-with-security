@@ -11,6 +11,7 @@ import { UnitPricesModalComponent } from '../unit-prices-modal/unit-prices-modal
 export class AccommodationUnitModalComponent implements OnInit {
 
   @Input() isCreating: boolean;
+  @Input() unitId;
   @Output() unit: EventEmitter<any> = new EventEmitter();
   unitForm: FormGroup;
 

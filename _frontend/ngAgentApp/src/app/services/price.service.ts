@@ -20,7 +20,7 @@ export class PriceService {
 
 
     getPrices(id: number): Observable<Price[]> {
-        return this.http.get<Price[]>(environment.apiUrlPrice + '/' + id);
+        return this.http.get<Price[]>(environment.apiUrlPrice + '/unit/' + id);
     }
 
     deletePrice(id: number): Observable<Price> {
