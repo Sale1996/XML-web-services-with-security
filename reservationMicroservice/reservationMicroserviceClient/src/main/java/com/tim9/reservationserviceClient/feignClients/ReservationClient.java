@@ -35,4 +35,7 @@ public interface ReservationClient {
 	
 	@PostMapping("/searchFromAccommodations/{dateFrom}/{dateTo}")
 	public List<Long> getAccommodationUnitIdsForPeriod(@RequestBody List<Long> accommodationIds, @PathVariable("dateFrom") String dateFrom, @PathVariable("dateTo") String dateTo);
+
+	@GetMapping("/accommodationClients/{accommodationId}")
+	public List<Long> getAccommodationClients(@PathVariable("accommodationId") Long accommodationId);
 }

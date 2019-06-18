@@ -71,7 +71,7 @@ public class AccommodationService {
 	
 	/*************************************************************/
 	
-	public List<AccommodationDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests, String dateFrom, String dateTo, SearchDTO search) {
+	public List<AccommodationDTO> findAllByCityAndNumberOfGuests(Long city, int numberOfGuests, SearchDTO search) {
 		
 		/*
 		Optional< List<Accommodation> > accommodations = Optional.of ( accommodationRepository.searchAccommodations(city, numberOfGuests) );
@@ -96,7 +96,7 @@ public class AccommodationService {
 		Optional<List<Long>> accommodationIds = Optional.of(accommodationRepository.findAccommodationIdsByCity(city, search.getDistance()));
 		
 		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
-		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), dateFrom, dateTo);
+		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), search.getDateFrom(), search.getDateTo());
 		
 		accommodationUnits.add(-1l);
 		

@@ -126,4 +126,14 @@ public class ReservationService {
 		
 		return reservationRepository.findAccommodationUnitIds(accommodationIds, LocalDateTime.parse(dateFrom), LocalDateTime.parse(dateTo));
 	}
+
+	public List<Long> getAccommodationClients(Long accommodationId) {
+		Optional<List<Long>> userIds = reservationRepository.getAccommodationClients(accommodationId);
+		
+		if(userIds.isPresent()) {
+			return userIds.get();
+		}
+		
+		return Collections.EMPTY_LIST;
+	}
 }
