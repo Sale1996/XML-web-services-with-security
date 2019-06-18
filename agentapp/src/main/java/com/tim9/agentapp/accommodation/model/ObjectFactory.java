@@ -45,27 +45,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Category }
+     * Create an instance of {@link CategoryLocal }
      * 
      */
-    public Category createCategory() {
-        return new Category();
+    public CategoryLocal createCategory() {
+        return new CategoryLocal();
     }
 
     /**
-     * Create an instance of {@link Type }
+     * Create an instance of {@link TypeLocal }
      * 
      */
-    public Type createType() {
-        return new Type();
+    public TypeLocal createType() {
+        return new TypeLocal();
     }
 
     /**
-     * Create an instance of {@link ExtraField }
+     * Create an instance of {@link ExtraFieldLocal }
      * 
      */
-    public ExtraField createExtraField() {
-        return new ExtraField();
+    public ExtraFieldLocal createExtraField() {
+        return new ExtraFieldLocal();
     }
 
     /**

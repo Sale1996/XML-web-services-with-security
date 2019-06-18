@@ -8,7 +8,7 @@ import com.tim9.agentapp.accommodation.wsdl.GetTypesResponse;
 
 public class TypeClient extends WebServiceGatewaySupport {
 
-	public GetTypesResponse GetTypess() {
+	public GetTypesResponse GetTypes() {
 
 		GetTypesRequest request = new GetTypesRequest();
 

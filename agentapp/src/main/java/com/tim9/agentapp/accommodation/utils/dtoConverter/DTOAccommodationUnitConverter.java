@@ -9,7 +9,7 @@ import com.tim9.agentapp.accommodation.dto.AccommodationUnitDTO;
 import com.tim9.agentapp.accommodation.dto.ExtraFieldDTO;
 import com.tim9.agentapp.accommodation.dto.PriceDTO;
 import com.tim9.agentapp.accommodation.model.AccommodationUnit;
-import com.tim9.agentapp.accommodation.model.ExtraField;
+import com.tim9.agentapp.accommodation.model.ExtraFieldLocal;
 import com.tim9.agentapp.accommodation.model.Price;
 import com.tim9.agentapp.accommodation.repository.AccommodationUnitRepository;
 
@@ -46,7 +46,7 @@ public class DTOAccommodationUnitConverter {
 		dto.setNumberOfPeople(accommodationUnit.getNumberOfPeople());
 		dto.setType(typeConverter.convertToDTO(accommodationUnit.getType()));
 		
-		for(ExtraField extraField : accommodationUnit.getExtraField()) {
+		for(ExtraFieldLocal extraField : accommodationUnit.getExtraField()) {
 			dto.getExtraField().add(extraFieldConverter.convertToDTO(extraField));
 		}
 

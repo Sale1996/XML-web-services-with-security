@@ -59,7 +59,7 @@ public class AccommodationConfiguration {
 	@Bean
 	public ExtraFieldClient extraFieldClient(Jaxb2Marshaller marshaller) {
 		ExtraFieldClient client = new ExtraFieldClient();
-		client.setDefaultUri("http://localhost:8081/ws");
+		client.setDefaultUri("http://localhost:8081/accommodationService/ws");
 		client.setMarshaller(marshaller);
 		client.setUnmarshaller(marshaller);
 		return client;

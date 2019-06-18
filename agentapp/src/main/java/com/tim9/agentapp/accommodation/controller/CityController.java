@@ -42,15 +42,15 @@ public class CityController {
 	}
 	
 	
-	@GetMapping("/{id}")
-	@ApiOperation( value = "Finds one city by id.", notes = "Returns found city.", httpMethod="GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
-							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< CityDTO > getOneCityById (@PathVariable("id") Long id){
-		
-		CityDTO cityDTO = cityService.findById(id);
-		
-		return ( cityDTO.getCityId()!=null)? new ResponseEntity< CityDTO > ( cityDTO, HttpStatus.OK ) : new ResponseEntity< CityDTO > ( HttpStatus.NOT_FOUND );
-		
-	}	
+//	@GetMapping("/{id}")
+//	@ApiOperation( value = "Finds one city by id.", notes = "Returns found city.", httpMethod="GET")
+//	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+//							 @ApiResponse( code = 404, message = "Not Found")})
+//	public ResponseEntity< CityDTO > getOneCityById (@PathVariable("id") Long id){
+//		
+//		CityDTO cityDTO = cityService.findById(id);
+//		
+//		return ( cityDTO.getCityId()!=null)? new ResponseEntity< CityDTO > ( cityDTO, HttpStatus.OK ) : new ResponseEntity< CityDTO > ( HttpStatus.NOT_FOUND );
+//		
+//	}	
 }

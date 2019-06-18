@@ -42,15 +42,15 @@ public class TypeController {
 	}
 	
 	
-	@GetMapping("/{id}")
-	@ApiOperation( value = "Finds one type by id.", notes = "Returns found type.", httpMethod="GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
-							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< TypeDTO > getOneTypeById (@PathVariable("id") Long id){
-		
-		TypeDTO typeDTO = typeService.findById(id);
-		
-		return ( typeDTO.getTypeId()!=null)? new ResponseEntity< TypeDTO > ( typeDTO, HttpStatus.OK ) : new ResponseEntity< TypeDTO > ( HttpStatus.NOT_FOUND );
-		
-	}	
+//	@GetMapping("/{id}")
+//	@ApiOperation( value = "Finds one type by id.", notes = "Returns found type.", httpMethod="GET")
+//	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+//							 @ApiResponse( code = 404, message = "Not Found")})
+//	public ResponseEntity< TypeDTO > getOneTypeById (@PathVariable("id") Long id){
+//		
+//		TypeDTO typeDTO = typeService.findById(id);
+//		
+//		return ( typeDTO.getTypeId()!=null)? new ResponseEntity< TypeDTO > ( typeDTO, HttpStatus.OK ) : new ResponseEntity< TypeDTO > ( HttpStatus.NOT_FOUND );
+//		
+//	}	
 }

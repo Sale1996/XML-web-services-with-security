@@ -25,57 +25,44 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {})
-@XmlRootElement(name = "Type")
+@XmlRootElement(name = "Category")
 @Entity
-@Table( name= "types" )
-public class Type {
-
-    @XmlElement(name = "Local_type_id")
+@Table( name= "categories" )
+public class CategoryLocal {    
+    
+    @XmlElement(name = "Category_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
-	@Column ( name = "localId" )
-    protected Long localTypeId;
-    
-    
-    @XmlElement(name = "Type_id")
 	@Column ( name = "id" )
-    protected Long typeId;
+    protected Long categoryId;
     
     
-    @XmlElement(name = "Type_name", required = true)
-	@Column ( name = "name" )
-    protected String typeName;
+    @XmlElement(name = "Category_name", required = true)
+    @Column ( name="category_name", nullable = false )
+    protected String categoryName;
     
-    @XmlElement(name="Accommodation_units_of_type")
-	@OneToMany (mappedBy="unitType")
-    protected List<AccommodationUnit> units;
+    
+    @XmlElement(name ="Accommodation_units_of_category")
+	@OneToMany (mappedBy="unitCategory")
+    protected List<AccommodationUnit> accommodationUnitsOfCategory;
 
-  
-    public Long getTypeId() {
-        return typeId;
+
+    public Long getCategoryId() {
+        return categoryId;
     }
 
- 
-    public void setTypeId(Long value) {
-        this.typeId = value;
+
+    public void setCategoryId(Long value) {
+        this.categoryId = value;
     }
 
-  
-    public String getTypeName() {
-        return typeName;
+
+    public String getCategoryName() {
+        return categoryName;
     }
 
-  
-    public void setTypeName(String value) {
-        this.typeName = value;
+
+    public void setCategoryName(String value) {
+        this.categoryName = value;
     }
-
-	public Long getLocalTypeId() {
-		return localTypeId;
-	}
-
-	public void setLocalTypeId(Long localTypeId) {
-		this.localTypeId = localTypeId;
-	}
-
 }

@@ -43,15 +43,15 @@ public class ExtraFieldController {
 	}
 	
 	
-	@GetMapping("/{id}")
-	@ApiOperation( value = "Finds one ExtraField by id.", notes = "Returns found ExtraField.", httpMethod="GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
-							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< ExtraFieldDTO > getOneExtraFieldById (@PathVariable("id") Long id){
-		
-		ExtraFieldDTO extraFieldDTO = extraFieldService.findById(id);
-		
-		return ( extraFieldDTO.getExtraFieldId()!=null)? new ResponseEntity< ExtraFieldDTO > ( extraFieldDTO, HttpStatus.OK ) : new ResponseEntity< ExtraFieldDTO > ( HttpStatus.NOT_FOUND );
-		
-	}
+//	@GetMapping("/{id}")
+//	@ApiOperation( value = "Finds one ExtraField by id.", notes = "Returns found ExtraField.", httpMethod="GET")
+//	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+//							 @ApiResponse( code = 404, message = "Not Found")})
+//	public ResponseEntity< ExtraFieldDTO > getOneExtraFieldById (@PathVariable("id") Long id){
+//		
+//		ExtraFieldDTO extraFieldDTO = extraFieldService.findById(id);
+//		
+//		return ( extraFieldDTO.getExtraFieldId()!=null)? new ResponseEntity< ExtraFieldDTO > ( extraFieldDTO, HttpStatus.OK ) : new ResponseEntity< ExtraFieldDTO > ( HttpStatus.NOT_FOUND );
+//		
+//	}
 }

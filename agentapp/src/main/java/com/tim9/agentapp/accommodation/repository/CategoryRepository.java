@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tim9.agentapp.accommodation.model.Category;
+import com.tim9.agentapp.accommodation.model.CategoryLocal;
 
 
-public interface CategoryRepository extends JpaRepository<Category,Long> {
+public interface CategoryRepository extends JpaRepository<CategoryLocal,Long> {
 
-	Optional<Category> findByCategoryName(String categoryName);
+	Optional<CategoryLocal> findByCategoryName(String categoryName);
 
 }

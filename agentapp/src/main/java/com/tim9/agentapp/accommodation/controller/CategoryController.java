@@ -43,15 +43,15 @@ public class CategoryController {
 	}
 	
 	
-	@GetMapping("/{id}")
-	@ApiOperation( value = "Finds one Category by id.", notes = "Returns found Category.", httpMethod="GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
-							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< CategoryDTO > getOneSkillById (@PathVariable("id") Long id){
-		
-		CategoryDTO categoryDTO = categoryService.findById(id);
-		
-		return ( categoryDTO.getCategoryId()!=null)? new ResponseEntity< CategoryDTO > ( categoryDTO, HttpStatus.OK ) : new ResponseEntity< CategoryDTO > ( HttpStatus.NOT_FOUND );
-		
-	}
+//	@GetMapping("/{id}")
+//	@ApiOperation( value = "Finds one Category by id.", notes = "Returns found Category.", httpMethod="GET")
+//	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+//							 @ApiResponse( code = 404, message = "Not Found")})
+//	public ResponseEntity< CategoryDTO > getOneSkillById (@PathVariable("id") Long id){
+//		
+//		CategoryDTO categoryDTO = categoryService.findById(id);
+//		
+//		return ( categoryDTO.getCategoryId()!=null)? new ResponseEntity< CategoryDTO > ( categoryDTO, HttpStatus.OK ) : new ResponseEntity< CategoryDTO > ( HttpStatus.NOT_FOUND );
+//		
+//	}
 }

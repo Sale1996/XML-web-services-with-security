@@ -11,9 +11,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "City")
 public class CityDTO {
 	
-	@XmlElement(name = "Local_City_id")
-    protected Long localCityId;
-	
 	@XmlElement(name = "city_id")
     protected Long cityId;
 	
@@ -65,14 +62,6 @@ public class CityDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Long getLocalCityId() {
-		return localCityId;
-	}
-
-	public void setLocalCityId(Long localCityId) {
-		this.localCityId = localCityId;
-	}    
+	}   
        
 }

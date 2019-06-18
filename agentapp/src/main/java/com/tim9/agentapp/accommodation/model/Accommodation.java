@@ -65,7 +65,7 @@ public class Accommodation {
     @XmlElement(name="City", required = true)
     @ManyToOne ()
 	@JoinColumn (name="city",nullable = false)
-    protected City city;
+    protected CityLocal city;
     
     
     @XmlElement(name = "Counted_number_of_beds")
@@ -153,11 +153,11 @@ public class Accommodation {
         this.numberOfDaysBeforeCancelation = value;
     }
 
-	public City getCity() {
+	public CityLocal getCity() {
 		return city;
 	}
 
-	public void setCity(City city) {
+	public void setCity(CityLocal city) {
 		this.city = city;
 	}
 

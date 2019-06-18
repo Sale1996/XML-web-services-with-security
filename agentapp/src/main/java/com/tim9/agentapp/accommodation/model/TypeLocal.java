@@ -25,58 +25,43 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {})
-@XmlRootElement(name = "Category")
+@XmlRootElement(name = "Type")
 @Entity
-@Table( name= "categories" )
-public class Category {
-
-    @XmlElement(name = "Local_category_id")
+@Table( name= "types" )
+public class TypeLocal {
+    
+    @XmlElement(name = "Type_id")
     @Id
 	@GeneratedValue ( strategy = GenerationType.IDENTITY )
-	@Column ( name = "localId" )
-    protected Long localCategoryId;
-    
-    
-    @XmlElement(name = "Category_id")
 	@Column ( name = "id" )
-    protected Long categoryId;
+    protected Long typeId;
     
     
-    @XmlElement(name = "Category_name", required = true)
-    @Column ( name="category_name", nullable = false )
-    protected String categoryName;
+    @XmlElement(name = "Type_name", required = true)
+	@Column ( name = "name" )
+    protected String typeName;
     
-    
-    @XmlElement(name ="Accommodation_units_of_category")
-	@OneToMany (mappedBy="unitCategory")
-    protected List<AccommodationUnit> accommodationUnitsOfCategory;
+    @XmlElement(name="Accommodation_units_of_type")
+	@OneToMany (mappedBy="unitType")
+    protected List<AccommodationUnit> units;
 
-
-    public Long getCategoryId() {
-        return categoryId;
+  
+    public Long getTypeId() {
+        return typeId;
     }
 
-
-    public void setCategoryId(Long value) {
-        this.categoryId = value;
+ 
+    public void setTypeId(Long value) {
+        this.typeId = value;
     }
 
-
-    public String getCategoryName() {
-        return categoryName;
+  
+    public String getTypeName() {
+        return typeName;
     }
 
-
-    public void setCategoryName(String value) {
-        this.categoryName = value;
+  
+    public void setTypeName(String value) {
+        this.typeName = value;
     }
-
-	public Long getLocalCategoryId() {
-		return localCategoryId;
-	}
-
-	public void setLocalCategoryId(Long localCategoryId) {
-		this.localCategoryId = localCategoryId;
-	}
-	
 }

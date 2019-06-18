@@ -57,13 +57,13 @@ public class AccommodationUnit {
     @XmlElement(name = "Category", required = true)
     @ManyToOne ()
 	@JoinColumn (name="unitCategory",nullable = false)
-    protected Category unitCategory;
+    protected CategoryLocal unitCategory;
     
     
     @XmlElement(name = "Type", required = true)
     @ManyToOne ()
 	@JoinColumn (name="unitType",nullable = false)
-    protected Type unitType;
+    protected TypeLocal unitType;
     
     @XmlElement(name="Accommodation", required = true)
     @ManyToOne ()
@@ -75,7 +75,7 @@ public class AccommodationUnit {
     @JoinTable(name = "accommodation_unit_extra_fields",
             joinColumns = { @JoinColumn( name = "accommodation_id" ) },
             inverseJoinColumns = { @JoinColumn( name = "extra_field_id" ) })
-    protected List<ExtraField> extraFields;
+    protected List<ExtraFieldLocal> extraFields;
     
     
     @XmlElement(name = "Price", required = true)
@@ -104,29 +104,29 @@ public class AccommodationUnit {
     }
 
 
-    public Category getCategory() {
+    public CategoryLocal getCategory() {
         return unitCategory;
     }
 
 
-    public void setCategory(Category value) {
+    public void setCategory(CategoryLocal value) {
         this.unitCategory = value;
     }
 
 
-    public Type getType() {
+    public TypeLocal getType() {
         return unitType;
     }
 
 
-    public void setType(Type value) {
+    public void setType(TypeLocal value) {
         this.unitType = value;
     }
 
 
-    public List<ExtraField> getExtraField() {
+    public List<ExtraFieldLocal> getExtraField() {
         if (extraFields == null) {
-            extraFields = new ArrayList<ExtraField>();
+            extraFields = new ArrayList<ExtraFieldLocal>();
         }
         return this.extraFields;
     }

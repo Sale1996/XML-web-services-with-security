@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.accommodation.dto.TypeDTO;
-import com.tim9.agentapp.accommodation.model.Type;
+import com.tim9.agentapp.accommodation.model.TypeLocal;
+import com.tim9.agentapp.accommodation.wsdl.Type;
 import com.tim9.agentapp.accommodation.repository.TypeRepository;
 
 
@@ -18,11 +19,10 @@ public class DTOTypeConverter {
 	
 
 	
-	public TypeDTO convertToDTO (Type type) {
+	public TypeDTO convertToDTO (TypeLocal type) {
 		
 		TypeDTO dto = new TypeDTO();
 		
-		dto.setLocalTypeId(type.getLocalTypeId());
 		dto.setTypeId(type.getTypeId());
 		dto.setTypeName(type.getTypeName());
 		
@@ -30,9 +30,20 @@ public class DTOTypeConverter {
 		
 	}
 	
-	public Type convertFromDTO( TypeDTO dto ) {
+	public TypeDTO convertToDTOFromClient (Type type) {
 		
-		Optional<Type> type = typeRepository.findById(dto.getTypeId());
+		TypeDTO dto = new TypeDTO();
+		
+		dto.setTypeId(type.getTypeId());
+		dto.setTypeName(type.getTypeName());
+		
+		return dto;
+		
+	}
+	
+	public TypeLocal convertFromDTO( TypeDTO dto ) {
+		
+		Optional<TypeLocal> type = typeRepository.findById(dto.getTypeId());
 		
 		if(type.isPresent()) {
 			
@@ -40,9 +51,8 @@ public class DTOTypeConverter {
 			
 		}
 		
-		Type newCandidate = new Type();
+		TypeLocal newCandidate = new TypeLocal();
 		
-		newCandidate.setLocalTypeId(dto.getLocalTypeId());
 		newCandidate.setTypeId(dto.getTypeId());
 		newCandidate.setTypeName(dto.getTypeName());
 		

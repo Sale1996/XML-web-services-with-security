@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.accommodation.dto.CityDTO;
-import com.tim9.agentapp.accommodation.model.City;
+import com.tim9.agentapp.accommodation.model.CityLocal;
 import com.tim9.agentapp.accommodation.repository.CityRepository;
+import com.tim9.agentapp.accommodation.wsdl.City;
 
 @Component
 public class DTOCityConverter {
@@ -15,11 +16,10 @@ public class DTOCityConverter {
 	@Autowired
 	public CityRepository cityRepository;
 	
-	public CityDTO convertToDTO (City city) {
+	public CityDTO convertToDTO (CityLocal city) {
 		
 		CityDTO dto = new CityDTO();
 		
-		dto.setLocalCityId(city.getLocalCityId());
 		dto.setCityId(city.getCityId());
 		dto.setxCord(city.getXCord());
 		dto.setyCord(city.getYCord());
@@ -29,17 +29,29 @@ public class DTOCityConverter {
 		
 	}
 	
-	public City convertFromDTO(CityDTO dto) {
+	public CityDTO convertToDTOFromClient (City city) {
 		
-		Optional<City> city = cityRepository.findById(dto.getCityId());
+		CityDTO dto = new CityDTO();
+		
+		dto.setCityId(city.getCityId());
+		dto.setxCord(city.getXCord());
+		dto.setyCord(city.getYCord());
+		dto.setName(city.getName());
+		
+		return dto;
+		
+	}
+	
+	public CityLocal convertFromDTO(CityDTO dto) {
+		
+		Optional<CityLocal> city = cityRepository.findById(dto.getCityId());
 		
 		if(city.isPresent()) {
 			return city.get();
 		}
 		
-		City newCity = new City();
+		CityLocal newCity = new CityLocal();
 		
-		newCity.setLocalCityId(dto.getLocalCityId());
 		newCity.setName(dto.getName());
 		newCity.setXCord(dto.getxCord());
 		newCity.setyCord(dto.getyCord());

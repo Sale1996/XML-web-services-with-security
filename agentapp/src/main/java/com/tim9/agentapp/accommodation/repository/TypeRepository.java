@@ -4,12 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tim9.agentapp.accommodation.model.Type;
+import com.tim9.agentapp.accommodation.model.TypeLocal;
 
 
 
-public interface TypeRepository extends JpaRepository<Type,Long>{
+public interface TypeRepository extends JpaRepository<TypeLocal,Long>{
 
-	Optional<Type> findByTypeName(String typeName);
+	Optional<TypeLocal> findByTypeName(String typeName);
 
 }

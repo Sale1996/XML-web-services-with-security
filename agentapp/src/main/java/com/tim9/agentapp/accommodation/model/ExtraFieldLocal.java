@@ -30,16 +30,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Extra_field")
 @Entity
 @Table( name= "extra_fields" )
-public class ExtraField {
-
-    @XmlElement(name = "Local_extra_field_id")
-    @Id
-	@GeneratedValue ( strategy = GenerationType.IDENTITY )
-	@Column ( name = "localId" )
-    protected Long localExtraFieldId;
-    
+public class ExtraFieldLocal {
     
     @XmlElement(name = "Extra_field_id")
+    @Id
+	@GeneratedValue ( strategy = GenerationType.IDENTITY )
 	@Column ( name = "id" )
     protected Long extraFieldId;
     
@@ -107,13 +102,5 @@ public class ExtraField {
 
 	public void setAccommodationUnits(List<AccommodationUnit> accommodationUnits) {
 		this.accommodationUnits = accommodationUnits;
-	}
-
-	public Long getLocalExtraFieldId() {
-		return localExtraFieldId;
-	}
-
-	public void setLocalExtraFieldId(Long localExtraFieldId) {
-		this.localExtraFieldId = localExtraFieldId;
 	}
 }

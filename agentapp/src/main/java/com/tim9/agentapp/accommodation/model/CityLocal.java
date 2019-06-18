@@ -26,15 +26,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "City")
 @Entity
 @Table( name= "cities" )
-public class City {
-	
-    @XmlElement(name = "Local_city_id")
-    @Id
-	@GeneratedValue ( strategy = GenerationType.IDENTITY )
-	@Column ( name = "localId" )
-    protected Long localCityId;
+public class CityLocal {
     
     @XmlElement(name = "city_id")
+    @Id
+	@GeneratedValue ( strategy = GenerationType.IDENTITY )
 	@Column ( name = "id" )
     protected Long cityId;
     
@@ -126,13 +122,4 @@ public class City {
 	public void setyCord(double yCord) {
 		this.yCord = yCord;
 	}
-
-	public Long getLocalCityId() {
-		return localCityId;
-	}
-
-	public void setLocalCityId(Long localCityId) {
-		this.localCityId = localCityId;
-	}    
-
 }

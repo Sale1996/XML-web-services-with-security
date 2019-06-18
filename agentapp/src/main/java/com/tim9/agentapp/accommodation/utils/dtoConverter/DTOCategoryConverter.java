@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.accommodation.dto.CategoryDTO;
-import com.tim9.agentapp.accommodation.model.Category;
+import com.tim9.agentapp.accommodation.model.CategoryLocal;
 import com.tim9.agentapp.accommodation.repository.CategoryRepository;
+import com.tim9.agentapp.accommodation.wsdl.Category;
 
 
 @Component
@@ -18,11 +19,10 @@ public class DTOCategoryConverter {
 	
 	
 	
-	public CategoryDTO convertToDTO (Category category) {
+	public CategoryDTO convertToDTO (CategoryLocal category) {
 		
 		CategoryDTO dto = new CategoryDTO();
 		
-		dto.setLocalCategoryId(category.getLocalCategoryId());
 		dto.setCategoryId(category.getCategoryId());
 		dto.setCategoryName(category.getCategoryName());
 		
@@ -30,9 +30,20 @@ public class DTOCategoryConverter {
 		
 	}
 	
-	public Category convertFromDTO( CategoryDTO dto ) {
+	public CategoryDTO convertToDTOFromClient (Category category) {
 		
-		Optional<Category> category = categoryRepository.findById(dto.getCategoryId());
+		CategoryDTO dto = new CategoryDTO();
+		
+		dto.setCategoryId(category.getCategoryId());
+		dto.setCategoryName(category.getCategoryName());
+		
+		return dto;
+		
+	}
+	
+	public CategoryLocal convertFromDTO( CategoryDTO dto ) {
+		
+		Optional<CategoryLocal> category = categoryRepository.findById(dto.getCategoryId());
 		
 		if(category.isPresent()) {
 			
@@ -40,9 +51,8 @@ public class DTOCategoryConverter {
 			
 		}
 		
-		Category newCandidate = new Category();
+		CategoryLocal newCandidate = new CategoryLocal();
 		
-		newCandidate.setLocalCategoryId(dto.getLocalCategoryId());
 		newCandidate.setCategoryId(dto.getCategoryId());
 		newCandidate.setCategoryName(dto.getCategoryName());
 		

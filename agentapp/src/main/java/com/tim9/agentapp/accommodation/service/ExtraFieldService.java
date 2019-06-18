@@ -9,15 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.accommodation.dto.ExtraFieldDTO;
-import com.tim9.agentapp.accommodation.model.ExtraField;
-import com.tim9.agentapp.accommodation.repository.ExtraFieldRepository;
+import com.tim9.agentapp.accommodation.model.ExtraFieldLocal;
+import com.tim9.agentapp.accommodation.soapclient.ExtraFieldClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOExtraFieldConverter;
+import com.tim9.agentapp.accommodation.wsdl.ExtraField;
+import com.tim9.agentapp.accommodation.wsdl.GetExtraFieldsResponse;
 
 @Service
 public class ExtraFieldService {
 	
 	@Autowired
-	ExtraFieldRepository extraFieldRepository;
+	ExtraFieldClient extraFieldClient;
 	
 	@Autowired
 	DTOExtraFieldConverter extraFieldConverter;
@@ -26,42 +28,38 @@ public class ExtraFieldService {
 
 	public List<ExtraFieldDTO> findAll() {
 		
-		Optional< List<ExtraField> > extraFields = Optional.of( extraFieldRepository.findAll() );
+		GetExtraFieldsResponse response =  extraFieldClient.getExtraFields();
+		List<ExtraFieldDTO> dtoExtraFields = new ArrayList<ExtraFieldDTO>();
 		
-		ArrayList < ExtraFieldDTO > dtoExtraFields = new ArrayList<ExtraFieldDTO>();
-		
-		if ( extraFields.isPresent() ) {
+		if(!response.getExtraFields().isEmpty()) {
 			
-			for ( ExtraField extraField : extraFields.get() ) {
-				
-				dtoExtraFields.add(extraFieldConverter.convertToDTO(extraField));
-				
+			for ( ExtraField extraField : response.getExtraFields() ) {
+				dtoExtraFields.add(extraFieldConverter.convertToDTOFromClient(extraField));	
 			}
 			
 			return dtoExtraFields;
-			
 		}
-			
+		
 		return Collections.emptyList();
 
 		
 	}
 
-	public ExtraFieldDTO findById(Long id) {
-		
-		Optional< ExtraField > extraField = extraFieldRepository.findById(id);
-		
-		
-		if ( extraField.isPresent() ) {
-			
-			return extraFieldConverter.convertToDTO(extraField.get());
-		
-		}
-		else {
-			
-			return new ExtraFieldDTO();
-			
-		}
-		
-	}
+//	public ExtraFieldDTO findById(Long id) {
+//		
+//		Optional< ExtraFieldLocal > extraField = extraFieldRepository.findById(id);
+//		
+//		
+//		if ( extraField.isPresent() ) {
+//			
+//			return extraFieldConverter.convertToDTO(extraField.get());
+//		
+//		}
+//		else {
+//			
+//			return new ExtraFieldDTO();
+//			
+//		}
+//		
+//	}
 }

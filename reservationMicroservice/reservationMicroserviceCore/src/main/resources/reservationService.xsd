@@ -5,7 +5,15 @@
 
   <xs:element name="Reservation" type="tns:reservation"/>
 
-  <xs:element name="createReservationResponse">
+  <xs:element name="confirmReservationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="confirmReservationResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="reservation" type="tns:reservation"/>
@@ -13,7 +21,15 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="createReservationsRequest">
+  <xs:element name="createReservationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="reservation" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createReservationResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="reservation" type="tns:reservation"/>
@@ -45,7 +61,23 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="getReservationsRequestAgent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="getReservationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="reservations" type="tns:reservation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getReservationsResponseAgent">
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="reservations" type="tns:reservation"/>
@@ -77,6 +109,7 @@
       <xs:element name="Final_price" type="xs:float"/>
       <xs:element name="Confirmation" type="xs:boolean"/>
       <xs:element name="Accommodation_unit" type="xs:long"/>
+      <xs:element name="Accommodation" type="xs:long"/>
       <xs:element name="Client" type="xs:long"/>
     </xs:sequence>
   </xs:complexType>
@@ -86,8 +119,8 @@
       <xs:element minOccurs="0" name="id" type="xs:long"/>
       <xs:element name="reservation_id" type="xs:long"/>
       <xs:element name="accommodation_id" type="xs:long"/>
-      <xs:element name="isConfirmed" type="xs:boolean"/>
       <xs:element name="rating" type="xs:int"/>
+      <xs:element name="verified" type="xs:boolean"/>
       <xs:element minOccurs="0" name="comment" type="xs:string"/>
       <xs:element minOccurs="0" name="lastUpdated" type="xs:string"/>
     </xs:sequence>
