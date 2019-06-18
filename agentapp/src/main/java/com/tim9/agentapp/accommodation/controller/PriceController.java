@@ -47,6 +47,18 @@ public class PriceController {
 		
 	}
 	
+	@GetMapping("/unit/{id}")
+	@ApiOperation( value = "Returns all prices", httpMethod = "GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< List<PriceDTO> > getAllPricesByUnit (@PathVariable("id") Long id){
+		
+		List< PriceDTO > prices = priceService.findAllByUnit(id);
+		
+		return ( !prices.isEmpty() )? new ResponseEntity< List<PriceDTO> > ( prices, HttpStatus.OK ) : new ResponseEntity< List<PriceDTO> > (prices, HttpStatus.NOT_FOUND );
+		
+	}
+	
 	
 	@GetMapping("/{id}")
 	@ApiOperation( value = "Finds one Price by id.", notes = "Returns found Price.", httpMethod="GET")

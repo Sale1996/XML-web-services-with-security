@@ -12,7 +12,7 @@ import com.tim9.reservationservice.models.Reservation;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,Long> {
-	public List<Reservation> findByClient(long id);
+	public List<Reservation> findByClient(Long id);
 	// treba ispisati upit, ali tu se preplice i saletova baza pa je to jebacina
 //	public List<Reservation> findByAccommodation(long id);
 	
@@ -32,4 +32,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 			" (date_from < ?3 and date_to > ?3))", nativeQuery = true)
 	public Optional<Reservation> checkIfAccommodationUnitIsFreeForPeriod(Long accommodationUnit, String dateFrom,
 			String dateTo);
+
+	@Query(value = " SELECT distinct reservations.reservation.client FROM reservations.reservation where accommodation= ?1 ", nativeQuery = true)
+	public Optional<List<Long>> getAccommodationClients(Long accommodationId);
 }

@@ -1,3 +1,4 @@
+import { AccommodationUnit } from './../../../model/accommodation-unit.model';
 import { Accommodation } from './../../../model/accommodation.model';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,18 +11,22 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class HomeSingleModalComponent implements OnInit {
 
   @Input() accommodation: Accommodation;
-  @Output() answer: EventEmitter<any> = new EventEmitter();
+  @Output() answer: EventEmitter<AccommodationUnit> = new EventEmitter();
+
+  @Input() accommodationUnit: AccommodationUnit;
+  @Input() accommodationUnits: AccommodationUnit[];
 
   constructor(
     public activeModal: NgbActiveModal
   ) { }
 
   ngOnInit() {
+
   }
 
-  onReserve() {
+  onReserve(accommodationUnit: AccommodationUnit) {
 
-      this.answer.emit("reserve");
+      this.answer.emit(accommodationUnit);
       this.activeModal.close();
 
   }

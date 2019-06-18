@@ -42,6 +42,19 @@ public class ExtraFieldController {
 		
 	}
 	
+	@GetMapping("/unit/{id}")
+	@ApiOperation( value = "Returns all extraFields", httpMethod = "GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK") } )	
+	public ResponseEntity< List<ExtraFieldDTO> > getAllExtraFieldsByUnit (@PathVariable("id") Long id){
+		
+		List< ExtraFieldDTO > extraFields = extraFieldService.findAllByUnit(id);
+		
+		return ( !extraFields.isEmpty() )? new ResponseEntity< List<ExtraFieldDTO> > ( extraFields, HttpStatus.OK ) : new ResponseEntity< List<ExtraFieldDTO> > (extraFields, HttpStatus.OK );
+		
+	}
+	
+	
+	
 	
 //	@GetMapping("/{id}")
 //	@ApiOperation( value = "Finds one ExtraField by id.", notes = "Returns found ExtraField.", httpMethod="GET")

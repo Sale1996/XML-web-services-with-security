@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.tim9.reservationserviceClient.feignClients.ReservationClient;
 import com.tim9.userservice.dtoConverters.DTOUserConverter;
 import com.tim9.userservice.models.User;
 import com.tim9.userservice.repositories.UserRepository;
+import com.tim9.userservice.utils.DatasFromReservationMicroservice;
 import com.tim9.userserviceClient.dtos.UserDTO;
 
 @Service
@@ -19,14 +21,17 @@ public class UserService {
 	
 	private final DTOUserConverter dtoUserConverter;
 	
-	public UserService(final UserRepository userRepository, final DTOUserConverter dtoUserConverter) {
+	private DatasFromReservationMicroservice reservationMicroservice;
+	
+	public UserService(final UserRepository userRepository, final DTOUserConverter dtoUserConverter, DatasFromReservationMicroservice reservationMicroservice) {
 		this.userRepository = userRepository;
 		this.dtoUserConverter = dtoUserConverter;
+		this.reservationMicroservice = reservationMicroservice;
 	}
 	
 	public List<UserDTO> findAll(){
 		
-		Optional< List<User> > users = Optional.of (userRepository.findAll());
+		Optional<List<User>> users = Optional.of (userRepository.findAll());
 		
 		ArrayList<UserDTO> dtoUsers = new ArrayList<UserDTO>();
 		
@@ -46,6 +51,18 @@ public class UserService {
 	public UserDTO findById(long id){
 		
 		Optional<User> user = userRepository.findById(id);
+		
+		if (user.isPresent()) {
+			
+			return dtoUserConverter.convertToDTO(user.get());	
+		}
+		
+		return new UserDTO();	
+	}
+	
+	public UserDTO findByEmail(String email){
+		
+		Optional<User> user = userRepository.findByEmail(email);
 		
 		if (user.isPresent()) {
 			
@@ -140,5 +157,18 @@ public class UserService {
 		}
 		
 		return new UserDTO();
+	}
+
+	public List<User> findUsersByAccommodationId(Long accommodationId) {
+		
+		// prvo pokupi id-jeve svih klijenata date akomodacije
+		List<Long> ids = reservationMicroservice.getAccommodationClients(accommodationId);
+		
+		ids.add(-1l);
+		
+		// a onda samo izvuci iz baze sve klijente koji se odazivaju na prisutne id-jeve
+		Optional<List<User>> users = Optional.of (userRepository.usersByIds(ids));
+		
+		return users.get();
 	}
 }

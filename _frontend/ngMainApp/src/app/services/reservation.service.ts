@@ -20,11 +20,15 @@ export class ReservationService {
   ) { }
 
   reserve(reservation: Reservation): Observable<Reservation> {
-    return this.http.post<Reservation>(this.reservationtUrl + '/', reservation, httpOptions);
+    return this.http.post<Reservation>(this.reservationtUrl, reservation, httpOptions);
   }
 
   getReservation(): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(environment.apiReservations);
+  }
+
+  getReservationByUserId(userId: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(environment.apiReservations + '/' + userId);
   }
 
 }

@@ -71,15 +71,18 @@ public class ReservationService {
 
 		
 		if(unit.getAccommodationUnitId() == null || client.getId()== null || rezervacija.isPresent()) {
+
 			return new ReservationDTO();
 		}
-		
 		
 		
 		reservation.setReservationId(-1l);
 		Reservation Reservation = reservationConverter.convertFromDTO(reservation);
 		Reservation.setLastUpdated(LocalDateTime.now());
+		System.out.println(unit.getAccomodation().getAccommodationId() + "dada");
+		Reservation.setAccommodation(unit.getAccomodation().getAccommodationId());
 		Reservation = reservationRepository.save(Reservation);
+		
 		reservation.setReservationId(Reservation.getReservationId());
 		
 		return reservation;
@@ -125,5 +128,31 @@ public class ReservationService {
 	public List<Long> getAccommodationUnitIdsForPeriod(List<Long> accommodationIds, String dateFrom, String dateTo) {
 		
 		return reservationRepository.findAccommodationUnitIds(accommodationIds, LocalDateTime.parse(dateFrom), LocalDateTime.parse(dateTo));
+	}
+
+	public List<Long> getAccommodationClients(Long accommodationId) {
+		Optional<List<Long>> userIds = reservationRepository.getAccommodationClients(accommodationId);
+		
+		if(userIds.isPresent()) {
+			return userIds.get();
+		}
+		
+		return Collections.emptyList();
+	}
+
+	public List<ReservationDTO> findByClient(Long id) {
+		
+		Optional< List<Reservation> > reservations = Optional.of ( reservationRepository.findByClient(id) );
+		
+		ArrayList < ReservationDTO > dtoReservations = new ArrayList< ReservationDTO >();
+		
+		if ( reservations.isPresent() ) {
+			for ( Reservation candidate : reservations.get() ) {
+				dtoReservations.add(reservationConverter.convertToDTO(candidate));
+			}
+			return dtoReservations;
+		}
+			
+		return Collections.emptyList();
 	}
 }

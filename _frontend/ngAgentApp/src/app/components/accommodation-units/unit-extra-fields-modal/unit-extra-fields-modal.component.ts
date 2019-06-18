@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ExtraFieldService } from 'src/app/services/extra-field.service';
+import { ExtraField } from 'src/app/model/extra-field.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-unit-extra-fields-modal',
@@ -13,8 +16,10 @@ export class UnitExtraFieldsModalComponent implements OnInit {
   @Output() service: EventEmitter<any> = new EventEmitter();
   submitBtnText: string;
   additionalServiceForm: FormGroup;
+  unitExtraFields$: Observable<ExtraField[]>;
+  extraFields$: Observable<ExtraField[]>;
 
-  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder) { }
+  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private extraFieldService: ExtraFieldService) { }
 
   ngOnInit() {
 
@@ -30,15 +35,20 @@ export class UnitExtraFieldsModalComponent implements OnInit {
       this.submitBtnText = 'Add Service';
     }
 
+    this.getAllExtraFieldsOfAccommodationUnit();
+    this.getAllExtraFields();
+
   }
 
-  /*
-  getAdditionalServiceById(id: number) {
-    this.additionalService.getAdditionalServiceById(id).subscribe(
-      (service: AccommodationService) => this.additionalServiceForm.patchValue(service)
-    );
+
+  getAllExtraFieldsOfAccommodationUnit() {
+    this.unitExtraFields$ = this.extraFieldService.getExtraFieldsByUnit(this.id);
   }
-*/
+
+  getAllExtraFields() {
+    this.extraFields$ = this.extraFieldService.getExtraFields();
+  }
+
   onSubmit() {
     if (this.additionalServiceForm.valid) {
       //dodaj....

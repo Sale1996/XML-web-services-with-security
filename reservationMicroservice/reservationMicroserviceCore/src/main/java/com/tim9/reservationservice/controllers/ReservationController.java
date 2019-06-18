@@ -114,6 +114,8 @@ public class ReservationController {
 	})
 	public ResponseEntity< ReservationDTO > createReservation(@RequestBody ReservationDTO reservation) {
 		
+		System.out.println("**************************************" + reservation.getDateFrom());
+		
 		ReservationDTO savedReservation = reservationService.save(reservation);
 		
 		return ( savedReservation!=null )? new ResponseEntity< ReservationDTO > ( savedReservation, HttpStatus.CREATED ) : new ResponseEntity< ReservationDTO > ( HttpStatus.BAD_REQUEST );
@@ -147,8 +149,7 @@ public class ReservationController {
 		else
 			return new ResponseEntity< ReservationDTO > ( HttpStatus.NOT_FOUND );
 	}
-	
-	
+
 	@PostMapping("/searchFromAccommodations/{dateFrom}/{dateTo}")
 	//@ApiOperation( value = "Finds one reservation by id.", notes = "Returns found reservation.", httpMethod="GET")
 	//@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
@@ -157,6 +158,24 @@ public class ReservationController {
 		
 		return new ResponseEntity<List<Long>>(reservationService.getAccommodationUnitIdsForPeriod(accommodationIds, dateFrom, dateTo), HttpStatus.OK);
 	}
+
+	@GetMapping("/accommodationClients/{accommodationId}")
+	//@ApiOperation( value = "Finds one reservation by id.", notes = "Returns found reservation.", httpMethod="GET")
+	//@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+	//						 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity<List<Long>> getAccommodationClients(@PathVariable("accommodationId") Long accommodationId) {
+		
+		return new ResponseEntity<List<Long>>(reservationService.getAccommodationClients(accommodationId), HttpStatus.OK);
+	}
 	
-	
+	@GetMapping("/client/{clientId}")
+	@ApiOperation( value = "Returns reservations of a specified client", httpMethod = "GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< List<ReservationDTO> > getClientReservations(@PathVariable("clientId") Long clientId) {
+		
+		List< ReservationDTO > reservations = reservationService.findByClient(clientId);
+		
+		return ( !reservations.isEmpty() )? new ResponseEntity< List<ReservationDTO> > (reservations, HttpStatus.OK ) : new ResponseEntity<List<ReservationDTO>>( HttpStatus.NOT_FOUND);
+	}
 }

@@ -29,6 +29,7 @@ export class AccommodationUnitsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllUnits();
   }
 
 
@@ -42,14 +43,16 @@ export class AccommodationUnitsComponent implements OnInit {
     });
   }
 
-  openUnitOccupancyModal() {
+  openUnitOccupancyModal(id: number) {
     const newUnitOccupancyModalRef = this.modalService.open(UnitOccupancyModalComponent,
       {
         size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
-    newUnitOccupancyModalRef.componentInstance.price.subscribe();
+    newUnitOccupancyModalRef.componentInstance.unitId = id;
+    newUnitOccupancyModalRef.componentInstance.occupancy.subscribe();
+
   }
 
 
@@ -105,23 +108,25 @@ export class AccommodationUnitsComponent implements OnInit {
     newUnitModalRef.componentInstance.unit.subscribe();
   }
 
-  openPricesModal() {
+  openPricesModal(id: number) {
     const newPriceModal = this.modalService.open(UnitPricesModalComponent,
       {
         size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
+    newPriceModal.componentInstance.unitId = id;
     newPriceModal.componentInstance.price.subscribe();
   }
 
-  openExtraFiledsModal() {
+  openExtraFiledsModal(id: number) {
     const newExtraFieldModal = this.modalService.open(UnitExtraFieldsModalComponent,
       {
         size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
+    newExtraFieldModal.componentInstance.id = id;
     newExtraFieldModal.componentInstance.service.subscribe();
   }
 
