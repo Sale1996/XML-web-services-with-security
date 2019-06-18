@@ -96,7 +96,9 @@ public class AccommodationService {
 		Optional<List<Long>> accommodationIds = Optional.of(accommodationRepository.findAccommodationIdsByCity(city, search.getDistance()));
 		
 		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
-		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), search.getDateFrom(), search.getDateTo());
+		String dateFrom = search.getDateFrom();
+		String dateTo = search.getDateTo();
+		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accommodationIds.get(), dateFrom, dateTo);
 		
 		accommodationUnits.add(-1l);
 		
