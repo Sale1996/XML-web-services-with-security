@@ -1,6 +1,6 @@
 <div class="modal-header">
 
-    <h5 class="modal-title" id="exampleModalLabel">Central Point Apartment</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{ accommodation.accommodationName }}</h5>
     <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless" (click)="activeModal.dismiss('Cross click')">
       <svg class="icon">
         <use xlink:href="#Close_Icon"></use>
@@ -9,9 +9,7 @@
 </div>
 <div class="modal-body">
       <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
-      <p class="card-text">ENTIRE APARTMENT · 2 BEDS</p>
-      <h5 class="card-title">{{ accommodation.accommodationName }} </h5>
-      <p class="card-text">$320</p>
+      <p class="card-text">{{ accommodation.description }}</p>
       <hr>
 
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam est magna, tristique et risus nec, condimentum lobortis purus.

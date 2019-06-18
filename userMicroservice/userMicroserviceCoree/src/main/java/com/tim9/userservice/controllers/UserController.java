@@ -57,6 +57,17 @@ public class UserController {
 		return (user.getId() != null) ? new ResponseEntity< UserDTO > (user, HttpStatus.OK) : new ResponseEntity< UserDTO >( HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping("/email/{userEmail}")
+	@ApiOperation( value = "Finds one user by email.", notes = "Returns found user.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity< UserDTO > getUserByEmail(@PathVariable("userEmail") String email){
+		
+		UserDTO user = userService.findByEmail(email);
+		
+		return (user.getId() != null) ? new ResponseEntity< UserDTO > (user, HttpStatus.OK) : new ResponseEntity< UserDTO >( HttpStatus.NOT_FOUND);
+	}
+	
 	
 	@PostMapping("")
 	@ApiOperation( value = "Create an user.", notes = "Returns the user being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )

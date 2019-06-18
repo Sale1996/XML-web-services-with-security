@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   rooms: Number;
   reservations: Reservation[];
   reservation: Reservation;
-  reservationObj: Reservation = new Reservation();
+  reservationObj: Reservation;
   city: City;
   cities: City[];
   local_accomm: Accommodation;
@@ -181,14 +181,24 @@ export class HomeComponent implements OnInit {
 
     // bice izmenaa
 
+    this.reservationObj = {
+      reservationId: 1,
+      dateFrom: '2019-05-28T20:29:44',
+      dateTo: '2019-05-28T20:29:44',
+      finalPrice: 3,
+      confirmation: true,
+      accommodationUnit: 1,
+      client: 2,
+    }
+
     // this.reservationObj.dateFrom = this.homeFormGroup.controls['checkin'].value; 2019-06-28T18:44:27.534
     // this.reservationObj.dateTo = this.homeFormGroup.controls['checkout'].value;
-    this.reservationObj.client = 1; // ulogovan korisnik
-    // this.reservationObj.accommodationUnit = this.local_accomm.accommodationId;
-    this.reservationObj.confirmation = false;
-    this.reservationObj.finalPrice = 100; // cena puta dani
-    this.reservationObj.dateFrom = '2019-05-28T20:29:44';
-    this.reservationObj.dateTo = '2019-05-28T20:29:44';
+    // this.reservationObj.client = 1; // ulogovan korisnik
+    // // this.reservationObj.accommodationUnit = this.local_accomm.accommodationId;
+    // this.reservationObj.confirmation = {};
+    // this.reservationObj.finalPrice = 100; // cena puta dani
+    // this.reservationObj.dateFrom = '2019-05-28T20:29:44';
+    // this.reservationObj.dateTo = '2019-05-28T20:29:44';
 
   }
 
