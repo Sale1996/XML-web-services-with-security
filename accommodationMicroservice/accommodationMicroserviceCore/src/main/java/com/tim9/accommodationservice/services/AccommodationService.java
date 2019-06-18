@@ -249,6 +249,4 @@ public class AccommodationService {
 		return isValid;
 	}
 
-
-
 }

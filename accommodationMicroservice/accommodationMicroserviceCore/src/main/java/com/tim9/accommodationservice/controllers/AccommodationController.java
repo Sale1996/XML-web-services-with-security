@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tim9.accommodationservice.services.AccommodationService;
+import com.tim9.accommodationservice.services.AccommodationUnitService;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
+import com.tim9.accommodationserviceclient.dtos.AccommodationUnitDTO;
 import com.tim9.accommodationserviceclient.dtos.SearchDTO;
 
 import io.swagger.annotations.Api;
@@ -31,11 +33,13 @@ public class AccommodationController {
 
 	
 	private AccommodationService accommodationService;
+	private AccommodationUnitService accommodationUnitService;
 
 	
 	
-	public AccommodationController(AccommodationService service) {
+	public AccommodationController(AccommodationService service, AccommodationUnitService accommodationUnitService) {
 		this.accommodationService = service;
+		this.accommodationUnitService = accommodationUnitService;
 	}
  
 
@@ -65,6 +69,17 @@ public class AccommodationController {
 
 	}
 	
+	@PostMapping("/searchUnits/{accommodationId}")
+	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< List<AccommodationUnitDTO> > getAccommodationUnitsByAccommodationId(@PathVariable("accommodationId") Long accommodationId, @RequestBody SearchDTO search) {
+		
+		List< AccommodationUnitDTO > accommodations = accommodationUnitService.findAllAccommodationUnitsByAccommodationId(accommodationId, search);
+		
+		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationUnitDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationUnitDTO>>(accommodations, HttpStatus.NOT_FOUND);
+
+	}
 	
 
 	@GetMapping("/{accommodationId}")

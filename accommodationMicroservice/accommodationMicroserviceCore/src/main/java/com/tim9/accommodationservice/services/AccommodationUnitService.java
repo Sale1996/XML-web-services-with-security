@@ -18,11 +18,13 @@ import com.tim9.accommodationservice.repository.AccommodationUnitRepository;
 import com.tim9.accommodationservice.repository.CategoryRepository;
 import com.tim9.accommodationservice.repository.ExtraFieldRepository;
 import com.tim9.accommodationservice.repository.TypeRepository;
+import com.tim9.accommodationservice.utils.DatasFromReservationMicroservice;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationUnitConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOCategoryConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOTypeConverter;
 import com.tim9.accommodationserviceclient.dtos.AccommodationUnitDTO;
+import com.tim9.accommodationserviceclient.dtos.SearchDTO;
 
 @Service
 public class AccommodationUnitService {
@@ -40,13 +42,14 @@ public class AccommodationUnitService {
 	DTOTypeConverter typeConverter;
 	DTOAccommodationConverter accommodationConverter;
 	
+	DatasFromReservationMicroservice reservationMicroservice;
 	
-	
-	public AccommodationUnitService(AccommodationUnitRepository unitRepository, DTOAccommodationUnitConverter unitConverter,
+	public AccommodationUnitService(DatasFromReservationMicroservice reservationMicroservice, AccommodationUnitRepository unitRepository, DTOAccommodationUnitConverter unitConverter,
 			AccommodationRepository accommodationRepository, TypeRepository typeRepository, CategoryRepository categoryRepository,
 			DTOCategoryConverter categoryConverter, DTOTypeConverter typeConverter, DTOAccommodationConverter accommodationConverter,
 			ExtraFieldRepository extraFieldRepository) {
 		
+		this.reservationMicroservice = reservationMicroservice;
 		this.accommodationUnitRepository = unitRepository;
 		this.accommodationUnitConverter = unitConverter;
 		this.accommodationRepository = accommodationRepository;
@@ -262,4 +265,28 @@ public class AccommodationUnitService {
 				
 	}
 
+	public List<AccommodationUnitDTO> findAllAccommodationUnitsByAccommodationId(Long accommodationId, SearchDTO search) {
+		
+		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
+		String dateFrom = search.getDateFrom();
+		String dateTo = search.getDateTo();
+		List<Long> accid = new ArrayList<>();
+		accid.add(accommodationId);
+		List<Long> accommodationUnits = reservationMicroservice.getAccommodationUnitIds(accid, dateFrom, dateTo);
+		
+		accommodationUnits.add(-1l);
+		
+		search.getExtraFields().add(-1l);
+		
+		// sad treba iz  baze izvuci sve akomodacije cije slobodne jedinice imaju potreban kapacitet
+		Optional<List<AccommodationUnit>> accommodations = accommodationUnitRepository.searchAccommodationUnits(accid, accommodationUnits, search.getType(), search.getCategory(), search.getExtraFields(),search.getExtraFields().size()-1);
+		ArrayList < AccommodationUnitDTO > dtoAccommodations = new ArrayList< AccommodationUnitDTO >();
+		if ( accommodations.isPresent() ) {
+			for ( AccommodationUnit  candidate : accommodations.get() ) {
+				dtoAccommodations.add(accommodationUnitConverter.convertToDTO(candidate));
+			}
+			return dtoAccommodations;
+		}
+		return Collections.emptyList();
+	}
 }
