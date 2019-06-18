@@ -137,6 +137,22 @@ public class ReservationService {
 			return userIds.get();
 		}
 		
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
+	}
+
+	public List<ReservationDTO> findByClient(Long id) {
+		
+		Optional< List<Reservation> > reservations = Optional.of ( reservationRepository.findByClient(id) );
+		
+		ArrayList < ReservationDTO > dtoReservations = new ArrayList< ReservationDTO >();
+		
+		if ( reservations.isPresent() ) {
+			for ( Reservation candidate : reservations.get() ) {
+				dtoReservations.add(reservationConverter.convertToDTO(candidate));
+			}
+			return dtoReservations;
+		}
+			
+		return Collections.emptyList();
 	}
 }

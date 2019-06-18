@@ -167,4 +167,15 @@ public class ReservationController {
 		
 		return new ResponseEntity<List<Long>>(reservationService.getAccommodationClients(accommodationId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/client/{clientId}")
+	@ApiOperation( value = "Returns reservations of a specified client", httpMethod = "GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< List<ReservationDTO> > getClientReservations(@PathVariable("clientId") Long clientId) {
+		
+		List< ReservationDTO > reservations = reservationService.findByClient(clientId);
+		
+		return ( !reservations.isEmpty() )? new ResponseEntity< List<ReservationDTO> > (reservations, HttpStatus.OK ) : new ResponseEntity<List<ReservationDTO>>( HttpStatus.NOT_FOUND);
+	}
 }
