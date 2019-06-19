@@ -1,14 +1,21 @@
 package com.tim9.userservice.services;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tim9.userservice.dtoConverters.DTOAdminConverter;
 import com.tim9.userservice.models.Admin;
+import com.tim9.userservice.models.Agent;
 import com.tim9.userservice.repositories.AdminRepository;
 import com.tim9.userserviceClient.dtos.AdminDTO;
 
@@ -19,9 +26,17 @@ public class AdminService {
 	
 	private final DTOAdminConverter dtoAdminConverter;
 	
-	public AdminService(final AdminRepository adminRepository, final DTOAdminConverter dtoAdminConverter) {
+	private JavaMailSender javaMailSender;
+	
+	//Class which loads information from application.properties file.
+	private Environment env;
+	
+	public AdminService(final AdminRepository adminRepository, final DTOAdminConverter dtoAdminConverter,
+			JavaMailSender javaMailSender,Environment env) {
 		this.adminRepository = adminRepository;
 		this.dtoAdminConverter = dtoAdminConverter;
+		this.javaMailSender = javaMailSender;
+		this.env = env;
 	}
 	
 	public List<AdminDTO> findAll(){
@@ -80,7 +95,16 @@ public class AdminService {
 		
 		admin.setId(-1l);
 		
-		Admin a = adminRepository.save(dtoAdminConverter.converFromDTO(admin));
+		Admin a = dtoAdminConverter.converFromDTO(admin);
+		
+		String password = createRandomCode(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		
+		a.setPassword(password);
+		
+		adminRepository.save(a);
+		
+		sendEmail(a);
+
 		
 		admin.setId(a.getId());
 		
@@ -122,6 +146,30 @@ public class AdminService {
 		}
 		
 		return new AdminDTO();
+	}
+	
+	@Async
+	public void sendEmail(Admin savedUser) {
+		
+		//now we are sending activation link to the email address of registered user
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setTo(savedUser.getEmail());
+		mail.setFrom(env.getProperty("spring.mail.username"));
+		mail.setSubject("Activation link for MEGATRAVEL [ADMIN]");
+		mail.setText("Hello " + savedUser.getFirstName() + ",\n\n Thank you for registration in our website. \n "
+				+ "Your credentials are: \n \n Username: " + savedUser.getEmail() + " \n Password:" + savedUser.getPassword() );
+		javaMailSender.send(mail);
+		
+		
+	}
+	
+	
+	public static String createRandomCode(int codeLength, String id) {
+	    return new SecureRandom()
+	            .ints(codeLength, 0, id.length())
+	            .mapToObj(id::charAt)
+	            .map(Object::toString)
+	            .collect(Collectors.joining());
 	}
 	
 }

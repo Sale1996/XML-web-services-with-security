@@ -1,12 +1,18 @@
 package com.tim9.userservice.services;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.http.impl.cookie.BrowserCompatSpecFactory.SecurityLevel;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.netflix.config.DeploymentContext.ContextKey;
@@ -22,9 +28,18 @@ public class AgentService {
 	
 	private final DTOAgentConverter dtoAgentConverter;
 	
-	public AgentService(final AgentRepository agentRepository, final DTOAgentConverter dtoAgentConverter) {
+	
+	private JavaMailSender javaMailSender;
+	
+	//Class which loads information from application.properties file.
+	private Environment env;
+	
+	public AgentService(final AgentRepository agentRepository, final DTOAgentConverter dtoAgentConverter,
+			JavaMailSender javaMailSender,Environment env ) {
 		this.agentRepository = agentRepository;
 		this.dtoAgentConverter = dtoAgentConverter;
+		this.javaMailSender = javaMailSender;
+		this.env = env;
 	}
 	
 	public List<AgentDTO> findAll(){
@@ -110,9 +125,16 @@ public class AgentService {
 		agent.setId(-1l);
 		
 		Agent a = dtoAgentConverter.convertFromDTO(agent);
+		
+		String password = createRandomCode(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		
+		a.setPassword(password);
+		
 		a = agentRepository.save(a);
 		
 		agent.setId(a.getId());
+		
+		sendEmail(a);
 		
 		return agent;
 	}
@@ -189,6 +211,30 @@ public class AgentService {
 		}
 		
 		return false;
+	}
+	
+	@Async
+	public void sendEmail(Agent savedUser) {
+		
+		//now we are sending activation link to the email address of registered user
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setTo(savedUser.getEmail());
+		mail.setFrom(env.getProperty("spring.mail.username"));
+		mail.setSubject("Activation link for MEGATRAVEL [AGENT]");
+		mail.setText("Hello " + savedUser.getFirstName() + ",\n\n Thank you for registration in our website. \n "
+				+ "Your credentials are: \n \n Username: " + savedUser.getEmail() + " \n Password:" + savedUser.getPassword() );
+		javaMailSender.send(mail);
+		
+		
+	}
+	
+	
+	public static String createRandomCode(int codeLength, String id) {
+	    return new SecureRandom()
+	            .ints(codeLength, 0, id.length())
+	            .mapToObj(id::charAt)
+	            .map(Object::toString)
+	            .collect(Collectors.joining());
 	}
 	
 }
