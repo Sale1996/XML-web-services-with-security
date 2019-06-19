@@ -2,6 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Agent } from 'src/app/model/agent.model';
 import { AgentService } from 'src/app/services/agent.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UpdatePassword } from 'src/app/model/update-password.model';
 
 @Component({
   selector: 'app-agents-single-modal',
@@ -14,8 +16,9 @@ export class AgentsSingleModalComponent implements OnInit {
   passwordForm: FormGroup;
   agentFullName: string;
   agentId: number;
+  agentEmail: string;
 
-  constructor(private formBuilder: FormBuilder, private agentService: AgentService) { }
+  constructor(private formBuilder: FormBuilder, private agentService: AgentService, private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -58,15 +61,18 @@ export class AgentsSingleModalComponent implements OnInit {
 
   onSubmitPassword() {
     if (this.passwordForm.valid) {
-      var agent = this.agentForm.value as Agent;
-      if (this.passwordForm.value.password1 === this.passwordForm.value.password2) {
-        agent.password = this.passwordForm.value.password1;
-        this.agentService.changePassword(agent).subscribe(
-          () => {
-            console.log("uspesno")
-          }
-        );
+      var updatePassword: UpdatePassword = {
+        email: this.authService.getEmailFromToken(localStorage.getItem('access_token')),
+        oldPassword: this.passwordForm.value.password1,
+        newPassword: this.passwordForm.value.password2
       }
+
+      this.agentService.changePassword(updatePassword).subscribe(
+        () => {
+          console.log("uspesno")
+        }
+      );
+
 
     }
   }

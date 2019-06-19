@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Agent } from '../model/agent.model';
+import { UpdatePassword } from '../model/update-password.model';
 
 
 const httpOptions = {
@@ -28,8 +29,8 @@ export class AgentService {
     }
 
 
-    changePassword(agent: Agent): Observable<Agent> {
-        return this.http.put<Agent>(environment.apiUrlAgent + '/pass/' + agent.id, agent, httpOptions);
+    changePassword(password: UpdatePassword): Observable<boolean> {
+        return this.http.put<boolean>(environment.apiUrlAgent + '/pass', password, httpOptions);
     }
 
 }
