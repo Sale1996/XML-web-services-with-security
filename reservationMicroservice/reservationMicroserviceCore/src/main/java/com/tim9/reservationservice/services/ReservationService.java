@@ -64,13 +64,19 @@ public class ReservationService {
 	public ReservationDTO save(ReservationDTO reservation) {
 		
 		AccommodationUnitDTO unit = accommData.getById(reservation.getAccommodationUnit());
-		UserDTO client = userData.getById(reservation.getClient());
+		
+		if(reservation.getClient() != 0l) {			
+			UserDTO client = userData.getById(reservation.getClient());
+			if(client.getId() == null) {
+				return new ReservationDTO();
+			}
+		}
 		
 		//proveri da li ima vec neka rezervacija za isti taj unit u tom vremenskom periodu..
 		Optional<Reservation> rezervacija = reservationRepository.checkIfAccommodationUnitIsFreeForPeriod(reservation.getAccommodationUnit(), reservation.getDateFrom(), reservation.getDateTo());
 
 		
-		if(unit.getAccommodationUnitId() == null || client.getId()== null || rezervacija.isPresent()) {
+		if(unit.getAccommodationUnitId() == null || rezervacija.isPresent()) {
 
 			return new ReservationDTO();
 		}

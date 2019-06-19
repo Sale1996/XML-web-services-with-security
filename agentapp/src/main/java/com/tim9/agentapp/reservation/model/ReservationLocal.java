@@ -98,13 +98,16 @@ public class ReservationLocal {
     @XmlElement(name = "Accommodation_unit", required = true)
     @Column
     protected Long accommodationUnit;
+    @XmlElement(name = "Accommodation")
+    @Column
+    protected long accommodation;
     @XmlElement(name = "Client", required = true)
     @Column
     protected Long client;
 
     public ReservationLocal() {}
     
-    public ReservationLocal(long id, long roomId, String roomName, float price) {
+    public ReservationLocal(Long id, Long roomId, String roomName, float price) {
 		this.reservationId = id;
 		this.accommodationUnit = roomId;
 	//	this.roomName = roomName;			VIDECEMO ZA OVO DA LI JE NEOPHODNO
@@ -115,16 +118,8 @@ public class ReservationLocal {
      * Gets the value of the reservationId property.
      * 
      */
-    public long getReservationId() {
+    public Long getReservationId() {
         return reservationId;
-    }
-
-    /**
-     * Sets the value of the reservationId property.
-     * 
-     */
-    public void setReservationId(long value) {
-        this.reservationId = value;
     }
 
     /**
@@ -264,7 +259,15 @@ public class ReservationLocal {
 	}
 
 	public void setLocalReservationId(Long localReservationId) {
-		localReservationId = localReservationId;
+		this.localReservationId = localReservationId;
+	}
+
+	public long getAccommodation() {
+		return accommodation;
+	}
+
+	public void setAccommodation(long accommodation) {
+		this.accommodation = accommodation;
 	}
 
 }

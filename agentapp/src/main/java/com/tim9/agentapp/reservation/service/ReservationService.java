@@ -15,6 +15,7 @@ import com.tim9.agentapp.reservation.repository.ReservationRepository;
 import com.tim9.agentapp.reservation.soapclient.ReservationClient;
 import com.tim9.agentapp.reservation.utils.dtoConverter.DTOReservationConverter;
 import com.tim9.agentapp.reservation.wsdl.ConfirmReservationResponse;
+import com.tim9.agentapp.reservation.wsdl.CreateReservationResponse;
 import com.tim9.agentapp.reservation.wsdl.GetReservationsResponseAgent;
 import com.tim9.agentapp.reservation.wsdl.Reservation;
 
@@ -140,6 +141,32 @@ public class ReservationService {
 			}
 		}
 		
+	}
+	
+	public ReservationDTO createOccupancy(ReservationDTO reservation) {
+
+		Optional<ReservationLocal> rezervacija = reservationRepository.checkIfAccommodationUnitIsFreeForPeriod(reservation.getAccommodationUnit(), reservation.getDateFrom(), reservation.getDateTo());
+		
+		if(!rezervacija.isPresent()) {
+			
+			reservation.setLocalReservationId(-1l);
+			ReservationLocal Reservation = reservationConverter.convertFromDTO(reservation);
+			Reservation.setFinalPrice(0);
+			Reservation.setConfirmation(false);
+			Reservation.setClient(0l);
+			
+			CreateReservationResponse response = reservationClient.createReservation(reservationConverter.convertToWsdlFromLocal(Reservation));
+
+			if(response.getReservation().getReservationId() != 0l) {
+				Reservation.setReservationId(response.getReservation().getReservationId());
+				Reservation = reservationRepository.save(Reservation);
+				reservation.setLocalReservationId(Reservation.getLocalReservationId());
+				reservation.setReservationId(Reservation.getReservationId());
+			}
+		}
+
+		return reservation;
+	
 	}
 	
 }

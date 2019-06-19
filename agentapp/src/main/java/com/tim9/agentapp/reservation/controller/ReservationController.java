@@ -94,15 +94,14 @@ public class ReservationController {
 	}
 
 	@PostMapping("")
-	//@PreAuthorize("hasAuthority('CREATE_RESERVATION')")
-	@ApiOperation( value = "Create a reservation.", notes = "Returns the reservation being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
+	@ApiOperation( value = "Create an occupancy.", notes = "Returns the reservation (occupancy) being saved.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
 	@ApiResponses( value = {
 					@ApiResponse( code = 201 , message = "Created"),
 					@ApiResponse( code = 400, message= "Bad request")
 	})
-	public ResponseEntity< ReservationDTO > createReservation(@RequestBody ReservationDTO reservation) {
+	public ResponseEntity< ReservationDTO > createOccupancy(@RequestBody ReservationDTO reservation) {
 		
-		ReservationDTO savedReservation = reservationService.save(reservation);
+		ReservationDTO savedReservation = reservationService.createOccupancy(reservation);
 		
 		return ( savedReservation!=null )? new ResponseEntity< ReservationDTO > ( savedReservation, HttpStatus.CREATED ) : new ResponseEntity< ReservationDTO > ( HttpStatus.BAD_REQUEST );
 	}

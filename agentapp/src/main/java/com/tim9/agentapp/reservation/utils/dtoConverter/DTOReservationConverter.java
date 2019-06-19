@@ -24,6 +24,7 @@ public class DTOReservationConverter {
 		dto.setLocalReservationId(reservation.getLocalReservationId());
 		dto.setReservationId(reservation.getReservationId());
 		dto.setAccommodationUnit(reservation.getAccommodationUnit());
+		dto.setAccommodation(reservation.getAccommodation());
 		dto.setClient(reservation.getClient());
 		dto.setConfirmation(reservation.isConfirmation());
 		dto.setDateFrom(reservation.getDateFrom().toString());
@@ -40,6 +41,7 @@ public class DTOReservationConverter {
 		
 		dto.setReservationId(reservation.getReservationId());
 		dto.setAccommodationUnit(reservation.getAccommodationUnit());
+		dto.setAccommodation(reservation.getAccommodation());
 		dto.setClient(reservation.getClient());
 		dto.setConfirmation(reservation.isConfirmation());
 		dto.setDateFrom(reservation.getDateFrom().toString());
@@ -56,6 +58,7 @@ public class DTOReservationConverter {
 		
 		dto.setReservationId(reservation.getReservationId());
 		dto.setAccommodationUnit(reservation.getAccommodationUnit());
+		dto.setAccommodation(reservation.getAccommodation());
 		dto.setClient(reservation.getClient());
 		dto.setConfirmation(reservation.isConfirmation());
 		dto.setDateFrom(reservation.getDateFrom().toString());
@@ -68,12 +71,13 @@ public class DTOReservationConverter {
 	
 	public ReservationLocal convertFromDTO( ReservationDTO dto ) {
 		
-		Optional<ReservationLocal> reservation = reservationRepository.findById(dto.getReservationId());
-		
-		if(reservation.isPresent()) {
-			
-			return reservation.get();
-			
+		if(dto.getReservationId() != null) {
+			Optional<ReservationLocal> reservation = reservationRepository.findById(dto.getReservationId());
+			if(reservation.isPresent()) {
+				
+				return reservation.get();
+				
+			}
 		}
 		
 		ReservationLocal newBean = new ReservationLocal();
@@ -81,6 +85,7 @@ public class DTOReservationConverter {
 		newBean.setLocalReservationId(dto.getLocalReservationId());
 		newBean.setReservationId(dto.getReservationId());
 		newBean.setAccommodationUnit(dto.getAccommodationUnit());
+		newBean.setAccommodation(dto.getAccommodation());
 		newBean.setClient(dto.getClient());
 		newBean.setConfirmation(dto.isConfirmation());
 		newBean.setDateFrom(LocalDateTime.parse(dto.getDateFrom()));

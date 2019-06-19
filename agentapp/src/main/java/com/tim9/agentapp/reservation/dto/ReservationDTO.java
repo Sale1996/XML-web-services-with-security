@@ -1,5 +1,6 @@
 package com.tim9.agentapp.reservation.dto;
 
+import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -31,6 +32,8 @@ public class ReservationDTO {
     protected boolean confirmation;
     @XmlElement(name = "Accommodation_unit", required = true)
     protected Long accommodationUnit;
+    @XmlElement(name = "Accommodation")
+    protected long accommodation;
     @XmlElement(name = "Client", required = true)
     protected Long client;
 
@@ -82,5 +85,11 @@ public class ReservationDTO {
 	}
 	public void setLocalReservationId(Long localReservationId) {
 		this.localReservationId = localReservationId;
+	}
+	public long getAccommodation() {
+		return accommodation;
+	}
+	public void setAccommodation(long accommodation) {
+		this.accommodation = accommodation;
 	}
 }

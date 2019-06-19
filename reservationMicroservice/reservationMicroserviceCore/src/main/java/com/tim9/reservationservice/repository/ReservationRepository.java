@@ -26,10 +26,10 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 
 	@Query(value = "SELECT * FROM reservations.reservation where accommodation_unit= ?1 and \r\n" + 
 			" \r\n" + 
-			" ((date_from < ?2 and date_to > ?2) or \r\n" + 
-			" (date_from > ?2 and date_to < ?3) or \r\n" + 
+			" ((date_from <= ?2 and date_to >= ?2) or \r\n" + 
+			" (date_from >= ?2 and date_to <= ?3) or \r\n" + 
 			"  \r\n" + 
-			" (date_from < ?3 and date_to > ?3))", nativeQuery = true)
+			" (date_from <= ?3 and date_to >= ?3))", nativeQuery = true)
 	public Optional<Reservation> checkIfAccommodationUnitIsFreeForPeriod(Long accommodationUnit, String dateFrom,
 			String dateTo);
 
