@@ -37,11 +37,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AccommodationUnit }
+     * Create an instance of {@link AccommodationUnitLocal }
      * 
      */
-    public AccommodationUnit createAccommodationUnit() {
-        return new AccommodationUnit();
+    public AccommodationUnitLocal createAccommodationUnit() {
+        return new AccommodationUnitLocal();
     }
 
     /**
@@ -69,11 +69,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Price }
+     * Create an instance of {@link PriceLocal }
      * 
      */
-    public Price createPrice() {
-        return new Price();
+    public PriceLocal createPrice() {
+        return new PriceLocal();
     }
 
     /**
@@ -85,11 +85,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Accommodation }
+     * Create an instance of {@link AccommodationLocal }
      * 
      */
-    public Accommodation createAccommodation() {
-        return new Accommodation();
+    public AccommodationLocal createAccommodation() {
+        return new AccommodationLocal();
     }
 
     /**

@@ -50,7 +50,7 @@ public class CityLocal {
     
     @XmlElement(name = "Accommodations")
     @OneToMany (mappedBy="city")
-    protected List<Accommodation> accommodations;
+    protected List<AccommodationLocal> accommodations;
        
     @XmlElement(name = "LastUpdated")
 	@Column

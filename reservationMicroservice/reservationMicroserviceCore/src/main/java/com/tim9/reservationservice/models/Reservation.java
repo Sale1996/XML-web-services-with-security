@@ -33,7 +33,6 @@ import ch.qos.logback.core.net.server.Client;
 @XmlRootElement(name = "Reservation")
 @Entity
 public class Reservation {
-
     @XmlElement(name = "Reservation_id")
     @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

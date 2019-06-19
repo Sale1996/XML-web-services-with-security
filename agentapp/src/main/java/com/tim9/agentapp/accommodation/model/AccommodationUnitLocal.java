@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Accommodation_unit")
 @Entity
 @Table( name= "accomodation_units" )
-public class AccommodationUnit {
+public class AccommodationUnitLocal {
 
     @XmlElement(name = "LocalAccommodation_unit_id")
     @Id
@@ -68,7 +68,7 @@ public class AccommodationUnit {
     @XmlElement(name="Accommodation", required = true)
     @ManyToOne ()
 	@JoinColumn (name="accommodation",nullable = false)
-    protected Accommodation accommodation;
+    protected AccommodationLocal accommodation;
 
 	@XmlElement(name = "Extra_field", required = true)
     @ManyToMany(fetch = FetchType.EAGER)
@@ -80,7 +80,7 @@ public class AccommodationUnit {
     
     @XmlElement(name = "Price", required = true)
 	@OneToMany (mappedBy="accommodationUnit")
-    protected List<Price> price;
+    protected List<PriceLocal> price;
 
     
     
@@ -131,19 +131,19 @@ public class AccommodationUnit {
         return this.extraFields;
     }
  
-    public List<Price> getPrice() {
+    public List<PriceLocal> getPrice() {
         if (price == null) {
-            price = new ArrayList<Price>();
+            price = new ArrayList<PriceLocal>();
         }
         return this.price;
     }
     
-    public Accommodation getAccommodation() {
+    public AccommodationLocal getAccommodation() {
 		return this.accommodation;
 	}
 
 
-	public void setAccommodation(Accommodation accommodation) {
+	public void setAccommodation(AccommodationLocal accommodation) {
 		this.accommodation = accommodation;
 	}
 

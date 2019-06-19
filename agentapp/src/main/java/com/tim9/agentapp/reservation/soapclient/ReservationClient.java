@@ -3,12 +3,16 @@ package com.tim9.agentapp.reservation.soapclient;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import com.tim9.agentapp.reservation.wsdl.ConfirmReservationRequest;
+import com.tim9.agentapp.reservation.wsdl.ConfirmReservationResponse;
+import com.tim9.agentapp.reservation.wsdl.CreateReservationRequest;
 import com.tim9.agentapp.reservation.wsdl.CreateReservationResponse;
-import com.tim9.agentapp.reservation.wsdl.CreateReservationsRequest;
 import com.tim9.agentapp.reservation.wsdl.DeleteReservationRequest;
 import com.tim9.agentapp.reservation.wsdl.DeleteReservationResponse;
 import com.tim9.agentapp.reservation.wsdl.GetReservationsRequest;
+import com.tim9.agentapp.reservation.wsdl.GetReservationsRequestAgent;
 import com.tim9.agentapp.reservation.wsdl.GetReservationsResponse;
+import com.tim9.agentapp.reservation.wsdl.GetReservationsResponseAgent;
 import com.tim9.agentapp.reservation.wsdl.Reservation;
 import com.tim9.agentapp.reservation.wsdl.UpdateReservationRequest;
 import com.tim9.agentapp.reservation.wsdl.UpdateReservationResponse;
@@ -27,9 +31,21 @@ public class ReservationClient extends WebServiceGatewaySupport {
 		return response;
 	}
 	
-	public CreateReservationResponse createReservation(com.tim9.agentapp.reservation.wsdl.Reservation accommodation) {
+	public GetReservationsResponseAgent getReservationsByAgent(Long id) {
 
-		CreateReservationsRequest request = new CreateReservationsRequest();
+		GetReservationsRequestAgent request = new GetReservationsRequestAgent();
+		request.setId(id);
+
+		GetReservationsResponseAgent response = (GetReservationsResponseAgent) getWebServiceTemplate()
+				.marshalSendAndReceive(this.getDefaultUri(), request,
+						new SoapActionCallback(""));
+
+		return response;
+	}
+	
+	public CreateReservationResponse createReservation(Reservation accommodation) {
+
+		CreateReservationRequest request = new CreateReservationRequest();
 		request.setReservation(accommodation);
 
 		CreateReservationResponse response = (CreateReservationResponse) getWebServiceTemplate()
@@ -50,12 +66,25 @@ public class ReservationClient extends WebServiceGatewaySupport {
 
 		return response;
 	}
+	
 	public UpdateReservationResponse updateReservation(Reservation reservation) {
 
 		UpdateReservationRequest request = new UpdateReservationRequest();
 		request.setReservation(reservation);
 
 		UpdateReservationResponse response = (UpdateReservationResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(this.getDefaultUri(), request,
+						new SoapActionCallback(""));
+
+		return response;
+	}
+	
+	public ConfirmReservationResponse confirmReservation(Long id) {
+
+		ConfirmReservationRequest request = new ConfirmReservationRequest();
+		request.setId(id);
+
+		ConfirmReservationResponse response = (ConfirmReservationResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
 						new SoapActionCallback(""));
 

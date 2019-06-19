@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.accommodation.dto.PriceDTO;
-import com.tim9.agentapp.accommodation.model.Price;
+import com.tim9.agentapp.accommodation.model.PriceLocal;
 import com.tim9.agentapp.accommodation.repository.PriceRepository;
+import com.tim9.agentapp.accommodation.soapclient.PriceClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOPriceConverter;
+import com.tim9.agentapp.accommodation.wsdl.GetPricesResponse;
+import com.tim9.agentapp.accommodation.wsdl.Price;
 
 @Service
 public class PriceService {
@@ -20,19 +23,22 @@ public class PriceService {
 	PriceRepository priceRepository;
 	
 	@Autowired
+	PriceClient priceClient;
+	
+	@Autowired
 	DTOPriceConverter priceConverter;
 	
 	
 
 	public List<PriceDTO> findAll() {
 		
-		Optional< List<Price> > prices = Optional.of( priceRepository.findAll() );
+		Optional< List<PriceLocal> > prices = Optional.of( priceRepository.findAll() );
 		
 		ArrayList < PriceDTO > dtoPrices = new ArrayList<PriceDTO>();
 		
 		if ( prices.isPresent() ) {
 			
-			for ( Price price : prices.get() ) {
+			for ( PriceLocal price : prices.get() ) {
 				
 				dtoPrices.add(priceConverter.convertToDTO(price));
 				
@@ -49,7 +55,7 @@ public class PriceService {
 
 	public PriceDTO findById(Long id) {
 		
-		Optional< Price > price = priceRepository.findById(id);
+		Optional< PriceLocal > price = priceRepository.findById(id);
 		
 		
 		if ( price.isPresent() ) {
@@ -78,7 +84,7 @@ public class PriceService {
 		dto.setPriceId(-1l);
 		
 			
-		Price price = priceConverter.convertFromDTO(dto);
+		PriceLocal price = priceConverter.convertFromDTO(dto);
 		price.setLocalPriceId(-1l);
 		price.setPriceId(-1l);
 
@@ -93,7 +99,7 @@ public class PriceService {
 
 	public PriceDTO update(Long id, PriceDTO priceDTO) {
 		
-		Optional< Price > priceForChange = priceRepository.findById(id);
+		Optional< PriceLocal > priceForChange = priceRepository.findById(id);
 		//checking if dateFrom is before dateTo and price atribute is greater than zero
 		
 		if( priceForChange.isPresent() && priceDTO!=null) {
@@ -125,7 +131,7 @@ public class PriceService {
 
 	public PriceDTO delete(Long id) {
 		
-		Optional< Price > priceToDelete = priceRepository.findById(id);
+		Optional< PriceLocal > priceToDelete = priceRepository.findById(id);
 		
 		if( priceToDelete.isPresent() ) {
 			
@@ -141,13 +147,13 @@ public class PriceService {
 
 	public List<PriceDTO> findAllByUnit(Long id) {
 		
-		Optional< List<Price> > prices = Optional.of( priceRepository.findAllByAccommodationUnitLocalAccommodationUnitId(id) );
+		Optional< List<PriceLocal> > prices = Optional.of( priceRepository.findAllByAccommodationUnitLocalAccommodationUnitId(id) );
 		
 		ArrayList < PriceDTO > dtoPrices = new ArrayList<PriceDTO>();
 		
 		if ( prices.isPresent() ) {
 			
-			for ( Price price : prices.get() ) {
+			for ( PriceLocal price : prices.get() ) {
 				
 				dtoPrices.add(priceConverter.convertToDTO(price));
 				
@@ -160,6 +166,22 @@ public class PriceService {
 		return Collections.emptyList();
 
 		
+	}
+	
+	public List<PriceDTO> sync(Long id) {
+		GetPricesResponse response =  priceClient.GetPrices(id);
+		List<PriceDTO> dtoPrices = new ArrayList<PriceDTO>();
+		
+		if(!response.getPrice().isEmpty()) {
+			
+			for ( Price price : response.getPrice() ) {
+				dtoPrices.add(priceConverter.convertToDTOFromClient(price));	
+			}
+			
+			return dtoPrices;
+		}
+		
+		return Collections.emptyList();
 	}
 
 }

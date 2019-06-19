@@ -51,7 +51,7 @@ public class Picture {
     @XmlElement(name="Accommodation", required = true)
     @ManyToOne ()
 	@JoinColumn (name="accommodation",nullable = false)
-    protected Accommodation accommodation;
+    protected AccommodationLocal accommodation;
 
   
     public Long getPictureId() {
@@ -82,12 +82,12 @@ public class Picture {
 	}
 
 
-	public Accommodation getAccommodation() {
+	public AccommodationLocal getAccommodation() {
 		return accommodation;
 	}
 
 
-	public void setAccommodation(Accommodation accommodation) {
+	public void setAccommodation(AccommodationLocal accommodation) {
 		this.accommodation = accommodation;
 	}
 

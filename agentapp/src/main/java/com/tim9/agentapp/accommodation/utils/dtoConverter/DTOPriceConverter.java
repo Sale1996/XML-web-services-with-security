@@ -1,13 +1,15 @@
 package com.tim9.agentapp.accommodation.utils.dtoConverter;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.accommodation.dto.PriceDTO;
-import com.tim9.agentapp.accommodation.model.Price;
+import com.tim9.agentapp.accommodation.model.PriceLocal;
 import com.tim9.agentapp.accommodation.repository.PriceRepository;
+import com.tim9.agentapp.accommodation.wsdl.Price;
 
 
 @Component
@@ -20,7 +22,7 @@ public class DTOPriceConverter {
 	public DTOAccommodationUnitConverter accommodationUnitConverter;
 	
 	
-	public PriceDTO convertToDTO (Price price) {
+	public PriceDTO convertToDTO (PriceLocal price) {
 		
 		PriceDTO dto = new PriceDTO();
 		dto.setAccommodationUnit(accommodationUnitConverter.convertToDTO(price.getAccommodationUnit()));
@@ -35,9 +37,24 @@ public class DTOPriceConverter {
 		
 	}
 	
-	public Price convertFromDTO( PriceDTO dto ) {
+	public PriceDTO convertToDTOFromClient (Price price) {
 		
-		Optional<Price> price = priceRepository.findById(dto.getPriceId());
+		PriceDTO dto = new PriceDTO();
+		dto.setAccommodationUnit(accommodationUnitConverter.convertToDTOFromClient(price.getAccommodationUnit()));
+		dto.setAmount(price.getAmount());
+		dto.setPriceId(price.getPriceId());
+		dto.setPriceId(price.getPriceId());
+		dto.setDateFrom(LocalDate.parse(price.getDateFrom()));
+		dto.setDateTo(LocalDate.parse(price.getDateTo()));
+		
+		
+		return dto;
+		
+	}
+	
+	public PriceLocal convertFromDTO( PriceDTO dto ) {
+		
+		Optional<PriceLocal> price = priceRepository.findById(dto.getPriceId());
 		
 		if(price.isPresent()) {
 			
@@ -45,7 +62,7 @@ public class DTOPriceConverter {
 			
 		}
 		
-		Price newCandidate = new Price();
+		PriceLocal newCandidate = new PriceLocal();
 		
 		newCandidate.setAccommodationUnit(accommodationUnitConverter.convertFromDTO(dto.getAccommodationUnit()));
 		newCandidate.setAmount(dto.getAmount());

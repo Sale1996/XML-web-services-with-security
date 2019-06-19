@@ -94,19 +94,18 @@ public class ReservationService {
 		Optional<Reservation> reservationForChange = reservationRepository.findById(id);
 		
 		if( reservationForChange.isPresent() && reservation!=null ) {
-										
-			reservationForChange.get().setAccommodationUnit(reservation.getAccommodationUnit());
-			reservationForChange.get().setClient(reservation.getClient());
-			reservationForChange.get().setConfirmation(reservation.isConfirmation());
-			reservationForChange.get().setDateFrom(LocalDateTime.parse(reservation.getDateFrom()));
-			reservationForChange.get().setDateTo(LocalDateTime.parse(reservation.getDateTo()));
-			reservationForChange.get().setFinalPrice(reservation.getFinalPrice());
-			reservationForChange.get().setLastUpdated(LocalDateTime.now());
-			
-			reservationRepository.save(reservationForChange.get());
-			reservation.setReservationId(reservationForChange.get().getReservationId());
-			
-			return reservation;
+				reservationForChange.get().setAccommodationUnit(reservation.getAccommodationUnit());
+				reservationForChange.get().setClient(reservation.getClient());
+				reservationForChange.get().setConfirmation(reservation.isConfirmation());
+				reservationForChange.get().setDateFrom(LocalDateTime.parse(reservation.getDateFrom()));
+				reservationForChange.get().setDateTo(LocalDateTime.parse(reservation.getDateTo()));
+				reservationForChange.get().setFinalPrice(reservation.getFinalPrice());
+				reservationForChange.get().setLastUpdated(LocalDateTime.now());
+				
+				reservationRepository.save(reservationForChange.get());
+				reservation.setReservationId(reservationForChange.get().getReservationId());
+				
+				return reservation;					
 		}
 		
 		return new ReservationDTO();
@@ -154,5 +153,22 @@ public class ReservationService {
 		}
 			
 		return Collections.emptyList();
+	}
+	
+	public Reservation confirmReservation(Long id) {
+		
+		Optional< Reservation > reservation = reservationRepository.findById(id) ;
+		
+		if ( reservation.isPresent() ) {
+			// check if isConfirmation set to TRUE and check if it's valid change regarding dateFrom and current time
+			if(LocalDateTime.now().isAfter(reservation.get().getDateFrom())) {				
+				reservation.get().setConfirmation(true);
+				reservation.get().setLastUpdated(LocalDateTime.now());
+				reservationRepository.save(reservation.get());
+				return reservation.get();
+			}
+		}
+			
+		return new Reservation();
 	}
 }

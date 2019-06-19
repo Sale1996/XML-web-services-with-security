@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.tim9.agentapp.accommodation.model.Accommodation;
+import com.tim9.agentapp.accommodation.model.AccommodationLocal;
 
 
-public interface AccommodationRepository extends JpaRepository<Accommodation,Long> {
+public interface AccommodationRepository extends JpaRepository<AccommodationLocal,Long> {
 /*
 	@Query(value = "SELECT accommodation as accommodationId, sum(number_of_people) as numberOfBeds FROM accommodation.accomodation_units "
 			+"where accommodation in ("
@@ -26,5 +26,5 @@ public interface AccommodationRepository extends JpaRepository<Accommodation,Lon
 							"			) \r\n" + 
 							"			select * from akom left outer join accommodation.acccomodations on akom.accommodation = accommodation.acccomodations.id "
 							+ " where countedNumberOfBeds > ?2 ", nativeQuery = true)
-			public List<Accommodation> searchAccommodations(Long city, int numberOfGuests);
+			public List<AccommodationLocal> searchAccommodations(Long city, int numberOfGuests);
 }

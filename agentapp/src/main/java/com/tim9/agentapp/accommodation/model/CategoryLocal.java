@@ -44,7 +44,7 @@ public class CategoryLocal {
     
     @XmlElement(name ="Accommodation_units_of_category")
 	@OneToMany (mappedBy="unitCategory")
-    protected List<AccommodationUnit> accommodationUnitsOfCategory;
+    protected List<AccommodationUnitLocal> accommodationUnitsOfCategory;
 
 
     public Long getCategoryId() {

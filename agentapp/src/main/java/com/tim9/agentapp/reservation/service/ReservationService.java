@@ -10,9 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.reservation.dto.ReservationDTO;
-import com.tim9.agentapp.reservation.model.Reservation;
+import com.tim9.agentapp.reservation.model.ReservationLocal;
 import com.tim9.agentapp.reservation.repository.ReservationRepository;
+import com.tim9.agentapp.reservation.soapclient.ReservationClient;
 import com.tim9.agentapp.reservation.utils.dtoConverter.DTOReservationConverter;
+import com.tim9.agentapp.reservation.wsdl.ConfirmReservationResponse;
+import com.tim9.agentapp.reservation.wsdl.GetReservationsResponseAgent;
+import com.tim9.agentapp.reservation.wsdl.Reservation;
 
 @Service
 public class ReservationService {
@@ -21,16 +25,19 @@ public class ReservationService {
 	ReservationRepository reservationRepository;
 	
 	@Autowired
+	ReservationClient reservationClient;
+	
+	@Autowired
 	DTOReservationConverter reservationConverter;
 
 	public List<ReservationDTO> findAll() {
 		
-		Optional< List<Reservation> > reservations = Optional.of ( reservationRepository.findAll() );
+		Optional< List<ReservationLocal> > reservations = Optional.of ( reservationRepository.findAll() );
 		
 		ArrayList < ReservationDTO > dtoReservations = new ArrayList< ReservationDTO >();
 		
 		if ( reservations.isPresent() ) {
-			for ( Reservation candidate : reservations.get() ) {
+			for ( ReservationLocal candidate : reservations.get() ) {
 				dtoReservations.add(reservationConverter.convertToDTO(candidate));
 			}
 			return dtoReservations;
@@ -41,7 +48,7 @@ public class ReservationService {
 	
 	public ReservationDTO findById(long id) {
 		
-		Optional< Reservation > reservation = reservationRepository.findById(id);
+		Optional< ReservationLocal > reservation = reservationRepository.findById(id);
 		
 		if ( reservation.isPresent() ) {
 			return reservationConverter.convertToDTO(reservation.get());
@@ -53,10 +60,15 @@ public class ReservationService {
 	
 	public ReservationDTO save(ReservationDTO reservation) {
 		
-		reservation.setReservationId(-1l);
-		Reservation Reservation = reservationConverter.convertFromDTO(reservation);
+		Optional<ReservationLocal> foundReservation = reservationRepository.findByReservationId(reservation.getReservationId());
+		
+		if( foundReservation.isPresent() ) {
+			return update(foundReservation.get().getLocalReservationId(), reservation);
+		}
+		
+		ReservationLocal Reservation = reservationConverter.convertFromDTO(reservation);
 		Reservation = reservationRepository.save(Reservation);
-		reservation.setReservationId(Reservation.getReservationId());
+		reservation.setLocalReservationId(Reservation.getLocalReservationId());
 		
 		return reservation;
 	
@@ -64,7 +76,7 @@ public class ReservationService {
 	
 	public ReservationDTO update(long id, ReservationDTO reservation) {
 		
-		Optional<Reservation> reservationForChange = reservationRepository.findById(id);
+		Optional<ReservationLocal> reservationForChange = reservationRepository.findById(id);
 		
 		if( reservationForChange.isPresent() && reservation!=null ) {
 										
@@ -86,15 +98,19 @@ public class ReservationService {
 	
 	public Boolean confirmRealization(long id){
 		
-		Optional<Reservation> reservationForChange = reservationRepository.findById(id);
+		Optional<ReservationLocal> reservationForChange = reservationRepository.findById(id);
 		
 		if(reservationForChange.isPresent()) {
 			// TODO proveriti da li sme da potvrdi rezervaciju na osnovu trenutnog datuma
-			reservationForChange.get().setConfirmation(true);
-
-			reservationRepository.save(reservationForChange.get());
-					
-			return true;		
+			if(LocalDateTime.now().isAfter(reservationForChange.get().getDateFrom())) {
+				
+				ConfirmReservationResponse response = reservationClient.confirmReservation(reservationForChange.get().getReservationId());
+				if(response.getReservation().isConfirmation()) {
+					reservationForChange.get().setConfirmation(true);
+					reservationRepository.save(reservationForChange.get());
+					return true;		
+				}
+			}		
 		}
 		
 		return false;
@@ -102,7 +118,7 @@ public class ReservationService {
 	
 	public ReservationDTO delete(long id) {
 		
-		Optional<Reservation> reservationToDelete = reservationRepository.findById(id);
+		Optional<ReservationLocal> reservationToDelete = reservationRepository.findById(id);
 		
 		if( reservationToDelete.isPresent() ) {
 			reservationRepository.deleteById(id);
@@ -111,6 +127,19 @@ public class ReservationService {
 		}
 		
 		return new ReservationDTO();
+	}
+	
+	// input: agentId
+	public void syncReservations(Long id) {
+		GetReservationsResponseAgent response = reservationClient.getReservationsByAgent(id);
+		
+		if(!response.getReservations().isEmpty()) {
+			
+			for ( Reservation reservation : response.getReservations() ) {
+				save(reservationConverter.convertToDTOFromClient(reservation));
+			}
+		}
+		
 	}
 	
 }

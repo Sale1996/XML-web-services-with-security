@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.reservation.dto.ReservationDTO;
-import com.tim9.agentapp.reservation.model.Reservation;
+import com.tim9.agentapp.reservation.model.ReservationLocal;
 import com.tim9.agentapp.reservation.repository.ReservationRepository;
+import com.tim9.agentapp.reservation.wsdl.Reservation;
 
 @Component
 public class DTOReservationConverter {
@@ -16,7 +17,40 @@ public class DTOReservationConverter {
 	@Autowired
 	public ReservationRepository reservationRepository;
 	
-	public ReservationDTO convertToDTO (Reservation reservation) {
+	public ReservationDTO convertToDTO (ReservationLocal reservation) {
+		
+		ReservationDTO dto = new ReservationDTO();
+		
+		dto.setLocalReservationId(reservation.getLocalReservationId());
+		dto.setReservationId(reservation.getReservationId());
+		dto.setAccommodationUnit(reservation.getAccommodationUnit());
+		dto.setClient(reservation.getClient());
+		dto.setConfirmation(reservation.isConfirmation());
+		dto.setDateFrom(reservation.getDateFrom().toString());
+		dto.setDateTo(reservation.getDateTo().toString());
+		dto.setFinalPrice(reservation.getFinalPrice());
+		
+		return dto;
+		
+	}
+	
+	public Reservation convertToWsdlFromLocal (ReservationLocal reservation) {
+		
+		Reservation dto = new Reservation();
+		
+		dto.setReservationId(reservation.getReservationId());
+		dto.setAccommodationUnit(reservation.getAccommodationUnit());
+		dto.setClient(reservation.getClient());
+		dto.setConfirmation(reservation.isConfirmation());
+		dto.setDateFrom(reservation.getDateFrom().toString());
+		dto.setDateTo(reservation.getDateTo().toString());
+		dto.setFinalPrice(reservation.getFinalPrice());
+		
+		return dto;
+		
+	}
+	
+	public ReservationDTO convertToDTOFromClient (Reservation reservation) {
 		
 		ReservationDTO dto = new ReservationDTO();
 		
@@ -32,9 +66,9 @@ public class DTOReservationConverter {
 		
 	}
 	
-	public Reservation convertFromDTO( ReservationDTO dto ) {
+	public ReservationLocal convertFromDTO( ReservationDTO dto ) {
 		
-		Optional<Reservation> reservation = reservationRepository.findById(dto.getReservationId());
+		Optional<ReservationLocal> reservation = reservationRepository.findById(dto.getReservationId());
 		
 		if(reservation.isPresent()) {
 			
@@ -42,8 +76,9 @@ public class DTOReservationConverter {
 			
 		}
 		
-		Reservation newBean = new Reservation();
+		ReservationLocal newBean = new ReservationLocal();
 		
+		newBean.setLocalReservationId(dto.getLocalReservationId());
 		newBean.setReservationId(dto.getReservationId());
 		newBean.setAccommodationUnit(dto.getAccommodationUnit());
 		newBean.setClient(dto.getClient());

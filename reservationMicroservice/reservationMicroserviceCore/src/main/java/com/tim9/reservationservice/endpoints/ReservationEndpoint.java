@@ -22,16 +22,19 @@ import com.tim9.reservationservice.models.Reservation;
 import com.tim9.reservationservice.models.UpdateReservationRequest;
 import com.tim9.reservationservice.models.UpdateReservationResponse;
 import com.tim9.reservationservice.repository.ReservationRepository;
+import com.tim9.reservationservice.services.ReservationService;
 
 @Endpoint
 public class ReservationEndpoint {
 
 	private static final String NAMESPACE_URI = "http://tim9.com/reservations";
 	private ReservationRepository repository;
+	private ReservationService reservationService;
 	
 	@Autowired
-	public ReservationEndpoint(ReservationRepository repository) {
+	public ReservationEndpoint(ReservationRepository repository, ReservationService reservationService) {
 		this.repository = repository;
+		this.reservationService = reservationService;
 	}
 	
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getReservationsRequest")
@@ -46,7 +49,7 @@ public class ReservationEndpoint {
 	@ResponsePayload
 	public GetReservationsResponseAgent getReservationsForAgent(@RequestPayload GetReservationsRequestAgent request) {
 		GetReservationsResponseAgent response = new GetReservationsResponseAgent();
-//		response.setReservations(repository.findByAccommodation(request.getId()));
+		response.setReservations(repository.findByAccommodation(request.getId()));
 		return response;
 	}
 	
@@ -84,10 +87,8 @@ public class ReservationEndpoint {
 	@ResponsePayload
 	public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest request) {
 		ConfirmReservationResponse response = new ConfirmReservationResponse();
-		Reservation r = repository.findById(request.getId()).get();
-		r.setConfirmation(true);
-		r.setLastUpdated(LocalDateTime.now());
-		response.setReservation(repository.save(r));
+		response.setReservation(reservationService.confirmReservation(request.getId()));
+		
 		return response;
 	}
 }

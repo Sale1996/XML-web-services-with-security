@@ -43,7 +43,7 @@ public class TypeLocal {
     
     @XmlElement(name="Accommodation_units_of_type")
 	@OneToMany (mappedBy="unitType")
-    protected List<AccommodationUnit> units;
+    protected List<AccommodationUnitLocal> units;
 
   
     public Long getTypeId() {
