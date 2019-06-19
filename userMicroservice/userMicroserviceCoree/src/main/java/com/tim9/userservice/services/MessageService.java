@@ -1,6 +1,9 @@
 package com.tim9.userservice.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import com.tim9.userservice.repositories.MessageRepository;
 import com.tim9.userservice.repositories.UserRepository;
 import com.tim9.userservice.utils.DatasFromReservationMicroservice;
 import com.tim9.userserviceClient.dtos.MessageDTO;
+import com.tim9.userserviceClient.dtos.UserDTO;
 
 @Service
 public class MessageService {
@@ -91,6 +95,25 @@ public class MessageService {
 		}
 		
 		return new MessageDTO();
+	}
+
+	public List<MessageDTO> findByUser(Long id) {
+		
+		Optional<List<Message>> message = Optional.of(messageRepository.findByUserId(id));
+		
+		ArrayList<MessageDTO> dtoMessages = new ArrayList<MessageDTO>();
+		
+		if (message.isPresent()) {
+			
+			for (Message u : message.get()) {
+				
+				dtoMessages.add(dtoMessageConverter.convertToDTO(u));			
+			}
+			
+			return dtoMessages;			
+		}
+		
+		return Collections.emptyList();
 	}
 	
 	

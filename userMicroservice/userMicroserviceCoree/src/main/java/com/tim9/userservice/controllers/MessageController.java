@@ -1,5 +1,7 @@
 package com.tim9.userservice.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,17 @@ public class MessageController {
 		MessageDTO message = messageService.findById(id);
 		
 		return (message.getMessageId() != null) ? new ResponseEntity< MessageDTO > (message, HttpStatus.OK) : new ResponseEntity< MessageDTO >( HttpStatus.NOT_FOUND);
+	}
+	
+	@GetMapping("/client/{userId}")
+	@ApiOperation( value = "Finds messages by user id.", notes = "Returns found messages.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity< List<MessageDTO> > getUserMessages(@PathVariable("userId") Long id){
+		
+		List<MessageDTO> messages = messageService.findByUser(id);
+		
+		return (messages != null) ? new ResponseEntity< List<MessageDTO> > (messages, HttpStatus.OK) : new ResponseEntity< List<MessageDTO> >( HttpStatus.NOT_FOUND);
 	}
 	
 	

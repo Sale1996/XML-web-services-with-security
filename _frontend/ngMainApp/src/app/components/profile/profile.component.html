@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-12">
-      <h3>Branko Perisic</h3>
+      <h3>Profile</h3>
   </div>
 </div>
 
@@ -14,7 +14,6 @@
 <table class="table table-striped">
     <thead>
       <tr>
-          <th scope="col">#</th>
           <th scope="col">Date From</th>
           <th scope="col">Date To</th>
           <th scope="col">Price</th>
@@ -26,7 +25,6 @@
 
       <tr *ngFor="let reservation of reservations">
         <ng-container *ngIf="reservation.confirmation">
-            <th scope="row">1</th>
             <td>{{reservation.dateFrom}}</td>
             <td>{{reservation.dateTo}}</td>
             <td>{{reservation.finalPrice}}</td>
@@ -51,7 +49,6 @@
 <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Date From</th>
         <th scope="col">Date To</th>
         <th scope="col">Price</th>
@@ -62,7 +59,6 @@
     <tbody>
         <tr *ngFor="let reservation of reservations">
             <ng-container *ngIf="!reservation.confirmation">
-              <th scope="row">1</th>
               <td>{{reservation.dateFrom}}</td>
               <td>{{reservation.dateTo}}</td>
               <td>{{reservation.finalPrice}}</td>
@@ -85,16 +81,18 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Message</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Yes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+        <form [formGroup]="sendMessageFormGroup" (ngSubmit)="onSubmit()">
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Message</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="message"></textarea>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="sendMessage(reservation)" data-dismiss="modal">Send</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </form>
       </div>
     </div>
   </div>

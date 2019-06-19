@@ -18,6 +18,7 @@ import com.tim9.accommodationservice.services.AccommodationService;
 import com.tim9.accommodationservice.services.AccommodationUnitService;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
 import com.tim9.accommodationserviceclient.dtos.AccommodationUnitDTO;
+import com.tim9.accommodationserviceclient.dtos.AccommodationUnitsWithPricesDTO;
 import com.tim9.accommodationserviceclient.dtos.SearchDTO;
 
 import io.swagger.annotations.Api;
@@ -31,18 +32,14 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin("http://localhost:4200")
 public class AccommodationController {
 
-	
 	private AccommodationService accommodationService;
 	private AccommodationUnitService accommodationUnitService;
 
-	
-	
 	public AccommodationController(AccommodationService service, AccommodationUnitService accommodationUnitService) {
 		this.accommodationService = service;
 		this.accommodationUnitService = accommodationUnitService;
 	}
  
-
 	@GetMapping("")
 	@ApiOperation( value = "Returns all accommodations", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
@@ -55,8 +52,6 @@ public class AccommodationController {
 
 	}
 
-
-	
 	@PostMapping("/search/{city}/{numberOfGuest}")
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
@@ -68,19 +63,18 @@ public class AccommodationController {
 		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationDTO>>(accommodations, HttpStatus.NOT_FOUND);
 
 	}
-	
+
 	@PostMapping("/searchUnits/{accommodationId}")
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
-	public ResponseEntity< List<AccommodationUnitDTO> > getAccommodationUnitsByAccommodationId(@PathVariable("accommodationId") Long accommodationId, @RequestBody SearchDTO search) {
+	public ResponseEntity<AccommodationUnitsWithPricesDTO> getAccommodationUnitsByAccommodationId(@PathVariable("accommodationId") Long accommodationId, @RequestBody SearchDTO search) {
 		
-		List< AccommodationUnitDTO > accommodations = accommodationUnitService.findAllAccommodationUnitsByAccommodationId(accommodationId, search);
+		AccommodationUnitsWithPricesDTO accommodations = accommodationUnitService.findAllAccommodationUnitsByAccommodationId(accommodationId, search);
 		
-		return ( !accommodations.isEmpty() )? new ResponseEntity< List<AccommodationUnitDTO> > (accommodations, HttpStatus.OK ) : new ResponseEntity<List<AccommodationUnitDTO>>(accommodations, HttpStatus.NOT_FOUND);
+		return (!accommodations.getUnits().isEmpty() && !accommodations.getPrices().isEmpty())? new ResponseEntity<AccommodationUnitsWithPricesDTO> (accommodations, HttpStatus.OK ) : new ResponseEntity<AccommodationUnitsWithPricesDTO>(accommodations, HttpStatus.NOT_FOUND);
 
 	}
-	
 
 	@GetMapping("/{accommodationId}")
 	@ApiOperation( value = "Finds one accommodation by id.", notes = "Returns found accommodation.", httpMethod="GET")
@@ -154,7 +148,6 @@ public class AccommodationController {
 			return new ResponseEntity< AccommodationDTO > ( HttpStatus.NOT_FOUND );
 
 	}
-	
 
 	/*
 	 * 

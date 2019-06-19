@@ -36,9 +36,26 @@
 
         </div>
         <div class="form-group">
-          <label for="picture" class="col-form-label col-form-label-sm">Pictures<span
-              class="text-danger">*</span></label>
-          <input type="text" class="form-control form-control-sm" placeholder="Nesto sa slikama" required>
+          <div class="tableFixHead flex-grow-1">
+            <table class="table table-borderless table-hover">
+              <tbody>
+                <ng-container *ngIf="pictures$ | async as pictures; else loading">
+                  <tr *ngFor="let picture of pictures">
+                    <img [src]="'data:image/jpg;base64,'+ picture.picUrl" style="width:250px;height:200px">
+                    <td class="float-right">
+                      <span role="button" class="table-btn table-btn-danger borderless mr-2"
+                        (click)="deletePicture(picture.pictureId)">
+                        <svg class="icon">
+                          <use xlink:href="#Delete_Icon"></use>
+                        </svg>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <input type="file" accept="image/*" (change)="handleFileSelect($event)" required>
         </div>
       </div>
     </div>
@@ -47,3 +64,22 @@
     </div>
   </form>
 </div>
+
+
+<svg width="0" height="0" class="hidden d-none">
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="Close_Icon">
+    <path d="M22.9 14.5l-1.4-1.4-3.5 3.5-3.5-3.5-1.4 1.4 3.5 3.5-3.5 3.5 1.4 1.4 3.5-3.5 3.5 3.5 1.4-1.4-3.5-3.5z">
+    </path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="Checkmark_Icon">
+    <path d="M25.3 11.4L15 21.7l-4.3-4.3-1.4 1.4 5 5 .7.7.7-.7 11-11-1.4-1.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="Delete_Icon">
+    <path d="M22 13v-2h-8v2h-3v2h2v10h10V15h2v-2h-3zm-1 10h-6v-8h6v8z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Search_Icon">
+    <path
+      d="M31.6 30.2l-4.3-4.3c.7-1 1.1-2.2 1.1-3.5 0-3.3-2.7-6-6-6s-6 2.7-6 6 2.7 6 6 6c1.3 0 2.5-.4 3.5-1.1l4.3 4.3 1.4-1.4zm-9.2-3.8c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z">
+    </path>
+  </symbol>
+</svg>

@@ -1,4 +1,4 @@
-package com.tim9.accommodationservice.services;
+package com.tim9.agentapp.accommodation.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.tim9.accommodationservice.models.Picture;
-import com.tim9.accommodationservice.repository.PictureRepository;
-import com.tim9.accommodationservice.utils.dtoConverters.DTOPictureConverter;
-import com.tim9.accommodationserviceclient.dtos.PictureDTO;
+import com.tim9.agentapp.accommodation.dto.PictureDTO;
+import com.tim9.agentapp.accommodation.model.Picture;
+import com.tim9.agentapp.accommodation.repository.PictureRepository;
+import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOPictureConverter;
 
 @Service
 public class PictureService {
@@ -79,7 +79,6 @@ public class PictureService {
 		dto.setPictureId(-1l);
 			
 		Picture picture = pictureConverter.convertFromDTO(dto);
-		picture.setLastUpdated(LocalDateTime.now());
 		picture = pictureRepository.save(picture);
 		
 		dto.setPictureId(picture.getPictureId());
@@ -95,7 +94,6 @@ public class PictureService {
 		if( pictureForChange.isPresent() && pictureDTO!=null ) {
 								
 			pictureForChange.get().setPicUrl(pictureDTO.getPicUrl());
-			pictureForChange.get().setLastUpdated(LocalDateTime.now());
 	
 			pictureRepository.save(pictureForChange.get());
 			
@@ -136,30 +134,6 @@ public class PictureService {
 		return Collections.emptyList();
 
 		
-	}
-
-
-
-
-	public List<PictureDTO> findAllByAccommodationId(Long id) {
-		
-		Optional< List<Picture> > pictures = Optional.of( pictureRepository.findAllByAccommodationAccommodationId(id));
-		
-		ArrayList < PictureDTO > dtoPictures = new ArrayList<PictureDTO>();
-		
-		if ( pictures.isPresent() ) {
-			
-			for ( Picture picture : pictures.get() ) {
-				
-				dtoPictures.add(pictureConverter.convertToDTO(picture));
-				
-			}
-			
-			return dtoPictures;
-			
-		}
-			
-		return Collections.emptyList();
 	}
 
 }

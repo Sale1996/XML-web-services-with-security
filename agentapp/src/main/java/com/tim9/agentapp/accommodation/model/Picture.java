@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -42,6 +43,7 @@ public class Picture {
     
     
     @XmlElement(name = "Pic_url", required = true)
+    @Lob
 	@Column ( name = "pic_url" )
     protected String picUrl;
     
@@ -77,6 +79,16 @@ public class Picture {
 
 	public void setLocalPictureId(Long localPictureId) {
 		this.localPictureId = localPictureId;
+	}
+
+
+	public Accommodation getAccommodation() {
+		return accommodation;
+	}
+
+
+	public void setAccommodation(Accommodation accommodation) {
+		this.accommodation = accommodation;
 	}
 
 }

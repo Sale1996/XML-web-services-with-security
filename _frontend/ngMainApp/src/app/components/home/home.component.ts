@@ -1,3 +1,5 @@
+import { Picture } from './../../model/picture.model';
+import { PictureService } from './../../services/picture.service';
 import { AuthService } from './../../services/auth.service';
 import { User } from './../../model/user.model';
 import { AccommodationUnitService } from './../../services/accommodation-unit.service';
@@ -58,6 +60,9 @@ export class HomeComponent implements OnInit {
   category: Category;
   categories: Category[];
 
+  picture: Picture;
+  pictures: Picture[];
+
   extraFieldsNew: number[];
 
   accommodationUnit: AccommodationUnit;
@@ -79,7 +84,8 @@ export class HomeComponent implements OnInit {
     private modalService: NgbModal,
     private accommodationUnitService: AccommodationUnitService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private pictureService: PictureService
   ) { }
 
   ngOnInit() {
@@ -172,6 +178,10 @@ export class HomeComponent implements OnInit {
       accommodationModalRef.componentInstance.accommodationUnits = this.accommodationUnits;
 
     });
+  }
+
+  getPictures(accommodationId: number) {
+    this.pictureService.getPictures(accommodationId).subscribe(picture => this.pictures = picture);
   }
 
   getExtraFields(): void {
