@@ -1,5 +1,5 @@
-export class Message {
-  messageId: number;
+export interface Message {
+  messageId?: number;
   messageBody: string;
   messageTime: any;
   userId: number;

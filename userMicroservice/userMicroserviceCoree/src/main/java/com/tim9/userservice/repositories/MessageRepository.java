@@ -15,5 +15,5 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 	@Query(value = "SELECT * from message", nativeQuery = true)
 	public Optional<List<Message>> findMessagesByReservationId(long id);
 	public Message deleteById(long id);
-	public List<MessageDTO> findByUserId(Long id);
+	public List<Message> findByUserId(Long id);
 }

@@ -14,6 +14,7 @@ export const environment = {
   apiExtraField: 'http://localhost:8081/extraFields',
   apiCategories: 'http://localhost:8081/categories',
   apiTypes: 'http://localhost:8081/types',
+  apiPicture: 'http://localhost:8081/pictures',
 };
 
 /*

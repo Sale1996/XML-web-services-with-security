@@ -50,6 +50,18 @@ public class PictureController {
 		
 	}
 	
+	@GetMapping("/accommodations/{id}")
+	@ApiOperation( value = "Returns all pictures", httpMethod = "GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< List<PictureDTO> > getAllPicturesByAccommodationsId(@PathVariable("id") Long id){
+		
+		List< PictureDTO > pictures = pictureService.findAllByAccommodationId(id);
+		
+		return ( !pictures.isEmpty() )? new ResponseEntity< List<PictureDTO> > ( pictures, HttpStatus.OK ) : new ResponseEntity< List<PictureDTO> > ( pictures, HttpStatus.NOT_FOUND );
+		
+	}
+	
 	
 	@GetMapping("/{id}")
 	@ApiOperation( value = "Finds one Picture by id.", notes = "Returns found Picture.", httpMethod="GET")
