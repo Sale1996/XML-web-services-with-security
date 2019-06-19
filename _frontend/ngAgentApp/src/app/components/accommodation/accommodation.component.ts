@@ -6,6 +6,9 @@ import { Accommodation } from 'src/app/model/accommodation.model';
 import { City } from 'src/app/model/city.model';
 import { Observable } from 'rxjs';
 import { CityService } from 'src/app/services/city.service';
+import { Picture } from 'src/app/model/picture.model';
+import { PictureService } from 'src/app/services/picture.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-accommodation',
@@ -19,9 +22,50 @@ export class AccommodationComponent implements OnInit {
   accommodationName: string;
   newAccommodation: Accommodation;
   cities$: Observable<City[]>;
+  pictures$: Observable<Picture[]>;
+  imageUrl: string = "/assets/img/default_image.png";
+  private base64textString: string = "";
 
-  constructor(private formBuilder: FormBuilder, private accommodationService: AccommodationService, private cityService: CityService) { }
 
+  constructor(private formBuilder: FormBuilder, private accommodationService: AccommodationService, private cityService: CityService, private pictureService: PictureService, private domSanitizer: DomSanitizer) { }
+
+  handleFileSelect(evt) {
+    var files = evt.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+
+      var file = files[i];
+
+      if (files && file) {
+        var reader = new FileReader();
+
+        reader.onload = this._handleReaderLoaded.bind(this);
+
+        reader.readAsBinaryString(file);
+      }
+
+    }
+
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+    //ovde pravimo novu sliku...
+    var pictureAccommodation = (this.accommodationForm.value as Accommodation);
+    pictureAccommodation.accommodationId = +localStorage.getItem('accommodation');
+    var picture: Picture = {
+      pictureId: -1,
+      picUrl: this.base64textString,
+      accommodation: pictureAccommodation
+    };
+    if (pictureAccommodation.accommodationId) {
+      this.pictureService.createPicture(picture).subscribe(() => {
+        this.getPictures();
+      });
+    }
+
+  }
 
   ngOnInit() {
 
@@ -34,6 +78,7 @@ export class AccommodationComponent implements OnInit {
 
 
     this.getCities();
+    this.getPictures();
 
     if (localStorage.getItem('accommodation')) {
       this.submitBtnText = 'Save Changes';
@@ -47,6 +92,16 @@ export class AccommodationComponent implements OnInit {
 
   getCities() {
     this.cities$ = this.cityService.getCities();
+  }
+
+  getPictures() {
+    this.pictures$ = this.pictureService.getPicture();
+  }
+
+  deletePicture(id: number) {
+    this.pictureService.deletePicture(id).subscribe(() => {
+      this.getPictures();
+    });
   }
 
   getAccommodationServiceById(id) {

@@ -28,6 +28,9 @@ public class PictureDTO {
     @XmlElement(name = "Picture_id")
     protected Long pictureId;
     
+    @XmlElement(name = "accommodaiton")
+    protected AccommodationDTO accommodation;
+    
     
     @XmlElement(name = "Pic_url", required = true)
     protected String picUrl;
@@ -58,6 +61,16 @@ public class PictureDTO {
 
 	public void setLocalPictureId(Long localPictureId) {
 		this.localPictureId = localPictureId;
+	}
+
+
+	public AccommodationDTO getAccommodation() {
+		return accommodation;
+	}
+
+
+	public void setAccommodation(AccommodationDTO accommodation) {
+		this.accommodation = accommodation;
 	}
 
 }

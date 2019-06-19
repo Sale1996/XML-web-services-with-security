@@ -13,7 +13,7 @@ export const environment = {
   apiUrlComment: "http://localhost:8095/comments",
   apiUrlExtraField: "http://localhost:8095/extraFields",
   apiUrlMessage: "http://localhost:8095/message",
-  // apiUrlPicture: "https://localhost:8080/accommodations",
+  apiUrlPicture: "http://localhost:8095/pictures",
   apiUrlPrice: "http://localhost:8095/price",
   apiUrlReservation: "http://localhost:8095/reservations",
   apiUrlAuth: 'http://localhost:8080/',
