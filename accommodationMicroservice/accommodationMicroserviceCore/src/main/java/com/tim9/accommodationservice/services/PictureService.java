@@ -138,4 +138,28 @@ public class PictureService {
 		
 	}
 
+
+
+
+	public List<PictureDTO> findAllByAccommodationId(Long id) {
+		
+		Optional< List<Picture> > pictures = Optional.of( pictureRepository.findAllByAccommodationAccommodationId(id));
+		
+		ArrayList < PictureDTO > dtoPictures = new ArrayList<PictureDTO>();
+		
+		if ( pictures.isPresent() ) {
+			
+			for ( Picture picture : pictures.get() ) {
+				
+				dtoPictures.add(pictureConverter.convertToDTO(picture));
+				
+			}
+			
+			return dtoPictures;
+			
+		}
+			
+		return Collections.emptyList();
+	}
+
 }

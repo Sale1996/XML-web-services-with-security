@@ -1,6 +1,10 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Message } from './../../model/message.model';
+import { User } from 'src/app/model/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
-import { Message } from 'src/app/model/message.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-inbox',
@@ -12,19 +16,55 @@ export class InboxComponent implements OnInit {
   message: Message;
   messages: Message[];
 
+  userEmail: string;
+  userLog: User;
+
+  text: string;
+  replyFormGroup: FormGroup;
+
   constructor(
 
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authService: AuthService,
+    private userService: UserService,
+    private formBuilder: FormBuilder
 
   ) {}
 
   ngOnInit() {
 
-    this.getMessages();
+    this.replyFormGroup = this.formBuilder.group({
+      message: ['']
+    });
+
+    this.userEmail = this.authService.getEmailFromToken(localStorage.getItem('access_token'));
+    this.getCurUser();
   }
 
-  getMessages(): void {
-    this.messageService.getMessages().subscribe(message => this.messages = message);
+  getCurUser() {
+
+    this.userService.getUserByEmail(this.userEmail).subscribe(userC => {
+
+      this.userLog = userC;
+      this.getMessages(this.userLog.id);
+
+    });
+  }
+
+  getMessages(id: number): void {
+
+    this.messageService.getMessages(id).subscribe(message => this.messages = message);
+  }
+
+  open(message: Message) {
+
+    this.text = message.messageBody;
+
+  }
+
+  reply() {
+
+
   }
 
 }
