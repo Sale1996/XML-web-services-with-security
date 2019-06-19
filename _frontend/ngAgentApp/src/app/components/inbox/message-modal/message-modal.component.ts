@@ -23,7 +23,18 @@ export class MessageModalComponent implements OnInit {
       id: [''],
       message: ['', Validators.required]
     });
+
+    if (!this.messageInput.opened) {
+      this.updateMessageOpened();
+    }
   }
+
+
+  updateMessageOpened() {
+    this.messageInput.opened = true;
+    this.messageService.updateMessage(this.messageInput).subscribe(() => { });
+  }
+
 
   onSubmit() {
     if (this.messageForm.valid) {
