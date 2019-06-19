@@ -82,12 +82,12 @@ public class Picture {
 	}
 
 
-	public Accommodation getAccommodation() {
+	public AccommodationLocal getAccommodation() {
 		return accommodation;
 	}
 
 
-	public void setAccommodation(Accommodation accommodation) {
+	public void setAccommodation(AccommodationLocal accommodation) {
 		this.accommodation = accommodation;
 	}
 
