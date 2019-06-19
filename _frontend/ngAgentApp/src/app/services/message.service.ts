@@ -25,4 +25,8 @@ export class MessageService {
     createMessage(message: Message): Observable<Message> {
         return this.http.post<Message>(environment.apiUrlMessage, message, httpOptions);
     }
+
+    updateMessage(message: Message): Observable<Message> {
+        return this.http.put<Message>(environment.apiUrlMessage + '/' + message.messageId, message, httpOptions);
+    }
 }
