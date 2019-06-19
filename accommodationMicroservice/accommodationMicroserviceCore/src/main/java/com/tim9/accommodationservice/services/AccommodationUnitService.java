@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,13 @@ import com.tim9.accommodationservice.models.Accommodation;
 import com.tim9.accommodationservice.models.AccommodationUnit;
 import com.tim9.accommodationservice.models.Category;
 import com.tim9.accommodationservice.models.ExtraField;
+import com.tim9.accommodationservice.models.Price;
 import com.tim9.accommodationservice.models.Type;
 import com.tim9.accommodationservice.repository.AccommodationRepository;
 import com.tim9.accommodationservice.repository.AccommodationUnitRepository;
 import com.tim9.accommodationservice.repository.CategoryRepository;
 import com.tim9.accommodationservice.repository.ExtraFieldRepository;
+import com.tim9.accommodationservice.repository.PriceRepository;
 import com.tim9.accommodationservice.repository.TypeRepository;
 import com.tim9.accommodationservice.utils.DatasFromReservationMicroservice;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConverter;
@@ -24,6 +27,7 @@ import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationUnitCon
 import com.tim9.accommodationservice.utils.dtoConverters.DTOCategoryConverter;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOTypeConverter;
 import com.tim9.accommodationserviceclient.dtos.AccommodationUnitDTO;
+import com.tim9.accommodationserviceclient.dtos.AccommodationUnitsWithPricesDTO;
 import com.tim9.accommodationserviceclient.dtos.SearchDTO;
 
 @Service
@@ -35,7 +39,7 @@ public class AccommodationUnitService {
 	TypeRepository typeRepository;
 	CategoryRepository categoryRepository;
 	ExtraFieldRepository extraFieldRepository;
-	
+	PriceRepository priceRepository;	
 	
 	DTOAccommodationUnitConverter accommodationUnitConverter;
 	DTOCategoryConverter categoryConverter;
@@ -47,7 +51,7 @@ public class AccommodationUnitService {
 	public AccommodationUnitService(DatasFromReservationMicroservice reservationMicroservice, AccommodationUnitRepository unitRepository, DTOAccommodationUnitConverter unitConverter,
 			AccommodationRepository accommodationRepository, TypeRepository typeRepository, CategoryRepository categoryRepository,
 			DTOCategoryConverter categoryConverter, DTOTypeConverter typeConverter, DTOAccommodationConverter accommodationConverter,
-			ExtraFieldRepository extraFieldRepository) {
+			ExtraFieldRepository extraFieldRepository, PriceRepository priceRepository) {
 		
 		this.reservationMicroservice = reservationMicroservice;
 		this.accommodationUnitRepository = unitRepository;
@@ -59,7 +63,7 @@ public class AccommodationUnitService {
 		this.typeConverter = typeConverter;
 		this.accommodationConverter = accommodationConverter;
 		this.extraFieldRepository = extraFieldRepository;
-		
+		this.priceRepository = priceRepository;
 		
 	}
 
@@ -263,7 +267,9 @@ public class AccommodationUnitService {
 				
 	}
 
-	public List<AccommodationUnitDTO> findAllAccommodationUnitsByAccommodationId(Long accommodationId, SearchDTO search) {
+	public AccommodationUnitsWithPricesDTO findAllAccommodationUnitsByAccommodationId(Long accommodationId, SearchDTO search) {
+		
+		AccommodationUnitsWithPricesDTO response = new AccommodationUnitsWithPricesDTO();
 		
 		// ovde se dobavljaju sve jedinice navedenih akomodacija koje SU ZAUZETE u navedenom periodu
 		String dateFrom = search.getDateFrom();
@@ -283,8 +289,16 @@ public class AccommodationUnitService {
 			for ( AccommodationUnit  candidate : accommodations.get() ) {
 				dtoAccommodations.add(accommodationUnitConverter.convertToDTO(candidate));
 			}
-			return dtoAccommodations;
 		}
-		return Collections.emptyList();
+		
+		response.setUnits(dtoAccommodations);
+		
+		List<Long> unitsIds = dtoAccommodations.stream().map(AccommodationUnitDTO -> AccommodationUnitDTO.getAccommodationUnitId()).collect(Collectors.toList());
+		Optional<List<Price>> prices = priceRepository.calculatePricesForUnitsForPeriod(unitsIds, LocalDateTime.parse(dateFrom));
+		List<Float> amounts = prices.get().stream().map(Price -> Price.getAmount()).collect(Collectors.toList());
+		
+		response.setPrices(amounts);
+		
+		return response;
 	}
 }
