@@ -191,7 +191,6 @@ public class AccommodationUnitService {
 		
 		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(accommodationUnitId);
 		Optional<ExtraField> extraField = extraFieldRepository.findById(extraFieldId);
-		
 		if(!unit.isPresent() || !extraField.isPresent()) {
 			
 			return new AccommodationUnit();
@@ -202,7 +201,6 @@ public class AccommodationUnitService {
 		for(ExtraField field : unit.get().getExtraFields()) {
 			if(field.getExtraFieldId() == extraField.get().getExtraFieldId()) {
 				return new AccommodationUnit();
-
 			}
 		}
 		

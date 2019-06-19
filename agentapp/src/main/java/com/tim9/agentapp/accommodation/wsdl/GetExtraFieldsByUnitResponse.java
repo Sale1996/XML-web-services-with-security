@@ -8,6 +8,8 @@
 
 package com.tim9.agentapp.accommodation.wsdl;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="accommodation" type="{http://tim9.com/accommodationService}accommodation"/&gt;
+ *         &lt;element name="extraFields" type="{http://tim9.com/accommodationService}extraField" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +38,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "accommodation"
+    "extraFields"
 })
-@XmlRootElement(name = "updateAccommodationResponse")
-public class UpdateAccommodationResponse {
+@XmlRootElement(name = "getExtraFieldsByUnitResponse")
+public class GetExtraFieldsByUnitResponse {
 
     @XmlElement(required = true)
-    protected Accommodation accommodation;
+    protected List<ExtraField> extraFields;
 
     /**
-     * Gets the value of the accommodation property.
+     * Gets the value of the extraFields property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Accommodation }
-     *     
-     */
-    public Accommodation getAccommodation() {
-        return accommodation;
-    }
-
-    /**
-     * Sets the value of the accommodation property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the extraFields property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Accommodation }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getExtraFields().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ExtraField }
+     * 
+     * 
      */
-    public void setAccommodation(Accommodation value) {
-        this.accommodation = value;
+    public List<ExtraField> getExtraFields() {
+        if (extraFields == null) {
+            extraFields = new ArrayList<ExtraField>();
+        }
+        return this.extraFields;
     }
 
 }

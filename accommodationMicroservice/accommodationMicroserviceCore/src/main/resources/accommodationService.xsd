@@ -224,6 +224,22 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="getExtraFieldsByUnitRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getExtraFieldsByUnitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="extraFields" type="tns:extraField"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="getExtraFieldsRequest">
     <xs:complexType>
       <xs:sequence/>

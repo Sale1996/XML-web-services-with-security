@@ -1,6 +1,7 @@
 package com.tim9.userservice.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -91,6 +92,11 @@ public class MessageService {
 		}
 		
 		return new MessageDTO();
+	}
+
+	public List<MessageDTO> findByUser(Long id) {
+		
+		return messageRepository.findByUserId(id);
 	}
 	
 	
