@@ -56,7 +56,7 @@ public class ExtraFieldLocal {
     
     @XmlElement(name= "Accommodation_Units")
 	@ManyToMany ( fetch = FetchType.LAZY, mappedBy = "extraFields" )
-    protected List<AccommodationUnit> accommodationUnits;
+    protected List<AccommodationUnitLocal> accommodationUnits;
     
     public Long getExtraFieldId() {
         return extraFieldId;
@@ -96,11 +96,11 @@ public class ExtraFieldLocal {
         this.optional = value;
     }
 
-	public List<AccommodationUnit> getAccommodationUnits() {
+	public List<AccommodationUnitLocal> getAccommodationUnits() {
 		return accommodationUnits;
 	}
 
-	public void setAccommodationUnits(List<AccommodationUnit> accommodationUnits) {
+	public void setAccommodationUnits(List<AccommodationUnitLocal> accommodationUnits) {
 		this.accommodationUnits = accommodationUnits;
 	}
 }

@@ -49,7 +49,7 @@ public class Picture {
     @XmlElement(name="Accommodation", required = true)
     @ManyToOne ()
 	@JoinColumn (name="accommodation",nullable = false)
-    protected Accommodation accommodation;
+    protected AccommodationLocal accommodation;
 
   
     public Long getPictureId() {

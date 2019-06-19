@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlType;
 
 public class ReservationDTO {
 
+	@XmlElement(name = "Local_reservation_id")
+	protected Long localReservationId;
 	@XmlElement(name = "Reservation_id")
 	protected Long reservationId;
 	@XmlElement(name = "Date_from", required = true)
@@ -75,6 +77,10 @@ public class ReservationDTO {
 	public void setClient(Long client) {
 		this.client = client;
 	}
-    
-    
+	public Long getLocalReservationId() {
+		return localReservationId;
+	}
+	public void setLocalReservationId(Long localReservationId) {
+		this.localReservationId = localReservationId;
+	}
 }

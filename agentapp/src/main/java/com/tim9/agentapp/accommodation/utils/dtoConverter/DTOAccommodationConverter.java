@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.accommodation.dto.AccommodationDTO;
-import com.tim9.agentapp.accommodation.model.Accommodation;
+import com.tim9.agentapp.accommodation.model.AccommodationLocal;
 import com.tim9.agentapp.accommodation.repository.AccommodationRepository;
+import com.tim9.agentapp.accommodation.wsdl.Accommodation;
 
 
 @Component
@@ -21,7 +22,7 @@ public class DTOAccommodationConverter {
 	
 	
 	
-	public AccommodationDTO convertToDTO (Accommodation accommodation) {
+	public AccommodationDTO convertToDTO (AccommodationLocal accommodation) {
 		
 		AccommodationDTO dto = new AccommodationDTO();
 		
@@ -39,9 +40,26 @@ public class DTOAccommodationConverter {
 		
 	}
 	
-	public  com.tim9.agentapp.accommodation.wsdl.Accommodation convertToWsdl(Accommodation accommodation){
+	public AccommodationDTO convertToDTOFromClient (Accommodation accommodation) {
 		
-		com.tim9.agentapp.accommodation.wsdl.Accommodation wsdl = new com.tim9.agentapp.accommodation.wsdl.Accommodation();
+		AccommodationDTO dto = new AccommodationDTO();
+		
+	    dto.setAccommodationId(accommodation.getAccommodationId());
+		dto.setDescription(accommodation.getDescription());
+		dto.setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
+		dto.setAccommodationName(accommodation.getName());
+		dto.setCity(cityConverter.convertToDTOFromClient(accommodation.getCity()));
+		dto.setCountedNumberOfBeds(accommodation.getCountedNumberOfBeds());
+		dto.setAgentId(accommodation.getAgentId());
+		
+		
+		return dto;
+		
+	}
+	
+	public  Accommodation convertToWsdl(AccommodationLocal accommodation){
+		
+		Accommodation wsdl = new Accommodation();
 		
 		wsdl.setAccommodationId(accommodation.getAccommodationId());
 		wsdl.setDescription(accommodation.getDescription());
@@ -55,9 +73,9 @@ public class DTOAccommodationConverter {
 		
 	}
 	
-	public Accommodation convertFromWsdl(com.tim9.agentapp.accommodation.wsdl.Accommodation accommodation) {
+	public AccommodationLocal convertFromWsdl(com.tim9.agentapp.accommodation.wsdl.Accommodation accommodation) {
 				
-		Accommodation bean = new Accommodation();
+		AccommodationLocal bean = new AccommodationLocal();
 		
 		bean.setAccommodationId(accommodation.getAccommodationId());
 		bean.setDescription(accommodation.getDescription());
@@ -70,9 +88,9 @@ public class DTOAccommodationConverter {
 		return bean;
 	}
 	
-	public Accommodation convertFromDTO( AccommodationDTO dto ) {
+	public AccommodationLocal convertFromDTO( AccommodationDTO dto ) {
 		
-		Optional<Accommodation> accommodation = accommodationRepository.findById(dto.getAccommodationId());
+		Optional<AccommodationLocal> accommodation = accommodationRepository.findById(dto.getAccommodationId());
 		
 		if(accommodation.isPresent()) {
 			
@@ -80,7 +98,7 @@ public class DTOAccommodationConverter {
 			
 		}
 		
-		Accommodation newBean = new Accommodation();
+		AccommodationLocal newBean = new AccommodationLocal();
 		
 	    newBean.setLocalAccommodationId(dto.getLocalAccommodationId());
 		newBean.setAccommodationId(dto.getAccommodationId());

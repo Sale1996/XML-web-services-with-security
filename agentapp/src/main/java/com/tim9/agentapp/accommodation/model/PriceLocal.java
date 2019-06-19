@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Price")
 @Entity
 @Table( name= "prices" )
-public class Price {
+public class PriceLocal {
 
     @XmlElement(name = "Local_price_id")
     @Id
@@ -64,7 +64,7 @@ public class Price {
     @XmlElement(name ="Accommodation_Unit")
     @ManyToOne ()
 	@JoinColumn (name="accommodationUnit",nullable = false)
-    protected AccommodationUnit accommodationUnit;
+    protected AccommodationUnitLocal accommodationUnit;
 
 	public Long getPriceId() {
         return priceId;
@@ -105,12 +105,12 @@ public class Price {
         this.dateTo = value;
     }
   
-    public AccommodationUnit getAccommodationUnit() {
+    public AccommodationUnitLocal getAccommodationUnit() {
 		return accommodationUnit;
 	}
 
 
-	public void setAccommodationUnit(AccommodationUnit accommodationUnit) {
+	public void setAccommodationUnit(AccommodationUnitLocal accommodationUnit) {
 		this.accommodationUnit = accommodationUnit;
 	}
 

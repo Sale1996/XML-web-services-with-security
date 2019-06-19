@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.accommodation.dto.AccommodationUnitDTO;
-import com.tim9.agentapp.accommodation.model.AccommodationUnit;
+import com.tim9.agentapp.accommodation.model.AccommodationUnitLocal;
 import com.tim9.agentapp.accommodation.model.ExtraFieldLocal;
 import com.tim9.agentapp.accommodation.repository.AccommodationUnitRepository;
 import com.tim9.agentapp.accommodation.repository.ExtraFieldRepository;
@@ -31,13 +31,13 @@ public class AccommodationUnitService {
 	
 	public List<AccommodationUnitDTO> findAll() {
 		
-		Optional< List<AccommodationUnit> > accommodationUnits = Optional.of ( accommodationUnitRepository.findAll() );
+		Optional< List<AccommodationUnitLocal> > accommodationUnits = Optional.of ( accommodationUnitRepository.findAll() );
 		
 		ArrayList < AccommodationUnitDTO > dtoAccommodationUnits = new ArrayList< AccommodationUnitDTO >();
 		
 		if ( accommodationUnits.isPresent() ) {
 			
-			for ( AccommodationUnit units : accommodationUnits.get() ) {
+			for ( AccommodationUnitLocal units : accommodationUnits.get() ) {
 				
 				dtoAccommodationUnits.add(accommodationUnitConverter.convertToDTO(units));
 				
@@ -54,7 +54,7 @@ public class AccommodationUnitService {
 
 	public AccommodationUnitDTO findById(Long id) {
 		
-		Optional< AccommodationUnit > accommodationUnit = accommodationUnitRepository.findById(id);
+		Optional< AccommodationUnitLocal > accommodationUnit = accommodationUnitRepository.findById(id);
 		
 		
 		if ( accommodationUnit.isPresent() ) {
@@ -74,7 +74,7 @@ public class AccommodationUnitService {
 			
 		dto.setAccommodationUnitId(-1l);
 		
-		AccommodationUnit AccommodationUnit = accommodationUnitConverter.convertFromDTO(dto);
+		AccommodationUnitLocal AccommodationUnit = accommodationUnitConverter.convertFromDTO(dto);
 		AccommodationUnit = accommodationUnitRepository.save(AccommodationUnit);
 		
 		dto.setAccommodationUnitId(AccommodationUnit.getAccommodationUnitId());
@@ -85,7 +85,7 @@ public class AccommodationUnitService {
 
 	public AccommodationUnitDTO update(Long id, AccommodationUnitDTO accommodationUnitDTO) {
 		
-		Optional<AccommodationUnit> accommodationUnitForChange = accommodationUnitRepository.findById(id);
+		Optional<AccommodationUnitLocal> accommodationUnitForChange = accommodationUnitRepository.findById(id);
 		
 		if( accommodationUnitForChange.isPresent() && accommodationUnitDTO!=null ) {
 													
@@ -109,7 +109,7 @@ public class AccommodationUnitService {
 
 	public AccommodationUnitDTO delete(Long id) {
 		
-		Optional<AccommodationUnit> accommodationUnitToDelete = accommodationUnitRepository.findById(id);
+		Optional<AccommodationUnitLocal> accommodationUnitToDelete = accommodationUnitRepository.findById(id);
 		
 		if( accommodationUnitToDelete.isPresent() ) {
 			
@@ -127,7 +127,7 @@ public class AccommodationUnitService {
 	public AccommodationUnitDTO addExtraField(Long accommodationUnitId, Long extraFieldId) {
 		
 		
-		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(accommodationUnitId);
+		Optional<AccommodationUnitLocal> unit = accommodationUnitRepository.findById(accommodationUnitId);
 		Optional<ExtraFieldLocal> extraField = extraFieldRepository.findById(extraFieldId);
 		
 		if(!unit.isPresent() || !extraField.isPresent()) {
@@ -157,7 +157,7 @@ public class AccommodationUnitService {
 	public AccommodationUnitDTO removeExtraField(Long accommodationUnitId, Long extraFieldId) {
 		
 		
-		Optional<AccommodationUnit> unit = accommodationUnitRepository.findById(accommodationUnitId);
+		Optional<AccommodationUnitLocal> unit = accommodationUnitRepository.findById(accommodationUnitId);
 		Optional<ExtraFieldLocal> extraField = extraFieldRepository.findById(extraFieldId);
 		
 		if(!unit.isPresent() || !extraField.isPresent()) {

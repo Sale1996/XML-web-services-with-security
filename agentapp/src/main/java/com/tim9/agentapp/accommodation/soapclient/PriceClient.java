@@ -12,7 +12,7 @@ import com.tim9.agentapp.accommodation.wsdl.Price;
 
 public class PriceClient extends WebServiceGatewaySupport {
 
-	public GetPricesResponse GetPricess(Long id) {
+	public GetPricesResponse GetPrices(Long id) {
 
 		GetPricesRequest request = new GetPricesRequest();
 		request.setId(id);

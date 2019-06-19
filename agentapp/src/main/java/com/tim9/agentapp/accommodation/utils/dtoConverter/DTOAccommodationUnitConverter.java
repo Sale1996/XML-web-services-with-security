@@ -7,11 +7,10 @@ import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.accommodation.dto.AccommodationUnitDTO;
 import com.tim9.agentapp.accommodation.dto.ExtraFieldDTO;
-import com.tim9.agentapp.accommodation.dto.PriceDTO;
-import com.tim9.agentapp.accommodation.model.AccommodationUnit;
+import com.tim9.agentapp.accommodation.model.AccommodationUnitLocal;
 import com.tim9.agentapp.accommodation.model.ExtraFieldLocal;
-import com.tim9.agentapp.accommodation.model.Price;
 import com.tim9.agentapp.accommodation.repository.AccommodationUnitRepository;
+import com.tim9.agentapp.accommodation.wsdl.AccommodationUnit;
 
 @Component
 public class DTOAccommodationUnitConverter {
@@ -35,7 +34,7 @@ public class DTOAccommodationUnitConverter {
 	
 	
 	
-	public AccommodationUnitDTO convertToDTO (AccommodationUnit accommodationUnit) {
+	public AccommodationUnitDTO convertToDTO (AccommodationUnitLocal accommodationUnit) {
 		
 		AccommodationUnitDTO dto = new AccommodationUnitDTO();
 		
@@ -57,9 +56,31 @@ public class DTOAccommodationUnitConverter {
 		
 	}
 	
-	public AccommodationUnit convertFromDTO( AccommodationUnitDTO dto ) {
+	public AccommodationUnitDTO convertToDTOFromClient (AccommodationUnit accommodationUnit) {
 		
-		Optional<AccommodationUnit> accommodationUnit = accommodationUnitRepository.findById(dto.getAccommodationUnitId());
+		AccommodationUnitDTO dto = new AccommodationUnitDTO();
+		
+		dto.setAccommodationUnitId(accommodationUnit.getAccommodationUnitId());
+		dto.setAccommodationUnitId(accommodationUnit.getAccommodationUnitId());
+		dto.setAccommodation(accommodationConverter.convertToDTOFromClient(accommodationUnit.getAccommodation()));
+		dto.setCategory(categoryConverter.convertToDTOFromClient(accommodationUnit.getCategory()));
+		dto.setNumberOfPeople(accommodationUnit.getNumberOfPeople());
+		dto.setType(typeConverter.convertToDTOFromClient(accommodationUnit.getType()));
+		
+//		for(ExtraFieldLocal extraField : accommodationUnit.getExtraField()) {
+//			dto.getExtraField().add(extraFieldConverter.convertToDTO(extraField));
+//		}
+
+
+
+		
+		return dto;
+		
+	}
+	
+	public AccommodationUnitLocal convertFromDTO( AccommodationUnitDTO dto ) {
+		
+		Optional<AccommodationUnitLocal> accommodationUnit = accommodationUnitRepository.findById(dto.getAccommodationUnitId());
 		
 		if(accommodationUnit.isPresent()) {
 			
@@ -67,7 +88,7 @@ public class DTOAccommodationUnitConverter {
 			
 		}
 		
-		AccommodationUnit newBean = new AccommodationUnit();
+		AccommodationUnitLocal newBean = new AccommodationUnitLocal();
 		
 		newBean.setLocalAccommodationUnitId(dto.getLocalAccommodationUnitId());
 		newBean.setAccommodationUnitId(dto.getAccommodationUnitId());

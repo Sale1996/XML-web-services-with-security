@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tim9.agentapp.accommodation.dto.AccommodationDTO;
-import com.tim9.agentapp.accommodation.model.Accommodation;
+import com.tim9.agentapp.accommodation.model.AccommodationLocal;
 import com.tim9.agentapp.accommodation.repository.AccommodationRepository;
 import com.tim9.agentapp.accommodation.soapclient.AccommodationClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOAccommodationConverter;
@@ -30,13 +30,13 @@ public class AccommodationService {
 	
 	public List<AccommodationDTO> findAll() {
 		
-		Optional< List<Accommodation> > accommodations = Optional.of ( accommodationRepository.findAll() );
+		Optional< List<AccommodationLocal> > accommodations = Optional.of ( accommodationRepository.findAll() );
 		
 		ArrayList < AccommodationDTO > dtoAccommodations = new ArrayList< AccommodationDTO >();
 		
 		if ( accommodations.isPresent() ) {
 			
-			for ( Accommodation candidate : accommodations.get() ) {
+			for ( AccommodationLocal candidate : accommodations.get() ) {
 				
 				dtoAccommodations.add(accommodationConverter.convertToDTO(candidate));
 				
@@ -53,7 +53,7 @@ public class AccommodationService {
 
 	public AccommodationDTO findById(long id) {
 		
-		Optional< Accommodation > accommodation = accommodationRepository.findById(id);
+		Optional< AccommodationLocal > accommodation = accommodationRepository.findById(id);
 		
 		
 		if ( accommodation.isPresent() ) {
@@ -77,7 +77,7 @@ public class AccommodationService {
 			
 		accommodation.setLocalAccommodationId(-1l);
 		
-		Accommodation Accommodation = accommodationRepository.save(accommodationConverter.convertFromDTO(accommodation));
+		AccommodationLocal Accommodation = accommodationRepository.save(accommodationConverter.convertFromDTO(accommodation));
 		
 		accommodation.setLocalAccommodationId(Accommodation.getLocalAccommodationId());
 		
@@ -87,7 +87,7 @@ public class AccommodationService {
 
 	public AccommodationDTO update(long id, AccommodationDTO accommodation) {
 		
-		Optional<Accommodation> accommodationForChange = accommodationRepository.findById(id);
+		Optional<AccommodationLocal> accommodationForChange = accommodationRepository.findById(id);
 		
 		if( accommodationForChange.isPresent() && accommodation!=null ) {
 										
@@ -110,7 +110,7 @@ public class AccommodationService {
 
 	public AccommodationDTO delete(long id) {
 		
-		Optional<Accommodation> accommodationToDelete = accommodationRepository.findById(id);
+		Optional<AccommodationLocal> accommodationToDelete = accommodationRepository.findById(id);
 		
 		if( accommodationToDelete.isPresent() ) {
 			

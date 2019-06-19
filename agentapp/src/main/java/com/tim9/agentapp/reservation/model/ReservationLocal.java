@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.tim9.agentapp.accommodation.model.AccommodationUnit;
+import com.tim9.agentapp.accommodation.model.AccommodationUnitLocal;
 
 import ch.qos.logback.core.net.server.Client;
 
@@ -69,11 +70,15 @@ import ch.qos.logback.core.net.server.Client;
 @XmlType(name = "", propOrder = {})
 @XmlRootElement(name = "Reservation")
 @Entity
-public class Reservation {
+@Table( name= "reservations" )
+public class ReservationLocal {
 
-    @XmlElement(name = "Reservation_id")
+    @XmlElement(name = "Local_reservation_id")
     @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column
+    protected Long localReservationId;
+    @XmlElement(name = "Reservation_id")
 	@Column
     protected Long reservationId;
     @XmlElement(name = "Date_from", required = true)
@@ -97,9 +102,9 @@ public class Reservation {
     @Column
     protected Long client;
 
-    public Reservation() {}
+    public ReservationLocal() {}
     
-    public Reservation(long id, long roomId, String roomName, float price) {
+    public ReservationLocal(long id, long roomId, String roomName, float price) {
 		this.reservationId = id;
 		this.accommodationUnit = roomId;
 	//	this.roomName = roomName;			VIDECEMO ZA OVO DA LI JE NEOPHODNO
@@ -207,7 +212,7 @@ public class Reservation {
      * 
      * @return
      *     possible object is
-     *     {@link AccommodationUnit }
+     *     {@link AccommodationUnitLocal }
      *     
      */
     public Long getAccommodationUnit() {
@@ -219,7 +224,7 @@ public class Reservation {
      * 
      * @param value
      *     allowed object is
-     *     {@link AccommodationUnit }
+     *     {@link AccommodationUnitLocal }
      *     
      */
     public void setAccommodationUnit(Long value) {
@@ -252,6 +257,14 @@ public class Reservation {
 
 	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
+	}
+
+	public Long getLocalReservationId() {
+		return localReservationId;
+	}
+
+	public void setLocalReservationId(Long localReservationId) {
+		localReservationId = localReservationId;
 	}
 
 }

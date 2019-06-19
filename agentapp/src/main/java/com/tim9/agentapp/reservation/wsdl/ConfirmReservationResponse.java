@@ -8,8 +8,6 @@
 
 package com.tim9.agentapp.reservation.wsdl;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="reservations" type="{http://tim9.com/reservations}reservation" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="reservation" type="{http://tim9.com/reservations}reservation"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,41 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "reservations"
+    "reservation"
 })
-@XmlRootElement(name = "getReservationsResponse")
-public class GetReservationsResponse {
+@XmlRootElement(name = "confirmReservationResponse")
+public class ConfirmReservationResponse {
 
     @XmlElement(required = true)
-    protected List<Reservation> reservations;
+    protected Reservation reservation;
 
     /**
-     * Gets the value of the reservations property.
+     * Gets the value of the reservation property.
      * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the reservations property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getReservations().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Reservation }
-     * 
-     * 
+     * @return
+     *     possible object is
+     *     {@link Reservation }
+     *     
      */
-    public List<Reservation> getReservations() {
-        if (reservations == null) {
-            reservations = new ArrayList<Reservation>();
-        }
-        return this.reservations;
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    /**
+     * Sets the value of the reservation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Reservation }
+     *     
+     */
+    public void setReservation(Reservation value) {
+        this.reservation = value;
     }
 
 }

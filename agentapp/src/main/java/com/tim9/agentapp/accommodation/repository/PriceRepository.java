@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tim9.agentapp.accommodation.model.Price;
+import com.tim9.agentapp.accommodation.model.PriceLocal;
 
 
-public interface PriceRepository extends JpaRepository<Price,Long> {
+public interface PriceRepository extends JpaRepository<PriceLocal,Long> {
 
-	List<Price> findAllByAccommodationUnitLocalAccommodationUnitId(Long id);
+	List<PriceLocal> findAllByAccommodationUnitLocalAccommodationUnitId(Long id);
 
 }

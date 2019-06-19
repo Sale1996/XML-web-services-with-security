@@ -31,7 +31,7 @@ public class AccommodationClient extends WebServiceGatewaySupport {
 		return response;
 	}
 	
-	public CreateAccommodationResponse createAccommodation( com.tim9.agentapp.accommodation.model.Accommodation accommodation) {
+	public CreateAccommodationResponse createAccommodation( com.tim9.agentapp.accommodation.model.AccommodationLocal accommodation) {
 
 		CreateAccommodationRequest request = new CreateAccommodationRequest();
 		request.setAccommodation(accommodationConverter.convertToWsdl(accommodation));

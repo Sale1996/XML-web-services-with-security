@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tim9.agentapp.accommodation.dto.AccommodationDTO;
-import com.tim9.agentapp.accommodation.model.Accommodation;
+import com.tim9.agentapp.accommodation.model.AccommodationLocal;
 import com.tim9.agentapp.accommodation.service.AccommodationService;
 import com.tim9.agentapp.accommodation.soapclient.AccommodationClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOAccommodationConverter;
@@ -47,9 +47,9 @@ public class AccommodationController {
 	@ApiOperation( value = "Returns all accommodations", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
-	public Accommodation createAccommodationSoap() {
+	public AccommodationLocal createAccommodationSoap() {
 		
-		Accommodation noviAcc = new Accommodation();
+		AccommodationLocal noviAcc = new AccommodationLocal();
 		noviAcc.setAccommodationId(5l);
 		noviAcc.setAccommodationName("Pcloadletter");
 		noviAcc.setAgentId(5l);
@@ -58,7 +58,7 @@ public class AccommodationController {
 		noviAcc.setNumberOfDaysBeforeCancelation(11);
 		
 		
-		Accommodation accommodationn = accommodationConverter.convertFromWsdl(accommodationClient.createAccommodation(noviAcc).getAccommodation());
+		AccommodationLocal accommodationn = accommodationConverter.convertFromWsdl(accommodationClient.createAccommodation(noviAcc).getAccommodation());
 		
 
 		return accommodationn;

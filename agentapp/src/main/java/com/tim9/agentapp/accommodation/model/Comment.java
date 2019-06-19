@@ -55,7 +55,7 @@ public class Comment {
     @XmlElement(name = "Accommodation", required = true)
     @ManyToOne ()
 	@JoinColumn (name="accommodation",nullable = false)
-    protected Accommodation accommodation;
+    protected AccommodationLocal accommodation;
     
     
     @XmlElement(name = "Client", required = true)
@@ -93,12 +93,12 @@ public class Comment {
     }
 
  
-    public Accommodation getAccommodation() {
+    public AccommodationLocal getAccommodation() {
         return accommodation;
     }
 
   
-    public void setAccommodation(Accommodation value) {
+    public void setAccommodation(AccommodationLocal value) {
         this.accommodation = value;
     }
 

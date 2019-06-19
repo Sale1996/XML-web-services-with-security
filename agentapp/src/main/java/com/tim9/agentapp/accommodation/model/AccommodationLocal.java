@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Accommodation")
 @Entity
 @Table( name= "acccomodations" )
-public class Accommodation {
+public class AccommodationLocal {
 
     @XmlElement(name = "Local_accommodation_id")
     @Id
@@ -80,7 +80,7 @@ public class Accommodation {
     
     @XmlElement(name = "Accommodation_units")
     @OneToMany (mappedBy="accommodation")
-    protected List<AccommodationUnit> units;
+    protected List<AccommodationUnitLocal> units;
     
     
 	@XmlElement(name ="Accommodation_comments")
@@ -101,11 +101,11 @@ public class Accommodation {
 	}
 
     
-    public List<AccommodationUnit> getUnits() {
+    public List<AccommodationUnitLocal> getUnits() {
 		return units;
 	}
 
-	public void setUnits(List<AccommodationUnit> units) {
+	public void setUnits(List<AccommodationUnitLocal> units) {
 		this.units = units;
 	}
 
