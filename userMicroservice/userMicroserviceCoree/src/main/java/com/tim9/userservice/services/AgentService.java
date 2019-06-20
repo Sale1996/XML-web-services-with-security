@@ -7,24 +7,28 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.http.impl.cookie.BrowserCompatSpecFactory.SecurityLevel;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.netflix.config.DeploymentContext.ContextKey;
 import com.tim9.userservice.dtoConverters.DTOAgentConverter;
+import com.tim9.userservice.models.Admin;
 import com.tim9.userservice.models.Agent;
+import com.tim9.userservice.models.User;
+import com.tim9.userservice.repositories.AdminRepository;
 import com.tim9.userservice.repositories.AgentRepository;
+import com.tim9.userservice.repositories.UserRepository;
 import com.tim9.userserviceClient.dtos.AgentDTO;
+import com.tim9.userserviceClient.dtos.UserDTO;
 
 @Service
 public class AgentService {
 	
 	private final AgentRepository agentRepository;
+	private AdminRepository adminRepository;
+	private UserRepository userRepository;
 	
 	private final DTOAgentConverter dtoAgentConverter;
 	
@@ -35,11 +39,14 @@ public class AgentService {
 	private Environment env;
 	
 	public AgentService(final AgentRepository agentRepository, final DTOAgentConverter dtoAgentConverter,
-			JavaMailSender javaMailSender,Environment env ) {
+			JavaMailSender javaMailSender,Environment env,
+			AdminRepository adminRepository, UserRepository userRepository) {
 		this.agentRepository = agentRepository;
 		this.dtoAgentConverter = dtoAgentConverter;
 		this.javaMailSender = javaMailSender;
 		this.env = env;
+		this.adminRepository = adminRepository;
+		this.userRepository = userRepository;
 	}
 	
 	public List<AgentDTO> findAll(){
@@ -104,7 +111,7 @@ public class AgentService {
 										
 			agentForChange.get().setFirstName(agent.getFirstName());
 			agentForChange.get().setLastName(agent.getLastName());
-			agentForChange.get().setEmail(agent.getEmail());
+		//	agentForChange.get().setEmail(agent.getEmail());
 			agentForChange.get().setPassword(agent.getPassword());
 			agentForChange.get().setActivated(agent.getActivated());
 			agentForChange.get().setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
@@ -121,6 +128,16 @@ public class AgentService {
 	}
 	
 	public AgentDTO save(AgentDTO agent){
+		
+		//checking if there is already user or admin or agent with same email adress
+		Optional<Admin> admin = adminRepository.findByEmail(agent.getEmail());
+		Optional<Agent> foundAgent = agentRepository.findByEmail(agent.getEmail());
+		Optional<User> foundUser = userRepository.findByEmail(agent.getEmail());
+		
+		if(admin.isPresent() || foundAgent.isPresent() || foundUser.isPresent()) {
+			return new AgentDTO();
+		}
+		
 		
 		agent.setId(-1l);
 		

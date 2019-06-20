@@ -16,13 +16,19 @@ import org.springframework.stereotype.Service;
 import com.tim9.userservice.dtoConverters.DTOAdminConverter;
 import com.tim9.userservice.models.Admin;
 import com.tim9.userservice.models.Agent;
+import com.tim9.userservice.models.User;
 import com.tim9.userservice.repositories.AdminRepository;
+import com.tim9.userservice.repositories.AgentRepository;
+import com.tim9.userservice.repositories.UserRepository;
 import com.tim9.userserviceClient.dtos.AdminDTO;
+import com.tim9.userserviceClient.dtos.AgentDTO;
 
 @Service
 public class AdminService {
 	
 	private final AdminRepository adminRepository;
+	private AgentRepository agentRepository;
+	private UserRepository userRepository;
 	
 	private final DTOAdminConverter dtoAdminConverter;
 	
@@ -32,11 +38,14 @@ public class AdminService {
 	private Environment env;
 	
 	public AdminService(final AdminRepository adminRepository, final DTOAdminConverter dtoAdminConverter,
-			JavaMailSender javaMailSender,Environment env) {
+			JavaMailSender javaMailSender,Environment env,
+			AgentRepository agentRepository, UserRepository userRepository) {
 		this.adminRepository = adminRepository;
 		this.dtoAdminConverter = dtoAdminConverter;
 		this.javaMailSender = javaMailSender;
 		this.env = env;
+		this.agentRepository = agentRepository;
+		this.userRepository = userRepository;
 	}
 	
 	public List<AdminDTO> findAll(){
@@ -78,7 +87,7 @@ public class AdminService {
 										
 			adminForChange.get().setFirstName(admin.getFirstName());
 			adminForChange.get().setLastName(admin.getLastName());
-			adminForChange.get().setEmail(admin.getEmail());
+		//	adminForChange.get().setEmail(admin.getEmail());
 			adminForChange.get().setRole(admin.getRole());
 	
 			adminRepository.save(adminForChange.get());
@@ -92,6 +101,15 @@ public class AdminService {
 	}
 	
 	public AdminDTO save(AdminDTO admin){
+		
+		//checking if there is already user or admin or agent with same email adress
+		Optional<Admin> foundAdmin = adminRepository.findByEmail(admin.getEmail());
+		Optional<Agent> foundAgent = agentRepository.findByEmail(admin.getEmail());
+		Optional<User> foundUser = userRepository.findByEmail(admin.getEmail());
+		
+		if(foundAdmin.isPresent() || foundAgent.isPresent() || foundUser.isPresent()) {
+			return new AdminDTO();
+		}
 		
 		admin.setId(-1l);
 		

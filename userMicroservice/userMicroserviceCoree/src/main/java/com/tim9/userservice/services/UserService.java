@@ -7,9 +7,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.tim9.reservationserviceClient.feignClients.ReservationClient;
 import com.tim9.userservice.dtoConverters.DTOUserConverter;
+import com.tim9.userservice.models.Admin;
+import com.tim9.userservice.models.Agent;
 import com.tim9.userservice.models.User;
+import com.tim9.userservice.repositories.AdminRepository;
+import com.tim9.userservice.repositories.AgentRepository;
 import com.tim9.userservice.repositories.UserRepository;
 import com.tim9.userservice.utils.DatasFromReservationMicroservice;
 import com.tim9.userserviceClient.dtos.UserDTO;
@@ -18,15 +21,20 @@ import com.tim9.userserviceClient.dtos.UserDTO;
 public class UserService {
 	
 	private final UserRepository userRepository;
+	private AdminRepository adminRepository;
+	private AgentRepository agentRepository;
 	
 	private final DTOUserConverter dtoUserConverter;
 	
 	private DatasFromReservationMicroservice reservationMicroservice;
 	
-	public UserService(final UserRepository userRepository, final DTOUserConverter dtoUserConverter, DatasFromReservationMicroservice reservationMicroservice) {
+	public UserService(final UserRepository userRepository, final DTOUserConverter dtoUserConverter, DatasFromReservationMicroservice reservationMicroservice,
+			AdminRepository adminRepository, AgentRepository agentRepository) {
 		this.userRepository = userRepository;
 		this.dtoUserConverter = dtoUserConverter;
 		this.reservationMicroservice = reservationMicroservice;
+		this.adminRepository = adminRepository;
+		this.agentRepository = agentRepository;
 	}
 	
 	public List<UserDTO> findAll(){
@@ -80,7 +88,7 @@ public class UserService {
 										
 			userForChange.get().setFirstName(user.getFirstName());
 			userForChange.get().setLastName(user.getLastName());
-			userForChange.get().setEmail(user.getEmail());
+		//	userForChange.get().setEmail(user.getEmail());
 			userForChange.get().setAddress(user.getAddress());
 			userForChange.get().setActivated(user.getActivated());
 			userForChange.get().setTelephoneNumber(user.getTelephoneNumber());
@@ -135,6 +143,15 @@ public class UserService {
 	}
 	
 	public UserDTO save(UserDTO user){
+		
+		//checking if there is already user or admin or agent with same email adress
+		Optional<Admin> admin = adminRepository.findByEmail(user.getEmail());
+		Optional<Agent> agent = agentRepository.findByEmail(user.getEmail());
+		Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
+		
+		if(admin.isPresent() || agent.isPresent() || foundUser.isPresent()) {
+			return new UserDTO();
+		}
 		
 		user.setId(-1l);
 		
