@@ -301,4 +301,22 @@ public class AccommodationUnitService {
 		
 		return response;
 	}
+
+
+
+	public AccommodationUnitsWithPricesDTO sortUnits(AccommodationUnitsWithPricesDTO units, Integer by) {
+		
+		if (by == 0) {
+			
+			QuickSort sq = new QuickSort();
+			sq.sortAsc(units, 0, units.getUnits().size()-1);
+		}
+		else if (by == 1) {
+			
+			QuickSort sq = new QuickSort();
+			sq.sortDesc(units, 0, units.getUnits().size()-1);
+		}
+		
+		return units;
+	}
 }

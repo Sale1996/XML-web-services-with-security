@@ -76,6 +76,18 @@ public class AccommodationController {
 
 	}
 
+	@PostMapping("/sort/{by}")
+	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity<AccommodationUnitsWithPricesDTO> sortUnits(@RequestBody AccommodationUnitsWithPricesDTO units, @PathVariable("by") Integer by) {
+		
+		AccommodationUnitsWithPricesDTO accommodations = accommodationUnitService.sortUnits(units, by);
+		
+		return (!accommodations.getUnits().isEmpty() && !accommodations.getPrices().isEmpty())? new ResponseEntity<AccommodationUnitsWithPricesDTO> (accommodations, HttpStatus.OK ) : new ResponseEntity<AccommodationUnitsWithPricesDTO>(accommodations, HttpStatus.NOT_FOUND);
+
+	}
+
 	@GetMapping("/{accommodationId}")
 	@ApiOperation( value = "Finds one accommodation by id.", notes = "Returns found accommodation.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
