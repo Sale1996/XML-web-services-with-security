@@ -33,6 +33,8 @@ import { UserReviewComponent } from './components/user-review/user-review.compon
 import { UsersComponent } from './components/users/users.component';
 import { ConfirmationModalComponent } from './_shared/confirmation-modal/confirmation-modal.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { CitiesComponent } from './components/code-book/cities/cities.component';
+import { CitiesSingleModalComponent } from './components/code-book/cities/cities-single-modal/cities-single-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
     AdditionalServicesSingleModalComponent,
     AdminsComponent,
     AdminsSingleModalComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    CitiesComponent,
+    CitiesSingleModalComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +88,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
     AccommodationTypesSingleModalComponent,
     AccommodationCategoriesSingleModalComponent,
     AdditionalServicesSingleModalComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    CitiesSingleModalComponent
   ],
   bootstrap: [AppComponent]
 })

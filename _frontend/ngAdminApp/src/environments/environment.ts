@@ -10,7 +10,8 @@ export const environment = {
   apiUrlAdmin: 'http://localhost:8080/admin',
   apiUrlType: 'http://localhost:8081/types',
   apiUrlCategory: 'http://localhost:8081/categories',
-  apiUrlAdditionalService: 'http://localhost:8081/extraFields'
+  apiUrlAdditionalService: 'http://localhost:8081/extraFields',
+  apiUrlCity: 'http://localhost:8081/cities'
 };
 
 /*
