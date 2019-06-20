@@ -1,14 +1,15 @@
 package com.tim9.reservationservice.services;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.unit.DataUnit;
 
+import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
 import com.tim9.accommodationserviceclient.dtos.AccommodationUnitDTO;
 import com.tim9.reservationservice.models.Reservation;
 import com.tim9.reservationservice.repository.ReservationRepository;
@@ -63,7 +64,7 @@ public class ReservationService {
 	
 	public ReservationDTO save(ReservationDTO reservation) {
 		
-		AccommodationUnitDTO unit = accommData.getById(reservation.getAccommodationUnit());
+		AccommodationUnitDTO unit = accommData.getUnitById(reservation.getAccommodationUnit());
 		
 		if(reservation.getClient() != 0l) {			
 			UserDTO client = userData.getById(reservation.getClient());
@@ -121,10 +122,14 @@ public class ReservationService {
 		
 		Optional<Reservation> reservationToDelete = reservationRepository.findById(id);
 		
-		if( reservationToDelete.isPresent() ) {
-			reservationRepository.deleteById(id);
+		if( reservationToDelete.isPresent()) {
+			AccommodationDTO accommDTO = accommData.getAccommodationById(reservationToDelete.get().getAccommodation());
 			
-			return reservationConverter.convertToDTO(reservationToDelete.get());
+			if (accommDTO.getNumberOfDaysBeforeCancelation() >= ChronoUnit.DAYS.between(reservationToDelete.get().getDateFrom(), LocalDateTime.now())) {
+				
+				reservationRepository.deleteById(id);
+				return reservationConverter.convertToDTO(reservationToDelete.get());
+			}
 		}
 		
 		return new ReservationDTO();
