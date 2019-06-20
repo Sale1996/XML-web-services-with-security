@@ -21,18 +21,20 @@
                     <th scope="col">Extra Fields</th>
                     <th scope="col">Number of People</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Price</th>
                     <th></th>
                   </tr>
               </thead>
               <tbody>
 
-                <tr *ngFor="let accommodationUnit of accommodationUnits">
+                <tr *ngFor="let accommodationUnitList of accommodationUnitList; let i = index">
                   <ng-container>
-                      <td>{{accommodationUnit.accomodation.accommodationName }}</td>
-                      <td>{{accommodationUnit.category.categoryName }}</td>
-                      <td>{{accommodationUnit.extraField}}</td>
-                      <td>{{accommodationUnit.numberOfPeople }}</td>
-                      <td>{{accommodationUnit.type.typeName}}</td>
+                      <td>{{accommodationUnitList.accomodation.accommodationName }}</td>
+                      <td>{{accommodationUnitList.category.categoryName }}</td>
+                      <td>{{accommodationUnitList.extraField}}</td>
+                      <td>{{accommodationUnitList.numberOfPeople }}</td>
+                      <td>{{accommodationUnitList.type.typeName}}</td>
+                      <td>{{prices[i]}}</td>
 
                       <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal" (click)="onReserve(accommodationUnit)">Reserve</button>
                  </ng-container>

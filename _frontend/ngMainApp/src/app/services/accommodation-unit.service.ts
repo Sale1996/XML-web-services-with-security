@@ -1,3 +1,4 @@
+import { AccommodationUnitsWith } from './../model/accommodation-units-with.model';
 import { AccommodationUnit } from './../model/accommodation-unit.model';
 import { Search } from './../model/search.model';
 import { environment } from './../../environments/environment';
@@ -21,8 +22,8 @@ export class AccommodationUnitService {
   ) { }
 
 
-  getAccommotionUnits(id: number, search: Search): Observable<AccommodationUnit[]> {
-    return this.http.post<AccommodationUnit[]>(this.accommodationtUrl + '/searchUnits/' + id, search, httpOptions);
+  getAccommotionUnits(id: number, search: Search): Observable<AccommodationUnitsWith> {
+    return this.http.post<AccommodationUnitsWith>(this.accommodationtUrl + '/searchUnits/' + id, search, httpOptions);
   }
 
 

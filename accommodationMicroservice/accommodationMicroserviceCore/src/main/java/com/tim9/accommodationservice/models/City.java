@@ -24,6 +24,7 @@ import com.tim9.accommodationservice.config.LocalDateTimeAdapter;
 @XmlType(name = "city")
 @XmlRootElement(name = "City")
 @Entity
+@Table( name= "cities" )
 public class City {
 	
     @XmlElement(name = "city_id")

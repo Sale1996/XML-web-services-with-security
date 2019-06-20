@@ -1,3 +1,4 @@
+import { AccommodationUnitsWith } from './../../model/accommodation-units-with.model';
 import { Picture } from './../../model/picture.model';
 import { PictureService } from './../../services/picture.service';
 import { AuthService } from './../../services/auth.service';
@@ -68,8 +69,13 @@ export class HomeComponent implements OnInit {
   accommodationUnit: AccommodationUnit;
   accommodationUnits: AccommodationUnit[];
 
+  accommodationUnitsWith: AccommodationUnitsWith;
+
   userEmail: string;
   userLog: User;
+
+  accommodationUnitList: AccommodationUnit[];
+  prices: number[];
 
 
 
@@ -171,11 +177,20 @@ export class HomeComponent implements OnInit {
 
   getAccommodations(id: number, search: Search, accommodationModalRef) {
 
-    return this.accommodationUnitService.getAccommotionUnits(id, search).subscribe(accommodationUnit => {
+    console.log('usaaaaaaao ');
 
-      this.accommodationUnits = accommodationUnit;
-      accommodationModalRef.componentInstance.accommodationUnit = this.accommodationUnit;
-      accommodationModalRef.componentInstance.accommodationUnits = this.accommodationUnits;
+    return this.accommodationUnitService.getAccommotionUnits(id, search).subscribe(accommodationUnitsWith => {
+
+      this.accommodationUnitsWith = accommodationUnitsWith;
+
+      accommodationModalRef.componentInstance.accommodationUnitsWith = this.accommodationUnitsWith;
+
+
+      this.accommodationUnitList = this.accommodationUnitsWith.units;
+      this.prices = this.accommodationUnitsWith.prices;
+
+      console.log('ovo: ' + this.accommodationUnitList);
+      console.log('ovo2: ' + this.prices);
 
     });
   }
@@ -299,11 +314,7 @@ export class HomeComponent implements OnInit {
 
       this.local_accomm = a;
       accommodationModalRef.componentInstance.accommodation = a;
-      console.log(this.accommodationUnits);
-
-      this.getAccommodations(a.accommodationId, this.searchObj, accommodationModalRef);
-
-
+      accommodationModalRef.componentInstance.searchObj = this.searchObj;
 
       accommodationModalRef.componentInstance.answer.subscribe(
         (accommodationUnit: AccommodationUnit) => {
