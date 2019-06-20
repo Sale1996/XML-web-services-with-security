@@ -16,6 +16,7 @@ import com.tim9.agentapp.reservation.soapclient.ReservationClient;
 import com.tim9.agentapp.reservation.utils.dtoConverter.DTOReservationConverter;
 import com.tim9.agentapp.reservation.wsdl.ConfirmReservationResponse;
 import com.tim9.agentapp.reservation.wsdl.CreateReservationResponse;
+import com.tim9.agentapp.reservation.wsdl.DeleteReservationResponse;
 import com.tim9.agentapp.reservation.wsdl.GetReservationsResponseAgent;
 import com.tim9.agentapp.reservation.wsdl.Reservation;
 
@@ -33,7 +34,7 @@ public class ReservationService {
 
 	public List<ReservationDTO> findAll() {
 		
-		Optional< List<ReservationLocal> > reservations = Optional.of ( reservationRepository.findAll() );
+		Optional< List<ReservationLocal> > reservations = reservationRepository.findReservations();
 		
 		ArrayList < ReservationDTO > dtoReservations = new ArrayList< ReservationDTO >();
 		
@@ -117,15 +118,24 @@ public class ReservationService {
 		return false;
 	}
 	
-	public ReservationDTO delete(long id) {
+	public ReservationDTO deleteOccupancy(long id) {
+		
 		
 		Optional<ReservationLocal> reservationToDelete = reservationRepository.findById(id);
 		
 		if( reservationToDelete.isPresent() ) {
-			reservationRepository.deleteById(id);
 			
-			return reservationConverter.convertToDTO(reservationToDelete.get());
+			DeleteReservationResponse response = reservationClient.deleteReservation(reservationToDelete.get().getReservationId());
+			
+			if(response.getReservation().getReservationId() != null) {
+
+				reservationRepository.deleteById(id);
+				
+				return reservationConverter.convertToDTO(reservationToDelete.get());
+			}
 		}
+			
+		
 		
 		return new ReservationDTO();
 	}
@@ -169,4 +179,18 @@ public class ReservationService {
 	
 	}
 	
+	public List<ReservationDTO> getOcupancies() {
+		
+		Optional< List<ReservationLocal> > reservations = reservationRepository.getOcupancies();
+		
+		ArrayList < ReservationDTO > dtoReservations = new ArrayList< ReservationDTO >();
+		
+		if ( reservations.isPresent() ) {
+			for ( ReservationLocal candidate : reservations.get() ) {
+				dtoReservations.add(reservationConverter.convertToDTO(candidate));
+			}
+			return dtoReservations;
+		}
+		return Collections.emptyList();
+	}
 }

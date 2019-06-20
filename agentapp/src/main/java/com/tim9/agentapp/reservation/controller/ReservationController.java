@@ -134,17 +134,29 @@ public class ReservationController {
 
 	@DeleteMapping("/{reservationId}")
 	//@PreAuthorize("hasAuthority('DELETE_RESERVATION')")
-	@ApiOperation( value = "Delete a reservation.", notes = "Returns the reservation being deleted", httpMethod="DELETE")
+	@ApiOperation( value = "Delete a occupancy.", notes = "Returns the reservation (occupancy) being deleted", httpMethod="DELETE")
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
 			 @ApiResponse( code = 404, message ="Not Found")})	
 	public ResponseEntity< ReservationDTO > deleteResrevation(@PathVariable("reservationId") long id) {
 	
-		ReservationDTO deletedResrevation = reservationService.delete(id);
+		ReservationDTO deletedResrevation = reservationService.deleteOccupancy(id);
 		
 		if (deletedResrevation.getReservationId() != null)
 			return new ResponseEntity< ReservationDTO > ( deletedResrevation,HttpStatus.OK );
 		else
 			return new ResponseEntity< ReservationDTO > ( HttpStatus.NOT_FOUND );
 	}
+	
+	@GetMapping("/occupancy")
+	@ApiOperation( value = "Returns all occupancies", httpMethod = "GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+							 @ApiResponse( code = 404, message ="Not Found")})	
+	public ResponseEntity< List<ReservationDTO> > getOccupancies() {
+		
+		List< ReservationDTO > reservations = reservationService.getOcupancies();
+		
+		return ( !reservations.isEmpty() )? new ResponseEntity< List<ReservationDTO> > (reservations, HttpStatus.OK ) : new ResponseEntity<List<ReservationDTO>>( HttpStatus.NOT_FOUND);
+	}
+	
 }

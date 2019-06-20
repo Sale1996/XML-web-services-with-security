@@ -1,5 +1,6 @@
 package com.tim9.agentapp.reservation.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,10 @@ public interface ReservationRepository extends JpaRepository<ReservationLocal,Lo
 			" (date_from <= ?3 and date_to >= ?3))", nativeQuery = true)
 	public Optional<ReservationLocal> checkIfAccommodationUnitIsFreeForPeriod(Long accommodationUnit, String dateFrom,
 			String dateTo);
+	
+	@Query(value = "SELECT * FROM agentlocal.reservations where client= 0 and final_price = 0 ", nativeQuery = true)
+	public Optional<List<ReservationLocal>> getOcupancies();
+	
+	@Query(value = "SELECT * FROM agentlocal.reservations where client != 0 ", nativeQuery = true)
+	public Optional<List<ReservationLocal>> findReservations();
 }
