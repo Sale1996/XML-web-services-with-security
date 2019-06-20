@@ -79,7 +79,10 @@ public class ReservationEndpoint {
 	public DeleteReservationResponse deleteReservation(@RequestPayload DeleteReservationRequest request) {
 		DeleteReservationResponse response = new DeleteReservationResponse();
 		response.setReservation(repository.findById(request.getId()).get());
-		repository.deleteById(request.getId());
+		if (response.getReservation().getClient() == 0 && response.getReservation().getFinalPrice() == 0)
+			repository.deleteById(request.getId());
+		else
+			response.setReservation(new Reservation());
 		return response;
 	}
 	
