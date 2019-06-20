@@ -1,5 +1,6 @@
 package com.tim9.accommodationservice.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,10 @@ public interface PriceRepository extends JpaRepository<Price,Long> {
 			" 		 and date_from <= ?2 and date_to > ?2 \r\n" + 
 			" 	     order by accommodation_unit ", nativeQuery = true)
 	public Optional<List<Price>> calculatePricesForUnitsForPeriod(List<Long> unitsIds, LocalDateTime dateFrom);
+	
+	@Query(value = "SELECT * FROM accommodation.prices where accommodation_unit= ?1 and\r\n" + 
+			"	((date_from <= ?2 and date_to >= ?2) or\r\n" + 
+			"	(date_from >= ?2 and date_to <= ?3) or\r\n" + 
+			"	(date_from <= ?3 and date_to >= ?3))\r\n", nativeQuery = true)
+	public Optional<Price> checkIfThereIsAlreadyPrice(Long accommodationUnit, LocalDate dateFrom, LocalDate dateTo);
 }

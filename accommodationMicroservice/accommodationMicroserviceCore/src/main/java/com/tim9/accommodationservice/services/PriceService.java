@@ -79,19 +79,21 @@ public class PriceService {
 		if(dto.getDateFrom().isAfter(dto.getDateTo()) || dto.getAmount()<0) {
 			
 			return new PriceDTO();
-			
 		}
 		
-		dto.setPriceId(-1l);
-			
-		Price price = priceConverter.convertFromDTO(dto);
-		price.setLastUpdated(LocalDateTime.now());
-		price = priceRepository.save(price);
+		Optional<Price> check = priceRepository.checkIfThereIsAlreadyPrice(dto.getAccommodation().getAccommodationUnitId(), dto.getDateFrom(), dto.getDateTo());
 		
-		dto.setPriceId(price.getPriceId());
+		if (!check.isPresent()) {
+			dto.setPriceId(-1l);
+			
+			Price price = priceConverter.convertFromDTO(dto);
+			price.setLastUpdated(LocalDateTime.now());
+			
+			price = priceRepository.save(price);
+			dto.setPriceId(price.getPriceId());
+		}
 		
 		return dto;
-
 	}
 
 	public PriceDTO update(Long id, PriceDTO priceDTO) {
