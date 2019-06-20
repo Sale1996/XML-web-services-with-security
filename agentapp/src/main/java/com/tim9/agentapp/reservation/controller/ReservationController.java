@@ -148,13 +148,13 @@ public class ReservationController {
 			return new ResponseEntity< ReservationDTO > ( HttpStatus.NOT_FOUND );
 	}
 	
-	@GetMapping("/occupancy")
-	@ApiOperation( value = "Returns all occupancies", httpMethod = "GET")
+	@GetMapping("/occupancy/{id}")
+	@ApiOperation( value = "Returns all occupancies of specific unit", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
-	public ResponseEntity< List<ReservationDTO> > getOccupancies() {
+	public ResponseEntity< List<ReservationDTO> > getOccupancies(@PathVariable("id") Long id) {
 		
-		List< ReservationDTO > reservations = reservationService.getOcupancies();
+		List< ReservationDTO > reservations = reservationService.getOcupancies(id);
 		
 		return ( !reservations.isEmpty() )? new ResponseEntity< List<ReservationDTO> > (reservations, HttpStatus.OK ) : new ResponseEntity<List<ReservationDTO>>( HttpStatus.NOT_FOUND);
 	}

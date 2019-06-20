@@ -179,9 +179,9 @@ public class ReservationService {
 	
 	}
 	
-	public List<ReservationDTO> getOcupancies() {
+	public List<ReservationDTO> getOcupancies(Long id) {
 		
-		Optional< List<ReservationLocal> > reservations = reservationRepository.getOcupancies();
+		Optional< List<ReservationLocal> > reservations = reservationRepository.getOcupancies(id);
 		
 		ArrayList < ReservationDTO > dtoReservations = new ArrayList< ReservationDTO >();
 		

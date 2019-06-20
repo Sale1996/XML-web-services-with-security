@@ -27,4 +27,16 @@ export class ReservationService {
     confirmReservation(id): Observable<Boolean> {
         return this.http.put<Boolean>(environment.apiUrlReservation + '/confirm', id, httpOptions);
     }
+
+    getOccupancies(id: number): Observable<Reservation[]> {
+        return this.http.get<Reservation[]>(environment.apiUrlReservation + '/occupancy/' + id);
+    }
+
+    createOccupancy(occupancy: Reservation): Observable<Reservation> {
+        return this.http.post<Reservation>(environment.apiUrlReservation, occupancy, httpOptions);
+    }
+
+    deleteOccupancy(id: number): Observable<Reservation> {
+        return this.http.delete<Reservation>(environment.apiUrlReservation + '/' + id);
+    }
 }

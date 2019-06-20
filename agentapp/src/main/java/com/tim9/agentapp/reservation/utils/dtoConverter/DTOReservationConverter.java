@@ -22,7 +22,7 @@ public class DTOReservationConverter {
 		ReservationDTO dto = new ReservationDTO();
 		
 		dto.setLocalReservationId(reservation.getLocalReservationId());
-		dto.setReservationId(reservation.getReservationId());
+		dto.setReservationId(reservation.getLocalReservationId());
 		dto.setAccommodationUnit(reservation.getAccommodationUnit());
 		dto.setAccommodation(reservation.getAccommodation());
 		dto.setClient(reservation.getClient());
