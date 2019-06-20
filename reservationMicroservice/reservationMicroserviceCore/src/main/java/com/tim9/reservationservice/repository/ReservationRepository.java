@@ -30,8 +30,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 			" (date_from >= ?2 and date_to <= ?3) or \r\n" + 
 			"  \r\n" + 
 			" (date_from <= ?3 and date_to >= ?3))", nativeQuery = true)
-	public Optional<Reservation> checkIfAccommodationUnitIsFreeForPeriod(Long accommodationUnit, String dateFrom,
-			String dateTo);
+	public Optional<Reservation> checkIfAccommodationUnitIsFreeForPeriod(Long accommodationUnit, String dateFrom, String dateTo);
 
 	@Query(value = " SELECT distinct reservations.reservation.client FROM reservations.reservation where accommodation= ?1 ", nativeQuery = true)
 	public Optional<List<Long>> getAccommodationClients(Long accommodationId);

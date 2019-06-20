@@ -46,7 +46,7 @@ public class ReservationService {
 			}
 			return dtoReservations;
 		}
-			
+		
 		return Collections.emptyList();
 	}
 	
