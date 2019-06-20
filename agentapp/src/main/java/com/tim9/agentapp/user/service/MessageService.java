@@ -71,4 +71,22 @@ public class MessageService {
 			
 		return Collections.emptyList();
 	}
+
+	public MessageDTO openMessage(long id, MessageDTO message) {
+		
+		Optional<Message> foundMessage = messageRepository.findById(id);
+		
+		if(!foundMessage.isPresent()) {
+			return new MessageDTO();
+		}
+		
+				
+		foundMessage.get().setLastUpdated(LocalDateTime.now());
+		foundMessage.get().setOpened(true);
+		
+		messageRepository.save(foundMessage.get());
+		
+		
+		return message;
+	}
 }
