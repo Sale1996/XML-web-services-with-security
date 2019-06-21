@@ -1,5 +1,6 @@
 package com.tim9.agentapp.user.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -72,10 +73,10 @@ public class AgentService {
 			agentForChange.get().setFirstName(agent.getFirstName());
 			agentForChange.get().setLastName(agent.getLastName());
 			agentForChange.get().setEmail(agent.getEmail());
-			agentForChange.get().setPassword(agent.getPassword());
-			agentForChange.get().setActivated(agent.getActivated());
+//			agentForChange.get().setPassword(agent.getPassword());
+//			agentForChange.get().setActivated(agent.getActivated());
 			agentForChange.get().setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
-			agentForChange.get().setRole(agent.getRole());
+//			agentForChange.get().setRole(agent.getRole());
 	
 			agentRepository.save(agentForChange.get());
 			
@@ -143,7 +144,7 @@ public class AgentService {
 //		logger.error(getAgentResponse.getAgent().getId()+"");
 // 		obraditi slucaj inicijalizacije
 		if(agentForChange.isPresent() && getAgentResponse != null) {
-										
+		
 			agentForChange.get().setFirstName(getAgentResponse.getAgent().getFirstName());
 			agentForChange.get().setLastName(getAgentResponse.getAgent().getLastName());
 			agentForChange.get().setEmail(getAgentResponse.getAgent().getEmail());

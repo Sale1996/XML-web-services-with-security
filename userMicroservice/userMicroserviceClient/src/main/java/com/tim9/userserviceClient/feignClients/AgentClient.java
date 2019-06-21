@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.tim9.userserviceClient.dtos.AgentDTO;
 
@@ -19,7 +20,7 @@ public interface AgentClient {
 	public List<AgentDTO> getAgents();
 		
 	@GetMapping("/{agentId}")
-	public AgentDTO getAgentById(@PathVariable("agentId") long id);
+	public AgentDTO getAgentById(@RequestHeader("Authorization") String tokenString,@PathVariable("agentId") long id);
 	
 	@GetMapping("email/{email}")
 	public AgentDTO getAgentByEmail(@PathVariable("email") String email);

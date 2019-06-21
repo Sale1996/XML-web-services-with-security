@@ -62,4 +62,19 @@ public class DTOCityConverter {
 		
 		
 	}
+	
+	public City convertFromDTOToWsdl(CityDTO dto) {
+		
+		City newCity = new City();
+		
+		newCity.setName(dto.getName());
+		newCity.setXCord(dto.getxCord());
+		newCity.setYCord(dto.getyCord());
+		newCity.setCityId(dto.getCityId());
+		
+		return newCity;
+		
+		
+		
+	}
 }

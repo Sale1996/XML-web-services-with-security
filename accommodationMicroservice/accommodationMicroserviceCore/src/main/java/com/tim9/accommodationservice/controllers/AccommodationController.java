@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -119,9 +120,9 @@ public class AccommodationController {
 					@ApiResponse( code = 201 , message = "Created"),
 					@ApiResponse( code = 400, message= "Bad request")
 	})
-	public ResponseEntity< AccommodationDTO > createAccommodation(@RequestBody AccommodationDTO accommodation) {
+	public ResponseEntity< AccommodationDTO > createAccommodation(@RequestHeader(value="Authorization") String token, @RequestBody AccommodationDTO accommodation) {
 		
-		AccommodationDTO savedAccommodation = accommodationService.save(accommodation);
+		AccommodationDTO savedAccommodation = accommodationService.save(token, accommodation);
 		
 		return ( savedAccommodation.getAccommodationId()!=null )? new ResponseEntity< AccommodationDTO > ( savedAccommodation, HttpStatus.CREATED ) : new ResponseEntity< AccommodationDTO > (savedAccommodation, HttpStatus.BAD_REQUEST );
 
@@ -133,11 +134,11 @@ public class AccommodationController {
 	@ApiResponses( value = { 
 			 @ApiResponse( code = 200, message ="OK"),
 			 @ApiResponse( code = 400, message ="Bad Request")})
-	public ResponseEntity< AccommodationDTO > updateAccommodation(@PathVariable("accommodationId") long id, @RequestBody AccommodationDTO accommodation) { //Accommodation treba da bude zapravo AccommodationDTO
+	public ResponseEntity< AccommodationDTO > updateAccommodation(@RequestHeader(value="Authorization") String token, @PathVariable("accommodationId") long id, @RequestBody AccommodationDTO accommodation) { //Accommodation treba da bude zapravo AccommodationDTO
 	//	String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		
-		AccommodationDTO accommodationToUpdate = accommodationService.update(id, accommodation);
+		AccommodationDTO accommodationToUpdate = accommodationService.update(token, id, accommodation);
 		
 	    return ( accommodationToUpdate.getAccommodationId() != null )? new ResponseEntity< AccommodationDTO > ( accommodationToUpdate, HttpStatus.OK ) : new ResponseEntity< AccommodationDTO > ( HttpStatus.BAD_REQUEST );
 

@@ -140,11 +140,11 @@ public class AccommodationService {
 		return null; //to be implemented...
 	}
 
-	public AccommodationDTO save(AccommodationDTO accommodation) {
+	public AccommodationDTO save(String token, AccommodationDTO accommodation) {
 			
 		accommodation.setAccommodationId(-1l);
 		
-		if(!validateAccommodaiton(accommodation)) {
+		if(!validateAccommodaiton(token, accommodation)) {
 			return new AccommodationDTO();
 		}
 		
@@ -158,13 +158,13 @@ public class AccommodationService {
 	
 	}
 
-	public AccommodationDTO update(long id, AccommodationDTO accommodation) {
+	public AccommodationDTO update(String token, long id, AccommodationDTO accommodation) {
 		
 		Optional<Accommodation> accommodationForChange = accommodationRepository.findById(id);
 		
 		if( accommodationForChange.isPresent() && accommodation!=null ) {
 			
-			if(!validateAccommodaiton(accommodation)) {
+			if(!validateAccommodaiton(token, accommodation)) {
 				return new AccommodationDTO();
 			}
 										
@@ -221,7 +221,7 @@ public class AccommodationService {
 	}
 	
 	
-	private boolean validateAccommodaiton(AccommodationDTO accommodation) {
+	private boolean validateAccommodaiton(String token, AccommodationDTO accommodation) {
 		
 		boolean isValid = true;
 		
@@ -239,7 +239,7 @@ public class AccommodationService {
 		}
 		
 		//checking existence of agent
-		AgentDTO agent = userMicroservise.getAgentById(accommodation.getAgentId());
+		AgentDTO agent = userMicroservise.getAgentById(token, accommodation.getAgentId());
 		
 		if(agent.getId()==null) {
 			isValid = false;

@@ -3,6 +3,8 @@ package com.tim9.agentapp.accommodation.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.ws.client.core.WebServiceTemplate;
+import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 
 import com.tim9.agentapp.accommodation.soapclient.AccommodationClient;
 import com.tim9.agentapp.accommodation.soapclient.AccommodationUnitClient;
@@ -12,6 +14,7 @@ import com.tim9.agentapp.accommodation.soapclient.ExtraFieldClient;
 import com.tim9.agentapp.accommodation.soapclient.PictureClient;
 import com.tim9.agentapp.accommodation.soapclient.PriceClient;
 import com.tim9.agentapp.accommodation.soapclient.TypeClient;
+import com.tim9.agentapp.utils.HeaderClientInterceptor;
 
 @Configuration
 public class AccommodationConfiguration {
@@ -23,6 +26,18 @@ public class AccommodationConfiguration {
 		marshaller.setContextPath("com.tim9.agentapp.accommodation.wsdl");
 		return marshaller;
 	}
+	
+	@Bean
+	  public WebServiceTemplate webServiceTemplate() {
+	    WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
+
+	    // register the LogHttpHeaderClientInterceptor
+	    ClientInterceptor[] interceptors =
+	        new ClientInterceptor[] {new HeaderClientInterceptor()};
+	    webServiceTemplate.setInterceptors(interceptors);
+
+	    return webServiceTemplate;
+	  }
 
 	@Bean
 	public AccommodationClient accommodationClient(Jaxb2Marshaller marshaller) {

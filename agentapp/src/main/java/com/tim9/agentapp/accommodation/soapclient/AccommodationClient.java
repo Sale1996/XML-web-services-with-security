@@ -20,7 +20,6 @@ public class AccommodationClient extends WebServiceGatewaySupport {
 	DTOAccommodationConverter accommodationConverter;
 
 	public GetAccommodationResponse getAccommodation(Long id) {
-
 		GetAccommodationRequest request = new GetAccommodationRequest();
 		request.setId(id);
 
@@ -31,17 +30,10 @@ public class AccommodationClient extends WebServiceGatewaySupport {
 		return response;
 	}
 	
-	public CreateAccommodationResponse createAccommodation( com.tim9.agentapp.accommodation.model.AccommodationLocal accommodation) {
+	public CreateAccommodationResponse createAccommodation(Accommodation accommodation) {
 
 		CreateAccommodationRequest request = new CreateAccommodationRequest();
-		request.setAccommodation(accommodationConverter.convertToWsdl(accommodation));
-		City city = new City();
-		city.setCityId(1l);
-		city.setName("ahdahwd");
-		city.setXCord(11.0);
-		city.setYCord(21.0);
-		request.getAccommodation().setCity(city);
-		request.getAccommodation().setLastUpdated("2019-05-28T20:29:44");
+		request.setAccommodation(accommodation);
 
 		CreateAccommodationResponse response = (CreateAccommodationResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,

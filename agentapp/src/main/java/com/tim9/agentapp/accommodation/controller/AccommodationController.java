@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tim9.agentapp.accommodation.dto.AccommodationDTO;
-import com.tim9.agentapp.accommodation.model.AccommodationLocal;
 import com.tim9.agentapp.accommodation.service.AccommodationService;
 import com.tim9.agentapp.accommodation.soapclient.AccommodationClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOAccommodationConverter;
@@ -43,26 +42,26 @@ public class AccommodationController {
 	private DTOAccommodationConverter accommodationConverter;
 	
 	
-	@GetMapping("/p")
-	@ApiOperation( value = "Returns all accommodations", httpMethod = "GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})	
-	public AccommodationLocal createAccommodationSoap() {
-		
-		AccommodationLocal noviAcc = new AccommodationLocal();
-		noviAcc.setAccommodationId(5l);
-		noviAcc.setAccommodationName("Pcloadletter");
-		noviAcc.setAgentId(5l);
-		noviAcc.setCountedNumberOfBeds(4);
-		noviAcc.setDescription("adaw");
-		noviAcc.setNumberOfDaysBeforeCancelation(11);
-		
-		
-		AccommodationLocal accommodationn = accommodationConverter.convertFromWsdl(accommodationClient.createAccommodation(noviAcc).getAccommodation());
-		
-
-		return accommodationn;
-	}
+//	@GetMapping("/p")
+//	@ApiOperation( value = "Returns all accommodations", httpMethod = "GET")
+//	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+//							 @ApiResponse( code = 404, message ="Not Found")})	
+//	public AccommodationLocal createAccommodationSoap() {
+//		
+//		AccommodationLocal noviAcc = new AccommodationLocal();
+//		noviAcc.setAccommodationId(5l);
+//		noviAcc.setAccommodationName("Pcloadletter");
+//		noviAcc.setAgentId(5l);
+//		noviAcc.setCountedNumberOfBeds(4);
+//		noviAcc.setDescription("adaw");
+//		noviAcc.setNumberOfDaysBeforeCancelation(11);
+//		
+//		
+//		AccommodationLocal accommodationn = accommodationConverter.convertFromWsdl(accommodationClient.createAccommodation(noviAcc).getAccommodation());
+//		
+//
+//		return accommodationn;
+//	}
 
 	@GetMapping("")
 	@ApiOperation( value = "List of all accommodations", notes = "Returns all accommodations from agent's local database.", httpMethod = "GET")

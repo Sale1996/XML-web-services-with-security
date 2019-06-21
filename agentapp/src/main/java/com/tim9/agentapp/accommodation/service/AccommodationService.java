@@ -13,6 +13,8 @@ import com.tim9.agentapp.accommodation.model.AccommodationLocal;
 import com.tim9.agentapp.accommodation.repository.AccommodationRepository;
 import com.tim9.agentapp.accommodation.soapclient.AccommodationClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOAccommodationConverter;
+import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationResponse;
+import com.tim9.agentapp.accommodation.wsdl.GetAccommodationResponse;
 
 @Service
 public class AccommodationService {
@@ -53,19 +55,28 @@ public class AccommodationService {
 
 	public AccommodationDTO findById(long id) {
 		
-		Optional< AccommodationLocal > accommodation = accommodationRepository.findById(id);
+//		Optional< AccommodationLocal > accommodation = accommodationRepository.findById(id);
+//		
+//		
+//		if ( accommodation.isPresent() ) {
+//			
+//			return accommodationConverter.convertToDTO(accommodation.get());
+//		
+//		}
+//		else {
+//			
+//			return new AccommodationDTO();
+//			
+//		}
 		
+		GetAccommodationResponse response =  accommodationClient.getAccommodation(id);
 		
-		if ( accommodation.isPresent() ) {
+		if(response.getAccommodation().getAccommodationId() != null) {
 			
-			return accommodationConverter.convertToDTO(accommodation.get());
-		
+			return accommodationConverter.convertToDTOFromClient(response.getAccommodation());
 		}
-		else {
-			
-			return new AccommodationDTO();
-			
-		}
+		
+		return new AccommodationDTO();
 		
 	}
 
@@ -75,13 +86,23 @@ public class AccommodationService {
 
 	public AccommodationDTO save(AccommodationDTO accommodation) {
 			
-		accommodation.setLocalAccommodationId(-1l);
+//		accommodation.setLocalAccommodationId(-1l);
+//		
+//		AccommodationLocal Accommodation = accommodationRepository.save(accommodationConverter.convertFromDTO(accommodation));
+//		
+//		accommodation.setLocalAccommodationId(Accommodation.getLocalAccommodationId());
+//		
+//		return accommodation;
 		
-		AccommodationLocal Accommodation = accommodationRepository.save(accommodationConverter.convertFromDTO(accommodation));
 		
-		accommodation.setLocalAccommodationId(Accommodation.getLocalAccommodationId());
+		CreateAccommodationResponse response =  accommodationClient.createAccommodation(accommodationConverter.convertFromDTOToWsdl(accommodation));
 		
-		return accommodation;
+		if(response.getAccommodation().getAccommodationId() != null) {
+			
+			return accommodationConverter.convertToDTOFromClient(response.getAccommodation());
+		}
+		
+		return new AccommodationDTO();
 	
 	}
 

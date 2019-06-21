@@ -25,9 +25,9 @@ public class TypeService {
 	@Autowired
 	DTOTypeConverter typeConverter;
 	
-	public List<TypeDTO> findAll() {
+	public List<TypeDTO> findAll(String token) {
 		
-		GetTypesResponse response =  typeClient.GetTypes();
+		GetTypesResponse response =  typeClient.GetTypes(token);
 		List<TypeDTO> dtoTypes = new ArrayList<TypeDTO>();
 		
 		if(!response.getType().isEmpty()) {

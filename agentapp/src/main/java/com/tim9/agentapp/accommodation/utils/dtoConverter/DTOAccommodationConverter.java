@@ -112,5 +112,21 @@ public class DTOAccommodationConverter {
 		return newBean;
 		
 	}
+	
+	public Accommodation convertFromDTOToWsdl( AccommodationDTO dto ) {
+		
+		Accommodation newBean = new Accommodation();
+		
+		newBean.setAccommodationId(dto.getAccommodationId());
+		newBean.setDescription(dto.getDescription());
+		newBean.setNumberOfDaysBeforeCancelation(dto.getNumberOfDaysBeforeCancelation());
+		newBean.setName(dto.getAccommodationName());
+		newBean.setCity(cityConverter.convertFromDTOToWsdl(dto.getCity()));
+		newBean.setCountedNumberOfBeds(dto.getCountedNumberOfBeds());
+		newBean.setAgentId(dto.getAgentId());
+			
+		return newBean;
+		
+	}
 }
 

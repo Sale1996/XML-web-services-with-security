@@ -19,11 +19,11 @@ public class DatasFromUserMicroservice {
 	}
 	
 
-	public AgentDTO getAgentById(Long id) {
+	public AgentDTO getAgentById(String token, Long id) {
 
 		AgentDTO agent = null;
 		try {
-			agent = agentClient.getAgentById(id);
+			agent = agentClient.getAgentById(token, id);
 		} catch (FeignException e) {
 			return new AgentDTO();
 
