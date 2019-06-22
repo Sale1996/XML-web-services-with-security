@@ -102,9 +102,7 @@ public class ReservationController {
 					@ApiResponse( code = 400, message= "Bad request")
 	})
 	public ResponseEntity< ReservationDTO > createReservation(@RequestBody ReservationDTO reservation) {
-		
-		System.out.println("**************************************" + reservation.getDateFrom());
-		
+				
 		ReservationDTO savedReservation = reservationService.save(reservation);
 		
 		return ( savedReservation!=null )? new ResponseEntity< ReservationDTO > ( savedReservation, HttpStatus.CREATED ) : new ResponseEntity< ReservationDTO > ( HttpStatus.BAD_REQUEST );

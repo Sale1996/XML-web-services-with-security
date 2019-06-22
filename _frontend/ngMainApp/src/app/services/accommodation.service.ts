@@ -1,3 +1,5 @@
+import { AccommodationUnit } from './../model/accommodation-unit.model';
+import { AccommodationUnitsWith } from './../model/accommodation-units-with.model';
 import { Search } from './../model/search.model';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -29,6 +31,11 @@ export class AccommodationService {
   getCities(): Observable<City[]> {
     return this.http.get<City[]>(this.citiestUrl);
   }
+
+  sort(accwithObj: AccommodationUnitsWith, id: number): Observable<AccommodationUnitsWith> {
+    return this.http.post<AccommodationUnitsWith>(this.accommodationtUrl + '/sort/' + id, accwithObj, httpOptions);
+  }
+
 
 
 }

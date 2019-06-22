@@ -30,7 +30,6 @@ export class ProfileEditComponent implements OnInit {
       id: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', Validators.email],
       telephoneNumber: ['', Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')],
       address: ['', Validators.maxLength(50)]
     });

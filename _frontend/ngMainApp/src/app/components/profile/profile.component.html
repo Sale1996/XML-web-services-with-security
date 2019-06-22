@@ -30,7 +30,7 @@
             <td>{{reservation.finalPrice}}</td>
             <td>{{reservation.accommodationUnit}}</td>
             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal">Send Message</button>
-            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelModal" (click)="saveClick(reservation)">Cancel</button>
        </ng-container>
       </tr>
 
@@ -89,7 +89,7 @@
                 </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="sendMessage(reservation)" data-dismiss="modal">Send</button>
+            <button type="button" class="btn btn-primary" (click)="sendMessage()" data-dismiss="modal">Send</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
       </form>
@@ -112,7 +112,7 @@
           <p>Are you sure you want to cancel this reservation</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelReservation()">Yes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
