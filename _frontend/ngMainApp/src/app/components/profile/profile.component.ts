@@ -31,6 +31,8 @@ export class ProfileComponent implements OnInit {
   userEmail: string;
   userLog: User;
 
+  resIdDelete: number;
+
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
@@ -98,8 +100,16 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  sendMessage(reservation: Reservation) {
+  cancelReservation() {
 
+    this.reservationService.removeReservation(this.resIdDelete).subscribe(reservation => this.reservation = reservation);
+
+  }
+  saveClick(reservation: Reservation) {
+
+    this.resIdDelete = reservation.reservationId;
+  }
+  sendMessage() {
     this.messageObj = {
 
       messageBody: this.sendMessageFormGroup.controls['message'].value,

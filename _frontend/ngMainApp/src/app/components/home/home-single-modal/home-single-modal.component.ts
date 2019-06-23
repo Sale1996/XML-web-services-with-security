@@ -20,6 +20,7 @@ export class HomeSingleModalComponent implements OnInit {
   @Output() answer: EventEmitter<AccommodationUnit> = new EventEmitter();
 
   accommodationUnitsWith: AccommodationUnitsWith;
+  accomodationUnit: AccommodationUnit;
   accommodationUnitList: AccommodationUnit[];
   prices: Number[];
 
@@ -42,7 +43,7 @@ export class HomeSingleModalComponent implements OnInit {
   getAccommodations() {
 
     this.accommodationUnitService.getAccommotionUnits(this.accommodation.accommodationId, this.searchObj).subscribe(accommodationUnitsWith => {
-      console.log('dada ');
+
       this.accommodationUnitsWith = accommodationUnitsWith;
 
       this.accommodationUnitList = this.accommodationUnitsWith.units;
@@ -57,5 +58,22 @@ export class HomeSingleModalComponent implements OnInit {
       this.activeModal.close();
 
   }
+
+  sort(par: number) {
+
+    this.accommodationService.sort(this.accommodationUnitsWith, par).subscribe(
+      accomodationUnit => {
+
+        this.accommodationUnitsWith = accomodationUnit;
+
+        this.accommodationUnitList = this.accommodationUnitsWith.units;
+        this.prices = this.accommodationUnitsWith.prices;
+
+      }
+
+    );
+
+  }
+
 
 }

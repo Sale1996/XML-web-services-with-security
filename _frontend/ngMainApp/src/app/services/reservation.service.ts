@@ -30,4 +30,8 @@ export class ReservationService {
   getReservationByUserId(userId: number): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(environment.apiReservations + '/client/' + userId);
   }
+
+  removeReservation(id: number) {
+    return this.http.delete<Reservation>(this.reservationtUrl + '/' + id, httpOptions);
+  }
 }

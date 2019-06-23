@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
 import { UserService } from 'src/app/services/user.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-inbox',
@@ -15,6 +16,9 @@ export class InboxComponent implements OnInit {
 
   message: Message;
   messages: Message[];
+
+  messageObj: Message;
+  reservation_id: number;
 
   userEmail: string;
   userLog: User;
@@ -34,7 +38,7 @@ export class InboxComponent implements OnInit {
   ngOnInit() {
 
     this.replyFormGroup = this.formBuilder.group({
-      message: ['']
+      messageText: ['']
     });
 
     this.userEmail = this.authService.getEmailFromToken(localStorage.getItem('access_token'));
@@ -59,11 +63,25 @@ export class InboxComponent implements OnInit {
   open(message: Message) {
 
     this.text = message.messageBody;
+    this.reservation_id = message.reservationId;
 
   }
 
   reply() {
 
+    this.messageObj = {
+
+      messageBody: this.replyFormGroup.controls['messageText'].value,
+      messageTime: moment(),
+      userId: this.userLog.id,
+      recieved: true,
+      opened: false,
+      reservationId: this.reservation_id
+    }
+
+    this.messageService.sendMessage(this.messageObj).subscribe((response) => {
+      console.log('Response is: ', response);
+   });
 
   }
 

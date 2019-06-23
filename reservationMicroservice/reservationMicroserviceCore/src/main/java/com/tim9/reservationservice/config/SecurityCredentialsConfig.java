@@ -52,6 +52,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 		    .antMatchers(HttpMethod.GET, "/reservations/**").permitAll()
 		    .antMatchers(HttpMethod.POST, "/reservations/**").permitAll()
 		    .antMatchers(HttpMethod.PUT, "/reservations/**").permitAll()
+		    .antMatchers(HttpMethod.DELETE, "/reservations/**").permitAll()
 		    .antMatchers(HttpMethod.GET, "/ratings/**").permitAll()
 		    .antMatchers(HttpMethod.POST, "/ratings/**").permitAll()
 		    .antMatchers(HttpMethod.POST, "/ws/**").permitAll()
