@@ -96,6 +96,43 @@ public class ReservationService {
 	
 	}
 	
+	public Reservation createOccupancy(Reservation reservation) {
+		
+		if(reservation.getClient() == 0l && reservation.getFinalPrice() == 0f) {
+			
+			AccommodationUnitDTO unit = accommData.getUnitById(reservation.getAccommodationUnit());
+			
+			if(reservation.getClient() != 0l) {			
+				UserDTO client = userData.getById(reservation.getClient());
+				if(client.getId() == null) {
+					return new Reservation();
+				}
+			}
+
+			//proveri da li ima vec neka rezervacija za isti taj unit u tom vremenskom periodu..
+			Optional<Reservation> rezervacija = reservationRepository.checkIfAccommodationUnitIsFreeForPeriod(reservation.getAccommodationUnit(), reservation.getDateFrom().toString(), reservation.getDateTo().toString());
+			
+			
+			if(unit.getAccommodationUnitId() == null || rezervacija.isPresent()) {
+				
+				return new Reservation();
+			}
+			
+			
+			reservation.setReservationId(-1l);
+			reservation.setLastUpdated(LocalDateTime.now());
+			reservation.setAccommodation(unit.getAccomodation().getAccommodationId());
+			reservation = reservationRepository.save(reservation);
+			
+			reservation.setReservationId(reservation.getReservationId());
+			
+			return reservation;
+		}
+
+		return new Reservation();
+	
+	}
+	
 	public ReservationDTO update(long id, ReservationDTO reservation) {
 		
 		Optional<Reservation> reservationForChange = reservationRepository.findById(id);

@@ -61,5 +61,17 @@ public class DTOTypeConverter {
 		
 	}
 	
+	public Type convertFromDTOToWsdl( TypeDTO dto ) {
+		
+		Type newCandidate = new Type();
+		
+		newCandidate.setTypeId(dto.getTypeId());
+		newCandidate.setTypeName(dto.getTypeName());
+		
+		
+		return newCandidate;
+		
+	}
+	
 	
 }

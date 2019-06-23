@@ -21,13 +21,13 @@ public class HeaderClientInterceptor implements ClientInterceptor {
 
 		  @Override
 		  public boolean handleRequest(MessageContext messageContext) throws WebServiceClientException {
-
+			  HttpLoggingUtils.logMessage("Client Request Message", messageContext.getRequest());
 		    return true;
 		  }
 
 		  @Override
 		  public boolean handleResponse(MessageContext messageContext) throws WebServiceClientException {
-
+			  HttpLoggingUtils.logMessage("Client Response Message", messageContext.getResponse());
 		    return true;
 		  }
 		}

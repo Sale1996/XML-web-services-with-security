@@ -7,7 +7,7 @@ export interface AccommodationUnit {
 
     accommodationUnitId: number;
     numberOfPeople: number;
-    accomodation: Accommodation;
+    accommodation: Accommodation;
     category: Category;
     type: Type;
     extraField: Array<ExtraField>;

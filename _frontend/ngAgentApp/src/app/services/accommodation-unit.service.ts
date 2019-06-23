@@ -19,8 +19,8 @@ export class AccommodationUnitService {
     constructor(private http: HttpClient) { }
 
 
-    getUnits(): Observable<AccommodationUnit[]> {
-        return this.http.get<AccommodationUnit[]>(environment.apiUrlAccommodationUnit);
+    getUnits(id: number): Observable<AccommodationUnit[]> {
+        return this.http.get<AccommodationUnit[]>(environment.apiUrlAccommodationUnit + '/' + id);
     }
 
     deleteUnit(id: number): Observable<AccommodationUnit> {
@@ -32,7 +32,7 @@ export class AccommodationUnitService {
     }
 
     updateUnit(unit: AccommodationUnit): Observable<AccommodationUnit> {
-        return this.http.post<AccommodationUnit>(environment.apiUrlAccommodationUnit + '/' + unit.accommodationUnitId, unit, httpOptions);
+        return this.http.put<AccommodationUnit>(environment.apiUrlAccommodationUnit + '/' + unit.accommodationUnitId, unit, httpOptions);
     }
 
     addExtraFieldToUnit(unitId: number, extraFieldId: number) {

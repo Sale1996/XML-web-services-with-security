@@ -61,5 +61,17 @@ public class DTOCategoryConverter {
 		
 	}
 	
+	public Category convertFromDTOToWsdl( CategoryDTO dto ) {
+		
+		Category newCandidate = new Category();
+		
+		newCandidate.setCategoryId(dto.getCategoryId());
+		newCandidate.setCategoryName(dto.getCategoryName());
+		
+		
+		return newCandidate;
+		
+	}
+	
 	
 }

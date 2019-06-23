@@ -68,9 +68,7 @@ public class ReservationEndpoint {
 	public CreateReservationResponse createReservation(@RequestPayload CreateReservationRequest request) {
 		CreateReservationResponse response = new CreateReservationResponse();
 		Reservation r = request.getReservation();
-		r.setLastUpdated(LocalDateTime.now());
-		r.setReservationId(null);
-		response.setReservation(repository.save(r));
+		response.setReservation(reservationService.createOccupancy(r));
 		return response;
 	}
 	

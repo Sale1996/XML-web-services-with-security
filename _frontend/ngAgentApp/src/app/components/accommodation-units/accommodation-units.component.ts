@@ -7,6 +7,7 @@ import { UnitOccupancyModalComponent } from './unit-occupancy-modal/unit-occupan
 import { AccommodationUnit } from 'src/app/model/accommodation-unit.model';
 import { Observable } from 'rxjs';
 import { AccommodationUnitService } from 'src/app/services/accommodation-unit.service';
+import { Accommodation } from 'src/app/model/accommodation.model';
 
 @Component({
   selector: 'app-accommodation-units',
@@ -34,7 +35,7 @@ export class AccommodationUnitsComponent implements OnInit {
 
 
   getAllUnits() {
-    this.accommmodaitonUnits$ = this.unitService.getUnits();
+    this.accommmodaitonUnits$ = this.unitService.getUnits(parseInt(localStorage.getItem('accommodation')));
   }
 
   deleteUnit(id: number) {

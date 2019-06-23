@@ -37,20 +37,20 @@ public class AccommodationUnitController {
 	
 	
 	
-	@GetMapping("")
+	@GetMapping("/{id}")
 	@ApiOperation( value = "Returns all accommodationUnits", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
-	public ResponseEntity< List<AccommodationUnitDTO> > getAllAccommodationUnits (){
+	public ResponseEntity< List<AccommodationUnitDTO> > getAllAccommodationUnits (@PathVariable("id") Long id){
 		
-		List< AccommodationUnitDTO > accommodationUnits = accommodationUnitService.findAll();
+		List< AccommodationUnitDTO > accommodationUnits = accommodationUnitService.findAll(id);
 		
 		return ( !accommodationUnits.isEmpty() )? new ResponseEntity< List<AccommodationUnitDTO> > ( accommodationUnits, HttpStatus.OK ) : new ResponseEntity< List<AccommodationUnitDTO> > (accommodationUnits, HttpStatus.NOT_FOUND );
 		
 	}
 	
 	
-	@GetMapping("/{id}")
+	@GetMapping("units/{id}")
 	@ApiOperation( value = "Finds one accommodation Unit by id.", notes = "Returns found accommodationUnit.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})

@@ -35,7 +35,7 @@ public class AccommodationEndpoint {
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAccommodationRequest")
 	@ResponsePayload
-	public GetAccommodationResponse getAccommodation(@RequestPayload GetAccommodationRequest request) {
+	public GetAccommodationResponse getAccommodation(@SoapHeader("{" + Bearer.AUTH_NS + "}Bearer") SoapHeaderElement bearerToken, @RequestPayload GetAccommodationRequest request) {
 		GetAccommodationResponse response = new GetAccommodationResponse();
 		response.setAccommodation(accommodationConverter.convertFromDTO(accommodationService.findByAgentId(request.getId())));
 		return response;

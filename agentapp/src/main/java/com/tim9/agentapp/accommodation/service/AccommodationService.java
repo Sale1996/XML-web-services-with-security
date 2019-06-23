@@ -15,6 +15,7 @@ import com.tim9.agentapp.accommodation.soapclient.AccommodationClient;
 import com.tim9.agentapp.accommodation.utils.dtoConverter.DTOAccommodationConverter;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationResponse;
 import com.tim9.agentapp.accommodation.wsdl.GetAccommodationResponse;
+import com.tim9.agentapp.accommodation.wsdl.UpdateAccommodationResponse;
 
 @Service
 public class AccommodationService {
@@ -53,7 +54,7 @@ public class AccommodationService {
 		
 	}
 
-	public AccommodationDTO findById(long id) {
+	public AccommodationDTO findById(String token, long id) {
 		
 //		Optional< AccommodationLocal > accommodation = accommodationRepository.findById(id);
 //		
@@ -69,7 +70,7 @@ public class AccommodationService {
 //			
 //		}
 		
-		GetAccommodationResponse response =  accommodationClient.getAccommodation(id);
+		GetAccommodationResponse response =  accommodationClient.getAccommodation(token, id);
 		
 		if(response.getAccommodation().getAccommodationId() != null) {
 			
@@ -84,7 +85,7 @@ public class AccommodationService {
 		return null; //to be implemented...
 	}
 
-	public AccommodationDTO save(AccommodationDTO accommodation) {
+	public AccommodationDTO save(String token, AccommodationDTO accommodation) {
 			
 //		accommodation.setLocalAccommodationId(-1l);
 //		
@@ -95,7 +96,7 @@ public class AccommodationService {
 //		return accommodation;
 		
 		
-		CreateAccommodationResponse response =  accommodationClient.createAccommodation(accommodationConverter.convertFromDTOToWsdl(accommodation));
+		CreateAccommodationResponse response =  accommodationClient.createAccommodation(token, accommodationConverter.convertFromDTOToWsdl(accommodation));
 		
 		if(response.getAccommodation().getAccommodationId() != null) {
 			
@@ -106,24 +107,33 @@ public class AccommodationService {
 	
 	}
 
-	public AccommodationDTO update(long id, AccommodationDTO accommodation) {
+	public AccommodationDTO update(String token, long id, AccommodationDTO accommodation) {
 		
-		Optional<AccommodationLocal> accommodationForChange = accommodationRepository.findById(id);
+//		Optional<AccommodationLocal> accommodationForChange = accommodationRepository.findById(id);
+//		
+//		if( accommodationForChange.isPresent() && accommodation!=null ) {
+//										
+//			accommodationForChange.get().setDescription(accommodation.getDescription());
+//			accommodationForChange.get().setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
+//			//liste jos ne diramo
+//			
+//			//ovde bi trebali da ispitamo jos da li postoji izmenjeni city i ako postoji da ga psotavimo ....
+//			accommodationRepository.save(accommodationForChange.get());
+//			
+//			accommodation.setLocalAccommodationId(accommodationForChange.get().getLocalAccommodationId());
+//			
+//			
+//			return accommodation;
+//		
+//		}
 		
-		if( accommodationForChange.isPresent() && accommodation!=null ) {
-										
-			accommodationForChange.get().setDescription(accommodation.getDescription());
-			accommodationForChange.get().setNumberOfDaysBeforeCancelation(accommodation.getNumberOfDaysBeforeCancelation());
-			//liste jos ne diramo
-			
-			//ovde bi trebali da ispitamo jos da li postoji izmenjeni city i ako postoji da ga psotavimo ....
-			accommodationRepository.save(accommodationForChange.get());
-			
-			accommodation.setLocalAccommodationId(accommodationForChange.get().getLocalAccommodationId());
-			
-			
-			return accommodation;
+//		return new AccommodationDTO();
 		
+		UpdateAccommodationResponse response =  accommodationClient.updateAccommodation(token, accommodationConverter.convertFromDTOToWsdl(accommodation));
+		
+		if(response.getAccommodation().getAccommodationId() != null) {
+			
+			return accommodationConverter.convertToDTOFromClient(response.getAccommodation());
 		}
 		
 		return new AccommodationDTO();

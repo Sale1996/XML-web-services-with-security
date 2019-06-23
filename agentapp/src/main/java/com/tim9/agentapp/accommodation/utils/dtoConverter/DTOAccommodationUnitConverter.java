@@ -108,5 +108,19 @@ public class DTOAccommodationUnitConverter {
 		
 	}
 	
+	public AccommodationUnit convertFromDTOToWsdl( AccommodationUnitDTO dto ) {
+		
+		AccommodationUnit newBean = new AccommodationUnit();
+		
+		newBean.setAccommodationUnitId(dto.getAccommodationUnitId());
+		newBean.setAccommodation(accommodationConverter.convertFromDTOToWsdl(dto.getAccommodation()));
+		newBean.setCategory(categoryConverter.convertFromDTOToWsdl(dto.getCategory()));
+		newBean.setNumberOfPeople(dto.getNumberOfPeople());
+		newBean.setType(typeConverter.convertFromDTOToWsdl(dto.getType()));
+
+		return newBean;
+		
+	}
+	
 	
 }

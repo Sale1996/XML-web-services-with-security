@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Reservation } from 'src/app/model/reservation.model';
 import { Observable } from 'rxjs';
@@ -23,8 +23,8 @@ export class UnitOccupancyModalComponent implements OnInit {
 
     this.occupancyForm = this.formBuilder.group({
       id: [''],
-      dateFrom: [''],
-      dateTo: [''],
+      dateFrom: ['', Validators.required],
+      dateTo: ['', Validators.required],
 
     });
 

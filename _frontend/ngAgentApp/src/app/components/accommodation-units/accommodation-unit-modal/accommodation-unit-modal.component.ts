@@ -35,7 +35,7 @@ export class AccommodationUnitModalComponent implements OnInit {
       id: [''],
       type: [''],
       category: [''],
-      numberOfPeople: ['']
+      numberOfPeople: [''],
 
     });
 
@@ -65,13 +65,29 @@ export class AccommodationUnitModalComponent implements OnInit {
   onSubmit() {
     if (this.unitForm.valid) {
       if (this.inputUnit) {
-        this.accommodationUnitService.updateUnit(this.unitForm.value as AccommodationUnit).subscribe(() => {
+
+        const accommodationUnitToBeChange: AccommodationUnit = this.inputUnit;
+        accommodationUnitToBeChange.numberOfPeople = this.unitForm.controls.numberOfPeople.value;
+        accommodationUnitToBeChange.type = this.unitForm.controls.type.value;
+        accommodationUnitToBeChange.category = this.unitForm.controls.category.value;
+
+        this.accommodationUnitService.updateUnit(accommodationUnitToBeChange as AccommodationUnit).subscribe(() => {
           this.activeModal.close();
 
         });
-      }
-      else {
-        this.accommodationUnitService.createUnit(this.unitForm.value as AccommodationUnit).subscribe(() => {
+      } else {
+
+        const unitToCreate: AccommodationUnit = this.unitForm.value;
+        unitToCreate.accommodation = {
+          accommodationId: parseInt(localStorage.getItem('accommodation')),
+          accommodationName: '',
+          description: '',
+          agentId: 0,
+          numberOfDaysBeforeCancelation: 0,
+          city: null,
+          picture: null
+        };
+        this.accommodationUnitService.createUnit(unitToCreate).subscribe(() => {
           this.activeModal.close();
 
         });

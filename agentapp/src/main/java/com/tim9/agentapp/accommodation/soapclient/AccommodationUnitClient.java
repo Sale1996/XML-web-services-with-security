@@ -4,6 +4,8 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 import com.tim9.agentapp.accommodation.wsdl.AccommodationUnit;
+import com.tim9.agentapp.accommodation.wsdl.AddExtraFieldToUnitRequest;
+import com.tim9.agentapp.accommodation.wsdl.AddExtraFieldToUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationUnitRequest;
 import com.tim9.agentapp.accommodation.wsdl.CreateAccommodationUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.DeleteAccommodationUnitRequest;
@@ -57,6 +59,19 @@ public class AccommodationUnitClient extends WebServiceGatewaySupport {
 		request.setAccommodationUnit(accommodationUnit);
 
 		UpdateAccommodationUnitResponse response = (UpdateAccommodationUnitResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(this.getDefaultUri(), request,
+						new SoapActionCallback(""));
+
+		return response;
+	}
+	
+	public AddExtraFieldToUnitResponse addExtraFieldToAccommodationUnit(Long accommodationUnitId, Long extraFieldId) {
+
+		AddExtraFieldToUnitRequest request = new AddExtraFieldToUnitRequest();
+		request.setUnitId(accommodationUnitId);
+		request.setExtraFieldId(extraFieldId);
+
+		AddExtraFieldToUnitResponse response = (AddExtraFieldToUnitResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
 						new SoapActionCallback(""));
 

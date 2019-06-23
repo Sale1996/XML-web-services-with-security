@@ -74,6 +74,7 @@ export class AccommodationComponent implements OnInit {
       numberOfDaysBeforeCancelation: ['', Validators.required],
       description: [''],
       city: ['', Validators.required],
+      agentId: [''],
     });
 
 
@@ -118,8 +119,7 @@ export class AccommodationComponent implements OnInit {
     if (this.accommodationForm.valid) {
       var createdAccommodation = (this.accommodationForm.value as Accommodation);
       if (!localStorage.getItem('accommodation')) {
-
-        createdAccommodation.accommodationId = -1;
+        console.log()
         this.accommodationService.createAccommodation(createdAccommodation).subscribe(
           (accommodation: Accommodation) => {
             localStorage.setItem('accommodation', accommodation.accommodationId.toString());
@@ -131,6 +131,7 @@ export class AccommodationComponent implements OnInit {
       }
       else {
         createdAccommodation.accommodationId = parseInt(localStorage.getItem('accommodation'));
+        createdAccommodation.agentId = 1;
         this.accommodationService.updateAccommodation(createdAccommodation).subscribe(
           (accommodation: Accommodation) => {
             this.accommodationName = accommodation.accommodationName;
