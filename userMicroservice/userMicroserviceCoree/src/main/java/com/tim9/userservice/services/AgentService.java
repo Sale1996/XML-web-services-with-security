@@ -1,6 +1,7 @@
 package com.tim9.userservice.services;
 
 import java.security.SecureRandom;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +12,12 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.tim9.userservice.dtoConverters.DTOAgentConverter;
@@ -22,6 +29,10 @@ import com.tim9.userservice.repositories.AgentRepository;
 import com.tim9.userservice.repositories.UserRepository;
 import com.tim9.userserviceClient.dtos.AgentDTO;
 import com.tim9.userserviceClient.dtos.UserDTO;
+import com.tim9.userserviceClient.jwt.JwtConfig;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class AgentService {
@@ -29,6 +40,9 @@ public class AgentService {
 	private final AgentRepository agentRepository;
 	private AdminRepository adminRepository;
 	private UserRepository userRepository;
+	private final AgentDetailsServiceImpl agentDetailsServiceImpl;
+	private AuthenticationManager authManager;
+	private final JwtConfig jwtConfig;
 	
 	private final DTOAgentConverter dtoAgentConverter;
 	
@@ -40,13 +54,19 @@ public class AgentService {
 	
 	public AgentService(final AgentRepository agentRepository, final DTOAgentConverter dtoAgentConverter,
 			JavaMailSender javaMailSender,Environment env,
-			AdminRepository adminRepository, UserRepository userRepository) {
+			AdminRepository adminRepository, UserRepository userRepository,
+			AgentDetailsServiceImpl agentDetailsServiceImpl,
+			AuthenticationManager authManager,
+			JwtConfig jwtConfig) {
 		this.agentRepository = agentRepository;
 		this.dtoAgentConverter = dtoAgentConverter;
 		this.javaMailSender = javaMailSender;
 		this.env = env;
 		this.adminRepository = adminRepository;
 		this.userRepository = userRepository;
+		this.agentDetailsServiceImpl = agentDetailsServiceImpl;
+		this.authManager = authManager;
+		this.jwtConfig = jwtConfig;
 	}
 	
 	public List<AgentDTO> findAll(){
@@ -93,9 +113,9 @@ public class AgentService {
 //	}
 	
 	
-	public Agent findByIdNOTDTO(long id){
+	public Agent findByEmailNOTDTO(String email){
 		
-		Optional<Agent> agent = agentRepository.findById(id);
+		Optional<Agent> agent = agentRepository.findByEmail(email);
 		
 			return agent.get();		
 	}
@@ -103,7 +123,7 @@ public class AgentService {
 	
 	
 	
-	public AgentDTO update(long id, AgentDTO agent){
+	public Agent update(long id, Agent agent){
 		
 		Optional<Agent> agentForChange = agentRepository.findById(id);
 		
@@ -111,11 +131,11 @@ public class AgentService {
 										
 			agentForChange.get().setFirstName(agent.getFirstName());
 			agentForChange.get().setLastName(agent.getLastName());
-		//	agentForChange.get().setEmail(agent.getEmail());
-			agentForChange.get().setPassword(agent.getPassword());
-			agentForChange.get().setActivated(agent.getActivated());
+//			agentForChange.get().setEmail(agent.getEmail());
+//			agentForChange.get().setPassword(agent.getPassword());
+//			agentForChange.get().setActivated(agent.getActivated());
 			agentForChange.get().setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
-			agentForChange.get().setRole(agent.getRole());
+//			agentForChange.get().setRole(agent.getRole());
 	
 			agentRepository.save(agentForChange.get());
 			
@@ -124,7 +144,7 @@ public class AgentService {
 			return agent;		
 		}
 		
-		return new AgentDTO();
+		return new Agent();
 	}
 	
 	public AgentDTO save(AgentDTO agent){
@@ -253,5 +273,32 @@ public class AgentService {
 	            .map(Object::toString)
 	            .collect(Collectors.joining());
 	}
+	
+	public String autoLogin(String username, String password) {
+        UserDetails userDetails = agentDetailsServiceImpl.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+
+        authManager.authenticate(usernamePasswordAuthenticationToken);
+
+        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+        	
+        	
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            
+            Long now = System.currentTimeMillis();
+            return  Jwts.builder()
+            		.setSubject(SecurityContextHolder.getContext().getAuthentication().getName())	
+            		// Convert to list of strings. 
+            		// This is important because it affects the way we get them back in the Gateway.
+            		.claim("authorities", AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_AGENT" + ", " + "CREATE_ACCOMMODATION, UPDATE_ACCOMMODATION, DELETE_ACCOMMODATION, READ_RESERVATION, UPDATE_RESERVATION, DELETE_RESERVATION").stream()
+            				.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+            		.setIssuedAt(new Date(now))
+            		.setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
+            		.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
+            		.compact();
+        }
+        
+        return "";
+    }
 	
 }

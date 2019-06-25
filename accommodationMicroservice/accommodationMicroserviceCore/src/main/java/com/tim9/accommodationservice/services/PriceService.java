@@ -147,7 +147,7 @@ public class PriceService {
 	
 	public List<Price> findAllSoap(Long id) {
 		
-		Optional< List<Price> > prices = Optional.of( priceRepository.findAllByAccommodationUnitAccommodationAccommodationId(id) );
+		Optional< List<Price> > prices = Optional.of( priceRepository.findAllByAccommodationUnitAccommodationUnitId(id) );
 			
 		if ( prices.isPresent() ) {
 			return prices.get();		

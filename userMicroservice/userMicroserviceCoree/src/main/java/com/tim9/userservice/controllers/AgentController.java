@@ -74,18 +74,18 @@ public class AgentController {
 	}
 	
 	
-	@PutMapping("/{agentId}")
-	@ApiOperation( value= "Change an agent", notes = "Returns the agent being changed", httpMethod="PUT")
-	@ApiResponses( value = { 
-			 @ApiResponse( code = 200, message ="OK"),
-			 @ApiResponse( code = 400, message ="Bad Request")})
-	public ResponseEntity< AgentDTO > updateAgent(@PathVariable("agentId") long id, @RequestBody AgentDTO agent) { 
-		
-		AgentDTO agentToUpdate = agentService.update(id, agent);
-		
-	    return ( agentToUpdate.getId() != null )? new ResponseEntity< AgentDTO > ( agentToUpdate, HttpStatus.OK ) : new ResponseEntity< AgentDTO > ( HttpStatus.BAD_REQUEST );
-
-	}
+//	@PutMapping("/{agentId}")
+//	@ApiOperation( value= "Change an agent", notes = "Returns the agent being changed", httpMethod="PUT")
+//	@ApiResponses( value = { 
+//			 @ApiResponse( code = 200, message ="OK"),
+//			 @ApiResponse( code = 400, message ="Bad Request")})
+//	public ResponseEntity< AgentDTO > updateAgent(@PathVariable("agentId") long id, @RequestBody AgentDTO agent) { 
+//		
+//		AgentDTO agentToUpdate = agentService.update(id, agent);
+//		
+//	    return ( agentToUpdate.getId() != null )? new ResponseEntity< AgentDTO > ( agentToUpdate, HttpStatus.OK ) : new ResponseEntity< AgentDTO > ( HttpStatus.BAD_REQUEST );
+//
+//	}
 	
 //	@PutMapping("/pass/{agentId}")
 //	@ApiOperation( value= "Change a password", notes = "Returns the user being changed", httpMethod="PUT")

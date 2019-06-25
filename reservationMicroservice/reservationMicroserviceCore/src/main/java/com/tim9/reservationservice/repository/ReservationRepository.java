@@ -12,9 +12,13 @@ import com.tim9.reservationservice.models.Reservation;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,Long> {
+	
 	public List<Reservation> findByClient(Long id);
 	
 	public List<Reservation> findByAccommodation(long id);
+	
+	@Query(value = "SELECT reservation_id FROM reservations.reservation where accommodation = ?1", nativeQuery = true)
+	public List<Long> findIdsByAccommodation(Long id);
 	
 	@Query(value = "SELECT accommodation_unit FROM reservations.reservation where accommodation in ?1 and \r\n" + 
 			" \r\n" + 

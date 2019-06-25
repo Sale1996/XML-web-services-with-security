@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -68,6 +69,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
 		.antMatchers(HttpMethod.GET, "/ws/users.wsdl").permitAll()
 		.antMatchers(HttpMethod.GET, "/user/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/ws").permitAll()
 		// any other requests must be authenticated
 		.anyRequest().authenticated();
 		
@@ -104,6 +106,12 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Override
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+	    return super.authenticationManagerBean();
 	}
 	
 }

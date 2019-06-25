@@ -16,4 +16,17 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 	public Optional<List<Message>> findMessagesByReservationId(long id);
 	public Message deleteById(long id);
 	public List<Message> findByUserId(Long id);
+	
+	
+	//
+	//
+	// TODOOOOOO: Vrati poruke koje su namenjene agentu. Ispravi upit @Nikola
+	// 			  Takodje mi vrati poruke sortirane po datumu opadajuce (LIFO)
+	//
+	//
+	//
+	
+	
+	@Query(value = "SELECT * from message where reservation_id in (?1) ", nativeQuery = true)
+	public List<Message> getByReservations(List<Long> reservationIds);
 }

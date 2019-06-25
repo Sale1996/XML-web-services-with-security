@@ -38,4 +38,7 @@ public interface ReservationClient {
 
 	@GetMapping("/accommodationClients/{accommodationId}")
 	public List<Long> getAccommodationClients(@PathVariable("accommodationId") Long accommodationId);
+
+	@GetMapping("/accommodation/{reservationId}")
+	public List<Long> getReservationsByAccommodation(@PathVariable("reservationId") Long reservationId);
 }

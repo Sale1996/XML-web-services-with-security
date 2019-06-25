@@ -10,18 +10,9 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class ReservationsComponent implements OnInit {
 
-
-  // pagination properties
-  currentPage = 1;
-  collectionSize = 200;
-  pageSize: number;
-  pageSizes: number[] = [25, 50, 100];
   reservations$: Observable<Reservation[]>;
 
-
-
   constructor(private reservationService: ReservationService) {
-    this.pageSize = this.pageSizes[0];
 
   }
 

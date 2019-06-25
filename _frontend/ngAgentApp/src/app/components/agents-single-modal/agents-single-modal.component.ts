@@ -24,10 +24,10 @@ export class AgentsSingleModalComponent implements OnInit {
 
     this.agentForm = this.formBuilder.group({
       id: [''],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.email],
-      businessRegistrationNumber: ['', Validators.required]
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      email: [{value: '', disabled: 'true'}],
+      businessRegistrationNumber: ['', [Validators.required, Validators.maxLength(50)]]
     });
 
     this.passwordForm = this.formBuilder.group({
@@ -35,14 +35,14 @@ export class AgentsSingleModalComponent implements OnInit {
       password2: ['']
     });
 
-    this.getAgentById(1);
+    this.getAgentById(this.authService.getEmailFromToken(localStorage.getItem('access_token')));
   }
 
-  getAgentById(id: number) {
-    this.agentService.getAgentById(id).subscribe(
+  getAgentById(email: string) {
+    this.agentService.getAgentByEmail(email).subscribe(
       (agent: Agent) => {
         this.agentForm.patchValue(agent);
-        this.agentFullName = agent.firstName + " " + agent.lastName;
+        this.agentFullName = agent.firstName + ' ' + agent.lastName;
         this.agentId = agent.id;
       }
     )
@@ -52,7 +52,7 @@ export class AgentsSingleModalComponent implements OnInit {
     if (this.agentForm.valid) {
       this.agentService.updateAgent(this.agentForm.value as Agent).subscribe(
         (agent: Agent) => {
-          this.agentFullName = agent.firstName + " " + agent.lastName;
+          this.agentFullName = agent.firstName + ' ' + agent.lastName;
         }
       );
     }
@@ -60,15 +60,14 @@ export class AgentsSingleModalComponent implements OnInit {
 
   onSubmitPassword() {
     if (this.passwordForm.valid) {
-      var updatePassword: UpdatePassword = {
+      const updatePassword: UpdatePassword = {
         email: this.authService.getEmailFromToken(localStorage.getItem('access_token')),
         oldPassword: this.passwordForm.value.password1,
         newPassword: this.passwordForm.value.password2
-      }
+      };
 
       this.agentService.changePassword(updatePassword).subscribe(
         () => {
-          console.log("uspesno")
         }
       );
 

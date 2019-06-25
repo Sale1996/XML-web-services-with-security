@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Message } from 'src/app/model/message.model';
 import { MessageService } from 'src/app/services/message.service';
+import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Component({
   selector: 'app-message-modal',
@@ -38,16 +39,16 @@ export class MessageModalComponent implements OnInit {
 
   onSubmit() {
     if (this.messageForm.valid) {
-      var message: Message = {
+      const message: Message = {
         messageId: -1,
         messageBody: this.messageForm.value.message,
         opened: false,
         recieved: true,
         userId: this.messageInput.userId,
         reservationId: this.messageInput.reservationId,
-        messageTime: ''
+        messageTime: new Date(Date.now())
       }
-
+      console.log(message);
       this.messageService.createMessage(message).subscribe(
         () => {
           this.messageEmiter.emit(this.messageForm.value); //ovde treba this.messageForm as Message...gde je message klasa

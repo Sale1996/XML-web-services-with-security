@@ -13,6 +13,7 @@ import { AccommodationUnit } from 'src/app/model/accommodation-unit.model';
 })
 export class UnitPricesModalComponent implements OnInit {
 
+  @Input() creation?: boolean;
   @Input() unit: AccommodationUnit;
   @Output() price: EventEmitter<any> = new EventEmitter();
   priceForm: FormGroup;
@@ -23,7 +24,7 @@ export class UnitPricesModalComponent implements OnInit {
   ngOnInit() {
 
     this.priceForm = this.formBuilder.group({
-      id: [''],
+      id: [-1],
       dateFrom: [''],
       dateTo: [''],
       amount: ['']
@@ -59,9 +60,8 @@ export class UnitPricesModalComponent implements OnInit {
 
   onSubmit() {
     if (this.priceForm.valid) {
-      var newPrice = (this.priceForm.value as Price);
+      const newPrice = (this.priceForm.value as Price);
       newPrice.accommodationUnit = this.unit;
-
       this.priceService.createPrice(newPrice).subscribe((data) => {
         this.getAllPricesOfAccommodationUnit();
       });
@@ -71,6 +71,9 @@ export class UnitPricesModalComponent implements OnInit {
 
   closeModal() {
     this.activeModal.close();
+    if (this.creation) {
+      this.price.emit();
+    }
   }
 
 

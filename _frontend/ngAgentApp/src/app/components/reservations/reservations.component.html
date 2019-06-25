@@ -1,22 +1,6 @@
 <div class="table-responsive box d-flex flex-column full-height">
   <div class="d-flex px-5 pt-5 pb-4">
     <h4 class="flex-grow-1">Reservations</h4>
-    <form novalidate="novalidate" onsubmit="return false;" class="searchbox mb-3">
-      <div role="search" class="searchbox__wrapper">
-        <input id="search-input" type="search" name="search" placeholder="Enter keyword" autocomplete="off"
-          required="required" class="searchbox__input">
-        <button type="submit" class="searchbox__submit">
-          <svg role="img" aria-label="Search">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Search_Icon"></use>
-          </svg>
-        </button>
-        <button type="reset" title="Clear the search input" class="searchbox__reset hide">
-          <svg role="img" aria-label="Reset">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Close_Icon"></use>
-          </svg>
-        </button>
-      </div>
-    </form>
   </div>
   <div class="tableFixHead flex-grow-1">
     <table class="table table-borderless table-hover">
@@ -25,8 +9,8 @@
           <th scope="col">#</th>
           <th scope="col">User</th>
           <th scope="col">Accommodation unit</th>
-          <th scope="col" width="150">Date From</th>
-          <th scope="col" width="150">Date To</th>
+          <th scope="col" width="250">Date From</th>
+          <th scope="col" width="250">Date To</th>
           <th scope="col">Price</th>
           <th scope="col" width="150"></th>
         </tr>
@@ -34,12 +18,12 @@
       <tbody>
         <ng-container *ngIf="reservations$ | async as reservations; else loading">
           <tr *ngFor="let reservation of reservations">
-            <th scope="row"><span class="blue-badge"></span>{{reservation.reservationId}}</th>
+            <th scope="row"><span class="blue-badge">{{reservation.reservationId}}</span></th>
             <td>{{reservation.client}}</td>
             <td>{{reservation.accommodationUnit}}</td>
-            <td><span class="blue-badge">{{reservation.dateFrom}}</span></td>
-            <td><span class="blue-badge">{{reservation.dateTo}}</span></td>
-            <td>{{reservation.finalPrice}} rsd</td>
+            <td><span class="blue-badge">{{reservation.dateFrom | date:'medium'}}</span></td>
+            <td><span class="blue-badge">{{reservation.dateTo | date:'medium'}}</span></td>
+            <td>{{reservation.finalPrice}}€</td>
             <td class="float-right">
               <ng-container *ngIf="!reservation.confirmation">
                 <span role="button" class="table-btn table-btn-success borderless mr-2"
@@ -55,21 +39,6 @@
 
       </tbody>
     </table>
-  </div>
-  <div class="table-footer px-5 py-3 d-flex justify-content-center">
-    <div class="table-footer-side align-self-center">
-      <span class="blue-badge">TOTAL: {{collectionSize}}</span>
-    </div>
-    <ngb-pagination class="flex-grow-1 d-flex justify-content-center" [collectionSize]="collectionSize"
-      [(page)]="currentPage" [pageSize]="pageSize" aria-label="Custom pagination">
-      <ng-template ngbPaginationPrevious>Prev</ng-template>
-      <ng-template ngbPaginationNext>Next</ng-template>
-    </ngb-pagination>
-    <div class="table-footer-side d-flex justify-content-end">
-      <select class="form-control" [(ngModel)]="pageSize" (change)="changePageSize()">
-        <option *ngFor="let s of pageSizes" value={{s}}>{{s}}</option>
-      </select>
-    </div>
   </div>
 </div>
 <svg width="0" height="0" class="hidden d-none">

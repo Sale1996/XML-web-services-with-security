@@ -8,8 +8,39 @@
   </span>
 </div>
 <form [formGroup]="occupancyForm" (ngSubmit)="onSubmit()">
-  <div class="modal-body px-5">
+  <div class="modal-body">
     <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="tableFixHead flex-grow-1">
+          <table class="table table-borderless table-hover">
+            <thead>
+              <tr>
+                <th scope="col" width="150">Date From</th>
+                <th scope="col" width="150">Date To</th>
+                <th scope="col" width="150"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="occupancies$ | async as occupancies; else loading">
+                <tr *ngFor="let occupancy of occupancies">
+                  <td><span class="blue-badge">{{occupancy.dateFrom | date: 'medium'}}</span></td>
+                  <td><span class="blue-badge">{{occupancy.dateTo | date: 'medium'}}</span></td>
+                  <td class="float-right">
+                    <span role="button" class="table-btn table-btn-danger borderless mr-2"
+                      (click)="deleteOccupancy(occupancy.reservationId)">
+                      <svg class="icon">
+                        <use xlink:href="#Delete_Icon"></use>
+                      </svg>
+                    </span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 px-5">
       <div class="col-md-6">
 
         <div class="form-group">
@@ -30,39 +61,8 @@
     <div class="d-flex justify-content-start px-5 pt-2 pb-5">
       <button type="submit" [disabled]="!occupancyForm.valid" class="btn btn-primary">Add occupancy</button>
     </div>
-
-    <div class="tableFixHead flex-grow-1">
-      <table class="table table-borderless table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col" width="150">Date From</th>
-            <th scope="col" width="150">Date To</th>
-            <th scope="col" width="150"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="occupancies$ | async as occupancies; else loading">
-            <tr *ngFor="let occupancy of occupancies">
-              <th scope="row"><span class="blue-badge">{{occupancy.reservationId}}</span></th>
-              <td><span class="blue-badge">{{occupancy.dateFrom}}</span></td>
-              <td><span class="blue-badge">{{occupancy.dateTo}}</span></td>
-              <td class="float-right">
-                <span role="button" class="table-btn table-btn-danger borderless mr-2"
-                  (click)="deleteOccupancy(occupancy.reservationId)">
-                  <svg class="icon">
-                    <use xlink:href="#Delete_Icon"></use>
-                  </svg>
-                </span>
-              </td>
-            </tr>
-          </ng-container>
-
-
-        </tbody>
-      </table>
-    </div>
-    <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
+    
+    <div class="modal-footer d-flex justify-content-end px-5 pt-2 pb-5">
       <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Ok</button>
     </div>
   </div>

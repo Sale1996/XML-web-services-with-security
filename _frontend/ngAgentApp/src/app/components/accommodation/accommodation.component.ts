@@ -75,6 +75,7 @@ export class AccommodationComponent implements OnInit {
       description: [''],
       city: ['', Validators.required],
       agentId: [''],
+      accommodationId: [-1],
     });
 
 
@@ -86,7 +87,7 @@ export class AccommodationComponent implements OnInit {
       this.getAccommodationServiceById(localStorage.getItem('accommodation'));
     } else {
       this.submitBtnText = 'Add Accommodation';
-      this.accommodationName = "";
+      this.accommodationName = '';
     }
   }
 
@@ -110,6 +111,7 @@ export class AccommodationComponent implements OnInit {
       (accommodation: Accommodation) => {
         this.accommodationForm.patchValue(accommodation);
         this.accommodationName = accommodation.accommodationName;
+        localStorage.setItem('accommodationId', accommodation.accommodationId.toString());
       }
     );
   }
@@ -119,7 +121,6 @@ export class AccommodationComponent implements OnInit {
     if (this.accommodationForm.valid) {
       var createdAccommodation = (this.accommodationForm.value as Accommodation);
       if (!localStorage.getItem('accommodation')) {
-        console.log()
         this.accommodationService.createAccommodation(createdAccommodation).subscribe(
           (accommodation: Accommodation) => {
             localStorage.setItem('accommodation', accommodation.accommodationId.toString());
@@ -130,8 +131,7 @@ export class AccommodationComponent implements OnInit {
 
       }
       else {
-        createdAccommodation.accommodationId = parseInt(localStorage.getItem('accommodation'));
-        createdAccommodation.agentId = 1;
+        // createdAccommodation.accommodationId = parseInt(localStorage.getItem('accommodation'));
         this.accommodationService.updateAccommodation(createdAccommodation).subscribe(
           (accommodation: Accommodation) => {
             this.accommodationName = accommodation.accommodationName;

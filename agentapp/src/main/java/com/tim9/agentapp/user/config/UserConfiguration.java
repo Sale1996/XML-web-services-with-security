@@ -28,11 +28,11 @@ public class UserConfiguration {
 	}
 	
 	@Bean
-	public MessageClient messageClient(Jaxb2Marshaller marshaller) {
+	public MessageClient messageClient(Jaxb2Marshaller marshallerForUser) {
 		MessageClient client = new MessageClient();
 		client.setDefaultUri("http://localhost:8080/ws");
-		client.setMarshaller(marshaller);
-		client.setUnmarshaller(marshaller);
+		client.setMarshaller(marshallerForUser);
+		client.setUnmarshaller(marshallerForUser);
 		return client;
 	}
 

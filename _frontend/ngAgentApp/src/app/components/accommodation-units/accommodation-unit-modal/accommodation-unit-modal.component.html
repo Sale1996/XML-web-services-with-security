@@ -10,17 +10,7 @@
 <form [formGroup]="unitForm" (ngSubmit)="onSubmit()">
   <div class="modal-body px-5">
     <div class="row mt-4">
-      <div class="col-md-6">
-        <div class="form-group">
-          <ng-container *ngIf="types$ | async as types; else loading">
-            <label for="type" class="col-form-label col-form-label-sm">Type<span class="text-danger"></span></label>
-            <select formControlName="type" class="form-control form-control-sm" required>
-              <option *ngFor="let t of types" [ngValue]="t">{{t.typeName}}</option>
-            </select>
-          </ng-container>
-        </div>
-      </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="form-group">
           <label for="numberOfPeople" class="col-form-label col-form-label-sm">Number of people<span
               class="text-danger">*</span></label>
@@ -30,16 +20,34 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <ng-container *ngIf="categories$ | async as categories; else loading">
-            <label for="category" class="col-form-label col-form-label-sm">Category<span
-                class="text-danger"></span></label>
-            <select formControlName="category" class="form-control form-control-sm" required>
-              <option *ngFor="let c of categories" [ngValue]="c">{{c.categoryName}}</option>
-            </select>
+      <div class="col-md-12">
+          <ng-container formGroupName="type">
+            <div class="form-group">
+              <ng-container *ngIf="types$ | async as types; else loading">
+                <label for="type" class="col-form-label col-form-label-sm">Type<span class="text-danger"></span></label>
+                <select formControlName="typeId" class="form-control form-control-sm" required>
+                  <option value="0">-- Select --</option>
+                  <option *ngFor="let t of types"  value="{{t.typeId}}">{{t.typeName}}</option>
+                </select>
+              </ng-container>
+            </div>
           </ng-container>
-        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ng-container formGroupName="category">
+          <div class="form-group">
+            <ng-container *ngIf="categories$ | async as categories; else loading">
+              <label for="category" class="col-form-label col-form-label-sm">Category<span
+                  class="text-danger"></span></label>
+              <select formControlName="categoryId" class="form-control form-control-sm" required>
+                <option value="0">-- Select --</option>
+                <option *ngFor="let c of categories" value="{{c.categoryId}}">{{c.categoryName}}</option>
+              </select>
+            </ng-container>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

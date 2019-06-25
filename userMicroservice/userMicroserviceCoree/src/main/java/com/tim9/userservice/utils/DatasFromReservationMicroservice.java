@@ -42,4 +42,16 @@ public class DatasFromReservationMicroservice {
 		}
 		return clients;
 	}
+
+
+	public List<Long> getReservationsByAccommodation(Long reservationId) {
+		List<Long> reservations = new ArrayList<>();
+		try {
+			reservations = reservationClient.getReservationsByAccommodation(reservationId);
+		}
+		catch(FeignException f) {
+			return reservations;
+		}
+		return reservations;
+	}
 }

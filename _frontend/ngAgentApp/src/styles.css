@@ -146,7 +146,7 @@ a, a:hover {
 /* Primary */
 .btn-primary {
     color: rgba(0, 123, 255, 1);
-    background-color: #ffffff;
+    background-color: transparent;
     border-color: rgba(0, 123, 255, 1);
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active {
@@ -209,7 +209,9 @@ a, a:hover {
     border-color: rgb(206, 212, 218) !important;
 }
 .form-control-sm {
-    padding: 24px 14px !important;
+    height: 48px;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
     border-bottom-width: 1px;
 }
 .form-control:focus {
@@ -289,7 +291,7 @@ ngb-tabset ul li .active svg, ngb-tabset ul li a:hover svg {
 }
 .tableFixHead {
     overflow: auto;
-    height: 100px;
+    height: 240px;
 }
 .tableFixHead thead tr th {
     position: sticky;

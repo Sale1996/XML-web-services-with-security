@@ -12,22 +12,16 @@ import { MessageService } from 'src/app/services/message.service';
 })
 export class InboxComponent implements OnInit {
 
-  // pagination properties
-  currentPage = 1;
-  collectionSize = 200;
-  pageSize: number;
-  pageSizes: number[] = [25, 50, 100];
   messages$: Observable<Message[]>;
 
   constructor(private modalService: NgbModal, private messageService: MessageService) { }
 
   ngOnInit() {
-    this.pageSize = this.pageSizes[0];
     this.getMessages();
   }
 
   getMessages() {
-    this.messages$ = this.messageService.getMessages();
+    this.messages$ = this.messageService.getMessages(parseInt(localStorage.getItem('accommodationId')));
   }
 
   openMessageModal(message: Message) {

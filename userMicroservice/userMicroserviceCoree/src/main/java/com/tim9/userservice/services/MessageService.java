@@ -83,6 +83,26 @@ public class MessageService {
 		return message;
 	}
 	
+	public Message markAsOpened(Message messageDTO){
+		
+		/*
+		 * Proveriti da li id akomodacije ima rezervaciju za ciju poruku se menja status u opened
+		 * 
+		 */
+		
+		
+		Optional<Message> messageFromDB = messageRepository.findById(messageDTO.getMessageId());
+		
+		if(!messageFromDB.isPresent()) {
+			return new Message();
+		}
+		
+		messageFromDB.get().setLastUpdated(LocalDateTime.now());
+		messageFromDB.get().setOpened(true);
+		
+		return messageRepository.save(messageFromDB.get());
+	}
+	
 	public MessageDTO delete(long id){
 		
 		Optional<Message> messageToDelete = messageRepository.findById(id);

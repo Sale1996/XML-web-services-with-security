@@ -22,14 +22,16 @@ export class AuthService {
     ) { }
 
   login(credentials: Credentials) {
-      return this.http.post(`${environment.apiUrlAuth}auth`, credentials, httpOptions).pipe(map(((res: HttpResponse<any>) => {
+      return this.http.post(`${environment.apiUrlAuth}`, credentials, httpOptions).pipe(map(((res: HttpResponse<any>) => {
         localStorage.setItem('access_token', JSON.stringify(res.headers.get('Authorization').split(' ')[1]));
         this.router.navigate(['/code-book']);
       })));
   }
 
   logout() {
-      return this.http.get(`${environment.apiUrlAuth}/logout`, httpOptions);
+      localStorage.clear();
+      location.assign('/');
+      // return this.http.get(`${environment.apiUrlAuth}/logout`, httpOptions);
   }
 
   getTokenExpirationDate(token: string): Date {

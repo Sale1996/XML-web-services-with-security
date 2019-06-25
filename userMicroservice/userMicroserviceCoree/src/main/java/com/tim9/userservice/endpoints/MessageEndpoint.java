@@ -1,6 +1,7 @@
 package com.tim9.userservice.endpoints;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -16,23 +17,34 @@ import com.tim9.userservice.models.Message;
 import com.tim9.userservice.models.UpdateMessageRequest;
 import com.tim9.userservice.models.UpdateMessageResponse;
 import com.tim9.userservice.repositories.MessageRepository;
+import com.tim9.userservice.services.MessageService;
+import com.tim9.userservice.utils.DatasFromReservationMicroservice;
 
 @Endpoint
 public class MessageEndpoint {
 
 	private static final String NAMESPACE_URI = "http://tim9.com";
 	private MessageRepository messageRepository;
+	private DatasFromReservationMicroservice datasFromReservation;
+	private MessageService messageService;
 	
 	@Autowired
-	public MessageEndpoint(MessageRepository messageRepository) {
+	public MessageEndpoint(MessageRepository messageRepository, DatasFromReservationMicroservice datasFromReservation, MessageService messageService) {
 		this.messageRepository = messageRepository;
+		this.datasFromReservation = datasFromReservation;
+		this.messageService = messageService;
 	}
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMessagesRequest")
 	@ResponsePayload
 	public GetMessagesResponse getMessages(@RequestPayload GetMessagesRequest request) {
 		GetMessagesResponse response = new GetMessagesResponse();
-		response.setMessages(messageRepository.findMessagesByReservationId(request.getReservationId()).get());
+		
+		List<Long> reservationIds = datasFromReservation.getReservationsByAccommodation(request.getReservationId());
+		List<Message> messages = messageRepository.getByReservations(reservationIds);
+
+		response.setMessages(messages);
+
 		return response;
 	}
 	
@@ -40,9 +52,7 @@ public class MessageEndpoint {
 	@ResponsePayload
 	public UpdateMessageResponse updateMessage(@RequestPayload UpdateMessageRequest request) {
 		UpdateMessageResponse response = new UpdateMessageResponse();
-		Message m = request.getMessage();
-		m.setLastUpdated(LocalDateTime.now());
-		response.setMessage(messageRepository.save(m));
+		response.setMessage(messageService.markAsOpened(request.getMessage()));
 		return response;
 	}
 	

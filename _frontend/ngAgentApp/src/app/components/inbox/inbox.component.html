@@ -1,22 +1,6 @@
 <div class="table-responsive box d-flex flex-column full-height">
   <div class="d-flex px-5 pt-5 pb-4">
     <h4 class="flex-grow-1">Inbox</h4>
-    <form novalidate="novalidate" onsubmit="return false;" class="searchbox mb-3">
-      <div role="search" class="searchbox__wrapper">
-        <input id="search-input" type="search" name="search" placeholder="Enter keyword" autocomplete="off"
-          required="required" class="searchbox__input">
-        <button type="submit" class="searchbox__submit">
-          <svg role="img" aria-label="Search">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Search_Icon"></use>
-          </svg>
-        </button>
-        <button type="reset" title="Clear the search input" class="searchbox__reset hide">
-          <svg role="img" aria-label="Reset">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Close_Icon"></use>
-          </svg>
-        </button>
-      </div>
-    </form>
   </div>
   <div class="tableFixHead flex-grow-1">
     <table class="table table-borderless table-hover">
@@ -25,7 +9,7 @@
           <th scope="col">User</th>
           <th scope="col">Reservation Id</th>
           <th scope="col">Preview</th>
-          <th scope="col" width="150">Date</th>
+          <th scope="col" width="250">Date</th>
         </tr>
       </thead>
       <tbody>
@@ -35,26 +19,11 @@
             <td>{{message.userId}}</td>
             <td>{{message.reservationId}}</td>
             <td>{{message.messageBody}}</td>
-            <td>{{message.messageTime}}</td>
+            <td><span class="blue-badge">{{message.messageTime | date: 'medium'}}</span></td>
           </tr>
         </ng-container>
       </tbody>
     </table>
-  </div>
-  <div class="table-footer px-5 py-3 d-flex justify-content-center">
-    <div class="table-footer-side align-self-center">
-      <span class="blue-badge">TOTAL: {{collectionSize}}</span>
-    </div>
-    <ngb-pagination class="flex-grow-1 d-flex justify-content-center" [collectionSize]="collectionSize"
-      [(page)]="currentPage" [pageSize]="pageSize" aria-label="Custom pagination">
-      <ng-template ngbPaginationPrevious>Prev</ng-template>
-      <ng-template ngbPaginationNext>Next</ng-template>
-    </ngb-pagination>
-    <div class="table-footer-side d-flex justify-content-end">
-      <select class="form-control" [(ngModel)]="pageSize" (change)="changePageSize()">
-        <option *ngFor="let s of pageSizes" value={{s}}>{{s}}</option>
-      </select>
-    </div>
   </div>
 </div>
 <svg width="0" height="0" class="hidden d-none">

@@ -165,4 +165,12 @@ public class ReservationController {
 		
 		return ( !reservations.isEmpty() )? new ResponseEntity< List<ReservationDTO> > (reservations, HttpStatus.OK ) : new ResponseEntity<List<ReservationDTO>>( HttpStatus.NOT_FOUND);
 	}
+	
+	@GetMapping("/accommodation/{reservationId}")
+	public ResponseEntity<List<Long>> getReservationsByAccommodation(@PathVariable("reservationId") Long reservationId) {
+		
+		List<Long> reservations = reservationService.findByAccommodation(reservationId);
+		
+		return ( !reservations.isEmpty() )? new ResponseEntity< List<Long> > (reservations, HttpStatus.OK ) : new ResponseEntity<List<Long>>( HttpStatus.NOT_FOUND);
+	}
 }

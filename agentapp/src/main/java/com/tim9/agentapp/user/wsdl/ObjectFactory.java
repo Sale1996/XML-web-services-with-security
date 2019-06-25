@@ -170,6 +170,22 @@ public class ObjectFactory {
     public UpdateMessageResponse createUpdateMessageResponse() {
         return new UpdateMessageResponse();
     }
+    
+    /**
+     * Create an instance of {@link LoginRequest }
+     * 
+     */
+    public LoginRequest createLoginRequest() {
+        return new LoginRequest();
+    }
+
+    /**
+     * Create an instance of {@link LoginResponse }
+     * 
+     */
+    public LoginResponse createLoginResponse() {
+        return new LoginResponse();
+    }
 
     /**
      * Create an instance of {@link AbstractUser }

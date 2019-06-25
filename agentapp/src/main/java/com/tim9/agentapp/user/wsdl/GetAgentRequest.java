@@ -35,23 +35,23 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id"
+    "email"
 })
 @XmlRootElement(name = "getAgentRequest")
 public class GetAgentRequest {
 
-    protected Long id;
+    protected String email;
 
     /**
      * Gets the value of the id property.
      * 
      * @return
      *     possible object is
-     *     {@link Long }
+     *     {@link String }
      *     
      */
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
     /**
@@ -59,11 +59,11 @@ public class GetAgentRequest {
      * 
      * @param value
      *     allowed object is
-     *     {@link Long }
+     *     {@link String }
      *     
      */
-    public void setId(Long value) {
-        this.id = value;
+    public void setEmail(String value) {
+        this.email = value;
     }
 
 }

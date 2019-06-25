@@ -219,4 +219,15 @@ public class ReservationService {
 			
 		return new Reservation();
 	}
+
+	public List<Long> findByAccommodation(Long reservationId) {
+
+		Optional< List<Long> > reservations = Optional.of ( reservationRepository.findIdsByAccommodation(reservationId) );
+			
+		if(!reservations.isPresent()) {
+			return Collections.emptyList();
+		}
+		
+		return reservations.get();
+	}
 }

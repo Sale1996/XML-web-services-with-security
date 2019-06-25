@@ -30,7 +30,8 @@ public class SyncService {
 	public Boolean sync() {
 		
 		// input: agentId
-		reservationService.syncReservations(1l);
+		reservationService.syncReservations(2l);
+//		priceService.sync(2l);
 		
 		return true;
 	}

@@ -18,7 +18,7 @@ public interface PriceRepository extends JpaRepository<Price,Long> {
 
 	Optional<Price> findByPriceId(Long id);
 
-	List<Price> findAllByAccommodationUnitAccommodationAccommodationId(Long id);
+//	List<Price> findAllByAccommodationUnitAccommodationAccommodationId(Long id);
 
 	@Query(value = " SELECT * FROM accommodation.prices where accommodation_unit in ?1 \r\n" + 
 			" 		 and date_from <= ?2 and date_to > ?2 \r\n" + 

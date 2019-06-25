@@ -5,5 +5,6 @@ export interface Reservation {
     finalPrice: number;
     confirmation: boolean;
     accommodationUnit: number;
+    accommodation?: number;
     client: number;
 }

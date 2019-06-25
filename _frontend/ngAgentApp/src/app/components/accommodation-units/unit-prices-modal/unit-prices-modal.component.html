@@ -1,15 +1,48 @@
 <div class="modal-header px-5 pt-5">
   <h4 class="modal-title">Unit prices</h4>
   <span role="button" aria-label="Close" aria-hidden="true" class="table-btn table-btn-danger borderless"
-    (click)="closeModal()">
+    (click)="this.activeModal.dismiss()">
     <svg class="icon">
       <use xlink:href="#Close_Icon"></use>
     </svg>
   </span>
 </div>
 <form [formGroup]="priceForm" (ngSubmit)="onSubmit()">
-  <div class="modal-body px-5">
+  <div class="modal-body">
     <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="tableFixHead flex-grow-1">
+          <table class="table table-borderless table-hover">
+            <thead>
+              <tr>
+                <th scope="col" width="150">Date From</th>
+                <th scope="col" width="150">Date To</th>
+                <th scope="col">Amount</th>
+                <th scope="col" width="150"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="prices$ | async as prices; else loading">
+                <tr *ngFor="let price of prices">
+                  <td><span class="blue-badge">{{price.dateFrom | date}}</span></td>
+                  <td><span class="blue-badge">{{price.dateTo | date}}</span></td>
+                  <td>{{price.amount}}€</td>
+                  <td class="float-right">
+                    <span role="button" class="table-btn table-btn-danger borderless mr-2"
+                      (click)="deletePrice(price.priceId)">
+                      <svg class="icon">
+                        <use xlink:href="#Delete_Icon"></use>
+                      </svg>
+                    </span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 px-5">
       <div class="col-md-6">
 
         <div class="form-group">
@@ -32,42 +65,12 @@
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-start px-5 pt-2 pb-5">
-      <button type="submit" [disabled]="!priceForm.valid" class="btn btn-primary">Add unit price</button>
+    <div class="row pt-2 pb-5 px-5">
+      <div class="col-md-12">
+        <button type="submit" [disabled]="!priceForm.valid" class="btn btn-primary">Add unit price</button>
+      </div>
     </div>
-
-    <div class="tableFixHead flex-grow-1">
-      <table class="table table-borderless table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Amount</th>
-            <th scope="col" width="150">Date From</th>
-            <th scope="col" width="150">Date To</th>
-            <th scope="col" width="150"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="prices$ | async as prices; else loading">
-            <tr *ngFor="let price of prices">
-              <th scope="row"><span class="blue-badge">{{price.priceId}}</span></th>
-              <td>{{price.amount}}</td>
-              <td><span class="blue-badge">{{price.dateFrom}}</span></td>
-              <td><span class="blue-badge">{{price.dateTo}}</span></td>
-              <td class="float-right">
-                <span role="button" class="table-btn table-btn-danger borderless mr-2"
-                  (click)="deletePrice(price.priceId)">
-                  <svg class="icon">
-                    <use xlink:href="#Delete_Icon"></use>
-                  </svg>
-                </span>
-              </td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-    <div class="modal-footer d-flex justify-content-start px-5 pt-2 pb-5">
+    <div class="modal-footer d-flex justify-content-end pt-2 pb-5 px-5">
       <button type="button" class="btn btn-secondary" (click)="closeModal()">Ok</button>
     </div>
   </div>

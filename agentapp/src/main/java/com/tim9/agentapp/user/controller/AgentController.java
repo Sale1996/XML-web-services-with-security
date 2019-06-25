@@ -3,6 +3,7 @@ package com.tim9.agentapp.user.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tim9.agentapp.user.dto.AgentDTO;
 import com.tim9.agentapp.user.dto.UpdatePasswordDTO;
+import com.tim9.agentapp.user.model.UserCredentials;
 import com.tim9.agentapp.user.service.AgentService;
+import com.tim9.agentapp.user.soapclient.AgentClient;
+import com.tim9.agentapp.user.utils.dtoConverter.DTOAgentConverter;
+import com.tim9.agentapp.user.wsdl.LoginResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +37,12 @@ public class AgentController {
 	@Autowired
 	private AgentService agentService;
 	
+	@Autowired
+	private AgentClient agentClient;
+	
+	@Autowired
+	private DTOAgentConverter agentConverter;
+	
 	
 	@GetMapping("")
 	@ApiOperation( value = "Returns all agents", httpMethod = "GET")
@@ -44,13 +55,13 @@ public class AgentController {
 	}
 	
 	
-	@GetMapping("/{agentId}")
-	@ApiOperation( value = "Finds one agent by id.", notes = "Returns found agent.", httpMethod="GET")
+	@GetMapping("/{email}")
+	@ApiOperation( value = "Finds one agent by email.", notes = "Returns found agent.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< AgentDTO > getAgentById(@PathVariable("agentId") long id){
+	public ResponseEntity< AgentDTO > getAgentByEmail(@PathVariable("email") String email){
 		
-		AgentDTO agent = agentService.findById(id);
+		AgentDTO agent = agentService.findByEmail(email);
 		
 		return (agent.getId() != null) ? new ResponseEntity< AgentDTO > (agent, HttpStatus.OK) : new ResponseEntity< AgentDTO >( HttpStatus.NOT_FOUND);
 	}
@@ -97,11 +108,45 @@ public class AgentController {
 
 	}
 	
-	@GetMapping("/update")
-	@ApiOperation( value = "Sync Database", httpMethod = "GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK")})
-	public ResponseEntity< Boolean > syncDatabase(){
-		return (agentService.syncDatabase()) ? new ResponseEntity< Boolean > (true, HttpStatus.OK) : new ResponseEntity<Boolean>(false, HttpStatus.OK);
+	@PostMapping("/login")
+	@ApiOperation( value = "Login an agent.", notes = "Returns the agent being logged in.", httpMethod="POST", produces = "application/json", consumes = "application/json" )
+	@ApiResponses( value = {
+					@ApiResponse( code = 200 , message = "OK"),
+					@ApiResponse( code = 400, message= "Bad request")
+	})
+	public ResponseEntity< AgentDTO > login(@RequestBody UserCredentials credentials) {
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+	    
+		
+		LoginResponse response = agentClient.login(credentials.getEmail(), credentials.getPassword());
+		AgentDTO savedAgent = new AgentDTO();
+		
+		if(response.getToken() != "" ) {
+			AgentDTO agentFromDB = agentService.findByEmail(response.getAgent().getEmail());
+			
+			if(agentFromDB.getId() != null) {
+				
+				savedAgent = agentService.update(response.getAgent().getId(), agentConverter.convertToDTOFromClient(response.getAgent()));
+			} else {
+				// firstLogin
+				savedAgent = agentService.save(agentConverter.convertToDTOFromClient(response.getAgent()));
+			}
+			responseHeaders.set("Authorization", "Bearer " + response.getToken());
+			responseHeaders.set("Access-Control-Expose-Headers", "Authorization");
+			
+		}
+		
+		
+		return ( savedAgent.getId() != null )? ResponseEntity.ok().headers(responseHeaders).body(savedAgent) : new ResponseEntity< AgentDTO > ( HttpStatus.BAD_REQUEST );
+
 	}
+	
+//	@GetMapping("/update")
+//	@ApiOperation( value = "Sync Database", httpMethod = "GET")
+//	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK")})
+//	public ResponseEntity< Boolean > syncDatabase(){
+//		return (agentService.syncDatabase()) ? new ResponseEntity< Boolean > (true, HttpStatus.OK) : new ResponseEntity<Boolean>(false, HttpStatus.OK);
+//	}
 	
 }

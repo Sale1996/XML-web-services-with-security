@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Agent", propOrder = {})
 @Entity
-public class Agent extends AbstractUser {
+@Table( name= "agent" )
+public class AgentLocal extends AbstractUser {
 
 	
     @XmlElement(name = "business_registration_number", required = true)

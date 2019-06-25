@@ -20,8 +20,8 @@ export class AgentService {
     constructor(private http: HttpClient) { }
 
 
-    getAgentById(id: number): Observable<Agent> {
-        return this.http.get<Agent>(environment.apiUrlAgent + "/" + id);
+    getAgentByEmail(email: string): Observable<Agent> {
+        return this.http.get<Agent>(environment.apiUrlAgent + "/" + email);
     }
 
     updateAgent(agent: Agent): Observable<Agent> {

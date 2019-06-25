@@ -12,6 +12,8 @@ import com.tim9.agentapp.accommodation.wsdl.DeleteAccommodationUnitRequest;
 import com.tim9.agentapp.accommodation.wsdl.DeleteAccommodationUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.GetAccommodationUnitsRequest;
 import com.tim9.agentapp.accommodation.wsdl.GetAccommodationUnitsResponse;
+import com.tim9.agentapp.accommodation.wsdl.RemoveExtraFieldFromUnitRequest;
+import com.tim9.agentapp.accommodation.wsdl.RemoveExtraFieldFromUnitResponse;
 import com.tim9.agentapp.accommodation.wsdl.UpdateAccommodationUnitRequest;
 import com.tim9.agentapp.accommodation.wsdl.UpdateAccommodationUnitResponse;
 
@@ -72,6 +74,19 @@ public class AccommodationUnitClient extends WebServiceGatewaySupport {
 		request.setExtraFieldId(extraFieldId);
 
 		AddExtraFieldToUnitResponse response = (AddExtraFieldToUnitResponse) getWebServiceTemplate()
+				.marshalSendAndReceive(this.getDefaultUri(), request,
+						new SoapActionCallback(""));
+
+		return response;
+	}
+	
+	public RemoveExtraFieldFromUnitResponse removeExtraFieldFromAccommodationUnit(Long accommodationUnitId, Long extraFieldId) {
+
+		RemoveExtraFieldFromUnitRequest request = new RemoveExtraFieldFromUnitRequest();
+		request.setUnitId(accommodationUnitId);
+		request.setExtraFieldId(extraFieldId);
+
+		RemoveExtraFieldFromUnitResponse response = (RemoveExtraFieldFromUnitResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
 						new SoapActionCallback(""));
 

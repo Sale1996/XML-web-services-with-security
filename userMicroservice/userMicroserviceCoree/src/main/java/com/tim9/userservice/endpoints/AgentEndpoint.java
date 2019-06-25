@@ -1,5 +1,7 @@
 package com.tim9.userservice.endpoints;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -9,6 +11,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import com.tim9.userservice.models.Agent;
 import com.tim9.userservice.models.GetAgentRequest;
 import com.tim9.userservice.models.GetAgentResponse;
+import com.tim9.userservice.models.LoginRequest;
+import com.tim9.userservice.models.LoginResponse;
 import com.tim9.userservice.models.UpdateAgentPasswordRequest;
 import com.tim9.userservice.models.UpdateAgentPasswordResponse;
 import com.tim9.userservice.models.UpdateAgentRequest;
@@ -25,6 +29,8 @@ public class AgentEndpoint {
 	private AgentService agentService;
 	@Autowired
 	private AgentRepository agentRepository;
+	@Autowired
+	private HttpServletRequest servletRequest;
 
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAgentRequest")
@@ -32,7 +38,7 @@ public class AgentEndpoint {
 	public GetAgentResponse getAgent(@RequestPayload GetAgentRequest request) {
 //		return agentService.findById(request.getId());
 		 GetAgentResponse gar =  new GetAgentResponse();
-		 gar.setAgent(agentService.findByIdNOTDTO(request.getId()));
+		 gar.setAgent(agentService.findByEmailNOTDTO(request.getEmail()));
 		return gar;
 	}
 	
@@ -40,8 +46,8 @@ public class AgentEndpoint {
 	@ResponsePayload
 	public UpdateAgentResponse updateAgent(@RequestPayload UpdateAgentRequest request) {
 		UpdateAgentResponse response = new UpdateAgentResponse();
-		Agent m = request.getAgent();
-		response.setAgent(agentRepository.save(m));
+		Agent a = request.getAgent();
+		response.setAgent(agentService.update(a.getId().longValue(), a));
 		return response;
 	}
 	
@@ -53,6 +59,25 @@ public class AgentEndpoint {
 		String oldPassword = request.getOldPassword();
 		String newPassword = request.getNewPassword();
 		response.setSuccess(agentService.changePassword(email, oldPassword, newPassword));
+		return response;
+	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "loginRequest")
+	@ResponsePayload
+	public LoginResponse login(@RequestPayload LoginRequest request) {
+		
+//		String auth = servletRequest.getHeader("Authorization");
+		
+		LoginResponse response = new LoginResponse();
+		
+		String token = agentService.autoLogin(request.getEmail(), request.getPassword());
+		
+		if(token != "") {
+			
+			response.setAgent(agentService.findByEmailNOTDTO(request.getEmail()));
+			response.setToken(token);
+		}
+		
 		return response;
 	}
 }

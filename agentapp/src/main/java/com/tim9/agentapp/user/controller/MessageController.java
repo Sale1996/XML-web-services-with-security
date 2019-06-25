@@ -31,24 +31,27 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 	
-	@GetMapping("/{messageId}")
-	@ApiOperation( value = "Finds one message by id.", notes = "Returns found message.", httpMethod="GET")
-	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
-							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< MessageDTO > getMessageById(@PathVariable("messageId") long id){
-		
-		MessageDTO message = messageService.findById(id);
-		
-		return (message.getMessageId() != null) ? new ResponseEntity< MessageDTO > (message, HttpStatus.OK) : new ResponseEntity< MessageDTO >( HttpStatus.NOT_FOUND);
-	}
+//	@GetMapping("/{messageId}")
+//	@ApiOperation( value = "Finds one message by id.", notes = "Returns found message.", httpMethod="GET")
+//	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+//							 @ApiResponse( code = 404, message = "Not Found")})
+//	public ResponseEntity< MessageDTO > getMessageById(@PathVariable("messageId") long id){
+//		
+//		MessageDTO message = messageService.findById(id);
+//		
+//		return (message.getMessageId() != null) ? new ResponseEntity< MessageDTO > (message, HttpStatus.OK) : new ResponseEntity< MessageDTO >( HttpStatus.NOT_FOUND);
+//	}
 	
-	@GetMapping("")
+	@GetMapping("/{id}")
 	@ApiOperation( value = "Gets all messages", notes = "Returns messages ordered by date descending", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity< List<MessageDTO> > getAllMessagesOrderedByLatest(){
+	public ResponseEntity< List<MessageDTO> > getAllMessagesOrderedByLatest(@PathVariable("id") Long id){
 		
-		List<MessageDTO> messages = messageService.getAllMessagesOrderedByLatest();
+//		List<MessageDTO> messages = messageService.getAllMessagesOrderedByLatest();
+		
+		List<MessageDTO> messages = messageService.getAllMessages(id);
+		
 		
 		return (!messages.isEmpty()) ? new ResponseEntity< List<MessageDTO> > (messages, HttpStatus.OK) : new ResponseEntity< List<MessageDTO> >(messages, HttpStatus.NOT_FOUND);
 	}

@@ -16,17 +16,10 @@ import { Accommodation } from 'src/app/model/accommodation.model';
 })
 export class AccommodationUnitsComponent implements OnInit {
 
-  // pagination properties
-  currentPage = 1;
-  collectionSize = 200;
-  pageSize: number;
-  pageSizes: number[] = [25, 50, 100];
   accommmodaitonUnits$: Observable<AccommodationUnit[]>;
 
 
   constructor(private modalService: NgbModal, private unitService: AccommodationUnitService) {
-    this.pageSize = this.pageSizes[0];
-
   }
 
   ngOnInit() {
@@ -35,7 +28,7 @@ export class AccommodationUnitsComponent implements OnInit {
 
 
   getAllUnits() {
-    this.accommmodaitonUnits$ = this.unitService.getUnits(parseInt(localStorage.getItem('accommodation')));
+    this.accommmodaitonUnits$ = this.unitService.getUnits(parseInt(localStorage.getItem('agent')));
   }
 
   deleteUnit(id: number) {
@@ -60,14 +53,12 @@ export class AccommodationUnitsComponent implements OnInit {
   openNewUnitModal() {
     const newUnitModalRef = this.modalService.open(AccommodationUnitModalComponent,
       {
-        size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
     newUnitModalRef.componentInstance.unit.subscribe(
       (unit: AccommodationUnit) => {
-        //pravimo akomodaciju
-        this.unitService.createUnit(unit).subscribe((data: AccommodationUnit) => {
+        // otvaramo modal za cene
 
           const newPriceModal = this.modalService.open(UnitPricesModalComponent,
             {
@@ -75,7 +66,9 @@ export class AccommodationUnitsComponent implements OnInit {
               centered: true,
               backdropClass: 'custom-modal-backdrop'
             });
-          newPriceModal.componentInstance.unitId = data;
+
+          newPriceModal.componentInstance.unit = unit;
+          newPriceModal.componentInstance.creation = true;
           newPriceModal.componentInstance.price.subscribe(
 
             () => {
@@ -85,13 +78,14 @@ export class AccommodationUnitsComponent implements OnInit {
                   centered: true,
                   backdropClass: 'custom-modal-backdrop'
                 });
-              newExtraFieldModal.componentInstance.id = data.accommodationUnitId;
-              newExtraFieldModal.componentInstance.service.subscribe();
+              newExtraFieldModal.componentInstance.id = unit.accommodationUnitId;
+              newExtraFieldModal.componentInstance.creation = true;
+              newExtraFieldModal.componentInstance.service.subscribe(
+                () => this.getAllUnits()
+              );
             }
 
           );
-
-        });
 
 
         //ovde otvaramo novi modul...
@@ -103,12 +97,13 @@ export class AccommodationUnitsComponent implements OnInit {
   openChangeUnitModal(unit: AccommodationUnit) {
     const newUnitModalRef = this.modalService.open(AccommodationUnitModalComponent,
       {
-        size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });
     newUnitModalRef.componentInstance.inputUnit = unit;
-    newUnitModalRef.componentInstance.unit.subscribe();
+    newUnitModalRef.componentInstance.unit.subscribe(
+      () => this.getAllUnits()
+    );
   }
 
   openPricesModal(unit: AccommodationUnit) {

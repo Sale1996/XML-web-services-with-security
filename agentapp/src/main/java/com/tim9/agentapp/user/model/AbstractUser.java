@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
     "role"
 })
 @XmlSeeAlso({
-    Agent.class,
+    AgentLocal.class,
     User.class
 })
 @MappedSuperclass

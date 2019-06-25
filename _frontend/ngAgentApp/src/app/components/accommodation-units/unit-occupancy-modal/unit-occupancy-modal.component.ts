@@ -37,13 +37,14 @@ export class UnitOccupancyModalComponent implements OnInit {
 
   onSubmit() {
     if (this.occupancyForm.valid) {
-      var occupancy: Reservation = {
+      let occupancy: Reservation = {
         reservationId: -1,
         dateFrom: this.occupancyForm.value.dateFrom,
         dateTo: this.occupancyForm.value.dateTo,
         finalPrice: 0,
         client: 0,
         confirmation: true,
+        accommodation: parseInt(localStorage.getItem('accommodationId')),
         accommodationUnit: this.unitId
       }
 

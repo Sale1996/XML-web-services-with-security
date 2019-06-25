@@ -76,5 +76,20 @@ public class DTOPriceConverter {
 		
 	}
 	
+	public Price convertFromDTOToWsdl( PriceDTO dto ) {
+		
+		Price newCandidate = new Price();
+		
+		newCandidate.setAccommodationUnit(accommodationUnitConverter.convertFromDTOToWsdl(dto.getAccommodationUnit()));
+		newCandidate.setAmount(dto.getAmount());
+		newCandidate.setPriceId(dto.getPriceId());
+		newCandidate.setDateFrom(dto.getDateFrom().toString());
+		newCandidate.setDateTo(dto.getDateTo().toString());
+
+		
+		return newCandidate;
+		
+	}
+	
 	
 }

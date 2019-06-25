@@ -1,23 +1,7 @@
 <div class="table-responsive box d-flex flex-column full-height">
   <div class="d-flex px-5 pt-5 pb-4">
     <h4 class="flex-grow-1">Accommodation units</h4>
-    <form novalidate="novalidate" onsubmit="return false;" class="searchbox mb-3">
-      <div role="search" class="searchbox__wrapper">
-        <input id="search-input" type="search" name="search" placeholder="Enter keyword" autocomplete="off"
-          required="required" class="searchbox__input">
-        <button type="submit" class="searchbox__submit">
-          <svg role="img" aria-label="Search">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Search_Icon"></use>
-          </svg>
-        </button>
-        <button type="reset" title="Clear the search input" class="searchbox__reset hide">
-          <svg role="img" aria-label="Reset">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Close_Icon"></use>
-          </svg>
-        </button>
-      </div>
-    </form>
-    <span role="button" class="table-btn table-btn-xl table-btn-success inline ml-2" data-toggle="tooltip"
+    <span role="button" class="table-btn table-btn-xl table-btn-success inline" data-toggle="tooltip"
       data-placement="bottom" title="Add new acoommodation" (click)="openNewUnitModal()">
       <svg class="icon">
         <use xlink:href="#Plus_Icon_XL"></use>
@@ -32,9 +16,9 @@
           <th scope="col">Type</th>
           <th scope="col">Category</th>
           <th scope="col">Number of people</th>
-          <th scope="col">Prices</th>
-          <th scope="col">Extra fields</th>
-          <th scope="col" width="150"></th>
+          <th scope="col"></th>
+          <!-- <th scope="col">Extra fields</th>
+          <th scope="col" width="250">Occupancy</th> -->
           <th scope="col" width="150"></th>
         </tr>
       </thead>
@@ -45,10 +29,13 @@
             <td>{{unit.type.typeName}}</td>
             <td>{{unit.category.categoryName}}</td>
             <td>{{unit.numberOfPeople}}</td>
-            <td><button (click)="openPricesModal(unit)">open prices</button></td>
-            <td><button (click)="openExtraFiledsModal(unit.accommodationUnitId)">open extra fields</button></td>
-            <td><button class="table-btn-success" (click)="openUnitOccupancyModal(unit.accommodationUnitId)">manage
-                occupancy</button></td>
+            <td class="text-right">
+              <button class="btn btn-primary mx-1 my-1" (click)="openPricesModal(unit)">Prices</button>
+              <button class="btn btn-primary mx-1 my-1" (click)="openExtraFiledsModal(unit.accommodationUnitId)">Extra Fields</button>
+              <button class="btn btn-primary mx-1 my-1" (click)="openUnitOccupancyModal(unit.accommodationUnitId)">Occupancy</button>
+            </td>
+            <!-- <td><button class="btn btn-primary" (click)="openExtraFiledsModal(unit.accommodationUnitId)">Extra Fields</button></td>
+            <td><button class="btn btn-primary" (click)="openUnitOccupancyModal(unit.accommodationUnitId)">Occupancy</button></td> -->
             <td class="float-right">
               <span role="button" class="table-btn table-btn-success borderless mr-2"
                 (click)="openChangeUnitModal(unit)">
@@ -67,21 +54,6 @@
         </ng-container>
       </tbody>
     </table>
-  </div>
-  <div class="table-footer px-5 py-3 d-flex justify-content-center">
-    <div class="table-footer-side align-self-center">
-      <span class="blue-badge">TOTAL: {{collectionSize}}</span>
-    </div>
-    <ngb-pagination class="flex-grow-1 d-flex justify-content-center" [collectionSize]="collectionSize"
-      [(page)]="currentPage" [pageSize]="pageSize" aria-label="Custom pagination">
-      <ng-template ngbPaginationPrevious>Prev</ng-template>
-      <ng-template ngbPaginationNext>Next</ng-template>
-    </ngb-pagination>
-    <div class="table-footer-side d-flex justify-content-end">
-      <select class="form-control" [(ngModel)]="pageSize" (change)="changePageSize()">
-        <option *ngFor="let s of pageSizes" value={{s}}>{{s}}</option>
-      </select>
-    </div>
   </div>
 </div>
 <svg width="0" height="0" class="hidden d-none">

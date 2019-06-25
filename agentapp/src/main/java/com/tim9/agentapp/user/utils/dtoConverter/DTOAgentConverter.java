@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.user.dto.AgentDTO;
-import com.tim9.agentapp.user.model.Agent;
+import com.tim9.agentapp.user.model.AgentLocal;
 import com.tim9.agentapp.user.repository.AgentRepository;
+import com.tim9.agentapp.user.wsdl.Agent;
 
 @Component
 public class DTOAgentConverter {
@@ -15,7 +16,7 @@ public class DTOAgentConverter {
 	@Autowired
 	private AgentRepository agentRepository;
 	
-	public AgentDTO convertToDTO(Agent agent) {
+	public AgentDTO convertToDTO(AgentLocal agent) {
 		
 		AgentDTO dto = new AgentDTO();
 		
@@ -30,7 +31,7 @@ public class DTOAgentConverter {
 		return dto;
 	}
 	
-	public AgentDTO convertToDTOFromClient(com.tim9.agentapp.user.wsdl.Agent agent) {
+	public AgentDTO convertToDTOFromClient(Agent agent) {
 		
 		AgentDTO dto = new AgentDTO();
 		
@@ -45,16 +46,16 @@ public class DTOAgentConverter {
 		return dto;
 	}
 	
-	public Agent convertFromDTO(AgentDTO dto) {
+	public AgentLocal convertFromDTO(AgentDTO dto) {
 		
-		Optional<Agent> agent = agentRepository.findById(dto.getId());
+		Optional<AgentLocal> agent = agentRepository.findById(dto.getId());
 		
 		if(agent.isPresent()) {
 			
 			return agent.get();
 		}
 		
-		Agent a = new Agent();
+		AgentLocal a = new AgentLocal();
 		
 		a.setId(dto.getId());
 		a.setFirstName(dto.getFirstName());
@@ -64,6 +65,19 @@ public class DTOAgentConverter {
 		a.setActivated(dto.getActivated());
 		a.setPassword(dto.getPassword());
 		a.setRole(dto.getRole());
+		
+		return a;
+	}
+	
+	public Agent convertFromDTOToWsdl(AgentDTO dto) {
+		
+		Agent a = new Agent();
+		
+		a.setId(dto.getId());
+		a.setFirstName(dto.getFirstName());
+		a.setLastName(dto.getLastName());
+		a.setEmail(dto.getEmail());
+		a.setBusinessRegistrationNumber(dto.getBusinessRegistrationNumber());
 		
 		return a;
 	}

@@ -87,7 +87,7 @@ public class AccommodationService {
 
 	public AccommodationDTO save(String token, AccommodationDTO accommodation) {
 			
-//		accommodation.setLocalAccommodationId(-1l);
+		accommodation.setLocalAccommodationId(-1l);
 //		
 //		AccommodationLocal Accommodation = accommodationRepository.save(accommodationConverter.convertFromDTO(accommodation));
 //		

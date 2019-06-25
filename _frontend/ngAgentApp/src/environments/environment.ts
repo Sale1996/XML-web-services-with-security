@@ -16,7 +16,7 @@ export const environment = {
   apiUrlPicture: "http://localhost:8095/pictures",
   apiUrlPrice: "http://localhost:8095/price",
   apiUrlReservation: "http://localhost:8095/reservations",
-  apiUrlAuth: 'http://localhost:8080/',
+  apiUrlAuth: 'http://localhost:8095/agent/login',
 
 };
 

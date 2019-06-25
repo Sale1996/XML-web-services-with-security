@@ -10,13 +10,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.tim9.agentapp.accommodation.dto.AccommodationDTO;
+import com.tim9.agentapp.accommodation.wsdl.GetAccommodationResponse;
 import com.tim9.agentapp.user.dto.AgentDTO;
 import com.tim9.agentapp.user.dto.UpdatePasswordDTO;
-import com.tim9.agentapp.user.model.Agent;
+import com.tim9.agentapp.user.model.AgentLocal;
 import com.tim9.agentapp.user.repository.AgentRepository;
 import com.tim9.agentapp.user.soapclient.AgentClient;
 import com.tim9.agentapp.user.utils.dtoConverter.DTOAgentConverter;
 import com.tim9.agentapp.user.wsdl.GetAgentResponse;
+import com.tim9.agentapp.user.wsdl.UpdateAgentPasswordResponse;
+import com.tim9.agentapp.user.wsdl.UpdateAgentResponse;
 
 @Service
 public class AgentService {
@@ -35,13 +39,13 @@ public class AgentService {
 	
 	public List<AgentDTO> findAll(){
 		
-		Optional< List<Agent> > agents = Optional.of (agentRepository.findAll());
+		Optional< List<AgentLocal> > agents = Optional.of (agentRepository.findAll());
 		
 		ArrayList<AgentDTO> dtoAgents = new ArrayList<AgentDTO>();
 		
 		if (agents.isPresent()) {
 			
-			for (Agent a : agents.get()) {
+			for (AgentLocal a : agents.get()) {
 				
 				dtoAgents.add(dtoAgentConverter.convertToDTO(a));			
 			}
@@ -52,47 +56,68 @@ public class AgentService {
 		return Collections.emptyList();
 	}
 	
-	public AgentDTO findById(long id){
+	public AgentDTO findByEmail(String email){
 		
-		Optional<Agent> agent = agentRepository.findByLocalId(id);
+		Optional<AgentLocal> agent = agentRepository.findByEmail(email);
 		
 		if (agent.isPresent()) {
 			
 			return dtoAgentConverter.convertToDTO(agent.get());	
 		}
 		
-		return new AgentDTO();		
+		return new AgentDTO();
 	}
 	
 	public AgentDTO update(long id, AgentDTO agent){
 		
-		Optional<Agent> agentForChange = agentRepository.findByLocalId(id);
+//		Optional<AgentLocal> agentForChange = agentRepository.findById(id);
+//		
+//		if(agentForChange.isPresent() && agent != null) {
+//										
+//			agentForChange.get().setFirstName(agent.getFirstName());
+//			agentForChange.get().setLastName(agent.getLastName());
+//			agentForChange.get().setEmail(agent.getEmail());
+////			agentForChange.get().setPassword(agent.getPassword());
+////			agentForChange.get().setActivated(agent.getActivated());
+//			agentForChange.get().setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
+////			agentForChange.get().setRole(agent.getRole());
+//	
+//			agentRepository.save(agentForChange.get());
+//			
+//			agent.setId(agentForChange.get().getId());
+//					
+//			return agent;		
+//		}
+//		
+//		return new AgentDTO();
+		
+		Optional<AgentLocal> agentForChange = agentRepository.findById(id);
 		
 		if(agentForChange.isPresent() && agent != null) {
-										
-			agentForChange.get().setFirstName(agent.getFirstName());
-			agentForChange.get().setLastName(agent.getLastName());
-			agentForChange.get().setEmail(agent.getEmail());
-//			agentForChange.get().setPassword(agent.getPassword());
-//			agentForChange.get().setActivated(agent.getActivated());
-			agentForChange.get().setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
-//			agentForChange.get().setRole(agent.getRole());
-	
-			agentRepository.save(agentForChange.get());
 			
-			agent.setId(agentForChange.get().getId());
-					
-			return agent;		
+			UpdateAgentResponse response = agentClient.updateAgent(dtoAgentConverter.convertFromDTOToWsdl(agent));
+			
+			if(response.getAgent().getId() != null) {
+				
+				agentForChange.get().setFirstName(agent.getFirstName());
+				agentForChange.get().setLastName(agent.getLastName());
+				agentForChange.get().setBusinessRegistrationNumber(agent.getBusinessRegistrationNumber());
+
+				agentRepository.save(agentForChange.get());
+				
+				return agent;
+			}
 		}
 		
 		return new AgentDTO();
+		
 	}
 	
 	public AgentDTO save(AgentDTO agent){
 		
-		agent.setId(-1l);
+//		agent.setId(-1l);
 		
-		Agent a = dtoAgentConverter.convertFromDTO(agent);
+		AgentLocal a = dtoAgentConverter.convertFromDTO(agent);
 		a = agentRepository.save(a);
 		
 		agent.setId(a.getId());
@@ -102,7 +127,7 @@ public class AgentService {
 	
 	public Boolean changePassword(UpdatePasswordDTO password){
 		
-		Optional<Agent> agentForChange = agentRepository.findByEmail(password.getEmail());
+		Optional<AgentLocal> agentForChange = agentRepository.findByEmail(password.getEmail());
 		
 		if(agentForChange.isPresent()) {
 										
@@ -111,12 +136,15 @@ public class AgentService {
 				return false;
 			
 			}
-										
-			agentForChange.get().setPassword(password.getNewPassword());
-
-			agentRepository.save(agentForChange.get());
+			
+			UpdateAgentPasswordResponse response = agentClient.updatePassword(password.getEmail(), password.getOldPassword(), password.getNewPassword());
 					
-			return true;			
+			if(response.isSuccess()) {
+				
+				agentForChange.get().setPassword(password.getNewPassword());
+				agentRepository.save(agentForChange.get());
+				return true;			
+			}		
 		}
 		
 		return false;
@@ -124,7 +152,7 @@ public class AgentService {
 	
 	public AgentDTO delete(long id){
 		
-		Optional<Agent> agentToDelete = agentRepository.findByLocalId(id);
+		Optional<AgentLocal> agentToDelete = agentRepository.findByLocalId(id);
 		
 		if(agentToDelete.isPresent()) {
 			
@@ -136,11 +164,11 @@ public class AgentService {
 		return new AgentDTO();
 	}
 	
-	public boolean syncDatabase(){
+	public boolean syncDatabase(String email){
 		
-		GetAgentResponse getAgentResponse = agentClient.getAgent(4l);
+		GetAgentResponse getAgentResponse = agentClient.getAgent(email);
 		
-		Optional<Agent> agentForChange = agentRepository.findById(getAgentResponse.getAgent().getId().longValue());
+		Optional<AgentLocal> agentForChange = agentRepository.findById(getAgentResponse.getAgent().getId().longValue());
 //		logger.error(getAgentResponse.getAgent().getId()+"");
 // 		obraditi slucaj inicijalizacije
 		if(agentForChange.isPresent() && getAgentResponse != null) {

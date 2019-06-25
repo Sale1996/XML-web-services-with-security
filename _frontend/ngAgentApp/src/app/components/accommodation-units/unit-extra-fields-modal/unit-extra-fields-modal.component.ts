@@ -13,20 +13,20 @@ import { AccommodationUnitService } from 'src/app/services/accommodation-unit.se
 })
 export class UnitExtraFieldsModalComponent implements OnInit {
 
+  @Input() creation?: boolean;
   @Input() id?: number;
   @Output() service: EventEmitter<any> = new EventEmitter();
   submitBtnText: string;
   additionalServiceForm: FormGroup;
   unitExtraFields$: Observable<ExtraField[]>;
   extraFields$: Observable<ExtraField[]>;
-  selectedExtraField: number;
 
   constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private extraFieldService: ExtraFieldService, private accommodationUnitService: AccommodationUnitService) { }
 
   ngOnInit() {
 
     this.additionalServiceForm = this.formBuilder.group({
-      extraFieldId: ['']
+      extraFieldId: [0, [Validators.required, Validators.min(1)]]
     });
 
 
@@ -40,7 +40,6 @@ export class UnitExtraFieldsModalComponent implements OnInit {
     this.getAllExtraFields();
 
   }
-
 
   getAllExtraFieldsOfAccommodationUnit() {
     this.unitExtraFields$ = this.extraFieldService.getExtraFieldsByUnit(this.id);
@@ -61,9 +60,10 @@ export class UnitExtraFieldsModalComponent implements OnInit {
   addExtraFieldToUnit() {
     if (this.additionalServiceForm.valid) {
       //dodaj servis u unit....
-      var chosenExtraField = this.selectedExtraField;
+      let chosenExtraField = this.additionalServiceForm.controls.extraFieldId.value;
       this.accommodationUnitService.addExtraFieldToUnit(this.id, chosenExtraField).subscribe(
         () => {
+          this.additionalServiceForm.controls.extraFieldId.setValue(0);
           this.getAllExtraFieldsOfAccommodationUnit();
         }
       );
@@ -71,8 +71,10 @@ export class UnitExtraFieldsModalComponent implements OnInit {
   }
 
   closeWindow() {
-    this.service.emit(this.additionalServiceForm.value); //as ExtraField
     this.activeModal.close();
+    if (this.creation) {
+      this.service.emit(this.additionalServiceForm.value); //as ExtraField
+    }
   }
 
 }

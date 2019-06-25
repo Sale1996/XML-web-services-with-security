@@ -18,8 +18,8 @@ export class MessageService {
 
     constructor(private http: HttpClient) { }
 
-    getMessages(): Observable<Message[]> {
-        return this.http.get<Message[]>(environment.apiUrlMessage);
+    getMessages(id: number): Observable<Message[]> {
+        return this.http.get<Message[]>(environment.apiUrlMessage + '/' + id);
     }
 
     createMessage(message: Message): Observable<Message> {

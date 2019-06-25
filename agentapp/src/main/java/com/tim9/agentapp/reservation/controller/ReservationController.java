@@ -25,47 +25,9 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/reservations")
-@Api(value="reservations")			//OVO PITAJ SALEA
+@Api(value="reservations")
 @CrossOrigin("http://localhost:4200")
-public class ReservationController {
-	
-//	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	/*
-	@Autowired
-	private HttpServletRequest context;
-	
-	@Autowired
-	private RestTemplate rest;
-	*/
-	
-	/*
-	@GetMapping("/{reservationId}")
-	@PreAuthorize("hasAuthority('READ_RESERVATION')")
-	public Reservation getReservation(@PathVariable("reservationId") long id) {
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		String authorization = context.getHeader("Authorization");
-		String token = "";
-		if (authorization != null && authorization.toLowerCase().startsWith("bearer")) {
-			token = authorization.substring("Bearer".length()).trim();
-			headers.add("Authorization", "Bearer " + token);
-		}
-		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-		ResponseEntity<Accommodation> response = rest.exchange("https://accommodation-service/accommodations/1", HttpMethod.GET, entity, Accommodation.class);
-		Accommodation accommodation = response.getBody();
-		return new Reservation(1, accommodation.getId(), accommodation.getName(), new Float("100.5"));
-	}
-	*/
-	
-	// get all reservs
-	
-	// get reserv by id
-	
-	// update reserv by id
-	
-	// delete reserv by id
-	
+public class ReservationController {	
 
 	@Autowired
 	private ReservationService reservationService;

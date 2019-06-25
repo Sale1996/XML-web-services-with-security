@@ -112,4 +112,12 @@ public class ObjectFactory {
     public GetUsersResponse createGetUsersResponse() {
         return new GetUsersResponse();
     }
+    
+    public LoginRequest createLoginRequest() {
+        return new LoginRequest();
+    }
+    
+    public LoginResponse createLoginResponse() {
+        return new LoginResponse();
+    }
 }
