@@ -125,9 +125,9 @@ public class PictureService {
 		
 	}
 	
-	public List<Picture> findAllSoap() {
+	public List<Picture> findAllSoap(Long id) {
 		
-		Optional< List<Picture> > pictures = Optional.of( pictureRepository.findAll() );
+		Optional< List<Picture> > pictures = Optional.of( pictureRepository.findAllByAccommodationAccommodationId(id) );
 			
 		if ( pictures.isPresent() ) {
 			return pictures.get();		

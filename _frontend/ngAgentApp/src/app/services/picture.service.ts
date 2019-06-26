@@ -23,7 +23,7 @@ export class PictureService {
     }
 
     getPicture(): Observable<Picture[]> {
-        return this.http.get<Picture[]>(environment.apiUrlPicture);
+        return this.http.get<Picture[]>(environment.apiUrlPicture + '/accommodation/' + localStorage.getItem('accommodation'));
     }
 
     deletePicture(id: number): Observable<Picture> {

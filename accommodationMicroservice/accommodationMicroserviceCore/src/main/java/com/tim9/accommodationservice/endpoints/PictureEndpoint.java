@@ -32,7 +32,7 @@ public class PictureEndpoint {
 	@ResponsePayload
 	public GetPicturesResponse getPictures(@RequestPayload GetPicturesRequest request) {
 		GetPicturesResponse response = new GetPicturesResponse();
-		response.setPicture(pictureService.findAllSoap());
+		response.setPicture(pictureService.findAllSoap(request.getId()));
 		return response;
 	}
 	

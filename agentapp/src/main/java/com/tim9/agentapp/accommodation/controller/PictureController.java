@@ -38,13 +38,13 @@ public class PictureController {
 	
 	
 	
-	@GetMapping("")
+	@GetMapping("/accommodation/{id}")
 	@ApiOperation( value = "Returns all pictures", httpMethod = "GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
 							 @ApiResponse( code = 404, message ="Not Found")})	
-	public ResponseEntity< List<PictureDTO> > getAllPictures (){
+	public ResponseEntity< List<PictureDTO> > getAllPictures (@PathVariable("id") Long id){
 		
-		List< PictureDTO > pictures = pictureService.findAll();
+		List< PictureDTO > pictures = pictureService.findAll(id);
 		
 		return ( !pictures.isEmpty() )? new ResponseEntity< List<PictureDTO> > ( pictures, HttpStatus.OK ) : new ResponseEntity< List<PictureDTO> > ( pictures, HttpStatus.NOT_FOUND );
 		

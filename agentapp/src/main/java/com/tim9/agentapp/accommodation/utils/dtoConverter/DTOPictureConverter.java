@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tim9.agentapp.accommodation.dto.PictureDTO;
-import com.tim9.agentapp.accommodation.model.Picture;
 import com.tim9.agentapp.accommodation.repository.PictureRepository;
+import com.tim9.agentapp.accommodation.wsdl.Picture;
 
 
 @Component
@@ -25,31 +25,22 @@ public class DTOPictureConverter {
 		
 		PictureDTO dto = new PictureDTO();
 		
-		dto.setLocalPictureId(picture.getLocalPictureId());
-		dto.setPictureId(picture.getLocalPictureId());
+		dto.setLocalPictureId(picture.getPictureId());
+		dto.setPictureId(picture.getPictureId());
 		dto.setPicUrl(picture.getPicUrl());
-		dto.setAccommodation(accommodationConverter.convertToDTO(picture.getAccommodation()));
+		dto.setAccommodation(accommodationConverter.convertToDTOFromClient(picture.getAccommodation()));
 		
 		return dto;
 		
 	}
 	
 	public Picture convertFromDTO( PictureDTO dto ) {
-		
-		Optional<Picture> picture = pictureRepository.findById(dto.getPictureId());
-		
-		if(picture.isPresent()) {
 			
-			return picture.get();
-			
-		}
-		
 		Picture newCandidate = new Picture();
 		
-		newCandidate.setLocalPictureId(dto.getLocalPictureId());
 		newCandidate.setPictureId(dto.getPictureId());
 		newCandidate.setPicUrl(dto.getPicUrl());
-		newCandidate.setAccommodation(accommodationConverter.convertFromDTO(dto.getAccommodation()));
+		newCandidate.setAccommodation(accommodationConverter.convertFromDTOToWsdl(dto.getAccommodation()));
 		
 		return newCandidate;
 		
