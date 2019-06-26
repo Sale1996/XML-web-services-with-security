@@ -173,4 +173,21 @@ public class ReservationController {
 		
 		return ( !reservations.isEmpty() )? new ResponseEntity< List<Long> > (reservations, HttpStatus.OK ) : new ResponseEntity<List<Long>>( HttpStatus.NOT_FOUND);
 	}
+	
+	
+	@GetMapping("/activeReservationUnit/{id}")
+	public ResponseEntity<Boolean> isThereActiveReservationForUnit(@PathVariable("id") Long id){
+		
+		Boolean result = reservationService.isThereActiveReservationForUnit(id);
+		
+		return new ResponseEntity<Boolean> (result, HttpStatus.OK); 
+	}
+	
+	@DeleteMapping("/occupanciesByUnit/{id}")
+	public ResponseEntity<Boolean> deleteOccuppanciesByUnit(@PathVariable("id") Long id){
+		
+		Boolean result = reservationService.deleteOccupanciesByUnit(id);
+		
+		return (result)? new ResponseEntity<Boolean> (result, HttpStatus.OK) : new ResponseEntity<Boolean> (false, HttpStatus.NOT_FOUND);
+	}
 }

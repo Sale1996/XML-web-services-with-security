@@ -161,6 +161,8 @@ public class AgentService {
 		
 		agent.setId(-1l);
 		
+		agent.setActivated(true);
+		
 		Agent a = dtoAgentConverter.convertFromDTO(agent);
 		
 		String password = createRandomCode(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");

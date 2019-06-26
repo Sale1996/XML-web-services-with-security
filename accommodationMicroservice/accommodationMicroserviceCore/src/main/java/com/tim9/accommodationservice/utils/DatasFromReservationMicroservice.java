@@ -30,4 +30,22 @@ public class DatasFromReservationMicroservice {
 		}
 		
 	}
+	
+	public Boolean isThereActiveReservationForUnit(Long unitId) {
+		try {
+			return reservationClient.isThereActiveReservationForUnit(unitId);
+		}
+		catch(FeignException f) {
+			return null;
+		}
+	}
+	
+	public Boolean deleteOccupanciesByUnit(Long unitid) {
+		try {
+			return reservationClient.deleteOccuppanciesByUnit(unitid);
+		}
+		catch(FeignException f) {
+			return false;
+		}
+	}
 }

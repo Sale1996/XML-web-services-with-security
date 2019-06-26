@@ -3,6 +3,7 @@ package com.tim9.reservationserviceClient.feignClients;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,4 +42,12 @@ public interface ReservationClient {
 
 	@GetMapping("/accommodation/{reservationId}")
 	public List<Long> getReservationsByAccommodation(@PathVariable("reservationId") Long reservationId);
+
+
+	@GetMapping("/activeReservationUnit/{id}")
+	public Boolean isThereActiveReservationForUnit(@PathVariable("id") Long id);
+	
+	@DeleteMapping("/occupanciesByUnit/{id}")
+	public Boolean deleteOccuppanciesByUnit(@PathVariable("id") Long id);
+
 }

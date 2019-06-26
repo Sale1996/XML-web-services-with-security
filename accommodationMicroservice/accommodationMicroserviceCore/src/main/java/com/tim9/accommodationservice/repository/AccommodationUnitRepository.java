@@ -26,4 +26,13 @@ public interface AccommodationUnitRepository extends JpaRepository<Accommodation
 			"				order by id ", nativeQuery = true)
 	public Optional<List<AccommodationUnit>> searchAccommodationUnits(List<Long> accid, List<Long> accommodationUnits, Long type,
 			Long category, List<Long> extraFields, int i);
+
+
+	@Query(value ="DELETE FROM accommodation.prices WHERE accommodation_unit = ?1", nativeQuery = true)
+	public void deleteAllPricesOfUnit(Long unitId);
+	
+	@Query(value ="DELETE FROM accommodation.accommodation_unit_extra_fields WHERE accommodation_id = ?1", nativeQuery = true)
+	public void deleteAllExtraFieldLinksOfUnit(Long unitId);
+	
+
 }

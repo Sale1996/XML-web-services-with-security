@@ -163,6 +163,22 @@ public class AccommodationUnitService {
 		
 		if( accommodationUnitToDelete.isPresent() ) {
 			
+			Boolean isThereActiveReservations = reservationMicroservice.isThereActiveReservationForUnit(id);
+			//u slucaju da je feign nesto pukao pa vratio null
+			if(isThereActiveReservations == null) {
+				return new AccommodationUnitDTO();
+			}
+			//u slucaju da ima rezervacija
+			if(isThereActiveReservations) {
+				return new AccommodationUnitDTO();
+			}
+			
+			reservationMicroservice.deleteOccupanciesByUnit(id);
+			
+			accommodationUnitRepository.deleteAllPricesOfUnit(id);
+			
+			accommodationUnitRepository.deleteAllExtraFieldLinksOfUnit(id);
+			
 			accommodationUnitRepository.deleteById(id);
 			
 			return accommodationUnitConverter.convertToDTO(accommodationUnitToDelete.get());

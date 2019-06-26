@@ -230,4 +230,33 @@ public class ReservationService {
 		
 		return reservations.get();
 	}
+
+	public Boolean isThereActiveReservationForUnit(Long id) {
+		
+		Optional<List<Reservation> > reservations = reservationRepository.isThereActiveReservationsForUnit(id , LocalDateTime.now());
+		
+		if(reservations.isPresent()) {
+			return true;
+		}
+		
+		return false;
+		
+		
+	}
+
+	public Boolean deleteOccupanciesByUnit(Long id) {
+		
+		Optional<List<Reservation>> reservations = Optional.of(reservationRepository.findAllByAccommodationUnitAndClientAndFinalPrice(id,0l,0f));
+		
+		// TODO Auto-generated method stub
+		if(!reservations.isPresent()) {
+			return false;
+		}
+		
+		for(Reservation reservation : reservations.get()) {
+			reservationRepository.delete(reservation);
+		}
+		
+		return true;
+	}
 }

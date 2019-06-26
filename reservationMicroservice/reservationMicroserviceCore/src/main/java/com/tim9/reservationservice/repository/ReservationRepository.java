@@ -38,4 +38,13 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 
 	@Query(value = " SELECT distinct reservations.reservation.client FROM reservations.reservation where accommodation= ?1 ", nativeQuery = true)
 	public Optional<List<Long>> getAccommodationClients(Long accommodationId);
+
+	
+	@Query(value = "SELECT * FROM reservations.reservation where accommodation_unit = ?1 and date_to >= ?2 " , nativeQuery = true)
+	public Optional<List<Reservation>> isThereActiveReservationsForUnit(Long id, LocalDateTime now);
+
+	
+	public List<Reservation> findAllByAccommodationUnitAndClientAndFinalPrice(Long id, Long i, Float j);
+	
+	
 }
