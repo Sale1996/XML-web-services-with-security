@@ -30,4 +30,8 @@ public interface PriceRepository extends JpaRepository<Price,Long> {
 			"	(date_from >= ?2 and date_to <= ?3) or\r\n" + 
 			"	(date_from <= ?3 and date_to >= ?3))\r\n", nativeQuery = true)
 	public Optional<Price> checkIfThereIsAlreadyPrice(Long accommodationUnit, LocalDate dateFrom, LocalDate dateTo);
+
+
+	@Query(value ="SELECT * FROM accommodation.prices WHERE accommodation_unit = ?1 ", nativeQuery = true)
+	public Optional<List<Price>> getAllPricesFromUnit(Long unitId);
 }

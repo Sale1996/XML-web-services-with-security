@@ -175,9 +175,17 @@ public class AccommodationUnitService {
 			
 			reservationMicroservice.deleteOccupanciesByUnit(id);
 			
-			accommodationUnitRepository.deleteAllPricesOfUnit(id);
+			Optional<List<Price>> prices = priceRepository.getAllPricesFromUnit(id);
 			
-			accommodationUnitRepository.deleteAllExtraFieldLinksOfUnit(id);
+			if(prices.isPresent()) {
+				
+				for(Price price : prices.get()) {
+					priceRepository.delete(price);
+				}
+				
+			}
+			
+			
 			
 			accommodationUnitRepository.deleteById(id);
 			
