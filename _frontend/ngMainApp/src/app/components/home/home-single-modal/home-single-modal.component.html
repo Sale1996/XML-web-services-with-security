@@ -26,8 +26,7 @@
                 <tr>
                     <th scope="col">Accommodation</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Extra Fields</th>
-                    <th scope="col">Number of People</th>
+                    <th scope="col">Number of Beds</th>
                     <th scope="col">Type</th>
                     <th scope="col">Price</th>
                     <th></th>
@@ -39,10 +38,9 @@
                   <ng-container>
                       <td>{{accommodationUnitList.accomodation.accommodationName }}</td>
                       <td>{{accommodationUnitList.category.categoryName }}</td>
-                      <td>{{accommodationUnitList.extraField}}</td>
                       <td>{{accommodationUnitList.numberOfPeople }}</td>
                       <td>{{accommodationUnitList.type.typeName}}</td>
-                      <td>{{prices[i]}}</td>
+                      <td>${{prices[i]}}</td>
 
                       <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal" (click)="onReserve(accommodationUnitList)">Reserve</button>
                  </ng-container>

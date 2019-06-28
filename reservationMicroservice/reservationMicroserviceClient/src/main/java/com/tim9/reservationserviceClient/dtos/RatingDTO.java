@@ -30,7 +30,7 @@ public class RatingDTO {
     
     @XmlElement(name = "verified")
     protected Boolean verified;
-      
+        
 	public Long getId() {
 		return id;
 	}

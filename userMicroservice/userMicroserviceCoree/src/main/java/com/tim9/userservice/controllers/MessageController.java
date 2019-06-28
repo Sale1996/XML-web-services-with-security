@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tim9.userservice.services.MessageService;
 import com.tim9.userserviceClient.dtos.MessageDTO;
+import com.tim9.userserviceClient.dtos.UserDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -70,6 +72,19 @@ public class MessageController {
 		MessageDTO savedMessage = messageService.save(message, email);
 		
 		return ( savedMessage.getMessageId() != null )? new ResponseEntity< MessageDTO > ( savedMessage, HttpStatus.CREATED ) : new ResponseEntity< MessageDTO > ( HttpStatus.BAD_REQUEST );
+
+	}
+	
+	@PutMapping("/{messageId}")
+	@ApiOperation( value= "Change an user", notes = "Returns the user being changed", httpMethod="PUT")
+	@ApiResponses( value = { 
+			 @ApiResponse( code = 200, message ="OK"),
+			 @ApiResponse( code = 400, message ="Bad Request")})
+	public ResponseEntity< MessageDTO > openMessage(@PathVariable("messageId") long id) { 
+		
+		MessageDTO messageToUpdate = messageService.update(id);
+		
+	    return ( messageToUpdate.getMessageId() != null )? new ResponseEntity< MessageDTO > ( messageToUpdate, HttpStatus.OK ) : new ResponseEntity< MessageDTO > ( HttpStatus.BAD_REQUEST );
 
 	}
 	

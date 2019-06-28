@@ -55,8 +55,8 @@ public class AccommodationController {
 
 	@PostMapping("/search/{city}/{numberOfGuest}")
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})	
+//	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+//							 @ApiResponse( code = 404, message ="Not Found")})	
 	public ResponseEntity< List<AccommodationDTO> > getAccommodationsByCityAndNumberOfGuests(@PathVariable("city") Long city, @PathVariable("numberOfGuest") int numberOfGuests, @RequestBody SearchDTO search) {
 		
 		List< AccommodationDTO > accommodations = accommodationService.findAllByCityAndNumberOfGuests(city,numberOfGuests, search);
@@ -67,8 +67,8 @@ public class AccommodationController {
 
 	@PostMapping("/searchUnits/{accommodationId}")
 	@ApiOperation( value = "Returns all accommodations by city and number of guests", httpMethod="POST")
-	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
-							 @ApiResponse( code = 404, message ="Not Found")})	
+//	@ApiResponses( value = { @ApiResponse( code = 200, message ="OK"),
+//							 @ApiResponse( code = 404, message ="Not Found")})	
 	public ResponseEntity<AccommodationUnitsWithPricesDTO> getAccommodationUnitsByAccommodationId(@PathVariable("accommodationId") Long accommodationId, @RequestBody SearchDTO search) {
 		
 		AccommodationUnitsWithPricesDTO accommodations = accommodationUnitService.findAllAccommodationUnitsByAccommodationId(accommodationId, search);

@@ -103,6 +103,23 @@ public class MessageService {
 		return messageRepository.save(messageFromDB.get());
 	}
 	
+	public MessageDTO update(long id){
+		
+		Optional<Message> messageForChange = messageRepository.findById(id);
+		MessageDTO message = new MessageDTO();
+		
+		if(messageForChange.isPresent()) {
+										
+			messageForChange.get().setOpened(true);
+
+			messageForChange = Optional.of(messageRepository.save(messageForChange.get()));
+			message = dtoMessageConverter.convertToDTO(messageForChange.get());
+							
+		}
+		
+		return message;
+	}
+	
 	public MessageDTO delete(long id){
 		
 		Optional<Message> messageToDelete = messageRepository.findById(id);

@@ -186,7 +186,7 @@
 
                     <div *ngFor="let extraFiled of extraFields">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" (click)="extraFieldFun(extraFiled, $event)" value="{{extraFiled.extraFieldId}}" name="exampleRadiosE" id="defaultCheck1" formControlName="exampleRadiosE">
+                        <input class="form-check-input" [checked]="checkChecked(extraFiled.extraFieldId)" type="checkbox" (click)="extraFieldFun(extraFiled, $event)" name="exampleRadiosE" id="defaultCheck1">
                         <label class="form-check-label" for="defaultCheck1"> {{extraFiled.extraFieldName}}, {{extraFiled.extraPrice}}e </label>
                       </div>
                     </div>

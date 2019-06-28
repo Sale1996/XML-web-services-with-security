@@ -1,6 +1,6 @@
 export class Rating {
 
-  id: number;
+  id?: number;
   reservation_id: number;
   accommodation_id: number;
   rating: number;

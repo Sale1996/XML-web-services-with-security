@@ -64,6 +64,12 @@ public class ReservationService {
 	
 	public ReservationDTO save(ReservationDTO reservation) {
 		
+		LocalDateTime dateFrom = LocalDateTime.parse( reservation.getDateFrom());
+		
+		if(dateFrom.isBefore(LocalDateTime.now())) {
+			return new ReservationDTO();
+		}
+		
 		AccommodationUnitDTO unit = accommData.getUnitById(reservation.getAccommodationUnit());
 		
 		if(reservation.getClient() != 0l) {			

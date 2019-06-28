@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit {
       exampleRadios: [null], // distance
       exampleRadiosC: [null], // category
       exampleRadiosT: [null], // type
-      exampleRadiosE: [] // extra
+      // exampleRadiosE: [] // extra
     });
 
     this.userEmail = this.authService.getEmailFromToken(localStorage.getItem('access_token'));
@@ -171,8 +171,9 @@ export class HomeComponent implements OnInit {
 
 
     this.accommodationService.searchAccommotions(this.where, this.guests, this.searchObj).subscribe(
-      accommodation => this.accommodations = accommodation
-    );
+      accommodation => {
+        this.accommodations = accommodation;
+      });
   }
 
   getAccommodations(id: number, search: Search, accommodationModalRef) {
@@ -255,8 +256,14 @@ export class HomeComponent implements OnInit {
 
     }
 
-    console.log('EEEEEEEEEEEEEEEEEEEEEEEE:  ', this.extraFieldsNew);
+  }
 
+  checkChecked(id: number) {
+
+    if(this.extraFieldsNew.indexOf(id) !== -1) {
+      return 1;
+    }
+    return 0;
 
   }
 
@@ -286,13 +293,14 @@ export class HomeComponent implements OnInit {
       confirmation: false,
       accommodationUnit: accommodationUnit.accommodationUnitId,
       client: this.userLog.id,
+
     }
 
     console.log(this.reservationObj);
 
     this.reservationService.reserve(this.reservationObj).subscribe((response) => {
       console.log('Response is: ', response);
-      this.location.back();
+      location.assign('/profile');
    },
    (error) => {
       // catch the error

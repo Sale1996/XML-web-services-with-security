@@ -18,6 +18,7 @@ import com.tim9.accommodationservice.utils.dtoConverters.DTOAccommodationConvert
 import com.tim9.accommodationservice.utils.dtoConverters.DTOCityConverter;
 import com.tim9.accommodationserviceclient.dtos.AccommodationDTO;
 import com.tim9.accommodationserviceclient.dtos.SearchDTO;
+import com.tim9.reservationserviceClient.dtos.ReservationDTO;
 import com.tim9.userserviceClient.dtos.AgentDTO;
 
 @Service
@@ -91,6 +92,12 @@ public class AccommodationService {
 		return Collections.emptyList();
 
 		*/
+		
+		LocalDateTime date = LocalDateTime.parse( search.getDateFrom());
+		
+		if(date.isBefore(LocalDateTime.now())) {
+			return Collections.emptyList();
+		}
 		
 		// ovde se dobavljaju sve akomodacije koje se nalaze na navedenoj lokaciji
 		Optional<List<Long>> accommodationIds = Optional.of(accommodationRepository.findAccommodationIdsByCity(city, search.getDistance()));

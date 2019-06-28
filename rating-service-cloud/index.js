@@ -3,16 +3,15 @@ var db = require('./connect');
 require('@google/cloud-debug');
 exports.createRating = function createRating(req, res) {
 
-    let id = req.body.id;
     let reservation_id = req.body.reservation_id
     let rating = req.body.rating;
     let comment = req.body.comment;
     let accommodation_id = req.body.accommodation_id;
     let verified = req.body.verified;
 
-    var sql = "INSERT INTO rating (id, reservation_id, rating, comment, accommodation_id, verified) values (?, ?, ?, ?, ?, ?)";
+    var sql = "INSERT INTO rating (reservation_id, rating, comment, accommodation_id, verified) values (?, ?, ?, ?, ?)";
 
-    db.query(sql,[id, reservation_id, rating, comment, accommodation_id, verified], function (err, result) {
+    db.query(sql,[reservation_id, rating, comment, accommodation_id, verified], function (err, result) {
         if (err) 
             res.status(400).send('Bad Request');
         else 

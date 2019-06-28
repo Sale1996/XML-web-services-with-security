@@ -19,7 +19,7 @@ export class RatingService {
   }
 
   createRating(rating: Rating): Observable<Rating> {
-    return this.http.post<Rating>(this.ratingUrl, httpOptions);
+    return this.http.post<Rating>(this.ratingUrl, rating, httpOptions);
   }
 
 }

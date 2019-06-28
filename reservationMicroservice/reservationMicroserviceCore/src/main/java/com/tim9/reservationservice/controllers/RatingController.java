@@ -50,13 +50,11 @@ public class RatingController {
 		 * 
 		 * Komentar po defaultu staviti da nije odobren..
 		 * 
-		 * */
+		 * */	
+			
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		rating.setId((long) 44); // nemoj zaboravis da promenis
-		
-		System.out.println(rating.toString() + "**************************************************************************");
 			
 		HttpEntity<RatingDTO> entity = new HttpEntity<RatingDTO>(rating, headers);
 				

@@ -21,6 +21,10 @@ export class MessageService {
     return this.http.post<Message>(this.messageUrl, message, httpOptions);
   }
 
+  updateMessage(id: number): Observable<Message> {
+    return this.http.put<Message>(this.messageUrl + '/' + id, httpOptions);
+  }
+
   getMessages(id: number): Observable<Message[]> {
     return this.http.get<Message[]>(environment.apiMessages + '/client/' + id);
   }

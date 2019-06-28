@@ -65,6 +65,13 @@ export class InboxComponent implements OnInit {
     this.text = message.messageBody;
     this.reservation_id = message.reservationId;
 
+    if(!message.opened){
+      this.messageService.updateMessage(message.messageId).subscribe((response) => {
+        console.log('Response is: ', response);
+     });
+     message.opened = true;
+    }
+
   }
 
   reply() {
@@ -74,7 +81,7 @@ export class InboxComponent implements OnInit {
       messageBody: this.replyFormGroup.controls['messageText'].value,
       messageTime: moment(),
       userId: this.userLog.id,
-      recieved: true,
+      recieved: false,
       opened: false,
       reservationId: this.reservation_id
     }
