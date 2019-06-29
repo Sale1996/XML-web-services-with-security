@@ -25,6 +25,7 @@ import * as moment from 'moment';
 import { Search } from 'src/app/model/search.model';
 import { Type } from 'src/app/model/type.model';
 import { UserService } from 'src/app/services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -196,8 +197,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getPictures(accommodationId: number) {
-    this.pictureService.getPictures(accommodationId).subscribe(picture => this.pictures = picture);
+  getPicturesByAccommodationId(accommodation: Accommodation) {
+    this.pictureService.getPictures(accommodation.accommodationId).subscribe(
+      pictures => {
+        accommodation.pictures = pictures;
+      });
   }
 
   getExtraFields(): void {
@@ -223,7 +227,13 @@ export class HomeComponent implements OnInit {
     this.searchObj.extraFields = [];
 
     this.accommodationService.searchAccommotions(where, guests, this.searchObj).subscribe(
-      accommodation => this.accommodations = accommodation
+      accommodation => {
+        this.accommodations = accommodation;
+        this.accommodations.forEach(
+          acc => {
+              this.getPicturesByAccommodationId(acc);
+        });
+      }
     );
 
   }

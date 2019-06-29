@@ -11,14 +11,29 @@
       <!-- <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
       <p class="card-text">{{ accommodation.description }}</p> -->
       <div class="form-group">
-          <div class="tableFixHead flex-grow-1">
-            <table class="table table-borderless table-hover">
+          <div class="tableFixHead flex-grow-1" style="height: 100% !important">
+            <!-- <table class="table table-borderless table-hover">
               <tbody>
                   <tr *ngFor="let picture of pictures">
                     <img [src]="'data:image/jpg;base64,'+ picture.picUrl" style="width:250px;height:200px">
                   </tr>
               </tbody>
-            </table>
+            </table> -->
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" style="max-height: 400px !important">
+                  <div class="carousel-item" *ngFor="let picture of pictures; let i = index" [ngClass]="(i===1) ? 'active': ''">
+                    <img [src]="'data:image/jpg;base64,'+ picture.picUrl"class="d-block w-100">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
           </div>
         </div>
 

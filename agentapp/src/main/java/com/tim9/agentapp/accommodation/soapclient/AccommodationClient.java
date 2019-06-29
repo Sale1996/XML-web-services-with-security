@@ -29,8 +29,7 @@ public class AccommodationClient extends WebServiceGatewaySupport {
 
 		GetAccommodationResponse response = (GetAccommodationResponse) getWebServiceTemplate()
 				.marshalSendAndReceive(this.getDefaultUri(), request,
-						new TokenHeader(
-                                new Bearer(token)));
+						new SoapActionCallback(""));
 
 		return response;
 	}

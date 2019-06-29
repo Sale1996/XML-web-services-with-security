@@ -32,7 +32,7 @@ export class AccommodationUnitModalComponent implements OnInit {
   ngOnInit() {
 
     this.unitForm = this.formBuilder.group({
-      id: [''],
+      id: [0],
       type: this.formBuilder.group({
         typeId: [0, Validators.min(1)],
         typeName: ['']
@@ -91,7 +91,7 @@ export class AccommodationUnitModalComponent implements OnInit {
           accommodationId: parseInt(localStorage.getItem('accommodation')),
           accommodationName: '',
           description: '',
-          agentId: 0,
+          agentId: parseInt(localStorage.getItem('agent')),
           numberOfDaysBeforeCancelation: 0,
           city: null,
           picture: null

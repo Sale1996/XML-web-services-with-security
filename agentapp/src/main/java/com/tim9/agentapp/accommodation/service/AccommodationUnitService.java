@@ -109,7 +109,7 @@ public class AccommodationUnitService {
 //		return dto;
 		
 		dto.setAccommodationUnitId(-1l);
-		dto.setAccommodation(accommodationService.findById("token", dto.getAccommodation().getAccommodationId()));
+		dto.setAccommodation(accommodationService.findById("token", dto.getAccommodation().getAgentId()));
 		
 		AccommodationUnit accommodationUnit = accommodationUnitConverter.convertFromDTOToWsdl(dto);
 		CreateAccommodationUnitResponse response =  accommodationUnitClient.createAccommodationUnit(accommodationUnit);

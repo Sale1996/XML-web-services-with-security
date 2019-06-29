@@ -13,11 +13,9 @@ const httpOptions = {
 })
 export class PictureService {
 
-  private pictureUrl = environment.apiPicture;
-
   constructor(private http: HttpClient) { }
 
   getPictures(id: number): Observable<Picture[]> {
-    return this.http.get<Picture[]>(this.pictureUrl + '/accommodations/' + id);
+    return this.http.get<Picture[]>(environment.apiPicture + '/accommodations/' + id);
   }
 }

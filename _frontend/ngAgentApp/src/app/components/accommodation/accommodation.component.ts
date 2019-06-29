@@ -146,7 +146,8 @@ export class AccommodationComponent implements OnInit {
 
   onSubmit() {
     if (this.accommodationForm.valid) {
-      var createdAccommodation = (this.accommodationForm.value as Accommodation);
+      let createdAccommodation: Accommodation = (this.accommodationForm.value as Accommodation);
+      createdAccommodation.agentId = parseInt(localStorage.getItem('agent'));
       if (!localStorage.getItem('accommodation')) {
         this.accommodationService.createAccommodation(createdAccommodation).subscribe(
           (accommodation: Accommodation) => {

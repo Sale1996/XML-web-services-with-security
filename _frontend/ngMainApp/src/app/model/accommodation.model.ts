@@ -1,3 +1,5 @@
+import { Picture } from "./picture.model";
+
 export interface Accommodation {
 
   accommodationId: number;
@@ -8,6 +10,6 @@ export interface Accommodation {
   xCord: number;
   yCord: number;
   numberOfDaysBeforeCancelation: number;
-  pictures: any;
+  pictures: Picture[];
 
 }

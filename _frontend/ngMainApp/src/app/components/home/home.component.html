@@ -81,9 +81,12 @@
 
         <div *ngFor="let accommodation of accommodations">
           <div class="col">
-
               <div class="card" style="width: 18rem;">
-                  <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+                <!-- <ng-container *ngIf="getPicturesByAccommodationId(accommodation)"> -->
+                  <ng-container *ngIf="accommodation.pictures?.length">
+                    <img [src]="'data:image/jpg;base64,'+ accommodation.pictures[0].picUrl" class="card-img-top">
+                  </ng-container>
+                <!-- </ng-container> -->
                   <div class="card-body">
                     <h5 class="card-title">{{accommodation.accommodationName}}</h5>
                     <p class="card-text">{{accommodation.description}}</p>
