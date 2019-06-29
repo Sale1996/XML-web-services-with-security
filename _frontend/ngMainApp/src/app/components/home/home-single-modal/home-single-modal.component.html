@@ -8,8 +8,20 @@
     </span>
 </div>
 <div class="modal-body">
-      <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
-      <p class="card-text">{{ accommodation.description }}</p>
+      <!-- <img src="../../../assets/images/accommodation.jpg" class="card-img-top" alt="...">
+      <p class="card-text">{{ accommodation.description }}</p> -->
+      <div class="form-group">
+          <div class="tableFixHead flex-grow-1">
+            <table class="table table-borderless table-hover">
+              <tbody>
+                  <tr *ngFor="let picture of pictures">
+                    <img [src]="'data:image/jpg;base64,'+ picture.picUrl" style="width:250px;height:200px">
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       <hr>
 
       <div ngbDropdown class="d-inline-block">
@@ -41,9 +53,8 @@
                       <td>{{accommodationUnitList.numberOfPeople }}</td>
                       <td>{{accommodationUnitList.type.typeName}}</td>
                       <td>${{prices[i]}}</td>
-
-                      <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal" (click)="onReserve(accommodationUnitList)">Reserve</button>
-                 </ng-container>
+                      <button [disabled]="!(this.isLoggedIn())" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal" (click)="onReserve(accommodationUnitList)">Reserve</button>
+                    </ng-container>
                 </tr>
 
               </tbody>

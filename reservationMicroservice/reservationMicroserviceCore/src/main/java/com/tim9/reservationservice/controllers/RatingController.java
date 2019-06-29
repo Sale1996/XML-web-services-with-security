@@ -1,6 +1,9 @@
 package com.tim9.reservationservice.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -81,14 +84,17 @@ public class RatingController {
 	@ApiOperation( value = "Finds one rating by reservation id.", notes = "Returns found rating.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity<RatingDTO> getRatingByReservationId(@PathVariable("id") Long id) {
+	public ResponseEntity<List<RatingDTO>> getRatingByReservationId(@PathVariable("id") Long id) {
 		
 		String url = "http://localhost:8010/rating-service/us-central1/getRatingByReservationId?id=" + id;
 		
-			
-		ResponseEntity<RatingDTO> response = restTemplate.getForEntity(url, RatingDTO.class);
+		HttpEntity<String> entity = new HttpEntity<String>(new HttpHeaders());
+		ParameterizedTypeReference<List<RatingDTO>> responseType = new ParameterizedTypeReference<List<RatingDTO>>() {};
 		
-		return new ResponseEntity<RatingDTO>(response.getBody(), HttpStatus.OK);
+		ResponseEntity<List<RatingDTO>> resp = restTemplate.exchange(url, HttpMethod.GET, entity, responseType);
+		List<RatingDTO> list = resp.getBody();
+				
+		return new ResponseEntity<List<RatingDTO>>(list, HttpStatus.OK);
 		
 	}
 	
@@ -96,14 +102,51 @@ public class RatingController {
 	@ApiOperation( value = "Finds one rating by accommodation id.", notes = "Returns found rating.", httpMethod="GET")
 	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
 							 @ApiResponse( code = 404, message = "Not Found")})
-	public ResponseEntity<RatingDTO> getRatingByAccommodationId(@PathVariable("id") Long id) {
+	public ResponseEntity<List<RatingDTO>> getRatingByAccommodationId(@PathVariable("id") Long id) {
 		
 		String url = "http://localhost:8010/rating-service/us-central1/getRatingByAccommodationId?accommodation_id=" + id;
+		
+		HttpEntity<String> entity = new HttpEntity<String>(new HttpHeaders());
+		ParameterizedTypeReference<List<RatingDTO>> responseType = new ParameterizedTypeReference<List<RatingDTO>>() {};
+		
+		ResponseEntity<List<RatingDTO>> resp = restTemplate.exchange(url, HttpMethod.GET, entity, responseType);
+		List<RatingDTO> list = resp.getBody();
+				
+		return new ResponseEntity<List<RatingDTO>>(list, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/all")
+	@ApiOperation( value = "Finds one rating by accommodation id.", notes = "Returns found rating.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity<List<RatingDTO>> getRating() {
+		
+		String url = "http://localhost:8010/rating-service/us-central1/getRatings";
+		
+		HttpEntity<String> entity = new HttpEntity<String>(new HttpHeaders());
+		ParameterizedTypeReference<List<RatingDTO>> responseType = new ParameterizedTypeReference<List<RatingDTO>>() {};
+		
+		ResponseEntity<List<RatingDTO>> resp = restTemplate.exchange(url, HttpMethod.GET, entity, responseType);
+		List<RatingDTO> list = resp.getBody();
+				
+		return new ResponseEntity<List<RatingDTO>>(list, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/verified/{id}")
+	@ApiOperation( value = "Finds one rating by accommodation id.", notes = "Returns found rating.", httpMethod="GET")
+	@ApiResponses( value = { @ApiResponse( code = 200, message = "OK"),
+							 @ApiResponse( code = 404, message = "Not Found")})
+	public ResponseEntity<RatingDTO> verified(@PathVariable("id") Long id) {
+		
+		String url = "http://localhost:8010/rating-service/us-central1/verified?id=" + id;
 		
 		ResponseEntity<RatingDTO> response = restTemplate.getForEntity(url, RatingDTO.class);
 		
 		return new ResponseEntity<RatingDTO>(response.getBody(), HttpStatus.OK);
 		
 	}
+
 
 }

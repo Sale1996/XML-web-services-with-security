@@ -1,108 +1,39 @@
 <div class="table-responsive box d-flex flex-column full-height">
   <div class="d-flex px-5 pt-5 pb-4">
     <h4 class="flex-grow-1">User Reviews</h4>
-    <form novalidate="novalidate" onsubmit="return false;" class="searchbox mb-3">
-      <div role="search" class="searchbox__wrapper">
-        <input id="search-input" type="search" name="search" placeholder="Enter keyword" autocomplete="off" required="required" class="searchbox__input">
-        <button type="submit" class="searchbox__submit" >
-        <svg role="img" aria-label="Search">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Search_Icon"></use>
-            </svg>
-          </button>
-        <button type="reset" title="Clear the search input" class="searchbox__reset hide">
-        <svg role="img" aria-label="Reset">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Close_Icon"></use>
-          </svg>
-        </button>
-      </div>
-    </form>
   </div>
   <div class="tableFixHead flex-grow-1">
     <table class="table table-borderless table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">User</th>
           <th scope="col">Comment</th>
-          <th scope="col">Accommodation</th>
-          <th scope="col" width="150">Date</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Reservation</th>
+          <th scope="col">Status</th>
           <th scope="col" width="150"></th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row"><span class="blue-badge">1</span></th>
-          <td>Marko Markovic</td>
-          <td>Ja biti veoma zadovoljan vasa usluga. Sve biti jako fino i kulturno! Vase smestaj izuzetan prigodan za druzenje u troje. Mi voleti vas :)</td>
-          <td>Hotel Prezident</td>
-          <td><span class="blue-badge">26th July 2022</span></td>
-          <td class="float-right">
-              <span role="button" class="table-btn table-btn-success borderless mr-2">
-              <svg class="icon">
-                <use xlink:href="#Checkmark_Icon"></use>
-              </svg>
-            </span>
-            <span role="button" class="table-btn table-btn-danger borderless">
-              <svg class="icon">
-                <use xlink:href="#Delete_Icon"></use>
-              </svg>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">2</span></th>
-          <td>Jacob Jacobs</td>
-          <td>Vi mene odusevili vasa cistoca i lepota. Ja dodje opet kod vas da spava i jede kajmak</td>
-          <td>Mala Poslovna Soba</td>
-          <td><span class="blue-badge">1st June 2020</span></td>
-          <td class="float-right">
-              <span role="button" class="table-btn table-btn-success borderless mr-2">
-                <svg class="icon">
-                  <use xlink:href="#Checkmark_Icon"></use>
-                </svg>
-              </span>
-              <span role="button" class="table-btn table-btn-danger borderless">
-                <svg class="icon">
-                  <use xlink:href="#Delete_Icon"></use>
-                </svg>
-              </span>
+        <ng-container *ngIf="comments$ | async as comments; else loading">
+          <tr *ngFor="let comment of comments">
+            <td>{{comment.comment}}</td>
+            <td>{{comment.rating}}</td>
+            <td>{{comment.reservation_id}}</td>
+            <td>{{comment.verified}}</td>
+            <td class="float-right">
+              <ng-container *ngIf="(comment.verified === false)">
+                <span role="button" class="table-btn table-btn-success borderless mr-2" (click)="verified(comment.id)">
+                  <svg class="icon">
+                    <use xlink:href="#Checkmark_Icon"></use>
+                  </svg>
+                </span>
+              </ng-container>
             </td>
-        </tr>
-        <tr>
-          <th scope="row"><span class="blue-badge">3</span></th>
-          <td>Larry the Bird</td>
-          <td>Od svu decu vi ste najbolji. Poyyy</td>
-          <td>Kucerak u Sremu</td>
-          <td><span class="blue-badge">11th january 2020</span></td>
-          <td class="float-right">
-              <span role="button" class="table-btn table-btn-success borderless mr-2">
-                <svg class="icon">
-                  <use xlink:href="#Checkmark_Icon"></use>
-                </svg>
-              </span>
-              <span role="button" class="table-btn table-btn-danger borderless">
-                <svg class="icon">
-                  <use xlink:href="#Delete_Icon"></use>
-                </svg>
-              </span>
-            </td>
-        </tr>
+          </tr>
+        </ng-container>
+
       </tbody>
     </table>
-  </div>
-  <div class="table-footer px-5 py-3 d-flex justify-content-center">
-    <div class="table-footer-side align-self-center">
-      <span class="blue-badge">TOTAL: {{collectionSize}}</span>
-    </div>
-    <ngb-pagination class="flex-grow-1 d-flex justify-content-center" [collectionSize]="collectionSize" [(page)]="currentPage" [pageSize]="pageSize" aria-label="Custom pagination">
-      <ng-template ngbPaginationPrevious>Prev</ng-template>
-      <ng-template ngbPaginationNext>Next</ng-template>
-    </ngb-pagination>
-    <div class="table-footer-side d-flex justify-content-end">
-      <select class="form-control" [(ngModel)]="pageSize" (change)="changePageSize()">
-        <option *ngFor="let s of pageSizes" value={{s}}>{{s}}</option>
-      </select>
-    </div>
   </div>
 </div>
 <svg width="0" height="0" class="hidden d-none">

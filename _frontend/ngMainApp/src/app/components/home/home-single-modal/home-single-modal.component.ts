@@ -1,3 +1,4 @@
+import { Picture } from './../../../model/picture.model';
 import { AccommodationUnitService } from './../../../services/accommodation-unit.service';
 import { AccommodationUnitsWith } from './../../../model/accommodation-units-with.model';
 import { AccommodationService } from './../../../services/accommodation.service';
@@ -6,6 +7,7 @@ import { Accommodation } from './../../../model/accommodation.model';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Search } from 'src/app/model/search.model';
+import { PictureService } from 'src/app/services/picture.service';
 
 @Component({
   selector: 'app-home-single-modal',
@@ -23,15 +25,13 @@ export class HomeSingleModalComponent implements OnInit {
   accomodationUnit: AccommodationUnit;
   accommodationUnitList: AccommodationUnit[];
   prices: Number[];
-
-
-  //@Input() accommodationUnitsWith: AccommodationUnitsWith;
-  //@Input() accommodationUnits: AccommodationUnit[];
+  pictures: Picture[];
 
   constructor(
     public activeModal: NgbActiveModal,
     private accommodationService: AccommodationService,
     private accommodationUnitService: AccommodationUnitService,
+    private pictureService: PictureService
   ) { }
 
   ngOnInit() {
@@ -48,6 +48,7 @@ export class HomeSingleModalComponent implements OnInit {
 
       this.accommodationUnitList = this.accommodationUnitsWith.units;
       this.prices = this.accommodationUnitsWith.prices;
+      this.getPictures(this.accommodation.accommodationId);
 
     });
   }
@@ -74,6 +75,19 @@ export class HomeSingleModalComponent implements OnInit {
     );
 
   }
+
+  isLoggedIn(): boolean {
+    if (localStorage.hasOwnProperty('access_token')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getPictures(id: number): void {
+    this.pictureService.getPictures(id).subscribe(picture => this.pictures = picture);
+  }
+
 
 
 }

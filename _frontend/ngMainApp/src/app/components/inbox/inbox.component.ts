@@ -67,7 +67,6 @@ export class InboxComponent implements OnInit {
 
     if(!message.opened){
       this.messageService.updateMessage(message.messageId).subscribe((response) => {
-        console.log('Response is: ', response);
      });
      message.opened = true;
     }
@@ -85,6 +84,8 @@ export class InboxComponent implements OnInit {
       opened: false,
       reservationId: this.reservation_id
     }
+
+    console.log(this.messageObj);
 
     this.messageService.sendMessage(this.messageObj).subscribe((response) => {
       console.log('Response is: ', response);

@@ -31,6 +31,7 @@ public class ReservationDTO {
     protected Long accommodationUnit;
     @XmlElement(name = "Client", required = true)
     protected Long client;
+    protected Long accommodation_id;
 
 
 	public Long getReservationId() {
@@ -74,6 +75,12 @@ public class ReservationDTO {
 	}
 	public void setClient(Long client) {
 		this.client = client;
+	}
+	public Long getAccommodation_id() {
+		return accommodation_id;
+	}
+	public void setAccommodation_id(Long accommodation_id) {
+		this.accommodation_id = accommodation_id;
 	}
     
     

@@ -44,3 +44,29 @@ exports.getRatingByAccommodationId = function getRatingByAccommodationId(req, re
             res.status(200).send(result);
     });
 };
+
+require('@google/cloud-debug');
+exports.getRatings = function getRatings(req, res) {
+
+    var sql = "select * from rating";
+
+    db.query(sql, (err, result)=> {
+        if (err) 
+            res.status(404).send('Not Found');
+        else 
+            res.status(200).send(result);
+    });
+};
+
+require('@google/cloud-debug');
+exports.verified = function verified(req, res) {
+
+    var sql = "UPDATE rating SET verified = 1 WHERE id=" + req.query.id;
+
+    db.query(sql, (err, result)=> {
+        if (err) 
+            res.status(404).send('Not Found');
+        else 
+            res.status(200).send(result);
+    });
+};

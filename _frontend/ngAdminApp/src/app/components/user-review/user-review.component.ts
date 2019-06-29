@@ -1,5 +1,8 @@
+import { CommentService } from './../../services/comment.service';
 import { Component, OnInit } from '@angular/core';
 import { Event } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Comment } from 'src/app/model/comment.model';
 
 @Component({
   selector: 'app-user-review',
@@ -8,20 +11,21 @@ import { Event } from '@angular/router';
 })
 export class UserReviewComponent implements OnInit {
 
-  // pagination properties
-  currentPage = 1;
-  collectionSize = 200;
-  pageSize: number;
-  pageSizes: number[] = [25, 50, 100];
+  comments$: Observable<Comment[]>;
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
   ngOnInit() {
-    this.pageSize = this.pageSizes[0];
+    this.getComments();
   }
 
-  changePageSize() {
-    // API Call to pagable endpoint where argument is 'pageSize'
+  getComments() {
+    this.comments$ = this.commentService.getComments();
   }
+
+  verified(id: number) {
+    this.commentService.verified(id).subscribe(() => this.getComments());
+  }
+
 
 }

@@ -284,7 +284,7 @@ export class HomeComponent implements OnInit {
   }
 
   reserve(accommodationUnit: AccommodationUnit) {
-
+    console.log(accommodationUnit.accomodation.accommodationId);
     this.reservationObj = {
 
       dateFrom: this.checkin,
@@ -293,6 +293,7 @@ export class HomeComponent implements OnInit {
       confirmation: false,
       accommodationUnit: accommodationUnit.accommodationUnitId,
       client: this.userLog.id,
+      accommodation_id: accommodationUnit.accomodation.accommodationId
 
     }
 

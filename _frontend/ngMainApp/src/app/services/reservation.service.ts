@@ -27,6 +27,10 @@ export class ReservationService {
     return this.http.get<Reservation[]>(environment.apiReservations);
   }
 
+  getReservationById(id: number): Observable<Reservation> {
+    return this.http.get<Reservation>(environment.apiReservations + '/' + id);
+  }
+
   getReservationByUserId(userId: number): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(environment.apiReservations + '/client/' + userId);
   }

@@ -19,7 +19,12 @@ export class CommentService {
     constructor(private http: HttpClient) { }
 
     getComments(): Observable<Comment[]> {
-        return this.http.get<Comment[]>(environment.apiUrlComment + '/accommodation/' + localStorage.getItem('accommodationId'));
+        return this.http.get<Comment[]>(environment.apiUrlComment + '/all');
     }
+
+
+    verified(id: number) {
+      return this.http.get(environment.apiUrlComment + '/verified/' + id);
+  }
 
 }

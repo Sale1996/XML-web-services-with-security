@@ -24,4 +24,9 @@ export class NavigationComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.authService.logout();
+
+  }
+
 }

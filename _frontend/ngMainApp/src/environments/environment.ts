@@ -4,17 +4,17 @@
 
 export const environment = {
   production: false,
-  apiUrlAuth: 'http://localhost:8080/',
-  apiUrlUser: 'http://localhost:8080/user',
-  apiAccomodations: 'http://localhost:8081/accommodations',
-  apiCities: 'http://localhost:8081/cities',
-  apiMessages: 'http://localhost:8080/message',
-  apiReservations: 'http://localhost:8082/reservations',
-  apiRating: 'http://localhost:8082/ratings',
-  apiExtraField: 'http://localhost:8081/extraFields',
-  apiCategories: 'http://localhost:8081/categories',
-  apiTypes: 'http://localhost:8081/types',
-  apiPicture: 'http://localhost:8081/pictures',
+  apiUrlAuth: 'http://localhost:8762/user/',
+  apiUrlUser: 'http://localhost:8762/user/user',
+  apiAccomodations: 'http://localhost:8762/accommodation/accommodations',
+  apiCities: 'http://localhost:8762/accommodation/cities',
+  apiMessages: 'http://localhost:8762/user/message',
+  apiReservations: 'http://localhost:8762/reservation/reservations',
+  apiRating: 'http://localhost:8762/reservation/ratings',
+  apiExtraField: 'http://localhost:8762/accommodation/extraFields',
+  apiCategories: 'http://localhost:8762/accommodation/categories',
+  apiTypes: 'http://localhost:8762/accommodation/types',
+  apiPicture: 'http://localhost:8762/accommodation/pictures',
 };
 
 /*

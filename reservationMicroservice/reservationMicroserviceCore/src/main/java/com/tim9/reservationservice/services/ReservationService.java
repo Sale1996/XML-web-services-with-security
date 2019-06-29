@@ -93,7 +93,7 @@ public class ReservationService {
 		Reservation Reservation = reservationConverter.convertFromDTO(reservation);
 		Reservation.setLastUpdated(LocalDateTime.now());
 
-		Reservation.setAccommodation(unit.getAccomodation().getAccommodationId());
+		Reservation.setAccommodation(reservation.getAccommodation_id());
 		Reservation = reservationRepository.save(Reservation);
 		
 		reservation.setReservationId(Reservation.getReservationId());

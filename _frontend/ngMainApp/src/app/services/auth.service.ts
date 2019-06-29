@@ -40,7 +40,10 @@ export class AuthService {
   }
 
   logout() {
-      return this.http.get(`${environment.apiUrlAuth}/logout`, httpOptions);
+
+    localStorage.clear();
+    location.assign('/');
+      // return this.http.get(`${environment.apiUrlAuth}/logout`, httpOptions);
   }
 
   getTokenExpirationDate(token: string): Date {

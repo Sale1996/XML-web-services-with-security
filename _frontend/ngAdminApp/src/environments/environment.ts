@@ -7,6 +7,7 @@ export const environment = {
   apiUrlAuth: 'http://localhost:8762/user/',
   apiUrlUser: 'http://localhost:8762/user/user',
   apiUrlAgent: 'http://localhost:8762/user/agent',
+  apiUrlComment: "http://localhost:8762/reservation/ratings",
   apiUrlAdmin: 'http://localhost:8762/user/admin',
   apiUrlType: 'http://localhost:8762/accommodation/types',
   apiUrlCategory: 'http://localhost:8762/accommodation/categories',

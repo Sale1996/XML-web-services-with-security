@@ -31,7 +31,8 @@ export class ProfileComponent implements OnInit {
   userEmail: string;
   userLog: User;
   currTime: any;
-  loc_reservation: Reservation;
+  loc_reservation: number;
+  resIdsend: number;
 
   resIdDelete: number;
 
@@ -81,13 +82,8 @@ export class ProfileComponent implements OnInit {
 
   }
 
-   save(reservation: Reservation) {
-
-    this.loc_reservation = reservation;
-
+   save() {
     this.prepareData();
-
-    console.log(this.ratingObj);
 
     this.ratingService.createRating(this.ratingObj).subscribe((response) => {
       console.log('Response is: ', response);
@@ -101,8 +97,8 @@ export class ProfileComponent implements OnInit {
 
     this.ratingObj.rating = this.ratingFormGroup.controls['num'].value;
     this.ratingObj.comment = this.ratingFormGroup.controls['comment'].value;
-    this.ratingObj.accommodation_id = this.loc_reservation.accommodationUnit;
-    this.ratingObj.reservation_id = this.loc_reservation.reservationId;
+    this.ratingObj.accommodation_id = 2;
+    this.ratingObj.reservation_id = this.resIdsend;
     this.ratingObj.verified = false;
 
   }
@@ -129,7 +125,7 @@ export class ProfileComponent implements OnInit {
       userId: this.userLog.id,
       recieved: false,
       opened: false,
-      reservationId: 2
+      reservationId: this.resIdsend
     }
 
     this.messageService.sendMessage(this.messageObj).subscribe((response) => {
@@ -137,8 +133,11 @@ export class ProfileComponent implements OnInit {
       this.sendMessageFormGroup.reset();
    });
 
+  }
 
+  saveSend(reservation: Reservation) {
 
+    this.resIdsend = reservation.reservationId;
   }
 
 

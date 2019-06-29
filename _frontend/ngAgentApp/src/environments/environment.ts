@@ -10,7 +10,7 @@ export const environment = {
   apiUrlAgent: "http://localhost:8095/agent",
   apiUrlCategory: "http://localhost:8095/categories",
   apiUrlCity: "http://localhost:8095/cities",
-  apiUrlComment: "http://localhost:8095/comments",
+  apiUrlComment: "http://localhost:8762/reservation/ratings",
   apiUrlExtraField: "http://localhost:8095/extraFields",
   apiUrlMessage: "http://localhost:8095/message",
   apiUrlPicture: "http://localhost:8095/pictures",
