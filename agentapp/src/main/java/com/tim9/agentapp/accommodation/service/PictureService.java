@@ -79,7 +79,7 @@ public class PictureService {
 			return dtoPictures;
 		}
 		
-		
+		return dtoPictures;
 	}
 
 	public PictureDTO findById(Long id) {
@@ -103,7 +103,7 @@ public class PictureService {
 		 */
 		
 		dto.setPictureId(-1l);
-		dto.setAccommodation(accommodationService.findById("token", dto.getAccommodation().getAccommodationId()));
+//		dto.setAccommodation(accommodationService.findById("token", dto.getAccommodation().getAccommodationId()));
 		
 		Picture picture = pictureConverter.convertFromDTO(dto);
 		

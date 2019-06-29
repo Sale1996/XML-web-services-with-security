@@ -26,15 +26,17 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-          <ng-container *ngIf="cities$ | async as cities; else loading">
-            <label for="city" class="col-form-label col-form-label-sm">City<span class="text-danger">*</span></label>
-            <select type="text" formControlName="city" class="form-control form-control-sm" required>
-              <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
-            </select>
-          </ng-container>
-
-        </div>
+        <ng-container formGroupName="city">
+          <div class="form-group">
+            <ng-container *ngIf="cities$ | async as cities; else loading">
+              <label for="city" class="col-form-label col-form-label-sm">City<span class="text-danger">*</span></label>
+              <select type="text" formControlName="cityId" class="form-control form-control-sm" required>
+                <option *ngFor="let c of cities" value="{{c.cityId}}">{{c.name}}</option>
+              </select>
+            </ng-container>
+  
+          </div>
+        </ng-container>
         <div class="form-group">
           <div class="tableFixHead flex-grow-1">
             <table class="table table-borderless table-hover">

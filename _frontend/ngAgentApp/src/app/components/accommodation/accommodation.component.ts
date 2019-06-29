@@ -9,6 +9,9 @@ import { CityService } from 'src/app/services/city.service';
 import { Picture } from 'src/app/model/picture.model';
 import { PictureService } from 'src/app/services/picture.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AgentService } from 'src/app/services/agent.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Agent } from 'src/app/model/agent.model';
 
 @Component({
   selector: 'app-accommodation',
@@ -17,6 +20,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AccommodationComponent implements OnInit {
 
+  userEmail: string;
+  userId: number;
   accommodationForm: FormGroup;
   submitBtnText: string = "blabla";
   accommodationName: string;
@@ -27,7 +32,14 @@ export class AccommodationComponent implements OnInit {
   private base64textString: string = "";
 
 
-  constructor(private formBuilder: FormBuilder, private accommodationService: AccommodationService, private cityService: CityService, private pictureService: PictureService, private domSanitizer: DomSanitizer) { }
+  constructor(private formBuilder: FormBuilder,
+    private accommodationService: AccommodationService,
+    private cityService: CityService,
+    private pictureService: PictureService,
+    private domSanitizer: DomSanitizer,
+    private authService: AuthService,
+    private agentService: AgentService
+  ) { }
 
   handleFileSelect(evt) {
     var files = evt.target.files;
@@ -49,19 +61,19 @@ export class AccommodationComponent implements OnInit {
   }
 
   _handleReaderLoaded(readerEvt) {
-    var binaryString = readerEvt.target.result;
+    let binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
     //ovde pravimo novu sliku...
-    var pictureAccommodation = (this.accommodationForm.value as Accommodation);
+    let pictureAccommodation = (this.accommodationForm.value as Accommodation);
     pictureAccommodation.accommodationId = +localStorage.getItem('accommodation');
-    var picture: Picture = {
+    let picture: Picture = {
       pictureId: -1,
       picUrl: this.base64textString,
       accommodation: pictureAccommodation
     };
     if (pictureAccommodation.accommodationId) {
       this.pictureService.createPicture(picture).subscribe(() => {
-        this.getPictures();
+        this.getPictures(parseInt(localStorage.getItem('accommodationId')));
       });
     }
 
@@ -69,40 +81,54 @@ export class AccommodationComponent implements OnInit {
 
   ngOnInit() {
 
+    this.userEmail = this.authService.getEmailFromToken(localStorage.getItem('access_token'));
+    this.getAgentId();
+
     this.accommodationForm = this.formBuilder.group({
       accommodationName: ['', Validators.required],
       numberOfDaysBeforeCancelation: ['', Validators.required],
       description: [''],
-      city: ['', Validators.required],
+      city: this.formBuilder.group({
+        cityId: [''],
+        name: [''],
+        xCord: [''],
+        yCord: ['']
+      }),
       agentId: [''],
       accommodationId: [-1],
     });
 
-
     this.getCities();
-    this.getPictures();
-
     if (localStorage.getItem('accommodation')) {
       this.submitBtnText = 'Save Changes';
-      this.getAccommodationServiceById(localStorage.getItem('accommodation'));
+      // this.getAccommodationServiceById(localStorage.getItem('agent'));
     } else {
       this.submitBtnText = 'Add Accommodation';
       this.accommodationName = '';
     }
   }
 
+  getAgentId() {
+    const id = this.agentService.getAgentByEmail(this.userEmail).subscribe(
+      response => {
+        this.userId = (response as Agent).id;
+        localStorage.setItem('agent', this.userId.toString());
+        this.getAccommodationServiceById(this.userId.toString());
+      }
+    );
+  }
 
   getCities() {
     this.cities$ = this.cityService.getCities();
   }
 
-  getPictures() {
-    this.pictures$ = this.pictureService.getPicture();
+  getPictures(id: number) {
+    this.pictures$ = this.pictureService.getPicture(id);
   }
 
   deletePicture(id: number) {
     this.pictureService.deletePicture(id).subscribe(() => {
-      this.getPictures();
+      this.getPictures(parseInt(localStorage.getItem('accommodationId')));
     });
   }
 
@@ -112,6 +138,7 @@ export class AccommodationComponent implements OnInit {
         this.accommodationForm.patchValue(accommodation);
         this.accommodationName = accommodation.accommodationName;
         localStorage.setItem('accommodationId', accommodation.accommodationId.toString());
+        this.getPictures(accommodation.accommodationId);
       }
     );
   }

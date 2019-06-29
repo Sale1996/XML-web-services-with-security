@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 		Optional<com.tim9.userservice.models.User> u = this.userRepository.findByEmail(email);
 		List<GrantedAuthority> grantedAuthorities;
 
-		if(u.isPresent()) {
+		if(u.isPresent() && u.get().getActivated()) {
 			if(u.get().getRole().equals("USER")) {
 				grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_" + u.get().getRole() + ", " + "CREATE_RESERVATION, READ_RESERVATION, UPDATE_RESERVATION, REVOKE_RESERVATON");
 				return new User(u.get().getEmail(), encoder.encode(u.get().getPassword()), grantedAuthorities);

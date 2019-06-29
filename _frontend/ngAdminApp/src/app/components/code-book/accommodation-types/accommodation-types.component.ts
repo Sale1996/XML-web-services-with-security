@@ -49,7 +49,6 @@ export class AccommodationTypesComponent implements OnInit {
   openTypeModal(id?: number) {
     const agentModalRef = this.modalService.open(AccommodationTypesSingleModalComponent,
       {
-        size: 'lg',
         centered: true,
         backdropClass: 'custom-modal-backdrop'
       });

@@ -37,7 +37,7 @@ export class NavigationComponent implements OnInit {
   getAccommodationService() {
     this.accommodationService.getAccommodationById(this.userId).subscribe(
       data => {
-        localStorage.setItem('accommodation', this.userId.toString());
+        localStorage.setItem('accommodation', data.accommodationId.toString());
       },
       error => {
         localStorage.removeItem('accommodation');

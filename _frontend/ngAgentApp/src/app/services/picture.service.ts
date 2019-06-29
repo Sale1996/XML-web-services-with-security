@@ -22,8 +22,8 @@ export class PictureService {
         return this.http.post<Picture>(environment.apiUrlPicture, picture, httpOptions);
     }
 
-    getPicture(): Observable<Picture[]> {
-        return this.http.get<Picture[]>(environment.apiUrlPicture + '/accommodation/' + localStorage.getItem('accommodation'));
+    getPicture(id: number): Observable<Picture[]> {
+        return this.http.get<Picture[]>(environment.apiUrlPicture + '/accommodation/' + id);
     }
 
     deletePicture(id: number): Observable<Picture> {

@@ -12,8 +12,10 @@ import com.tim9.accommodationservice.models.DeletePictureRequest;
 import com.tim9.accommodationservice.models.DeletePictureResponse;
 import com.tim9.accommodationservice.models.GetPicturesRequest;
 import com.tim9.accommodationservice.models.GetPicturesResponse;
+import com.tim9.accommodationservice.models.Picture;
 import com.tim9.accommodationservice.services.PictureService;
 import com.tim9.accommodationservice.utils.dtoConverters.DTOPictureConverter;
+import com.tim9.accommodationserviceclient.dtos.PictureDTO;
 
 @Endpoint
 public class PictureEndpoint {
@@ -40,7 +42,10 @@ public class PictureEndpoint {
 	@ResponsePayload
 	public CreatePictureResponse createPicture(@RequestPayload CreatePictureRequest request) {
 		CreatePictureResponse response = new CreatePictureResponse();
-		response.setPicture(dtoPictureConverter.convertFromDTO(pictureService.save(dtoPictureConverter.convertToDTO(request.getPicture()))));
+		Picture picture = request.getPicture();
+		PictureDTO pictureDTO = dtoPictureConverter.convertToDTO(picture);
+		pictureDTO = pictureService.save(pictureDTO);
+		response.setPicture(dtoPictureConverter.convertFromDTO(pictureDTO));
 		return response;
 	}
 	
