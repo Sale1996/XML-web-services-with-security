@@ -154,7 +154,7 @@ public class UserService {
 		}
 		
 		user.setId(-1l);
-		
+		user.setRole("USER");
 		User u = userRepository.save(dtoUserConverter.convertFromDTO(user));
 		
 		user.setId(u.getId());

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.tim9.accommodationserviceclient.dtos.AccommodationUnitDTO;
 
 
-@FeignClient(name="accommodationUnitClient", url = "http://localhost:8081/accommodationUnits")
+@FeignClient(name="accommodationUnitClient", url = "http://localhost:8762/accommodation/accommodationUnits")
 public interface AccommodationUnitClient {
 
 	

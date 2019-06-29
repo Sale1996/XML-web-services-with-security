@@ -168,7 +168,7 @@ public class AgentService {
 		String password = createRandomCode(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		
 		a.setPassword(password);
-		
+		a.setRole("AGENT");
 		a = agentRepository.save(a);
 		
 		agent.setId(a.getId());

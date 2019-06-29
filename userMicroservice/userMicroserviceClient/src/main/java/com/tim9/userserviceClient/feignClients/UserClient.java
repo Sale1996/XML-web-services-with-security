@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.tim9.userserviceClient.dtos.UserDTO;
 
-@FeignClient(name="userClient", url = "http://localhost:8080/user")
+@FeignClient(name="userClient", url = "http://localhost:8762/user/user")
 public interface UserClient {
 		
 	@GetMapping("")

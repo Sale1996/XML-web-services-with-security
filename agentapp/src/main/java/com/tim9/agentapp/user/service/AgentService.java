@@ -1,6 +1,5 @@
 package com.tim9.agentapp.user.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.tim9.agentapp.accommodation.dto.AccommodationDTO;
-import com.tim9.agentapp.accommodation.wsdl.GetAccommodationResponse;
 import com.tim9.agentapp.user.dto.AgentDTO;
 import com.tim9.agentapp.user.dto.UpdatePasswordDTO;
 import com.tim9.agentapp.user.model.AgentLocal;

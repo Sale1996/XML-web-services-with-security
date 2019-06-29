@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.tim9.userserviceClient.dtos.AgentDTO;
 
-@FeignClient(name="agentClient", url = "http://localhost:8080/agent")
+@FeignClient(name="agentClient", url = "http://localhost:8762/user/agent")
 public interface AgentClient {
 		
 	@GetMapping("")

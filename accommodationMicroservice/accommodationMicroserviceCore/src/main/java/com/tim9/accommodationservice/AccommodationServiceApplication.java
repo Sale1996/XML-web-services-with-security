@@ -2,10 +2,11 @@ package com.tim9.accommodationservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-//@EnableEurekaClient
+@EnableEurekaClient
 @EnableFeignClients(basePackages = {"com.tim9.accommodationserviceclient.feignClients", "com.tim9.userserviceClient.feignClients", "com.tim9.reservationserviceClient.feignClients"})
 public class AccommodationServiceApplication {
 	

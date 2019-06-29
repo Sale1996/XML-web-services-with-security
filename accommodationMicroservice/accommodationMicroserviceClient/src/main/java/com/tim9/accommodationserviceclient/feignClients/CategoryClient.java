@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.tim9.accommodationserviceclient.dtos.CategoryDTO;
 
 
-@FeignClient(name="categoryClient", url = "http://localhost:8081/categories")
+@FeignClient(name="categoryClient", url = "http://localhost:8762/accommodation/categories")
 public interface CategoryClient {
 	
 	@GetMapping("")

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.tim9.accommodationserviceclient.dtos.PriceDTO;
 
 
-@FeignClient(name="priceClient", url = "http://localhost:8081/price")
+@FeignClient(name="priceClient", url = "http://localhost:8762/accommodation/price")
 public interface PriceClient{
 	
 	@GetMapping("")

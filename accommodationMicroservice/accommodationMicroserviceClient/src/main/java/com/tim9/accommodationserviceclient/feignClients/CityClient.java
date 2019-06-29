@@ -15,7 +15,7 @@ import com.tim9.accommodationserviceclient.dtos.CityDTO;
 
 
 
-@FeignClient(name="cityClient", url = "http://localhost:8081/cities")
+@FeignClient(name="cityClient", url = "http://localhost:8762/accommodation/cities")
 public interface CityClient {
 		
 	@GetMapping("")

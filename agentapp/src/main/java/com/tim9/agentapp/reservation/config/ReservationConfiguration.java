@@ -20,7 +20,7 @@ public class ReservationConfiguration {
 	@Bean
 	public ReservationClient reservationClient(Jaxb2Marshaller marshallerForReservation) {
 		ReservationClient client = new ReservationClient();
-		client.setDefaultUri("http://localhost:8082/ws");
+		client.setDefaultUri("http://localhost:8762/reservation/ws");
 		client.setMarshaller(marshallerForReservation);
 		client.setUnmarshaller(marshallerForReservation);
 		return client;

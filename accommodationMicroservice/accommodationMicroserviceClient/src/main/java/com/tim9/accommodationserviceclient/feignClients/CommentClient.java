@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.tim9.accommodationserviceclient.dtos.CommentDTO;
 
 
-@FeignClient(name="commentClient", url = "http://localhost:8081/comments")
+@FeignClient(name="commentClient", url = "http://localhost:8762/accommodation/comments")
 public interface CommentClient {
 
 

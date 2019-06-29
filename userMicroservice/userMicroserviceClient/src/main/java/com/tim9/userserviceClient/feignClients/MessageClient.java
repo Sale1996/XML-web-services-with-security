@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.tim9.userserviceClient.dtos.MessageDTO;
 
-@FeignClient(name="messageClient", url = "http://localhost:8080/message")
+@FeignClient(name="messageClient", url = "http://localhost:8762/user/message")
 public interface MessageClient {
 	
 	@GetMapping("/{messageId}")

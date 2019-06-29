@@ -78,7 +78,7 @@
 						        <generatePackage>com.tim9.agentapp.user.wsdl</generatePackage>
 						        <schemas>
 						            <schema>
-						                <url>http://localhost:8080/ws/users.wsdl</url>
+						                <url>http://localhost:8762/user/ws/users.wsdl</url>
 						            </schema>
 						        </schemas>
 						    </configuration>
@@ -94,7 +94,7 @@
 						        <generatePackage>com.tim9.agentapp.accommodation.wsdl</generatePackage>
 						        <schemas>
 						            <schema>
-						                <url>http://localhost:8081/accommodationService/ws/accommodations.wsdl</url>
+						                <url>http://localhost:8762/accommodation/accommodationService/ws/accommodations.wsdl</url>
 						            </schema>
 						        </schemas>
 						    </configuration>
@@ -110,7 +110,7 @@
 						        <generatePackage>com.tim9.agentapp.reservation.wsdl</generatePackage>
 						        <schemas>
 						            <schema>
-						                <url>http://localhost:8082/ws/reservations.wsdl</url>
+						                <url>http://localhost:8762/reservation/ws/reservations.wsdl</url>
 						            </schema>
 						        </schemas>
 						    </configuration>

@@ -16,4 +16,8 @@ export class NavigationComponent implements OnInit {
     this.userEmail = this.authService.getEmailFromToken(localStorage.getItem('access_token'));
   }
 
+  logout() {
+    this.authService.logout();
+  }
+
 }

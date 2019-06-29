@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  apiUrlAuth: 'http://localhost:8080/',
-  apiUrlUser: 'http://localhost:8080/user',
-  apiUrlAgent: 'http://localhost:8080/agent',
-  apiUrlAdmin: 'http://localhost:8080/admin',
-  apiUrlType: 'http://localhost:8081/types',
-  apiUrlCategory: 'http://localhost:8081/categories',
-  apiUrlAdditionalService: 'http://localhost:8081/extraFields',
-  apiUrlCity: 'http://localhost:8081/cities'
+  apiUrlAuth: 'http://localhost:8762/user/',
+  apiUrlUser: 'http://localhost:8762/user/user',
+  apiUrlAgent: 'http://localhost:8762/user/agent',
+  apiUrlAdmin: 'http://localhost:8762/user/admin',
+  apiUrlType: 'http://localhost:8762/accommodation/types',
+  apiUrlCategory: 'http://localhost:8762/accommodation/categories',
+  apiUrlAdditionalService: 'http://localhost:8762/accommodation/extraFields',
+  apiUrlCity: 'http://localhost:8762/accommodation/cities'
 };
 
 /*

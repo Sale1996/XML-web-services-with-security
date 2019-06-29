@@ -29,8 +29,9 @@ export class AuthService {
   }
 
   logout() {
-      return this.http.get(`${environment.apiUrlAuth}/logout`, httpOptions);
-  }
+    localStorage.clear();
+    location.assign('/');
+}
 
   getTokenExpirationDate(token: string): Date {
     const decoded = jwt_decode(token);

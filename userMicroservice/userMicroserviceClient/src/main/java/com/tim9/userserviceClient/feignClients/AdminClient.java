@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.tim9.userserviceClient.dtos.AdminDTO;
 
-@FeignClient(name="adminClient", url = "http://localhost:8080/admin")
+@FeignClient(name="adminClient", url = "http://localhost:8762/user/admin")
 public interface AdminClient {
 
 	@GetMapping("")

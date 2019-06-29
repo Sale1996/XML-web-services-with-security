@@ -22,6 +22,7 @@ import com.tim9.agentapp.user.service.AgentService;
 import com.tim9.agentapp.user.soapclient.AgentClient;
 import com.tim9.agentapp.user.utils.dtoConverter.DTOAgentConverter;
 import com.tim9.agentapp.user.wsdl.LoginResponse;
+import com.tim9.agentapp.utils.SyncService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +43,9 @@ public class AgentController {
 	
 	@Autowired
 	private DTOAgentConverter agentConverter;
+	
+	@Autowired
+	private SyncService syncService;
 	
 	
 	@GetMapping("")
@@ -132,6 +136,7 @@ public class AgentController {
 				// firstLogin
 				savedAgent = agentService.save(agentConverter.convertToDTOFromClient(response.getAgent()));
 			}
+			syncService.sync();
 			responseHeaders.set("Authorization", "Bearer " + response.getToken());
 			responseHeaders.set("Access-Control-Expose-Headers", "Authorization");
 			

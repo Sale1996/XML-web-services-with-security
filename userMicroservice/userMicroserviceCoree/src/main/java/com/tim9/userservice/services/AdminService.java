@@ -118,7 +118,7 @@ public class AdminService {
 		String password = createRandomCode(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 		
 		a.setPassword(password);
-		
+		a.setRole("ADMIN");
 		adminRepository.save(a);
 		
 		sendEmail(a);

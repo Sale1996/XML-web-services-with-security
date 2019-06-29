@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.tim9.reservationserviceClient.dtos.ReservationDTO;
 
 
-@FeignClient(name="reservationClient", url = "http://localhost:8082/reservations")
+@FeignClient(name="reservationClient", url = "http://localhost:8762/reservation/reservations")
 public interface ReservationClient {
 	
 

@@ -15,7 +15,7 @@ import com.tim9.accommodationserviceclient.dtos.ExtraFieldDTO;
 
 
 
-@FeignClient(name="extraFieldClient", url = "http://localhost:8081/extraFields")
+@FeignClient(name="extraFieldClient", url = "http://localhost:8762/accommodation/extraFields")
 public interface ExtraFieldClient {
 
 	

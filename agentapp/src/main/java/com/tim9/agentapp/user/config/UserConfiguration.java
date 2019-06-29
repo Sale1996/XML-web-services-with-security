@@ -21,7 +21,7 @@ public class UserConfiguration {
 	@Bean
 	public AgentClient agentClient(Jaxb2Marshaller marshallerForUser) {
 		AgentClient client = new AgentClient();
-		client.setDefaultUri("http://localhost:8080/ws");
+		client.setDefaultUri("http://localhost:8762/user/ws");
 		client.setMarshaller(marshallerForUser);
 		client.setUnmarshaller(marshallerForUser);
 		return client;
@@ -30,7 +30,7 @@ public class UserConfiguration {
 	@Bean
 	public MessageClient messageClient(Jaxb2Marshaller marshallerForUser) {
 		MessageClient client = new MessageClient();
-		client.setDefaultUri("http://localhost:8080/ws");
+		client.setDefaultUri("http://localhost:8762/user/ws");
 		client.setMarshaller(marshallerForUser);
 		client.setUnmarshaller(marshallerForUser);
 		return client;
