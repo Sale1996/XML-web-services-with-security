@@ -90,7 +90,6 @@ public class UserService {
 			userForChange.get().setLastName(user.getLastName());
 		//	userForChange.get().setEmail(user.getEmail());
 			userForChange.get().setAddress(user.getAddress());
-			userForChange.get().setActivated(user.getActivated());
 			userForChange.get().setTelephoneNumber(user.getTelephoneNumber());
 			userForChange.get().setRole("USER");
 	
@@ -155,6 +154,7 @@ public class UserService {
 		
 		user.setId(-1l);
 		user.setRole("USER");
+		user.setActivated(true);
 		User u = userRepository.save(dtoUserConverter.convertFromDTO(user));
 		
 		user.setId(u.getId());
