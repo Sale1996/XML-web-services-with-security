@@ -1,0 +1,4 @@
+FROM openjdk:8						
+ADD target/accommodation-microservice.jar  accommodation-microservice.jar
+EXPOSE 8081					
+ENTRYPOINT ["java","-jar","accommodation-microservice.jar"]
