@@ -69,6 +69,27 @@ a, a:hover {
     font-weight: 500;
 }
 /* Buttons */
+.form-btn {
+    width: 38px;
+    height:38px;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    background: transparent;
+    -webkit-transition: all 200ms ease-in;
+    -moz-transition: all 200ms ease-in;
+    -ms-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+    display: inline-flex;
+}
+.form-btn:hover, .form-btn:focus {
+    -webkit-transition: all 200ms ease-in;
+    -moz-transition: all 200ms ease-in;
+    -ms-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+    cursor: pointer;
+}
 .table-btn {
     width: 36px;
     height:36px;
@@ -88,6 +109,12 @@ a, a:hover {
     -o-transition: all 200ms ease-in;
     transition: all 200ms ease-in;
     cursor: pointer;
+}
+.form-btn-regular {
+    border: 1px solid #ced4da;
+}
+.form-btn-regular:hover, .form-btn-regular:focus {
+    background: transparent;
 }
 .table-btn-success {
     border: 1px solid rgb(65, 194, 65);
@@ -238,7 +265,7 @@ table thead tr th {
     font-weight: 500;
     color: rgba(0, 0, 0, 0.5);
 }
-app-user-review, app-users, app-admins, app-agents, app-code-book {
+app-user-review, app-users, app-admins, app-agents, app-code-book, app-home {
     flex: 1;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -562,4 +589,9 @@ app-login {
     -ms-transition: all 200ms ease-in;
     -o-transition: all 200ms ease-in;
     transition: all 200ms ease-in;
+}
+
+.calendar {
+    width: 38px;
+    height: 38px;
 }

@@ -12,12 +12,9 @@ button.calendar, button.calendar:active {
 }
 
 #search_cont {
-  margin-top: 15%;
-  background: #f7f7f7;
-  padding: 20px;
+  padding: 40px;
 }
 
 #btnSearch {
   margin-top: 30px;
 }
-
