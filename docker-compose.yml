@@ -1,0 +1,68 @@
+version: '3'
+services:
+    discovery-server:
+        image: discovery-server
+        container_name: discovery-server
+        build:
+            context: ./discovery-server
+            dockerfile: DockerFile
+        ports:
+          - "8761:8761"
+
+    zuul-router:
+        image: zuul-router
+        container_name: zuul-router
+        build:
+            context: ./zuul-router
+            dockerfile: DockerFile
+        ports:
+          - "8762:8762"
+        depends_on:
+          - discovery-server
+        links:
+          - discovery-server:discovery-server
+
+
+
+    user-microservice:
+        image: user-microservice
+        container_name: user-microservice
+        build:
+            context: ./userMicroservice/userMicroserviceCoree
+            dockerfile: DockerFile
+        ports:
+          - "8083:8083"
+        depends_on:
+          - discovery-server
+        links:
+          - discovery-server:discovery-server
+
+
+
+    reservation-microservice:
+        image: reservation-microservice
+        container_name: reservation-microservice
+        build:
+            context: ./reservationMicroservice/reservationMicroserviceCore
+            dockerfile: DockerFile
+        ports:
+          - "8082:8082"
+        depends_on:
+          - discovery-server
+        links:
+          - discovery-server:discovery-server
+
+
+
+    accommodation-microservice:
+        image: accommodation-microservice
+        container_name: accommodation-microservice
+        build:
+            context: ./accommodationMicroservice/accommodationMicroserviceCore
+            dockerfile: DockerFile
+        ports:
+          - "8081:8081"
+        depends_on:
+          - discovery-server
+        links:
+          - discovery-server:discovery-server	
