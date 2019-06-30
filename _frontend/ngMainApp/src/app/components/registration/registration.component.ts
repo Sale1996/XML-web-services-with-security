@@ -34,15 +34,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.RegisterForm.valid) {
-    //   this.authService.register(this.RegisterForm.value as User).subscribe(
-    //     (user: User) => console.log(user)
-    //   );
-    // }
-
     if (this.RegisterForm.valid) {
-      this.authService.register(this.RegisterForm.value as User);
+      this.authService.register(this.RegisterForm.value as User).subscribe(() => this.router.navigate(['/home']));
     }
-
   }
 }

@@ -33,10 +33,11 @@ export class AuthService {
   }
 
   register(user: User) {
-    return this.http.post<User>(this.userUrl, user, httpOptions).pipe(map(((res: HttpResponse<any>) => {
-      JSON.stringify(res.body);
-      this.router.navigate(['/home']); // prebaciti na stranicu gde aktivira nalog
-    })));
+    return this.http.post<User>(this.userUrl, user, httpOptions);
+    // .pipe(map(((res: HttpResponse<any>) => {
+    //   JSON.stringify(res.body);
+    //   this.router.navigate(['/home']); // prebaciti na stranicu gde aktivira nalog
+    // })));
   }
 
   logout() {
