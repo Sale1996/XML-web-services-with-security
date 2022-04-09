@@ -27,7 +27,7 @@
     "core-js": "^2.5.4",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.25",
     "ng-modules": "^3.0.5",
     "popper.js": "^1.15.0",
